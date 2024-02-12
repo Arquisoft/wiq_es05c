@@ -984,13 +984,27 @@ By breaking down the system into its constituent building blocks, we aim to esta
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
-<p><em>&lt;Description of contained building block (black boxes)&gt;</em>
-User Interface (Frontend)
-Business Logic (Backend)
-Database
-API User
-API Questions</p>
+<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
 </dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>User Interface (Frontend)</p>
+</div>
+<div class="paragraph">
+<p>Business Logic (Backend)</p>
+</div>
+<div class="paragraph">
+<p>Database</p>
+</div>
+<div class="paragraph">
+<p>API User</p>
+</div>
+<div class="paragraph">
+<p>API Questions</p>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">Important Interfaces</dt>
 <dd>
 <p><em>&lt;Description of important interfaces&gt;</em></p>
@@ -1035,7 +1049,7 @@ Its headline is the name of the black box.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_name_black_box_1user_interface">5.1.1. &lt;Name black box 1&gt;User Interface</h4>
+<h4 id="_user_interface">5.1.1. User Interface</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1089,43 +1103,51 @@ according the the following black box template:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_name_black_box_2business_logic">5.1.2. &lt;Name black box 2&gt;Business Logic</h4>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
+<h4 id="_business_logic">5.1.2. Business Logic</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">_Responsibility</dt>
+<dd>
 <p>Automatically generate questions and corresponding answers from Wikidata data.
 Manages the time frame allocated for answering questions.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_name_black_box_3_database">5.1.3. &lt;Name black box 3&gt; Database</h4>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
+<h4 id="_database">5.1.3. Database</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">_Responsibility</dt>
+<dd>
 <p>Stores information about users, games, questions and correct/failed answers.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_name_black_box_4_api_user">5.1.4. &lt;Name black box 4&gt; API User</h4>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
+<h4 id="_api_user">5.1.4. API User</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">_Responsibility</dt>
+<dd>
 <p>The system will allow access to user information through an API.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_name_black_box_5_api_questions">5.1.5. &lt;Name black box 5&gt; API Questions</h4>
-<div class="paragraph">
-<p><em>&lt;Purpose/Responsibility&gt;</em></p>
-</div>
-<div class="paragraph">
+<h4 id="_api_questions">5.1.5. API Questions</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">_Responsibility</dt>
+<dd>
 <p>The system will allow access to the information of the questions generated through an API.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect3">
@@ -1154,7 +1176,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_1_components">5.2.1. White Box <em>&lt;building block 1&gt;</em> Components&#8230;&#8203;</h4>
+<h4 id="_white_box_user_interface">5.2.1. White Box User Interface</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1167,7 +1189,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_2_services">5.2.2. White Box <em>&lt;building block 2&gt;</em> Services&#8230;&#8203;</h4>
+<h4 id="_white_box_business_logic">5.2.2. White Box Business Logic</h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
@@ -1176,7 +1198,19 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_building_block_m_model">5.2.3. White Box <em>&lt;building block m&gt;</em> Model&#8230;&#8203;</h4>
+<h4 id="_white_box_database">5.2.3. White Box Database</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_api_user">5.2.4. White Box API User</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_api_questions">5.2.5. White Box API Questions</h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
@@ -1642,29 +1676,28 @@ There you will find links and examples about ADR.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Date</th>
 <th class="tableblock halign-left valign-top">Title</th>
 <th class="tableblock halign-left valign-top">Decision</th>
+<th class="tableblock halign-left valign-top">Explanation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explanation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Language Selection</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">English is chosen for its widespread international use</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Programming Languages</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">React and Javascript</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript is selected due to team proficiency, especially for API usage</p></td>
@@ -1673,18 +1706,16 @@ There you will find links and examples about ADR.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database Platform</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB is opted for as the default database solution</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB is opted for as the default database solution</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Version Control System</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub is preferred for its familiarity and utility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Collection Method</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WikiData</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The choice of WikiData is dictated by project constraints</p></td>

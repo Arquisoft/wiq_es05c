@@ -482,9 +482,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_domain_model">8.1. Domain model</a></li>
+<li><a href="#_user_interface">8.2. User interface</a></li>
+<li><a href="#_security">8.3. Security</a></li>
+<li><a href="#_testability">8.4. Testability</a></li>
+<li><a href="#_development_concepts">8.5. Development concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
@@ -799,10 +801,24 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<p>In our business setting, we have developed a web application called WIQ, where users engage in a question-based game.
+This application draws inspiration from the renowned Spanish television program "Saber y Ganar," providing users with an interactive and entertaining experience.</p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Users authenticate themselves within the system using their personal information.</p>
+</li>
+<li>
+<p>The application offers a question-based game similar to "Saber y Ganar" .</p>
+</li>
+<li>
+<p>The primary objective of the project is to provide an interactive and enjoyable platform for users to engage in question and answer contests, promoting both entertainment and learning.</p>
+</li>
+<li>
+<p>Users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -824,15 +840,41 @@ together with a mapping table showing the relationships between channels and inp
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technologies</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A fundamental programming language for web development. It&#8217;s used to create logic and interactivity in web and mobile applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A JavaScript framework used to build interactive and dynamic user interfaces. It&#8217;s especially popular for developing single-page applications (SPAs).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A NoSQL database that uses JSON documents to store data. It&#8217;s widely used in web and mobile applications, especially those requiring flexible and fast scalability.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NodeJS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript runtime environment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A container platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight,
+portable containers, making it easy to deploy across different development and production environments.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1533,25 +1575,26 @@ on this list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_domain_model">8.1. Domain model</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_user_interface">8.2. User interface</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>The user interface is the part of our application with which users interact directly.
+It&#8217;s designed to be intuitive and easy to use, providing a smooth and pleasant experience for users as they navigate through the various functions and features of the application.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
+<h3 id="_security">8.3. Security</h3>
+
 </div>
 <div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<h3 id="_testability">8.4. Testability</h3>
+
 </div>
+<div class="sect2">
+<h3 id="_development_concepts">8.5. Development concepts</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1803,7 +1846,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-11 18:46:08 +0100
+Last updated 2024-02-03 14:20:08 +0100
 </div>
 </div>
 </body>

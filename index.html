@@ -459,9 +459,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
-<li><a href="#section-building-block-view">5. Building Block View (In progress)</a>
+<li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
-<li><a href="#_whitebox_wiq">5.1. Whitebox WIQ</a></li>
+<li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
 <li><a href="#_level_3">5.3. Level 3</a></li>
 </ul>
@@ -482,9 +482,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_domain_concepts">8.1. Domain concepts</a></li>
+<li><a href="#_user_experience">8.2. User Experience</a></li>
+<li><a href="#_security_safety">8.3. Security &amp; Safety</a></li>
+<li><a href="#_architecture_and_design_patterns">8.4. Architecture and design patterns</a></li>
+<li><a href="#_under_the_hood">8.5. Under the  hood</a></li>
+<li><a href="#_development_concepts">8.6. Development concepts</a></li>
+<li><a href="#_operation_concepts">8.7. Operation concepts</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
@@ -799,10 +803,24 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 </div>
 <div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
+<p>In our business setting, we have developed a web application called WIQ, where users engage in a question-based game.
+This application draws inspiration from the renowned Spanish television program "Saber y Ganar," providing users with an interactive and entertaining experience.</p>
 </div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Users authenticate themselves within the system using their personal information.</p>
+</li>
+<li>
+<p>The application offers a question-based game similar to "Saber y Ganar" .</p>
+</li>
+<li>
+<p>The primary objective of the project is to provide an interactive and enjoyable platform for users to engage in question and answer contests, promoting both entertainment and learning.</p>
+</li>
+<li>
+<p>Users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -824,15 +842,41 @@ together with a mapping table showing the relationships between channels and inp
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technologies</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A fundamental programming language for web development. It&#8217;s used to create logic and interactivity in web and mobile applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A JavaScript framework used to build interactive and dynamic user interfaces. It&#8217;s especially popular for developing single-page applications (SPAs).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A NoSQL database that uses JSON documents to store data. It&#8217;s widely used in web and mobile applications, especially those requiring flexible and fast scalability.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NodeJS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript runtime environment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A container platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight,
+portable containers, making it easy to deploy across different development and production environments.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -885,7 +929,7 @@ Refer to details in the following sections.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-building-block-view">5. Building Block View (In progress)</h2>
+<h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -933,7 +977,7 @@ Thus it contains the white box description of selected building blocks of level 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_whitebox_wiq">5.1. Whitebox WIQ</h3>
+<h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -979,32 +1023,12 @@ In the best case you will get away with examples or simple signatures.</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application.
-By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.</p>
+<p><em>&lt;text explanation&gt;</em></p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
 </dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>User Interface (Frontend)</p>
-</div>
-<div class="paragraph">
-<p>Business Logic (Backend)</p>
-</div>
-<div class="paragraph">
-<p>Database</p>
-</div>
-<div class="paragraph">
-<p>API User</p>
-</div>
-<div class="paragraph">
-<p>API Questions</p>
-</div>
-<div class="dlist">
-<dl>
 <dt class="hdlist1">Important Interfaces</dt>
 <dd>
 <p><em>&lt;Description of important interfaces&gt;</em></p>
@@ -1034,11 +1058,11 @@ responsibility according to the following schema:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1049,7 +1073,7 @@ Its headline is the name of the black box.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_user_interface">5.1.1. User Interface</h4>
+<h4 id="_name_black_box_1">5.1.1. &lt;Name black box 1&gt;</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1080,13 +1104,8 @@ according the the following black box template:</p>
 </div>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Provides the interface to register, play and check participation history</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p><em>&lt;Purpose/Responsibility&gt;</em></p>
 </div>
 <div class="paragraph">
 <p><em>&lt;Interface(s)&gt;</em></p>
@@ -1105,61 +1124,25 @@ according the the following black box template:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_business_logic">5.1.2. Business Logic</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Automatically generate questions and corresponding answers from Wikidata data.
-Manages the time frame allocated for answering questions.</p>
-</dd>
-</dl>
+<h4 id="_name_black_box_2">5.1.2. &lt;Name black box 2&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_n">5.1.3. &lt;Name black box n&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_1">5.1.4. &lt;Name interface 1&gt;</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_database">5.1.3. Database</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Stores information about users, games, questions and correct/failed answers.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_user">5.1.4. API User</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to user information through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_questions">5.1.5. API Questions</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to the information of the questions generated through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_1">5.1.6. &lt;Name interface 1&gt;</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_m">5.1.7. &lt;Name interface m&gt;</h4>
+<h4 id="_name_interface_m">5.1.5. &lt;Name interface m&gt;</h4>
 
 </div>
 </div>
@@ -1178,7 +1161,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_user_interface">5.2.1. White Box User Interface</h4>
+<h4 id="_white_box_building_block_1">5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1191,25 +1174,16 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_business_logic">5.2.2. White Box Business Logic</h4>
+<h4 id="_white_box_building_block_2">5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_database">5.2.3. White Box Database</h4>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p>&#8230;&#8203;</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_api_user">5.2.4. White Box API User</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_api_questions">5.2.5. White Box API Questions</h4>
+<h4 id="_white_box_building_block_m">5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
@@ -1603,25 +1577,75 @@ on this list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_domain_concepts">8.1. Domain concepts</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>User Model
+- ID (Primary Key)
+- First Name
+- Last Name
+- Email
+- Password
+- Role</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
+<h3 id="_user_experience">8.2. User Experience</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>The user interface is the part of our application with which users interact directly.
+It&#8217;s designed to be intuitive and easy to use, providing a smooth and pleasant experience for users as they navigate through the various functions and features of the application.</p>
 </div>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>The user will either register in the application or log in if they have already registered before.
+If they have played before, they will be able to view different metrics regarding those games.
+Additionally, they can start a new game at any time and, upon completion, view the statistics of their results.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<h3 id="_security_safety">8.3. Security &amp; Safety</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Privacy: The data introduced will be private and not visible to other users.</p>
+</li>
+<li>
+<p>The password will be stored encrypted.</p>
+</li>
+</ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_architecture_and_design_patterns">8.4. Architecture and design patterns</h3>
+<div class="paragraph">
+<p>In development&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_under_the_hood">8.5. Under the  hood</h3>
+<div class="paragraph">
+<p>In development&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_development_concepts">8.6. Development concepts</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Build, Test, Deploy</p>
+</li>
+<li>
+<p>Code generation</p>
+</li>
+<li>
+<p>Migration</p>
+</li>
+<li>
+<p>Configurability</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operation_concepts">8.7. Operation concepts</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1672,63 +1696,6 @@ Refer to section 4, where you already captured the most important decisions of y
 There you will find links and examples about ADR.</p>
 </div>
 </div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 28.5714%;">
-<col style="width: 28.5714%;">
-<col style="width: 28.5715%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Date</th>
-<th class="tableblock halign-left valign-top">Title</th>
-<th class="tableblock halign-left valign-top">Decision</th>
-<th class="tableblock halign-left valign-top">Explanation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Language Selection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English is chosen for its widespread international use</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming Languages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React and Javascript</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript is selected due to team proficiency, especially for API usage</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database Platform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB is opted for as the default database solution</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control System</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub is preferred for its familiarity and utility</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Collection Method</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WikiData</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The choice of WikiData is dictated by project constraints</p></td>
-</tr>
-</tbody>
-</table>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Consequences</dt>
-<dd>
-<p>As a team, we recognize the need to familiarize ourselves with React, MongoDB, and Wikidata, as most of us are not yet proficient in their usage.
-We are committed to investing the necessary time and effort to acquire the requisite skills and expertise in utilizing these technologies effectively for our project&#8217;s success.</p>
-</dd>
-</dl>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1930,7 +1897,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-12 22:43:36 +0100
+Last updated 2024-02-03 14:20:08 +0100
 </div>
 </div>
 </body>

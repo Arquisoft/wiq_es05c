@@ -459,9 +459,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
-<li><a href="#section-building-block-view">5. Building Block View (In progress)</a>
+<li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
-<li><a href="#_whitebox_wiq">5.1. Whitebox WIQ</a></li>
+<li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
 <li><a href="#_level_3">5.3. Level 3</a></li>
 </ul>
@@ -885,7 +885,7 @@ Refer to details in the following sections.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-building-block-view">5. Building Block View (In progress)</h2>
+<h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -932,18 +932,8 @@ Thus it contains the white box description of selected building blocks of level 
 </div>
 </div>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-ScopeAndContext.png" alt="Scope and Context">
-</div>
-</div>
 <div class="sect2">
-<h3 id="_whitebox_wiq">5.1. Whitebox WIQ</h3>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-Level1.png" alt="Level 1">
-</div>
-</div>
+<h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -989,32 +979,12 @@ In the best case you will get away with examples or simple signatures.</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application.
-By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.</p>
+<p><em>&lt;text explanation&gt;</em></p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 <dd>
 <p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
 </dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>User Interface (Frontend)</p>
-</div>
-<div class="paragraph">
-<p>Business Logic (Backend)</p>
-</div>
-<div class="paragraph">
-<p>Database</p>
-</div>
-<div class="paragraph">
-<p>API User</p>
-</div>
-<div class="paragraph">
-<p>API Questions</p>
-</div>
-<div class="dlist">
-<dl>
 <dt class="hdlist1">Important Interfaces</dt>
 <dd>
 <p><em>&lt;Description of important interfaces&gt;</em></p>
@@ -1044,11 +1014,11 @@ responsibility according to the following schema:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1059,7 +1029,7 @@ Its headline is the name of the black box.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_user_interface">5.1.1. User Interface</h4>
+<h4 id="_name_black_box_1">5.1.1. &lt;Name black box 1&gt;</h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1090,13 +1060,8 @@ according the the following black box template:</p>
 </div>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Provides the interface to register, play and check participation history</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p><em>&lt;Purpose/Responsibility&gt;</em></p>
 </div>
 <div class="paragraph">
 <p><em>&lt;Interface(s)&gt;</em></p>
@@ -1115,61 +1080,25 @@ according the the following black box template:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_business_logic">5.1.2. Business Logic</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Automatically generate questions and corresponding answers from Wikidata data.
-Manages the time frame allocated for answering questions.</p>
-</dd>
-</dl>
+<h4 id="_name_black_box_2">5.1.2. &lt;Name black box 2&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_n">5.1.3. &lt;Name black box n&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_1">5.1.4. &lt;Name interface 1&gt;</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_database">5.1.3. Database</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Stores information about users, games, questions and correct/failed answers.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_user">5.1.4. API User</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to user information through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_questions">5.1.5. API Questions</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to the information of the questions generated through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_1">5.1.6. &lt;Name interface 1&gt;</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_name_interface_m">5.1.7. &lt;Name interface m&gt;</h4>
+<h4 id="_name_interface_m">5.1.5. &lt;Name interface m&gt;</h4>
 
 </div>
 </div>
@@ -1188,12 +1117,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_user_interface">5.2.1. White Box User Interface</h4>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-UserInterface-Level2.png" alt="Level 2 User Interface">
-</div>
-</div>
+<h4 id="_white_box_building_block_1">5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1206,35 +1130,16 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_business_logic">5.2.2. White Box Business Logic</h4>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-BussinesLogic-Level2.png" alt="Level 2 Business Logic">
-</div>
-</div>
+<h4 id="_white_box_building_block_2">5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_database">5.2.3. White Box Database</h4>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-Database-Level2.png" alt="Level 2 Database">
-</div>
-</div>
 <div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
+<p>&#8230;&#8203;</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_white_box_api_user">5.2.4. White Box API User</h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_api_questions">5.2.5. White Box API Questions</h4>
+<h4 id="_white_box_building_block_m">5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
 <div class="paragraph">
 <p><em>&lt;white box template&gt;</em></p>
 </div>
@@ -1698,68 +1603,6 @@ There you will find links and examples about ADR.</p>
 </div>
 </div>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 9.0909%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1819%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Date</th>
-<th class="tableblock halign-left valign-top">Title</th>
-<th class="tableblock halign-left valign-top">State</th>
-<th class="tableblock halign-left valign-top">Context</th>
-<th class="tableblock halign-left valign-top">Decision</th>
-<th class="tableblock halign-left valign-top">Consequences</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Language Selection for documentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires documentation to be written</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English, is chosen for its widespread international use</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project documentation can reach more people, but since it is not our first language, it may not be very well written</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming Languages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The proyect requires the develop of a web app</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React and Javascript, JavaScript is selected due to team proficiency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We need to learn how to use React, and maybe other languages are better suited for this project</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database Platform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires storing user and question data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB is chosen as the default database solution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Learning MongoDB is necessary</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control System</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">As a team and scalable project, version control software is needed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub is chosen as it&#8217;s a project constraint.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The choice of Github is dictated by project constraints</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Collection Method</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires dynamically generated questions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WikiData is chosen as it&#8217;s a project constraint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The choice of WikiData is dictated by project constraints</p></td>
-</tr>
-</tbody>
-</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1960,7 +1803,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-12 22:43:36 +0100
+Last updated 2024-02-01 10:23:07 +0100
 </div>
 </div>
 </body>

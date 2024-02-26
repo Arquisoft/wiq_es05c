@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Template</title>
+<title>Documentación WIQ-ES05C</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,7 +435,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Template</h1>
+<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Documentación WIQ-ES05C</h1>
 <div class="details">
 <span id="revnumber">version 8.2 EN,</span>
 <span id="revdate">January 2023</span>
@@ -1015,42 +1015,29 @@ portable containers, making it easy to deploy across different development and p
 <h3 id="_technology_decisions">4.1. Technology Decisions</h3>
 <div class="paragraph">
 <p>The following technologies are used in the development of our application:
-* <strong><em>React</em></strong>: JavaScript library for building efficient user interfaces.
-* <strong><em>JavaScript</em></strong>: Chosen language for application development.
-* <strong><em>GitHub</em></strong>: Platform that allows us to have a repository where to develop the project and perform different actions such as creating issues or tasks.
-* <strong><em>MongoDB</em></strong>: Non-relational database we will use for the project.
-* <strong><em>Docker</em></strong>: Virtualization platform where we will deploy the project.
-* <strong><em>Wikidata</em></strong>: Wikidata is a knowledge base that provides data sources, used to obtain information for the game. In this case, it is mandatory.</p>
+* <strong>React</strong>: JavaScript library for building efficient user interfaces.
+* <strong>JavaScript</strong>: Chosen language for application development.
+* <strong>GitHub</strong>: Platform that allows us to have a repository where to develop the project and perform different actions such as creating issues or tasks.
+* <strong>MongoDB</strong>: Non-relational database we will use for the project.
+* <strong>Docker</strong>: Virtualization platform where we will deploy the project.
+* <strong>Wikidata</strong>: Wikidata is a knowledge base that provides data sources, used to obtain information for the game. In this case, it is mandatory.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_top_level_decomposition">4.2. Top-level Decomposition</h3>
-<div class="sect3">
-<h4 id="_ide">4.2.1. IDE</h4>
-<div class="paragraph">
-<p>We have chosen Visual Studio Code as our platform since we have experience with it and it is the platform we will work best with.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_diagram_design_tools">4.2.2. Diagram design tools</h4>
-<div class="paragraph">
-<p>We will use PlantUML as the tool for creating diagrams since it is the recommended one for the course.</p>
-</div>
-</div>
+
 </div>
 <div class="sect2">
 <h3 id="_key_quality_goals">4.3. Key quality goals</h3>
-<div class="paragraph">
-<p>&#8201;&#8212;&#8201;In progress&#8201;&#8212;&#8201;</p>
-</div>
+
 </div>
 <div class="sect2">
 <h3 id="_organizational_decisions">4.4. Organizational decisions</h3>
 <div class="paragraph">
 <p>Here are the organization decisions made:
-* <strong><em>Language</em></strong>: We will use English as the primary language for both documentation and code.
-* <strong><em>GitHub issues</em></strong>: We will use GitHub issues as the main source for problem resolution, so that whenever something poses an obstacle, it will be documented in GitHub issues.
-* <strong><em>GitHub projects</em></strong>: GitHub projects allow us to organize work based on issues in a Kanban-style, enabling us to see issues that are in progress, those that are not, and those that are completed.</p>
+* <strong>Language</strong>: We will use English as the primary language for both documentation and code.
+* <strong>GitHub issues</strong>: We will use GitHub issues as the main source for problem resolution, so that whenever something poses an obstacle, it will be documented in GitHub issues.
+* <strong>GitHub projects</strong>: GitHub projects allow us to organize work based on issues in a Kanban-style, enabling us to see issues that are in progress, those that are not, and those that are completed.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1059,99 +1046,16 @@ portable containers, making it easy to deploy across different development and p
 <div class="sect1">
 <h2 id="section-building-block-view">5. Building Block View (In progress)</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes, interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations, data structures, &#8230;&#8203;) as well as their dependencies (relationships, associations, &#8230;&#8203;)</p>
-</div>
-<div class="paragraph">
-<p>This view is mandatory for every architecture documentation.
-In analogy to a house this is the <em>floor plan</em>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Maintain an overview of your source code by making its structure understandable through
-abstraction.</p>
-</div>
-<div class="paragraph">
-<p>This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The building block view is a hierarchical collection of black boxes and white boxes
-(see figure below) and their descriptions.</p>
-</div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05_building_blocks-EN.png" alt="Hierarchy of building blocks">
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Level 1</strong> is the white box description of the overall system together with black
-box descriptions of all contained building blocks.</p>
-</div>
-<div class="paragraph">
-<p><strong>Level 2</strong> zooms into some building blocks of level 1.
-Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.</p>
-</div>
-<div class="paragraph">
-<p><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-5/">Building Block View</a> in the arc42 documentation.</p>
-</div>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/05-ScopeAndContext.png" alt="Scope and Context">
+<img src="./images/scopeAndContext.png" alt="Scope and Context">
 </div>
 </div>
 <div class="sect2">
 <h3 id="_whitebox_wiq">5.1. Whitebox WIQ</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05-Level1.png" alt="Level 1">
-</div>
-</div>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you describe the decomposition of the overall system using the following white box template. It contains</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>an overview diagram</p>
-</li>
-<li>
-<p>a motivation for the decomposition</p>
-</li>
-<li>
-<p>black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces</p>
-</li>
-<li>
-<p>use a list of black box descriptions of the building blocks according to the black box template (see below).
-Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>(optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
-Since there are so many ways to specify interfaces why do not provide a specific template for them.
- In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
- restrictions, versions, qualities, necessary compatibilities and many things more.
-In the best case you will get away with examples or simple signatures.</p>
-</li>
-</ul>
-</div>
+<img src="./images/level1.png" alt="Level 1">
 </div>
 </div>
 <div class="dlist">
@@ -1162,36 +1066,7 @@ In the best case you will get away with examples or simple signatures.</p>
 By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
-<dd>
-<p>User Interface (Frontend)</p>
-</dd>
 </dl>
-</div>
-<div class="paragraph">
-<p>Business Logic (Backend)</p>
-</div>
-<div class="paragraph">
-<p>Database</p>
-</div>
-<div class="paragraph">
-<p>API User</p>
-</div>
-<div class="paragraph">
-<p>API Questions</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Important Interfaces</dt>
-</dl>
-</div>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Insert your explanations of black boxes from level 1:</p>
-</div>
-<div class="paragraph">
-<p>If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1206,159 +1081,127 @@ responsibility according to the following schema:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides the interface to register, play and check participation history</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Business Logic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automatically generate questions and corresponding answers from Wikidata data. Manages the time frame allocated for answering questions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores information about users, games, questions and correct/failed answers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GatewayQuestions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recover the needed data from the Wikidata database</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GatewayService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Facilitates communication between the different ports of the application</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_user_interface">5.1.1. User Interface</h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you describe &lt;black box 1&gt;
-according the the following black box template:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Purpose/Responsibility</p>
-</li>
-<li>
-<p>Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.</p>
-</li>
-<li>
-<p>(Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, &#8230;&#8203;.</p>
-</li>
-<li>
-<p>(Optional) directory/file location</p>
-</li>
-<li>
-<p>(Optional) Fulfilled requirements (if you need traceability to requirements).</p>
-</li>
-<li>
-<p>(Optional) Open issues/problems/risks</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Provides the interface to register, play and check participation history</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_business_logic">5.1.2. Business Logic</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Automatically generate questions and corresponding answers from Wikidata data.
-Manages the time frame allocated for answering questions.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_database">5.1.3. Database</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>Stores information about users, games, questions and correct/failed answers.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_user">5.1.4. API User</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to user information through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_api_questions">5.1.5. API Questions</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Responsibility</dt>
-<dd>
-<p>The system will allow access to the information of the questions generated through an API.</p>
-</dd>
-</dl>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_level_2">5.2. Level 2</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
-</div>
-<div class="paragraph">
-<p>You have to decide which building blocks of your system are important enough to justify such a detailed description.
-Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
-Leave out normal, simple, boring or standardized parts of your system</p>
-</div>
-</div>
-</div>
 <div class="sect3">
 <h4 id="_white_box_user_interface">5.2.1. White Box User Interface</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05-UserInterface-Level2.png" alt="Level 2 User Interface">
+<img src="./images/Level2-UserInterface.png" alt="Level 2 User Interface">
 </div>
 </div>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Homepage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows a user to log in or sign up an account</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gamepage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows a user to play the game</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Participation history</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows the user to consult the history of their participation in the system</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_white_box_business_logic">5.2.2. White Box Business Logic</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05-BussinesLogic-Level2.png" alt="Level 2 Business Logic">
+<img src="./images/Level2-BusinessLogic.png" alt="Level 2 Business Logic">
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages all aspects concerning the user interface</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Question management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages all aspects concerning the generation of the questions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Game Logic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages all aspects concerning the game</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_white_box_database">5.2.3. White Box Database</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05-Database-Level2.png" alt="Level 2 Database">
+<img src="./images/Level2-Databases.png" alt="Level 2 Database">
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_api_user">5.2.4. White Box API User</h4>
-
-</div>
-<div class="sect3">
-<h4 id="_white_box_api_questions">5.2.5. White Box API Questions</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Store all the information of the users</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Questions Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Store all the information of the questions</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1371,7 +1214,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <h3 id="_register_user">6.1. Register user</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/06-registerSecuencia.png" alt="Register secuence diagram image">
+<img src="./images/registerSecuencia.png" alt="Register secuence diagram image">
 </div>
 </div>
 <div class="olist arabic">
@@ -1407,7 +1250,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <h3 id="_login">6.2. Login</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/06-loginSecuencia.png" alt="Login secuence diagram image">
+<img src="./images/loginSecuencia.png" alt="Login secuence diagram image">
 </div>
 </div>
 <div class="olist arabic">
@@ -1437,7 +1280,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <h3 id="_request_a_question">6.3. Request a question</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/06-nextQuestion.png" alt="NextQuestion secuence diagram image">
+<img src="./images/nextQuestion.png" alt="NextQuestion secuence diagram image">
 </div>
 </div>
 <div class="olist arabic">
@@ -1477,7 +1320,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="./images/07-diagramaDespliegue.png" alt="Building Block general diagram">
+<img src="./images/diagramaDespliegue.png" alt="Building Block general diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -1670,112 +1513,25 @@ Additionally, they can start a new game at any time and, upon completion, view t
 <div class="sect1">
 <h2 id="section-design-decisions">9. Architecture Decisions</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Important, expensive, large scale or risky architecture decisions including rationales.
-With "decisions" we mean selecting one alternative based on given criteria.</p>
-</div>
-<div class="paragraph">
-<p>Please use your judgement to decide whether an architectural decision should be documented
-here in this central section or whether you better document it locally
-(e.g. within the white box template of one building block).</p>
-</div>
-<div class="paragraph">
-<p>Avoid redundancy.
-Refer to section 4, where you already captured the most important decisions of your architecture.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Stakeholders of your system should be able to comprehend and retrace your decisions.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Various options:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>ADR (<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">Documenting Architecture Decisions</a>) for every important decision</p>
+<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1</a> [Architecture Decision 1-Language Selection for documentation]</p>
 </li>
 <li>
-<p>List or table, ordered by importance and consequences or:</p>
+<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-2" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-2</a> [Architecture Decision 2-Programming Languages]</p>
 </li>
 <li>
-<p>more detailed in form of separate sections per decision</p>
+<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-3" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-3</a> [Architecture Decision 3-Database Platform]</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-4" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-4</a> [Architecture Decision 4-Version Control System]</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-5" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-5</a> [Architecture Decision 5-Data Collection Method]</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-9/">Architecture Decisions</a> in the arc42 documentation.
-There you will find links and examples about ADR.</p>
-</div>
-</div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 9.0909%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1818%;">
-<col style="width: 18.1819%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Date</th>
-<th class="tableblock halign-left valign-top">Title</th>
-<th class="tableblock halign-left valign-top">State</th>
-<th class="tableblock halign-left valign-top">Context</th>
-<th class="tableblock halign-left valign-top">Decision</th>
-<th class="tableblock halign-left valign-top">Consequences</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Language Selection for documentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires documentation to be written</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English, is chosen for its widespread international use</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project documentation can reach more people, but since it is not our first language, it may not be very well written</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Programming Languages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The proyect requires the develop of a web app</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React and Javascript, JavaScript is selected due to team proficiency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We need to learn how to use React, and maybe other languages are better suited for this project</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database Platform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires storing user and question data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB is chosen as the default database solution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Learning MongoDB is necessary</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version Control System</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">As a team and scalable project, version control software is needed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Git-GitHub is chosen as it&#8217;s a project constraint.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The choice of Github is dictated by project constraints</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">08/02/2024</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Collection Method</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The project requires dynamically generated questions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WikiData is chosen as it&#8217;s a project constraint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The choice of WikiData is dictated by project constraints</p></td>
-</tr>
-</tbody>
-</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1970,9 +1726,6 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 <div class="sect2">
 <h3 id="_technical_debt">11.2. Technical Debt</h3>
-<div class="paragraph">
-<p>TO-DO</p>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -2122,7 +1875,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-16 20:10:41 +0100
+Last updated 2024-02-26 16:22:27 +0100
 </div>
 </div>
 </body>

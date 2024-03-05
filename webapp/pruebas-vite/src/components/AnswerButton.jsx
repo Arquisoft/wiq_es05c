@@ -7,10 +7,10 @@ export function AnswerButton({text, colorFondo}){
         bg={colorFondo}
         color="#FCFAF0"
         display="flex"
-        fontSize="2em"
+        fontSize="1.3em"
         borderRadius="15px"
-        fontStyle="bold"
         transition="0.3s"
+        minHeight="4em"
         _hover={{
             transform:"scale(1.05)",
         }}

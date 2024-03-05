@@ -3,3 +3,5 @@ Paleta de colores-->
     botones: https://www.canva.com/colors/color-palettes/arts-and-crafts/
 Generador css-->https://front-end-tools.com/en/generateButton/
 Chakra UI-->https://chakra-ui.com/docs/styled-system/style-props
+
+Para empezar en local: npm run dev 

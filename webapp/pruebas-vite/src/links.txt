@@ -1,0 +1,5 @@
+Paleta de colores-->
+    fondo: https://www.canva.com/colors/color-palettes/northern-lights-4/ 
+    botones: https://www.canva.com/colors/color-palettes/arts-and-crafts/
+Generador css-->https://front-end-tools.com/en/generateButton/
+Chakra UI-->https://chakra-ui.com/docs/styled-system/style-props

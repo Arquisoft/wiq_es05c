@@ -135,7 +135,84 @@ it('should perform the getQuestion request', async () => {
     });
 
   
+    it('should handle authentication error', async () => {
+      const authError = new Error('Authentication failed');
+      authError.response = {
+        status: 401,
+        data: { error: 'Invalid credentials' },
+      };
+    
+      // Simula un error en la llamada al servicio de autenticación
+      axios.post.mockImplementationOnce(() => Promise.reject(authError));
+    
+      // Realiza la solicitud al endpoint
+      const response = await request(app).post('/login').send({ /* datos de autenticación */ });
+    
+      // Verifica que la respuesta tenga un código de estado 401
+      expect(response.statusCode).toBe(401);
+      expect(response.body.error).toBe('Invalid credentials');
+    });
 
+    it('should handle error when add user', async () => {
+      const questionServiceUrl = 'http://localhost:8003/generateQuestions';
+      const errorMessage = 'Network Error';
+      axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+        });
+    
+      
+        it('should handle authentication error', async () => {
+          const authError = new Error('Authentication failed');
+          authError.response = {
+            status: 401,
+            data: { error: 'Invalid credentials' },
+          };
+        
+          // Simula un error en la llamada al servicio de autenticación
+          axios.post.mockImplementationOnce(() => Promise.reject(authError));
+        
+          // Realiza la solicitud al endpoint
+          const response = await request(app).post('/adduser').send({ /* datos de autenticación */ });
+        
+          // Verifica que la respuesta tenga un código de estado 401
+          expect(response.statusCode).toBe(401);
+          expect(response.body.error).toBe('Invalid credentials');
+        });
+//Los siguientes dos test no pasan porq exceden el tiempo de espera.
+/** 
+    it('should handle error from GenerarPregunta', async () => {
+      const questionServiceUrl = 'http://localhost:8003/generateQuestions';
+      // Simula un error en la ejecución de GenerarPregunta
+      const errorMessage = 'Error al generar preguntas';
+    axios.get.mockRejectedValueOnce(new Error(errorMessage));
 
+    // Realiza la solicitud al endpoint
+    const response = await request(app).get('/generateQuestions').send();
 
+    // Verifica que la respuesta tenga un código de estado 500
+    expect(response.statusCode).toBe(500);
+    expect(response.body.error).toBe(errorMessage);
+    });
+
+    it('should forward get question request to question generate service', async () => {
+      const questionServiceUrl = 'http://localhost:8003/generateQuestions'; 
+      const expectedQuestion = '¿Cuál es la capital de Francia?';
+      const expectedOptions = ['Berlin', 'Paris', 'Londres', 'Madrid'];
+      const expectedCorrectAnswer = 'Helsinki';
+    
+      // Simula una llamada exitosa al servicio de generación de preguntas
+      axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+    
+      // Realiza la solicitud al endpoint
+      const response = await request(app).get('/generateQuestions').send();
+    
+      // Verifica que la respuesta tenga un código de estado 200
+      expect(response.statusCode).toBe(200);
+    
+      // Verifica que la pregunta y las opciones sean correctas
+      expect(response.body.pregunta).toBe(expectedQuestion);
+      expect(response.body.respuestas).toEqual(expect.arrayContaining(expectedOptions));
+      expect(response.body.correcta).toBe(expectedCorrectAnswer);
+    }); */
+
+   
 });

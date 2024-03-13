@@ -29,7 +29,7 @@
     </pregunta>
 
     <pregunta  question="tenista" type="paisNacimiento"> 
-        ¿Cuál es el pais de nacimiento del tenista llamado {RELLENAR}?
+        ¿Cuál es el lugar de nacimiento del tenista llamado {RELLENAR}?
     </pregunta>
 
     <pregunta  question="presidenteEspaña" type="fechaNacimiento"> 

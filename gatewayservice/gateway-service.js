@@ -49,7 +49,8 @@ app.get('/getQuestion', async (req, res) => {
     
     res.json(questionResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas' });
   }
 });
 
@@ -59,7 +60,9 @@ app.get('/generateQuestions', async (req, res) => {
     await axios.get(questionServiceUrl+'/generateQuestions', req.body);
     
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    //Modifico el error
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas' });
+    
   }
 });
 

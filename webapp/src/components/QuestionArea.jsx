@@ -37,7 +37,7 @@ export function QuestionArea(){
       };
 
         fetchQuestionData();
-    }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+    }, [apiEndpoint]); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
 
 /** PARA DEPURACIÓN Y LOCAL
 useEffect(() => {

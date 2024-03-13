@@ -1,6 +1,6 @@
 import {Button} from '@chakra-ui/react'
 
-export function AnswerButton({text, colorFondo}){
+export function AnswerButton({text, colorFondo, onClick}){
 
     return(
         <Button 
@@ -14,6 +14,7 @@ export function AnswerButton({text, colorFondo}){
         _hover={{
             transform:"scale(1.05)",
         }}
+        onClick = {onClick}
         >
         {text}</Button>    
     )

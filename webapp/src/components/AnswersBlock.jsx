@@ -1,25 +1,45 @@
 import { Box } from "@chakra-ui/react";
+import React, { useEffect, useState } from 'react';
 import { AnswerButton } from './AnswerButton.jsx';
 
-export function AnswersBlock({ respuestas }){
+export function AnswersBlock({ respuestas, correcta }){
 
-    const correcta = respuestas[0];
-    //Ordenar random
-    //Intercambiar el primer elemento con otro elemento aleatorio del array
-    const indiceAleatorio = Math.floor(Math.random() * (respuestas.length - 1));
-    const save = respuestas[0];
-    respuestas[0] = respuestas[indiceAleatorio];
-    respuestas[indiceAleatorio] = save;
+    const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
-    console.log(correcta);
+    let respuestasCopy = respuestas;
 
-    return(
-        <Box display="grid" flex="1" gridTemplateColumns="repeat(2,1fr)" 
-        gridColumnGap="2em" padding="4em" alignItems="center">
-            <AnswerButton text={respuestas[0]} colorFondo={"#A06AB4"}/>
-            <AnswerButton text={respuestas[1]} colorFondo={"#B5EECB"}/>
-            <AnswerButton text={respuestas[2]} colorFondo={"#FFD743"}/>
-            <AnswerButton text={respuestas[3]} colorFondo={"#D773A2"}/>
+    //Colores de los botones para que tengan orden random
+    const colorsArray = ["#FFD743","#D773A2","#07BB9C","#A06AB4"];
+    //Baraja con algoritmo de Fisher-Yates los colores
+    for (let i = colorsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [colorsArray[i], colorsArray[j]] = [colorsArray[j], colorsArray[i]];
+    }
+
+    useEffect(() => {
+        //Baraja con algoritmo de Fisher-Yates
+        for (let i = respuestasCopy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [respuestasCopy[i], respuestasCopy[j]] = [respuestasCopy[j], respuestasCopy[i]];
+        }
+
+        setRespuestasAleatorizadas(respuestasCopy);
+    }, [respuestasCopy]);
+
+    const handleButtonClick = (respuesta) => {
+        if (respuesta === correcta) {
+            alert("¡Respuesta correcta!");
+        } else {
+            alert("Respuesta incorrecta.");
+        }
+        console.log("owimawe");
+    };
+
+    return (
+        <Box display="grid" flex="1" gridTemplateColumns="repeat(2,1fr)" gridColumnGap="2em" padding="4em" alignItems="center">
+            {respuestasAleatorizadas.map((respuesta, index) => (
+                <AnswerButton key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
+            ))}
         </Box>
-    )
+    );
 }

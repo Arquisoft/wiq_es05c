@@ -31,18 +31,24 @@ Both the user, auth service and questions service share a Mongo database that is
 
 ## Quick start guide
 
-
 ### Using docker
 
 The fastest way for launching this sample project is using docker. Just clone the project:
 
 ```sh
-git clone https://github.com/Arquisoft/wiq_es05c.git 
+git clone https://github.com/Arquisoft/wiq_es05c.git
+```
 
-and launch it with docker compose:
+launch it with docker compose:
 
 ```sh
 docker compose --profile dev up --build
+```
+
+and tear it down:
+
+```sh
+docker compose --profile dev down
 ```
 
 ### Starting Component by component
@@ -116,7 +122,7 @@ deploy:
         command: |
           wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/docker-compose.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/.env -O .env
-          docker compose down
+          docker compose --profile prod down
           docker compose --profile prod up -d
 ```
 

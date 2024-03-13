@@ -9,8 +9,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 image::07-diagramaDespliegue.png["Building Block general diagram"] 
 
 Basically when a user wants to use the application, using his web browser
-he can connect to the application server where the web app will use some
-services also alocated there such as the QuestionGenerator or the LoginManager.
-Also these services make use of the WikiData API and database and also of 
-a database unique for the application to save things as player statistics
-or info of them.
+he can connect to the application server that is a VM in hosted in Azure
+orientated to microservices. That means that all the modules inside it
+are dockerized in a container. The QuestionGenerator interacts with WikiData
+throught their API and we have also two MongoDB databases one for users
+and another to store questions.

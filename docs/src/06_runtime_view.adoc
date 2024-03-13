@@ -32,13 +32,10 @@ image::06-loginSecuencia.png["Login secuence diagram image"]
 
 === Request a question
 
-image::06-nextQuestion.png["NextQuestion secuence diagram image"] 
+image::06-generateQuestion.png["NextQuestion secuence diagram image"] 
 
-1. The user asks for a new question
-2. The app redirects that request to the QuestionGenerator
-3. The QuestionGenerator generates a heather for the question
-4. The QuestionGenerator requests the correct answer to WikiData
-5. WikiData sends that answer data
-6. The QuestionGenerator builds the question with the answer and wrong options
-7. The built question is sent to the app
-8. The app shows the question to the User
+1. The QuestionService wants to generate a question
+2. It requests all the necesary info to build a question to WikiData
+3. WikiData responds with the requested data
+4. The QuestionService builds the question with the data recieved
+5. Finally the QuestionService writes the new question in the QuestionsDB

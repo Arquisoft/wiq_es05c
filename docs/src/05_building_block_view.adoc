@@ -15,6 +15,8 @@ Motivation::
 
 The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application. 
 By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.
+The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application. 
+By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.
 
 
 Contained Building Blocks::
@@ -22,11 +24,10 @@ Contained Building Blocks::
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| User Interface | Provides the interface to register, play and check participation history
-| Business Logic | Automatically generate questions and corresponding answers from Wikidata data. Manages the time frame allocated for answering questions
-| Database | Stores information about users, games, questions and correct/failed answers
-| GatewayQuestions | Recover the needed data from the Wikidata database
-| GatewayService | Facilitates communication between the different ports of the application
+| Webapp | Provides the interface to register, play and check participation history
+| Gateway service | Facilitates communication between the different ports of the application
+| Databases | Stores information about users, games, questions and correct/failed answers
+| Services | They receive requests from the gateway service and execute the corresponding operations
 |===
 
 
@@ -34,36 +35,36 @@ Contained Building Blocks::
 
 ==== White Box User Interface
 
-image::Level2-UserInterface.png["Level 2 User Interface"]
+image::Level2Webapp.png["Level 2 Webapp"]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Homepage | Allows a user to log in or sign up an account
-| Gamepage | Allows a user to play the game
-| Participation history | Allows the user to consult the history of their participation in the system
+| homepage | Allows a user to log in or sign up an account
+| gamepage | Allows a user to play the game
+| participation history | Allows the user to consult the history of their participation in the system
 |===
 
-==== White Box Business Logic
+==== White Box Services
 
-image::Level2-BusinessLogic.png["Level 2 Business Logic"]
+image::Level2Services.png["Level 2 Business Logic"]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| User Management | Manages all aspects concerning the user interface
-| Question management | Manages all aspects concerning the generation of the questions
-| Game Logic |  Manages all aspects concerning the game
+| authservice | Allows a user to create an account in our application
+| userservice | Allows a user to access our application to play and view their history
+| questionsService | It calls the Wikidata API using queries to retrieve questions, then stores them in the database. Additionally, it retrieves questions from the database when needed.
 |===
 
-==== White Box Database
+==== White Box Databases
 
-image::Level2-Databases.png["Level 2 Database"]
+image::Level2Databases.png["Level 2 Database"]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Users Database | Store all the information of the users
-| Questions Database | Store all the information of the questions
+| usersdb | Store all the information of the users
+| questionsdb | Store all the information of the questions
 |===
 

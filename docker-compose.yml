@@ -40,9 +40,10 @@ services:
       MONGODB_URI: mongodb://mongodb:27017/userdb
 
   questionservice:
-    container_name: questionservice-${teamname:-defaultASW}
+    container_name: questionservice-${teamname:-wiq_es05c}
+    image: ghcr.io/arquisoft/wiq_es05c/questionservice:latest
     profiles: ["dev", "prod"]
-    build: ./questionsService/
+    build: ./questionsService
     depends_on:
       - mongodb
     ports:

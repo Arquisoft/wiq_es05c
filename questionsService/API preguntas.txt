@@ -1,0 +1,9 @@
+Cuando se obtiene una pregunta con el getQuestion devuelve un JSON con el siguiente formato.
+
+{
+    "pregunta": "What is the capital of France?",
+    "correcta": "Paris",
+    "respuestasIncorrecta1": "London",
+    "respuestasIncorrecta2": "Berlin",
+    "respuestasIncorrecta3": "Madrid"
+}

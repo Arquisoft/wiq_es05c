@@ -4,22 +4,51 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Risks and Technical Debts
 
 
-[role="arc42help"]
-****
-.Contents
-A list of identified technical risks or technical debts, ordered by priority
+=== Risks
 
-.Motivation
-“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.) 
+[options="header" frame=all]
+|===
+|Risk |More detail |How to fight it  
 
-This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.
+|A member fire out the project
+|It's possible that due to reasons like having a lot of pressure or being overwhelmed by the project members of the group quit the project or the subject
+|Try to communicate with each other and having a sensible rhythm advancing with the project. Also helping each other when we can
 
-.Form
-List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.
+|First time delivering a full stack app
+|We could have a lack of experience with a project as big as this that have a bit of every field.
+|Searching and learning the new things we could need during the project and talking with the other members if we know more of a determined field trying to help them
 
+|Lack of time 
+|We can have some though weeks because we have other subjects to study and other projects and exams that can consumpt our time 
+|Attemp to be responsible with our time and tasks and try to organize ourselves as good as we can
 
-.Further Information
+|New technologies
+|Some technologies that we will use in the projects are new for us such as React or managing a database due to our lack of experience
+|Learning the new things that we don't know and not being unwilling to confront new things such as technologies or languages that we have lack of experience on them
 
-See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
+|Not accomplish deadlines
+|It can happen that we don't archieve what it's requested into the project in time and end up sending an uncompleted final product or during the middle deadlines 
+|To avoid this we have to keep a good rhythm advancing and planing good and adequated tasks in the weekly meetings done in the labs so we don't run out of time not done
 
-****
+|Depending on extern technologies
+|It's possible that due to depend on external libraries such as react or external services like Azure we can find ourselves with the poject not working derivated from failures on that external technologies
+|Try to investigate and use reliable services and libraries that are not likely to end up deprecated or with bugs and failures on their releases
+|===
+
+=== Technical Debt
+
+TO-DO 
+
+[options="header" frame=all]
+|===
+|Technical Debt |Description 
+
+|Space 1.1
+|Space 1.2
+
+|Space 2.1
+|Space 2.2
+
+|Space 3.1
+|Space 3.2
+|===

@@ -4,62 +4,38 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Runtime View
 
 
-[role="arc42help"]
-****
-.Contents
-The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:
+=== Register user
 
-* important use cases or features: how do building blocks execute them?
-* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
-* operation and administration: launch, start-up, stop
-* error and exception scenarios
+image::06-registerSecuencia.png["Register secuence diagram image"] 
 
-Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance*. It is *not* important to describe a large number of scenarios. You should rather document a representative selection.
-
-.Motivation
-You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).
-
-.Form
-There are many notations for describing scenarios, e.g.
-
-* numbered list of steps (in natural language)
-* activity diagrams or flow charts
-* sequence diagrams
-* BPMN or EPCs (event process chains)
-* state machines
-* ...
+1. The user wants to register in the sistem
+2. The app redirects the register request to the RegisterService
+3. The register service sends to the database the data to get information about it
+4. A response is sent by the database with information about that user in process of registration
+5. The RegisterService validates if the user is correct with that info recieved
+6. If the check was afirmative then the RegisterService registre the user
+7. The RegisterService inform with the result the app
+8. Finally the app carries that result to the user 
 
 
-.Further Information
+=== Login
 
-See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
+image::06-loginSecuencia.png["Login secuence diagram image"] 
 
-****
+1. The user wants to login his account
+2. The app redirects the login request to the LoginService
+3. The LoginService request information about that login data recieved
+4. A response is sent by the database with the requested data
+5. After checking if it's a valid login the LoginService sends a response to the app
+6. Finally the app inform the user about his login process
 
-=== <Runtime Scenario 1>
 
+=== Request a question
 
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
+image::06-generateQuestion.png["NextQuestion secuence diagram image"] 
 
-It is possible to use a sequence diagram:
-
-[plantuml,"Sequence diagram",png]
-----
-actor Alice
-actor Bob
-database Pod as "Bob's Pod"
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice  --> Pod: Store route
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
-----
-
-=== <Runtime Scenario 2>
-
-=== ...
-
-=== <Runtime Scenario n>
+1. The QuestionService wants to generate a question
+2. It requests all the necesary info to build a question to WikiData
+3. WikiData responds with the requested data
+4. The QuestionService builds the question with the data recieved
+5. Finally the QuestionService writes the new question in the QuestionsDB

@@ -1,0 +1,43 @@
+<textoPreguntas>
+
+    <pregunta  question="pais" type="capital"> 
+        ¿Cuál es la capital del pais {RELLENAR}?
+    </pregunta>
+    
+    <pregunta  question="estado" type="capital"> 
+        ¿Cuál es la capital del estado de {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="libro" type="autor"> 
+        ¿Cuál es el autor/es del libro llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="libro" type="genero"> 
+        ¿Cuál es el genero/s del libro llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="videojuego" type="plataforma"> 
+        ¿Cuál es la plataforma/s que desarrollo el videojuego llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="videojuego" type="genero"> 
+        ¿Cuál es el genero/s del videojuego llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="clubFutbol" type="estadio"> 
+        ¿Cuál es el estadio del club de futbol llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="tenista" type="paisNacimiento"> 
+        ¿Cuál es el pais de nacimiento del tenista llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="presidenteEspaña" type="fechaNacimiento"> 
+        ¿Cuál es la fecha de nacimiento del presidente de España llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="personasOviedo" type="fechaNacimiento"> 
+        ¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a {RELLENAR}?
+    </pregunta>
+
+</textoPreguntas>

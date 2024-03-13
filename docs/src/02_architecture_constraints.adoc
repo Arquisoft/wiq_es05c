@@ -5,9 +5,9 @@
 [options = "header", cols = "1,2"]
 |===
 | Constraint | Description
+| Wikidata | Wikidata is a knowledge base that provides data sources, used to obtain information for the game. In this case, it is mandatory.
 | Docker | Software that allows automating the deployment of applications. The application will be running on a Docker host.
-| React | JavaScript library required for building user interfaces for the web. 
-| MongoDB | Default choice for non-relational database selected for the task.
+| GitHub | Platform that allows us to have a repository where to develop the project and perform different actions such as creating issues or tasks.
 |===
 
 2.Organizational Constraints

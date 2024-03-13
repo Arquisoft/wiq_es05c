@@ -1,0 +1,142 @@
+<preguntas>
+
+    <pregunta question="pais" type="capital"  category="geografia">
+        <query>
+            SELECT DISTINCT ?countryLabel (SAMPLE(?nombreCapital) AS ?capitales)
+            WHERE {
+                ?country wdt:P31 wd:Q3624078.  # Instancia de país
+                ?country wdt:P36 ?capital.  # Tiene capital
+                ?country rdfs:label ?countryLabel filter (lang(?countryLabel) = "es").
+                ?capital rdfs:label ?nombreCapital filter (lang(?nombreCapital) = "es").
+            }
+            GROUP BY ?countryLabel
+        </query>
+    </pregunta>
+    
+    <pregunta question="estado" type="capital"  category="geografia">
+        <query >
+            SELECT ?stateLabel ?state ?capitalLabel
+            WHERE {
+                ?state wdt:P31 wd:Q35657 .
+                ?state p:P36 ?statement .
+                ?statement ps:P36 ?capital .
+            # Fetching the rank of the property
+            ?statement wikibase:rank ?rank .
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+            # Subquery to get the highest ranked capital for each state
+            {
+                SELECT ?state (MAX(?rank) AS ?maxRank)
+                WHERE {
+                    ?state wdt:P31 wd:Q35657 .
+                    ?state p:P36 ?statement .
+                    ?statement wikibase:rank ?rank .
+                }
+                GROUP BY ?state
+            }
+            FILTER (?rank = ?maxRank)
+           }
+        </query>
+    </pregunta>
+   
+   <pregunta question="libro" type="autor"  category="arte">
+    <query>
+        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombreAuthor; SEPARATOR=", ") AS ?authors)
+        WHERE {
+            ?book wdt:P31 wd:Q571.  # libro (clase)
+            ?book wdt:P50 ?author.  # Relación "autor"
+            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es").
+            ?author rdfs:label ?nombreAuthor filter (lang(?nombreAuthor) = "es").
+        }
+        GROUP BY ?nombreLibro
+    </query>
+   </pregunta>
+
+   <pregunta question="libro" type="genero"  category="arte">
+    <query>
+        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombregenero; SEPARATOR=", ") AS ?generos)
+        WHERE {
+            ?book wdt:P31 wd:Q571.  
+            ?book wdt:P136 ?genero.  # Relación "género"
+            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es").
+            ?genero rdfs:label ?nombregenero filter (lang(?nombregenero) = "es").
+        }
+        GROUP BY ?nombreLibro
+    </query>
+   </pregunta>
+
+   <pregunta question="videojuego" type="plataforma"  category="entretenimiento">
+    <query>
+        SELECT DISTINCT ?nombreVideojuego (GROUP_CONCAT(DISTINCT ?nombrePlataforma; SEPARATOR=", ") AS ?plataformas)
+        WHERE {
+            ?videojuego wdt:P31 wd:Q7889.  # Videojuegos (clase)
+            ?videojuego wdt:P123 ?plataforma.  # Relación "plataforma"
+            ?videojuego rdfs:label ?nombreVideojuego filter (lang(?nombreVideojuego) = "es").
+            ?plataforma rdfs:label ?nombrePlataforma filter (lang(?nombrePlataforma) = "es").
+        }
+        GROUP BY ?nombreVideojuego
+    </query>
+   </pregunta>
+
+   <pregunta question="videojuego" type="genero"  category="entretenimiento">
+    <query>
+        SELECT DISTINCT ?nombreVideojuego (GROUP_CONCAT(DISTINCT ?nombreGenero; SEPARATOR=", ") AS ?generos)
+        WHERE {
+            ?videojuego wdt:P31 wd:Q7889.  # Videojuegos (clase)
+            ?videojuego wdt:P136 ?genero.  # Relación "género"
+            ?videojuego rdfs:label ?nombreVideojuego filter (lang(?nombreVideojuego) = "es").
+            ?genero rdfs:label ?nombreGenero filter (lang(?nombreGenero) = "es").
+        }
+        GROUP BY ?nombreVideojuego
+    </query>
+   </pregunta>
+
+   <pregunta question="clubFutbol" type="estadio"  category="deportes">
+    <query>
+        SELECT DISTINCT ?clubLabel (GROUP_CONCAT(DISTINCT ?estadioName; SEPARATOR=", ") AS ?estadios)
+        WHERE {
+            ?club wdt:P31 wd:Q476028.  # club (clase)
+            ?club wdt:P115 ?estadio.  # Relación "estadio"
+            ?club rdfs:label ?clubLabel filter (lang(?clubLabel) = "es").
+            ?estadio rdfs:label ?estadioName filter (lang(?estadioName) = "es").
+        }
+        GROUP BY ?clubLabel
+    </query>
+   </pregunta>
+
+   <pregunta question="tenista" type="paisNacimiento"  category="deportes">
+    <query>
+        SELECT ?tenistaLabel ?tenista ?paisNacimientoLabel
+        WHERE {
+            ?tenista wdt:P106 wd:Q10833314. # Instancia de tenista
+            ?tenista wdt:P19 ?paisNacimiento. # País de nacimiento
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+    </query>
+   </pregunta>
+   
+   <pregunta question="presidenteEspaña" type="fechaNacimiento"  category="historia">
+    <query>
+        SELECT DISTINCT ?nombreCompleto ?presidente ?fechaNacimiento
+        WHERE {
+            ?presidente wdt:P31 wd:Q5; # Filtrar por personas
+              wdt:P39 wd:Q844587; # Filtrar por posición: presidente del Gobierno de España
+              wdt:P569 ?fechaNacimiento; # Obtener fecha de nacimiento (opcional)
+              wdt:P1559 ?nombreCompleto.
+              SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+            }
+        ORDER BY ?nombreCompleto
+    </query>
+   </pregunta>
+
+   <pregunta question="personasOviedo" type="fechaNacimiento"  category="historia">
+    <query>
+        SELECT ?personLabel ?person ?fNacimiento
+        WHERE {
+            ?person wdt:P19 wd:Q14317.
+            ?person wdt:P569 ?fNacimiento .
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+        }
+    </query>
+   </pregunta>
+
+</preguntas>

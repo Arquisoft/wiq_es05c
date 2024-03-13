@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 
-const Login = () => {
+import PropTypes from 'prop-types'; // Importa PropTypes
+
+const Login = ({ startGame }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -33,48 +35,67 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+   //para empezar el juego
+   const handleButtonClick = () => {
+    startGame();
+  };
+
+
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-      {loginSuccess ? (
-        <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
-          </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
-          </Typography>
-        </div>
-      ) : (
-        <div>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button variant="contained" color="primary" onClick={loginUser}>
-            Login
-          </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
-          {error && (
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+          {loginSuccess ? (
+            <div>
+              <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+                Hello {username}!
+              </Typography>
+              <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
+                Your account was created on {new Date(createdAt).toLocaleDateString()}.
+              </Typography>
+              
+              <Button variant="contained" color="primary" onClick={handleButtonClick}>
+                Empieza el juego
+              </Button>
+
+            </div>
+          ) : (
+            <div>
+              <Typography component="h1" variant="h5">
+                Login
+              </Typography>
+              <TextField
+                margin="normal"
+                fullWidth
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button variant="contained" color="primary" onClick={loginUser}>
+                Login
+              </Button>
+              <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
+              {error && (
+                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+              )}
+              <Button variant="contained" color="primary" onClick={handleButtonClick}>
+                Empieza el juego
+              </Button>
+            </div>
           )}
-        </div>
-      )}
-    </Container>
-  );
+        </Container>
+    );
+};
+
+// Agrega la validación de props
+Login.propTypes = {
+  startGame: PropTypes.func.isRequired,
 };
 
 export default Login;

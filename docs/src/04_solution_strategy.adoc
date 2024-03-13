@@ -1,14 +1,16 @@
 [[section-solution-strategy]]
+
 == Solution Strategy
 
 === Technology Decisions
+
 The following technologies are used in the development of our application:
-* *_React_*: JavaScript library for building efficient user interfaces.
+
+* *_React_*: JavaScript library required for building user interfaces for the web.
+
 * *_JavaScript_*: Chosen language for application development.
-* *_GitHub_*: Platform that allows us to have a repository where to develop the project and perform different actions such as creating issues or tasks.
-* *_MongoDB_*: Non-relational database we will use for the project.
-* *_Docker_*: Virtualization platform where we will deploy the project.
-* *_Wikidata_*: Wikidata is a knowledge base that provides data sources, used to obtain information for the game. In this case, it is mandatory.
+
+* *_MongoDB_*: Default choice for non-relational database selected for the task.
 
 === Top-level Decomposition
 ==== IDE

@@ -1,4 +1,5 @@
 # wiq_es05c
+Visit our app : http://20.68.253.187:3000/
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
@@ -11,17 +12,24 @@ This repo is a basic application composed of several components.
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
+- **QuestionsService**. Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
 
-Both the user and auth service share a Mongo database that is accessed with mongoose.
+Both the user, auth service and questions service share a Mongo database that is accessed with mongoose.
 
 ## Members of the group
-  Adrián Santamarina
+
+  Sonia Moro Lauda
+
+  Lucía Villanueva Rodríguez
+
+  Pedro Castro Montes
+  
+  Adrián Santamarina Romero
+
+  David González González
 
 ## Quick start guide
-
-## Team Members
-### David Gonzalez
 
 ### Using docker
 

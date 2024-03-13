@@ -43,7 +43,7 @@ services:
     container_name: questionservice-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/questionservice:latest
     profiles: ["dev", "prod"]
-    build: ./questionsService
+    build: ./questionservice
     depends_on:
       - mongodb
     ports:

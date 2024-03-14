@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Deployment View
 
 
-image::07-diagramaDespliegue.PNG["Building Block general diagram"] 
+image::07-diagramaDespliegue.png["Building Block general diagram"] 
 
 Basically when a user wants to use the application, using his web browser
 he can connect to the application server that is a VM in hosted in Azure

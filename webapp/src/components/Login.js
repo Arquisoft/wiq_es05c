@@ -13,7 +13,7 @@ const Login = ({ startGame }) => {
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+  const apiEndpoint = process.env.REACT_APP_API_URI || 'http://localhost:8000';
 
   const loginUser = async () => {
     try {

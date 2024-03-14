@@ -51,14 +51,31 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
-        API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
       with:
           name: arquisoft/wiq_es05c/webapp
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           workdir: webapp
-          buildargs: API_URI
+          buildargs: REACT_APP_API_URI
+  docker-push-questionservice:
+            name: Push question service Docker Image to GitHub Packages
+            runs-on: ubuntu-latest
+            permissions:
+              contents: read
+              packages: write
+            needs: [e2e-tests]
+            steps:
+              - uses: actions/checkout@v4
+              - name: Publish to Registry
+                uses: elgohr/Publish-Docker-Github-Action@v5
+                with:
+                  name: arquisoft/wiq_es05c/questionservice
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+                  registry: ghcr.io
+                  workdir: questionservice
   docker-push-authservice:
     name: Push auth service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -76,6 +93,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           workdir: users/authservice
+
   docker-push-userservice:
     name: Push user service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -124,5 +142,5 @@ jobs:
         command: |
           wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/docker-compose.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/.env -O .env
-          docker compose down
+          docker compose --profile prod down
           docker compose --profile prod up -d

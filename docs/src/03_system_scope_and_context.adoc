@@ -10,18 +10,29 @@ image::Business Context.png["Business Context Diagram"]
 [options="header",cols="1,2"]
 |===
 |Element |Description
-|User |
-|Application |
-|WikiData |
+|User |The user will be able to utilize the functionalities of login, register, and the game to answer the questions. 
+|Application | The application will communicate with the WikiData to retrieve game questions and answers, and it will store them in a database. 
+Additionally, when prompted by the system, it will retrieve a question along with the four answer options from the database.
 |===
+
+
 * Users authenticate themselves within the system using their personal information.
 * The application offers a question-based game similar to "Saber y Ganar" .
 * Users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question.
 
 
 === Technical Context
+image::Technical Context.png["Business Context Diagram"] 
 
-
+[options="header",cols="1,2"]
+|===
+|Element |Description
+|User | The user will be able to utilize the functionalities of login, register, and the game. 
+|Application | The application will communicate with the WikiData API to retrieve game questions and answers, and it will store them in a database. 
+Additionally, when prompted by the system, it will retrieve a question along with the four answer options from the database.
+|WikiData |API used by the system to obtain questions and answers.
+|MongoDB |A MongoDB database to store questions and answers, as well as user information such as usernames and passwords.
+|===
 
 [options="header",cols="1,2"]
 |===
@@ -29,7 +40,8 @@ image::Business Context.png["Business Context Diagram"]
 | JavaScript | A fundamental programming language for web development. It's used to create logic and interactivity in web and mobile applications.
 | React | A JavaScript framework used to build interactive and dynamic user interfaces. It's especially popular for developing single-page applications (SPAs).
 | MongoDB |  A NoSQL database that uses JSON documents to store data. It's widely used in web and mobile applications, especially those requiring flexible and fast scalability.
-| NodeJS | JavaScript runtime environment
 | Docker | A container platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight, 
 portable containers, making it easy to deploy across different development and production environments.
+|GitHub Actions | GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. 
+You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
 |===

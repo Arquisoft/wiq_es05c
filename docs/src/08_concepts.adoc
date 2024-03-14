@@ -4,17 +4,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Cross-cutting Concepts
 
 
-[role="arc42help"]
-
-
 
 === Domain concepts
-User Model
-   - ID (Primary Key)
-   - First Name
-   - Last Name
-   - Email
-   - Password
+Visit https://github.com/Arquisoft/wiq_es05c/wiki/Domain-Model to consult our Domain model.
 
 
 === User Experience
@@ -38,12 +30,4 @@ In development...
 
 === Development concepts
 
-    * Build, Test, Deploy
-    * Code generation
-    * Migration
-    * Configurability
-
-
-=== Operation concepts
-    In development...
-
+    * Test: Realizadas pruebas de testing del microservicio gateway-service y del componente de webapp Game,

@@ -8,7 +8,8 @@
         "deploy": "gh-pages -d build"
     },
     "dependencies": {
-        "shx": "^0.3.3"
+        "shx": "^0.3.3",
+        "gh-pages": "^3.2.3"
     },
     "devDependencies": {
         "gh-pages": "^6.1.1"

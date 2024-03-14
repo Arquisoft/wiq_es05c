@@ -14,30 +14,38 @@ export function QuestionArea(){
   // Estado que almacena la correcta
   const [correcta, setCorrecta] = useState();
 
-    // Función para llamar al servicio y obtener los datos de la pregunta
-  
+  // Llamar al servicio al cargar el componente (equivalente a componentDidMount)
+  useEffect(() => {
+    fetchQuestionData();
+  }, []);
 
-      // Llamar al servicio al cargar el componente (equivalente a componentDidMount)
-      useEffect(() => {
-        const fetchQuestionData = async () => {
-          try {          
-              // Llamada al servicio para obtener los datos de la pregunta (aquí asumiendo que el servicio devuelve un JSON)
-              const response = await axios.get(`${apiEndpoint}/getQuestion`);
-              const data = response.data;
-              setQuestionData(data); // Actualizar el estado con los datos de la pregunta obtenidos del servicio
-              //Meto la correcta
-              setCorrecta(data.correcta);
-              //calcular respuestas 
-              const respuestasArray = [data.correcta, data.respuestasIncorrecta1, data.respuestasIncorrecta2, data.respuestasIncorrecta3];
-              setRespuestas(respuestasArray);
-          
-            } catch (error) {
-              console.error('Error fetching question data:', error);
-          }
-      };
+  const fetchQuestionData = async () => {
+    try {
+      // Llamada al servicio para obtener los datos de la pregunta
+      const response = await axios.get(`${apiEndpoint}/getQuestion`);
+      const data = response.data;
+      
+      // Actualizar el estado con los datos de la pregunta obtenidos del servicio
+      setQuestionData(data);
+      setCorrecta(data.correcta);
+      
+      // Calcular respuestas 
+      const respuestasArray = [data.correcta, data.respuestasIncorrecta1, data.respuestasIncorrecta2, data.respuestasIncorrecta3];
+      setRespuestas(respuestasArray);
+    } catch (error) {
+      console.error('Error fetching question data:', error);
+    }
+  };
 
-        fetchQuestionData();
-    }, [apiEndpoint]); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+  const handleAnswerButtonClick = (respuesta) => {
+    if (respuesta === correcta) {
+      alert("¡Respuesta correcta!");
+      // Si la respuesta es correcta, generamos una nueva pregunta
+      fetchQuestionData();
+    } else {
+      alert("Respuesta incorrecta.");
+    }
+  };
 
 /** PARA DEPURACIÓN Y LOCAL
 useEffect(() => {
@@ -67,8 +75,7 @@ useEffect(() => {
           {questionJson ? ( // Verificar si se han obtenido los datos de la pregunta
                 <>
                     <EnunciadoBlock pregunta={questionJson.pregunta}/> {/* Renderizar el enunciado de la pregunta */}
-                    <AnswersBlock correcta={correcta} respuestas={respuestas}/> {/* Renderizar las respuestas de la pregunta */}
-                    <p>Hola</p>
+                    <AnswersBlock correcta={correcta} respuestas={respuestas} handleAnswerButtonClick={handleAnswerButtonClick}/> {/* Renderizar las respuestas de la pregunta */}
                 </>
             ) : (
               <>

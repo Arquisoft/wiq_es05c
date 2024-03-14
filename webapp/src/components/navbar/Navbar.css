@@ -1,0 +1,49 @@
+/* Estilo para la barra de navegación */
+.navbar {
+    background-color: #001f3f; /* Fondo azul oscuro */
+    padding: 10px; /* Espaciado interno */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo para el logo */
+.navbar-brand img {
+    width: 5em; /* Ancho del logo */
+}
+
+/* Estilo para la lista de navegación */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style-type: none; /* Eliminar el punto de los li para que no quede feo */
+    margin: 0; /* Eliminar el margen por defecto */
+    padding: 0; /* Eliminar el padding por defecto */
+}
+
+/* Estilo para los elementos de la lista de navegación */
+.navbar-nav li {
+    margin-right: 1em; /* Espaciado entre elementos de la lista */
+}
+
+/* Estilo para los botones de login y registro */
+.navbar-nav a {
+    color: #ffffff; /* Texto blanco */
+    text-decoration: none;
+}
+
+/* Estilo para hacer que la barra de navegación sea responsive en dispositivos móviles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Cambia a una columna en dispositivos móviles */
+        align-items: flex-start;
+    }
+
+    .navbar-nav {
+        margin-top: 10px; /* Espaciado superior en dispositivos móviles */
+    }
+
+    .navbar-nav li {
+        margin: 5px 0; /* Espaciado entre elementos de la lista en dispositivos móviles */
+    }
+}

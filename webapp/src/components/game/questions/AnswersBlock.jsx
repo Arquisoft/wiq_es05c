@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { AnswerButton } from './AnswerButton.jsx';
 
-export function AnswersBlock({ respuestas, correcta }){
+export function AnswersBlock({ respuestas, correcta, handleAnswerButtonClick }){
 
     const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
@@ -26,19 +26,10 @@ export function AnswersBlock({ respuestas, correcta }){
         setRespuestasAleatorizadas(respuestasCopy);
     }, [respuestasCopy]);
 
-    const handleButtonClick = (respuesta) => {
-        if (respuesta === correcta) {
-            alert("¡Respuesta correcta!");
-        } else {
-            alert("Respuesta incorrecta.");
-        }
-        console.log("owimawe");
-    };
-
     return (
         <Box display="grid" flex="1" gridTemplateColumns="repeat(2,1fr)" gridColumnGap="2em" padding="4em" alignItems="center">
             {respuestasAleatorizadas.map((respuesta, index) => (
-                <AnswerButton key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
+                <AnswerButton key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleAnswerButtonClick(respuesta)} />
             ))}
         </Box>
     );

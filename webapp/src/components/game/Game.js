@@ -1,5 +1,5 @@
 import { Box} from "@chakra-ui/react";
-import { QuestionArea } from './QuestionArea';
+import { QuestionArea } from './questions/QuestionArea';
 
 function Game() {
   return (

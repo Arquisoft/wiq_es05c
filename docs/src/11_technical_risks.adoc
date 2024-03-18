@@ -6,9 +6,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Risks
 
+==== Internal Risks
+Risks that we can have under control and it´s our responsability to fight against them:
 [options="header" frame=all]
 |===
-|Risk |More detail |How to fight it  
+|Internal |More detail |How to fight it  
 
 |A member fire out the project
 |It's possible that due to reasons like having a lot of pressure or being overwhelmed by the project members of the group quit the project or the subject
@@ -30,9 +32,22 @@ ifndef::imagesdir[:imagesdir: ../images]
 |It can happen that we don't archieve what it's requested into the project in time and end up sending an uncompleted final product or during the middle deadlines 
 |To avoid this we have to keep a good rhythm advancing and planing good and adequated tasks in the weekly meetings done in the labs so we don't run out of time not done
 
+|===
+
+==== External Risks
+Risks that we can try to prevent but at the end doesn't depend on us:
+[options="header" frame=all]
+|===
+|External risk |More detail |How to fight it  
+
 |Depending on extern technologies
 |It's possible that due to depend on external libraries such as react or external services like Azure we can find ourselves with the poject not working derivated from failures on that external technologies
 |Try to investigate and use reliable services and libraries that are not likely to end up deprecated or with bugs and failures on their releases
+
+|Accidents in the presentation day 
+|Accidents can happen and if something like a train or bus not working or some unexpected problem that we can experience the presentation day (2nd May) it´s possible that someone can be absent in that final presentation
+|To avoid this we should try to be cautious and arrive with a big margin time and having alternatives
+
 |===
 
 === Technical Debt

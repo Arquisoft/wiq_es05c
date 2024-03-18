@@ -30,12 +30,21 @@ image::06-loginSecuencia.png["Login secuence diagram image"]
 6. Finally the app inform the user about his login process
 
 
-=== Request a question
+=== Generate a question
 
-image::06-generateQuestion.png["NextQuestion secuence diagram image"] 
+image::06-generateQuestion.png["GenerateQuestion secuence diagram image"] 
 
 1. The QuestionService wants to generate a question
 2. It requests all the necesary info to build a question to WikiData
 3. WikiData responds with the requested data
 4. The QuestionService builds the question with the data recieved
 5. Finally the QuestionService writes the new question in the QuestionsDB
+
+=== Request a question
+
+image::06-requestQuestion.png["RequestQuestion secuence diagram image"] 
+
+1. The App needs a new question to show to the user so uses Rest to comunicate with the QuestionService
+2. The QuestionService requests that random question to our MongoDB of questions
+3. The DB sends that question to the QuestionService
+4. The QuestionService send again that question to the app so the user can continue with his experience

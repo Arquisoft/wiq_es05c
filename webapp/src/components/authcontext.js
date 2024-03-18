@@ -1,18 +1,18 @@
-// AuthContext.js
-//se encarga de manejar el estado de si un usuario esta logeado o no 
 import React, { useState, createContext } from 'react';
-//contexto para la app 
+
 export const AuthContext = createContext();
-//componente que maneja el incio de sesion 
+
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null); // Nuevo estado para el token
 
-  const handleLogin = () => {
+  const handleLogin = (jwtToken) => { // Modifica handleLogin para aceptar un token
     setIsLoggedIn(true);
+    setToken(jwtToken); // Guarda el token en el estado
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, handleLogin }}>
+    <AuthContext.Provider value={{ isLoggedIn, token, handleLogin }}>
       {children}
     </AuthContext.Provider>
   );

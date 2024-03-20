@@ -39,9 +39,15 @@ export function Timer({ onTimeout, onReset, timeout = 30000 }) {
         return () => clearInterval(interval);
     }, [timeout]);
 
+    // Calcular el color basado en el progreso
+    const color = useColorModeValue(
+        progress > 66.6 ? "green.400" : progress > 33.3 ? "orange.400" : "red.400",//Esta fila es para modo claro
+        progress > 66.6 ? "green.500" : progress > 33.3 ? "orange.500" : "red.500"//Y esta para el oscuro
+    );
+
     return (
         <Box marginLeft="2em" marginTop="1em" marginBottom="1em">
-        <CircularProgress value={progress} size="120px" >
+        <CircularProgress value={progress} size="120px" color={color}>
         <CircularProgressLabel>{Math.ceil(progress / 100 * timeout / 1000)}s</CircularProgressLabel>
         </CircularProgress>
         </Box>

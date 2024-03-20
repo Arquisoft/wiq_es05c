@@ -1,20 +1,15 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React , { useContext,useEffect }from 'react';
+
 import './Logout.css';
+import { AuthContext } from '../authcontext';
 const Logout = () => {
+  const { logout } = useContext(AuthContext);
 
-    const handleLogout = () => {
-        // Borrar el token del localStorage
-        localStorage.removeItem('token');
     
-       
-      };
+  useEffect(() => {
+    logout();
+  }, []);
     // Llamar a handleLogout cuando se monta el componente
-
-      useEffect(() => {
-        handleLogout();
-    }, []);
-
 
       return (
         <div className="logout-message">

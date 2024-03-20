@@ -54,6 +54,18 @@ app.get('/getQuestion', async (req, res) => {
   }
 });
 
+app.get('/getQuestionModoBasico', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const questionResponse = await axios.get(questionServiceUrl+'/getQuestionModoBasico', req.body);
+    
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas' });
+  }
+});
+
 app.get('/generateQuestions', async (req, res) => {
   try {
     // llamamos al servicio de preguntas

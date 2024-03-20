@@ -1,11 +1,13 @@
 Cuando se obtiene una pregunta con el /getQuestion devuelve un JSON con el siguiente formato.
 
 {
-    "pregunta": "What is the capital of France?",
-    "correcta": "Paris",
-    "respuestasIncorrecta1": "London",
-    "respuestasIncorrecta2": "Berlin",
-    "respuestasIncorrecta3": "Madrid"
+    "resultado1":{
+        "pregunta":"¿Cuál es la capital del pais Argelia?",
+        "correcta":"Argel",
+        "respuestasIncorrecta1":"Castries",
+        "respuestasIncorrecta2":"Mogadiscio",
+        "respuestasIncorrecta3":"Oslo"
+    }
 }
 
 Cuando se obtienen preguntas con el /getQuestionModoBasico devuelve 10 con el siguiente formato (ejemplo de las preguntas)

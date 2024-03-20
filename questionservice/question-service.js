@@ -25,7 +25,19 @@ mongoose.connect(mongoUri);
 app.get('/getQuestion', async(req,res)=> {
   try{  
     //coger pregunta bd
-    const questions = await question.obtenerPregunta();
+    const questions = await question.obtenerPregunta(10);
+    //para devolver la pregunta
+    res.json(questions);
+    
+  } catch(error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+    
+}); 
+app.get('/getQuestionBasico', async(req,res)=> {
+  try{  
+    //coger pregunta bd
+    const questions = await question.obtenerPregunta(10);
     //para devolver la pregunta
     res.json(questions);
     

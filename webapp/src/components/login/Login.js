@@ -27,19 +27,7 @@ const Login = () => {
 
   const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
-  useEffect(() => {
-    if (loginSuccess) {
-      handleLogin();
-      localStorage.setItem('username', username);
-    
-
-      //REDIRIJIR A LA PAG PRINCIPAL 
-    
-       navigate('/');
-      console.log(loginSuccess); // Log the value of isLoggedIn after login
-
-    }
-  }, [loginSuccess,username, handleLogin,navigate]); // Este efecto se ejecutará cada vez que loginSuccess cambie
+  
 
 
   const loginUser = async () => {
@@ -51,12 +39,15 @@ const Login = () => {
 
 
       handleLogin(response.data.token);//pasasr el token que nos da el servidor 
-      
+
       setCreatedAt(userCreatedAt);
       setLoginSuccess(true);
     
 
       setOpenSnackbar(true);
+      //ir a la url 
+      navigate('/');
+      console.log(loginSuccess); // Log the value of isLoggedIn after login
     } catch (error) {
       setError(error.response.data.error);
     }

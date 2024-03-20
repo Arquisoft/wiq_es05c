@@ -22,7 +22,7 @@ Additionally, when prompted by the system, it will retrieve a question along wit
 
 
 === Technical Context
-image::Technical Context.png["Business Context Diagram"] 
+image::Technical Context (1).png["Business Context Diagram"] 
 
 [options="header",cols="1,2"]
 |===

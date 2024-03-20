@@ -38,7 +38,7 @@ const Login = () => {
       const { createdAt: userCreatedAt} = response.data;
 
 
-      handleLogin(response.data.token);//pasasr el token que nos da el servidor 
+      handleLogin(response.data.token,response.data.username);//pasasr el token que nos da el servidor 
 
       setCreatedAt(userCreatedAt);
       setLoginSuccess(true);

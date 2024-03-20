@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography,ListItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../authcontext';
 
 const NavBar = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn,username } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -24,23 +24,26 @@ const NavBar = () => {
         </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
         {isLoggedIn() ? (
-          <>
-            <IconButton onClick={handleClick}>
-              <Avatar alt="User Avatar" src="/public/icon.jpg" />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose} component={Link} to="/logout">
-                Cerrar sesión
-              </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/history">
-                Historial
-              </MenuItem>
-            </Menu>
-          </>
+         <>
+         <IconButton onClick={handleClick}>
+           <Avatar alt="User Avatar" src="/public/icon.jpg" />
+         </IconButton>
+         <Menu
+           anchorEl={anchorEl}
+           open={Boolean(anchorEl)}
+           onClose={handleClose}
+         >
+           <ListItem button={false}>
+             <Typography fontWeight="bold">{username}</Typography>
+           </ListItem>
+           <MenuItem onClick={handleClose} component={Link} to="/logout">
+             Cerrar sesión
+           </MenuItem>
+           <MenuItem onClick={handleClose} component={Link} to="/history">
+             Historial
+           </MenuItem>
+         </Menu>
+       </>
         ) : (
           <>
             <Button color="inherit" component={Link} to="/login">

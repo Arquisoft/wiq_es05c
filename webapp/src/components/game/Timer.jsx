@@ -48,7 +48,7 @@ export function Timer({ onTimeout, onReset, timeout = 30000 }) {
     return (
         <Box marginLeft="2em" marginTop="1em" marginBottom="1em">
         <CircularProgress value={progress} size="120px" color={color}>
-        <CircularProgressLabel>{Math.ceil(progress / 100 * timeout / 1000)}s</CircularProgressLabel>
+        <CircularProgressLabel color="white">{Math.ceil(progress / 100 * timeout / 1000)}s</CircularProgressLabel>
         </CircularProgress>
         </Box>
     );

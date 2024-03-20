@@ -1,15 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './authcontext';
-/*
-maneja la logica de autenticacion yu rendenriza los hijos 
-*/
+
 const AuthenticatedLayout = ({ children }) => {
   const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+
   if (!isLoggedIn()) {
-    navigate('/login');
     return null;
   }
 

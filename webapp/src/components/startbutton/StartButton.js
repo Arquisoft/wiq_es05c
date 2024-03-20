@@ -3,8 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../authcontext'; // Cambia AuthProvider a AuthContext
 import './startButton.css'
 const StartButton = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+
+
+ // Verificar si el usuario está autenticado basándote en si hay un token en el localStorage
+  const isLoggedIn = Boolean(localStorage.getItem('token'));
 
   console.log(isLoggedIn); // Log the value of isLoggedIn
 

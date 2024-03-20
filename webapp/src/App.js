@@ -14,6 +14,7 @@ import AuthenticatedLayout from './components/authenticationLayout';
 
 const App = () => {
   return (
+    <AuthProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -35,6 +36,8 @@ const App = () => {
         </Routes>
         <Footer/>
       </Router>
+      </AuthProvider>
+
   );
 };
 

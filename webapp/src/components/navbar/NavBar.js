@@ -1,10 +1,19 @@
-import React, { useContext } from 'react';
-import { AppBar, Toolbar, Button } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../authcontext';
+
 const NavBar = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   console.log('isLoggedIn', isLoggedIn);
   return (
@@ -13,19 +22,26 @@ const NavBar = () => {
         <Button color="inherit" component={Link} to="/">
           Home
         </Button>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
         {isLoggedIn() ? (
-          // Si el usuario está autenticado, mostrar el botón de "Cerrar sesión"
           <>
-          <Button color="inherit" component={Link} to="/logout">
-            Cerrar sesión
-          </Button>
-          
-          <Button color="inherit" component={Link} to="/history">
-            Historial
-          </Button>
+            <IconButton onClick={handleClick}>
+              <Avatar alt="User Avatar" src="/public/icon.jpg" />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose} component={Link} to="/logout">
+                Cerrar sesión
+              </MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/history">
+                Historial
+              </MenuItem>
+            </Menu>
           </>
         ) : (
-          // Si el usuario no está autenticado, mostrar los botones de "Iniciar sesión" y "Registrarse"
           <>
             <Button color="inherit" component={Link} to="/login">
               Iniciar sesión
@@ -33,7 +49,6 @@ const NavBar = () => {
             <Button color="inherit" component={Link} to="/adduser">
               Registrarse
             </Button>
-           
           </>
         )}
       </Toolbar>

@@ -7,6 +7,8 @@ const Respuesta = mongoose.model('Respuesta');
 
 class ObtenerPreguntas{
 
+
+    
     async obtenerPregunta(){    
         var resultado = {};
 

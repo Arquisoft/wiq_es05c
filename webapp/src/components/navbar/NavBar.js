@@ -15,9 +15,15 @@ const NavBar = () => {
         </Button>
         {isLoggedIn() ? (
           // Si el usuario está autenticado, mostrar el botón de "Cerrar sesión"
+          <>
           <Button color="inherit" component={Link} to="/logout">
             Cerrar sesión
           </Button>
+          
+          <Button color="inherit" component={Link} to="/history">
+            Historial
+          </Button>
+          </>
         ) : (
           // Si el usuario no está autenticado, mostrar los botones de "Iniciar sesión" y "Registrarse"
           <>
@@ -27,6 +33,7 @@ const NavBar = () => {
             <Button color="inherit" component={Link} to="/adduser">
               Registrarse
             </Button>
+           
           </>
         )}
       </Toolbar>

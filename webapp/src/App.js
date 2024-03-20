@@ -13,6 +13,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
+import History from './components/history/History';
 const App = () => {
   return (
     <AuthProvider>
@@ -32,6 +33,11 @@ const App = () => {
           <Route path="/game" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game /></ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+           <Route path="/history" element={
+            <AuthenticatedLayout>
+              <History />
             </AuthenticatedLayout>
           } />
         </Routes>

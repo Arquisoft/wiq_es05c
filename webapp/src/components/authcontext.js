@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = (jwtToken) => { // Modifica handleLogin para aceptar un token
     setToken(jwtToken); // Guarda el token en el estado
-    localstorage.setItem('token', jwtToken); // Guarda el token en el localStorage
+    localStorage.setItem('token', jwtToken); // Guarda el token en el localStorage
   };
 
   const isLoggedIn = () => !!token; // devuelve true si estas logeado 

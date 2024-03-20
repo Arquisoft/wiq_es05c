@@ -10,23 +10,31 @@ import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
 
+import AuthenticatedLayout from './components/authenticationLayout';
+
 const App = () => {
   return (
-    <AuthProvider>
       <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<StartButton isLoggedIn={true} />} />
           <Route path="/addUser" element={<AddUser />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/game" element={ <ChakraProvider>
-          <Game />
-        </ChakraProvider>} />
-          <Route path="/home" element={<Home />} />
+         
+
+          <Route path="/home" element={
+            <AuthenticatedLayout>
+              <Home />
+            </AuthenticatedLayout>
+          } />
+          <Route path="/game" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game /></ChakraProvider>
+            </AuthenticatedLayout>
+          } />
         </Routes>
         <Footer/>
       </Router>
-    </AuthProvider>
   );
 };
 

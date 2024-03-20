@@ -1,4 +1,4 @@
-Cuando se obtiene una pregunta con el getQuestion devuelve un JSON con el siguiente formato.
+Cuando se obtiene una pregunta con el /getQuestion devuelve un JSON con el siguiente formato.
 
 {
     "pregunta": "What is the capital of France?",
@@ -7,3 +7,85 @@ Cuando se obtiene una pregunta con el getQuestion devuelve un JSON con el siguie
     "respuestasIncorrecta2": "Berlin",
     "respuestasIncorrecta3": "Madrid"
 }
+
+Cuando se obtienen preguntas con el /getQuestionModoBasico devuelve 10 con el siguiente formato (ejemplo de las preguntas)
+{
+    "resultado1":{
+        "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Quini?",
+        "correcta":"23 de septiembre de 1949",
+        "respuestasIncorrecta1":"13 de noviembre de 1916",
+        "respuestasIncorrecta2":"23 de enero de 1987",
+        "respuestasIncorrecta3":"6 de marzo de 1965"
+        },
+
+        "resultado2":{
+            "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Francisco Antonio Meléndez?",
+            "correcta":"1 de enero de 1682",
+            "respuestasIncorrecta1":"12 de marzo de 1766",
+            "respuestasIncorrecta2":"1859-06-30T00:00:00Z",
+            "respuestasIncorrecta3":"1 de enero de 1960"
+        },
+
+        "resultado3":{
+            "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Sara Gutiérrez Torre?",
+            "correcta":"1 de enero de 1962",
+            "respuestasIncorrecta1":"1 de enero de 1967",
+            "respuestasIncorrecta2":"1859-06-30T00:00:00Z",
+            "respuestasIncorrecta3":"23 de enero de 1987"
+        },
+        
+        "resultado4":{
+            "pregunta":"¿Cuál es la capital del pais Bután?",
+            "correcta":"Timbu","respuestasIncorrecta1":"Conakri",
+            "respuestasIncorrecta2":"Hanói",
+            "respuestasIncorrecta3":"Santo Tomé"
+        },
+            
+        "resultado5":{
+            "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Lucía Galán Bertrand?",
+            "correcta":"13 de febrero de 1978",
+            "respuestasIncorrecta1":"27 de noviembre de 1975",
+            "respuestasIncorrecta2":"25 de febrero de 1953",
+            "respuestasIncorrecta3":"1859-06-30T00:00:00Z"
+        },
+        
+        "resultado6":{
+            "pregunta":"¿Cuál es la fecha de nacimiento del presidente de España llamado Santiago Casares Quiroga?",
+            "correcta":"1884-05-08T00:00:00Z",
+            "respuestasIncorrecta1":"1974-01-28T00:00:00Z",
+            "respuestasIncorrecta2":"1960-08-04T00:00:00Z",
+            "respuestasIncorrecta3":"1 de enero de 1985"
+        },
+        
+        "resultado7":{
+            "pregunta":"¿Cuál es la capital del pais Albania?",
+            "correcta":"Tirana",
+            "respuestasIncorrecta1":"Conakri",
+            "respuestasIncorrecta2":"Nasáu",
+            "respuestasIncorrecta3":"Oslo"
+        },
+        
+        "resultado8":{
+            "pregunta":"¿Cuál es la capital del pais Hungría?",
+            "correcta":"Budapest",
+            "respuestasIncorrecta1":"Santo Tomé",
+            "respuestasIncorrecta2":"Pekín",
+            "respuestasIncorrecta3":"Pionyang"
+        },
+        
+        "resultado9":{
+            "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Carlos Franganillo?",
+            "correcta":"31 de octubre de 1980",
+            "respuestasIncorrecta1":"1 de enero de 1973",
+            "respuestasIncorrecta2":"18 de agosto de 1915",
+            "respuestasIncorrecta3":"1 de enero de 1967"
+        },
+        
+        "resultado10":{
+            "pregunta":"¿Cuál es el genero/s del libro llamado La historia de los videojuegos, y su minúsculo impacto en Honduras?",
+            "correcta":"no ficción",
+            "respuestasIncorrecta1":"terror psicológico",
+            "respuestasIncorrecta2":"autobiografía",
+            "respuestasIncorrecta3":"acción-aventura, beat 'em up"
+        }
+    }

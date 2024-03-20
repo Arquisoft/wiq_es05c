@@ -11,17 +11,18 @@ import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import AuthenticatedLayout from './components/authenticationLayout';
-
+import GuestLayout from './components/GuestLayout';
+import Logout from './components/logout/Logout';
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<StartButton isLoggedIn={true} />} />
-          <Route path="/addUser" element={<AddUser />} />
-          <Route path="/login" element={<Login />} />
-         
+          <Route path="/" element={<StartButton/>} />
+          <Route path="/login" element={ <GuestLayout> <Login /> </GuestLayout>} />
+          <Route path="/adduser" element={<GuestLayout> <AddUser /> </GuestLayout>}  />
+          <Route path="/logout" element={  <AuthenticatedLayout> <Logout /> </AuthenticatedLayout>} />
 
           <Route path="/home" element={
             <AuthenticatedLayout>

@@ -1,40 +1,31 @@
-import React from 'react';
-import { AppBar, Toolbar, Button, Menu, MenuItem } from '@mui/material';
+import React, { useContext } from 'react';
+import { AppBar, Toolbar, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-
+import { AuthContext } from '../authcontext';
 const NavBar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { isLoggedIn } = useContext(AuthContext);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // Verificar si el usuario está autenticado basándote en si hay un token en el localStorage
-  const isLoggedIn = Boolean(localStorage.getItem('token'));
-
+  console.log('isLoggedIn', isLoggedIn);
   return (
     <AppBar position="static">
       <Toolbar>
         <Button color="inherit" component={Link} to="/">
           Home
         </Button>
-        {isLoggedIn ? (
-          // Si el usuario está autenticado, no mostrar los botones de inicio de sesión y registro
+        {isLoggedIn() ? (
+          // Si el usuario está autenticado, mostrar el botón de "Cerrar sesión"
           <Button color="inherit" component={Link} to="/logout">
             Cerrar sesión
           </Button>
         ) : (
-          // Si el usuario no está autenticado, mostrar los botones de inicio de sesión y registro
+          // Si el usuario no está autenticado, mostrar los botones de "Iniciar sesión" y "Registrarse"
           <>
-            <Button color="inherit" component={Link} to="/addUser">
-              Registrarse
-            </Button>
             <Button color="inherit" component={Link} to="/login">
               Iniciar sesión
+            </Button>
+            <Button color="inherit" component={Link} to="/adduser">
+              Registrarse
             </Button>
           </>
         )}

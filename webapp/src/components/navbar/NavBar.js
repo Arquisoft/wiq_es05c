@@ -1,63 +1,53 @@
-import React ,{useContext} from 'react';
-import './Navbar.css';
+import React from 'react';
+import { AppBar, Toolbar, Button, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../authcontext';
-import { Dropdown, Nav } from 'react-bootstrap';
 
-const Navbar = () => {
-  //sacar el valor para ver si esta logeado o no 
-  const { isLoggedIn, username } = useContext(AuthContext); // Obtiene username del contexto
+const NavBar = ({ isLoggedIn, username }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  return(
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div className="collapse navbar-collapse" id="my-navbarColor01">
-      <Link to="/" className="navbar-brand">
-        <img src="LogoSaberYganar.png" alt="Logo" />
-      </Link>
-    </div>
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    <div className="collapse navbar-collapse" id="my-navbarColor02">
-        <ul className="navbar-nav justify-content-end">
-          {!isLoggedIn ? (
-            <>
-              <li className="nav-item">
-                <Link to="/addUser" className="nav-link">
-                  <i className="fas fa-sign-in-alt" style={{ fontSize: '16px' }}></i>
-                  <span>Registrarse</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  <i className="fas fa-sign-in-alt" style={{ fontSize: '16px' }}></i>
-                  <span>Iniciar sesión</span>
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-            <Dropdown as={Nav.Item}>
-              <Dropdown.Toggle as={Nav.Link}>
-                <i className="fas fa-user"></i> (// Icono de usuario)
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item disabled>{username}</Dropdown.Item> (// Nombre de usuario como texto no editable)
-                <Dropdown.Item href="/logout">Logout</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <li className="nav-item">
-              <Link to="/history" className="nav-link">
-                <i className="fas fa-sign-in-alt" style={{ fontSize: '16px' }}></i>
-                <span>Historial</span>
-              </Link>
-            </li>
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Button color="inherit" component={Link} to="/">
+          Home
+        </Button>
+        {!isLoggedIn ? (
+          <>
+            <Button color="inherit" component={Link} to="/addUser">
+              Registrarse
+            </Button>
+            <Button color="inherit" component={Link} to="/login">
+              Iniciar sesión
+            </Button>
           </>
-
-            
-          )}
-        </ul>
-      </div>
-  </nav>
+        ) : (
+          <>
+            <Button color="inherit" onClick={handleClick}>
+              <i className="fas fa-user"></i>
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem disabled>{username}</MenuItem>
+              <MenuItem component={Link} to="/logout" onClick={handleClose}>
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
-          };
+};
 
-export default Navbar;
+export default NavBar;

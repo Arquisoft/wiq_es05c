@@ -2,7 +2,7 @@
 import React, { useContext, useState ,useEffect} from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
-import Game from '../game/Game';
+
 import { AuthContext } from '../authcontext';
 
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const{handleLogin}=useContext(AuthContext);
-
 
 
 
@@ -48,8 +47,10 @@ const Login = () => {
       const response = await axios.post(`${apiEndpoint}/login`, { username, password });
 
       // Extract data from the response
-      const { createdAt: userCreatedAt } = response.data;
+      const { createdAt: userCreatedAt} = response.data;
 
+
+      handleLogin(response.data.token);//pasasr el token que nos da el servidor 
       setCreatedAt(userCreatedAt);
       setLoginSuccess(true);
     

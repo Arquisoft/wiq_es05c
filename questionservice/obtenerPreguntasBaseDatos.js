@@ -13,13 +13,13 @@ class ObtenerPreguntas{
         var resultado = {};
         var objetoExterno= {};
         //Se cojen las preguntas del numero que se pase por parametro
-        console.log(numeroPreguntas);
+        console.log("Numero" + numeroPreguntas);
         var preguntas = await Pregunta.aggregate([{ $sample: { size: numeroPreguntas } }]);
-        console.log(preguntas);
+        console.log("Preguntas " + preguntas);
         for(var i = 0; i < preguntas.length; i++){
      
         var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
-        console.log(preguntas[i]);
+        console.log("Pregunta" + preguntas[i]);
         var respuestas = await Respuesta.aggregate([
             { $match: { tipos: {$in : [tipo._id]}, textoRespuesta: { $ne: [preguntas[i].respuestaCorrecta, "Ninguna de las anteriores" ]} } },
             { $sample: { size: 3 } }
@@ -32,11 +32,11 @@ class ObtenerPreguntas{
             respuestasIncorrecta2:  respuestas[1].textoRespuesta,
             respuestasIncorrecta3:  respuestas[2].textoRespuesta
         };
-        console.log(resultado);
+        console.log("Resultado" + resultado);
         objetoExterno["resultado" + (i+1)] = resultado;
         
     }
-    console.log(objetoExterno);
+    console.log( "objeto entero " + objetoExterno);
         return objetoExterno;
     }
 }

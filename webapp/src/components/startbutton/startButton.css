@@ -1,0 +1,22 @@
+.start-button {
+  /* Establece el tamaño del botón */
+  font-size: 2em; /* Ajusta el tamaño de la fuente según sea necesario */
+  padding: 20px 40px; /* Ajusta el padding según sea necesario */
+
+  /* Centra el botón en el medio de la pantalla */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Establece el color de fondo y el color de la letra */
+  background-color: green;
+  color: white;
+
+  /* Establece el estilo del borde */
+  border: none;
+  border-radius: 5px; /* Ajusta el border-radius según sea necesario */
+
+  /* Establece el estilo del cursor */
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+/* Estilo para el pie de página */
+/* Estilos del pie de página */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left:0%;
+    background-color: #001f3f;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around; /* Distribuye los elementos horizontalmente */
+    align-items: center;
+  }
+  
+  .footer a {
+    color: #ffffff; /* Enlaces en texto blanco */
+    text-decoration: none;
+   
+  }
+  
+  .footer a:hover {
+    text-decoration: underline; /* Subraya enlaces al pasar el ratón */
+  }
+

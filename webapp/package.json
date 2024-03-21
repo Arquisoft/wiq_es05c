@@ -11,8 +11,11 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.5",
+    "bootstrap": "^5.3.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^3.5.1"
   },
@@ -22,8 +25,7 @@
     "prod": "serve -s build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
     "test:e2e": "start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8000/health prod 3000 \"cd e2e && jest\"",
-    "eject": "react-scripts eject",
-    "install-chakra": "npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

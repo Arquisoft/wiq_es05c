@@ -3,8 +3,11 @@ const mongoose = require('mongoose');
 
 const Model = require('./history-model')
 
-const History = require("./obtenerDetallesUsuarioBaseDatos");
-const history = new History();
+const prueba = require('./history-datainitial')
+
+
+const Historial = require("./obtenerDetallesUsuarioBaseDatos");
+const historial = new Historial();
 
 const app = express();
 const port = 8004; 
@@ -18,7 +21,8 @@ mongoose.connect(mongoUri);
 app.get('/getHistoryDetallado', async(req,res)=> {
   try{  
     //coger datos bd
-    const history = await history.obtenerDetalleUser("admin");
+    console.log("entra en gethistory detallado");
+    const history = await historial.obtenerDetalleUser("usuario1");
     //para devolver la informacion detallada del usuario
     res.json(history);
     
@@ -31,7 +35,7 @@ app.get('/getHistoryDetallado', async(req,res)=> {
 app.get('/getHistoryTotal', async(req,res)=> {
   try{  
     //coger detalles totales de la bd
-    const historyTotal = await history.obtenerDatosTotales("admin");
+    const historyTotal = await historial.obtenerDatosTotales("usuario1");
     //para devolver los detalles totales del historial
     res.json(historyTotal);
     

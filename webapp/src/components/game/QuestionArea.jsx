@@ -2,7 +2,8 @@ import { useEffect, useState,useRef  } from 'react';
 import { Box } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
-import { Timer } from './Timer';
+import { Timer } from './timers/Timer';
+import { GameTimer } from './timers/GameTimer.jsx';
 
 /*
 *maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
@@ -112,8 +113,9 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
         maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
           
                   <Box display="flex" borderBottom="0.1em solid #000">
-                  <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
+                    <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
                     <EnunciadoBlock pregunta={questionData?.pregunta} />
+                    <GameTimer isGameEnded={isGameEnded}/>
                   </Box>
                   <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
                  

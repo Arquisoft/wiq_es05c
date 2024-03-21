@@ -1,9 +1,11 @@
 const express = require('express');
+
 const axios = require('axios');
 const cors = require('cors');
 const promBundle = require('express-prom-bundle');
 
 const app = express();
+
 const port = 8000;
 
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
@@ -23,6 +25,8 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
 });
 
+
+;
 app.post('/login', async (req, res) => {
   try {
     console.log('Login request received');

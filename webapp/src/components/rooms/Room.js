@@ -1,8 +1,10 @@
 import React from 'react';
 import GameMultiplayer from '../game/GameMultiplayer'; // Importa el componente para el juego multijugador
+import { useParams } from 'react-router-dom';
 
-const Room = ({ roomId }) => {
+const Room = () => {
   // Aquí podrías incluir cualquier lógica relacionada con la sala, como obtener información adicional de la sala desde el servidor
+  const { roomId } = useParams();
 
   return (
     <div>

@@ -15,11 +15,12 @@ const CreateRoomForm = () => {
             setIsLoading(true);
             // Realizar la solicitud GET para crear la sala
             const response = await axios.get(`${apiEndpoint}/createroom/${username}`);
-            console.log("valor de la respuesta",response);
+            
             // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
             console.log('Sala creada webapp:', response.data.room);
             // Navegar a la sala después de crearla
             navigate(`/room/${response.data.room}`);
+
         } catch (error) {
             // Manejar errores, por ejemplo, mostrar un mensaje de error
             console.error('Error al crear la sala:', error);

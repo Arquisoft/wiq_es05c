@@ -18,6 +18,7 @@ function Game() {
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
+  const timeToAnswer = 20000;//Aquí podemos definir el tiempo para responder
 
 
   useEffect(() => {
@@ -57,7 +58,7 @@ function Game() {
 
       ) : (
         <QuestionArea data-testid="question-area" questions={questions}       setTotalCorrectAnswers={setCorrectAnswers}
-        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished}/>
+        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} timeToAnswer={timeToAnswer}/>
       )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>

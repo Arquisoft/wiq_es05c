@@ -20,7 +20,7 @@ mongoose.connect(mongoUri);
 app.get('/getQuestion', async(req,res)=> {
   try{  
     //coger pregunta bd
-    const questions = await question.obtenerPregunta(10);
+    const questions = await question.obtenerPregunta(1);
     //para devolver la pregunta
     res.json(questions);
     

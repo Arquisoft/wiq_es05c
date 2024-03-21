@@ -7,14 +7,12 @@ import { Timer } from './Timer';
 
 export function QuestionArea({questions}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
-
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
   // Estado para almacenar las respuestas
   const [respuestas, setRespuestas] = useState([]);
   // Estado que almacena la correcta
   const [correcta, setCorrecta] = useState();
-
   const [open, setOpen] = useState(false); // Nuevo estado para controlar si el diálogo está abierto o cerrado
   const [correctAnswers, setCorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas correctas
   const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
@@ -46,16 +44,33 @@ export function QuestionArea({questions}){
   // Función para manejar cuando se selecciona una respuesta
   const handleAnswerSelect = (isCorrect) => {
     if (isCorrect) {
-      setCorrectAnswers(prevCount => prevCount + 1);
-    } else {
-      setIncorrectAnswers(prevCount => prevCount + 1);
+      setCorrectAnswers(correctAnswers + 1);
     }
+    else{
+      setIncorrectAnswers(incorrectAnswers + 1);
+    }
+    
+    Finish();
+    
+  };
+  /*
+  comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
+  const Finish = () => {
+    if(questionIndex===questions.length-1)
+    {
+      alert("Has terminado el juego, has acertado "+correctAnswers+" preguntas y has fallado "+incorrectAnswers+" preguntas");
+    }else
+    {
+      loadNextQuestion();
+    }
+    };
 
-    if (questionIndex < questions.length - 1) {
-      setQuestionIndex(prevIndex => prevIndex + 1);
-    } else {
-      setOpen(true); // Abrir el diálogo cuando se hayan respondido todas las preguntas
-    }
+  // Función para cargar la siguiente pregunta
+  const loadNextQuestion = () => {
+    //poes el indice en la nueva preggunta y actualizas el valor de la pregunta actual 
+    setQuestionIndex(questionIndex+1);
+    fetchQuestionData();//obtener la siguiente pregunnta 
+    console.log("Pregunta actual: ", questionData.pregunta);
   };
 
 /** PARA DEPURACIÓN Y LOCAL
@@ -97,7 +112,6 @@ useEffect(() => {
         <Box alignContent="center" bg="#0000004d" display="flex" flexDir="column"
         maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
           
-              
                   <Box display="flex" borderBottom="0.1em solid #000">
                     <Timer onTimeout={handleTimeout} onReset={handleReset} timeout={30000} />
                     <EnunciadoBlock pregunta={questionData?.pregunta} />

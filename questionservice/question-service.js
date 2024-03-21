@@ -9,7 +9,7 @@ const question = new Question();
 const NewQuestion = require("./questionGeneration");
 const newquestion = new NewQuestion();
 const RoomQuestions = require('./RoomQuestions');
-const roomQuestions = new RoomQuestions();
+const roomQuestions = new RoomQuestions(question);
 const app = express();
 const port = 8003; 
 

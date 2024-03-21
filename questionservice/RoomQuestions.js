@@ -1,9 +1,10 @@
 class RoomQuestions{
-    constructor(){
+    constructor(question){
+        this.question=question;//recibe el generador de preguntas 
         this.rooms = new Map();
     }
     async joinRoom(id, username) {
-        console.log("entraJoinRoom id de entrada" + id);
+  
         try {
           if (id != null && id !== undefined) {
             if (this.rooms.has(id)) { // Verifica si la sala existe
@@ -28,8 +29,6 @@ class RoomQuestions{
             let id=this.generateRandomInteger(1000,9999);
             this.rooms.set(id.toString(),[username]);//agregar al usuario a la sala 
             console.log( "Room created");
-            console.log("Rooms after creating: ", JSON.stringify([...this.rooms])); // Imprime el contenido de 'this.rooms'
-
             return "sala creada correctamente con el id"+id;
         }catch(error){
             console.log(error);
@@ -40,13 +39,20 @@ class RoomQuestions{
     /**
      * funcion empieza el juego para todos los usuersz 
      */
-    startGame(id,username){
-        //solamente un solicitante puede empezar el juego 
-        if(checkEnoughPlayers(id) && rooms.get(id).includes(username)){
-            console.log("Game started");
-            return "Juego iniciado";
+    async startGame(id, username, res) {
+        try {
+          if (this.checkEnoughPlayers(id) && this.rooms.get(id).includes(username)) {
+            let preguntas = await this.question.obtenerPregunta(10);
+            io.to(id).emit('startGame', preguntas);
+            res.json({ success: true });
+          } else {
+            throw new Error('Error al iniciar el juego en la sala');
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: error.message });
         }
-    }
+      }
     //compreuba si hay suficientes jugadores para comenzar el juego min 2 
     checkEnoughPlayers(id){
         let userList = this.rooms.get(id);

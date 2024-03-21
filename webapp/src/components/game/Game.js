@@ -6,7 +6,8 @@ import {useNavigate} from 'react-router-dom';
 import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 
 /*
-recibe el obj gameMode que contieene las preguntas para ese modo de juego */
+recibe el obj gameMode que contieene las preguntas para ese modo de juego
+recibe questions que son las del servidor si estas en multiplayer  */
 function Game() {
   const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 

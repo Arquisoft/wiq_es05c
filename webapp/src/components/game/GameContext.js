@@ -9,6 +9,7 @@ export const GameProvider = ({ children,gameMode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const startGame = async () => {
+    resetGame();
     // Aquí deberías reemplazar `fetchQuestions` con tu propia lógica para obtener las preguntas
     const fetchedQuestions = await gameMode.fetchQuestions();
     setQuestions(fetchedQuestions);

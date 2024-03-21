@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef  } from 'react';
 import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
@@ -18,6 +18,9 @@ export function QuestionArea({questions}){
   const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
 
   const[isGameEnded, setIsGameEnded] = useState(false); // Nuevo estado para controlar si el juego ha terminado o no
+  const resetTimer = useRef(null); // Ref para almacenar la función resetTimer
+
+
   // Función para obtener los datos de la pregunta
   const fetchQuestionData = () => {
     try {
@@ -49,7 +52,6 @@ export function QuestionArea({questions}){
     else{
       setIncorrectAnswers(incorrectAnswers + 1);
     }
-    
     Finish();
     
   };
@@ -73,35 +75,13 @@ export function QuestionArea({questions}){
     //poes el indice en la nueva preggunta y actualizas el valor de la pregunta actual 
     setQuestionIndex(questionIndex+1);
     fetchQuestionData();//obtener la siguiente pregunnta 
+   
+
+    
     console.log("Pregunta actual: ", questionData.pregunta);
   };
 
-/** PARA DEPURACIÓN Y LOCAL
-useEffect(() => {
-  const dataDev = {
-    "pregunta": "What is the capital of France?",
-    "correcta": "Paris",
-    "respuestasIncorrecta1": "London",
-    "respuestasIncorrecta2": "Berlin",
-    "respuestasIncorrecta3": "Madrid"
-  };
 
-  // Simulación de la obtención de datos de pregunta
-  const enunciadoDev = dataDev;
-  const respuestasDev = [dataDev.correcta, dataDev.respuestasIncorrecta1, dataDev.respuestasIncorrecta2, dataDev.respuestasIncorrecta3];
-  const correctaDev = dataDev.correcta;
-
-  // Establecer los datos de pregunta y respuestas
-  setQuestionData(enunciadoDev);
-  setRespuestas(respuestasDev);
-  setCorrecta(correctaDev);
-}, []);
-*/
-
-  //Para el reloj reeiniciar (Cuando acertemos)
-  const handleReset = (startTimer) => {
-    startTimer();
-  };
   //Este cuando quedemos sin tiempo (perder)
   const handleTimeout = () => {
     Finish();
@@ -116,7 +96,7 @@ useEffect(() => {
         maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
           
                   <Box display="flex" borderBottom="0.1em solid #000">
-                    <Timer onTimeout={handleTimeout} onReset={handleReset} timeout={30000} />
+                  <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={30000} />
                     <EnunciadoBlock pregunta={questionData?.pregunta} />
                   </Box>
                   <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />

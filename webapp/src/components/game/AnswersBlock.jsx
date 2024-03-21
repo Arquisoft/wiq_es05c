@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { AnswerButton } from './AnswerButton.jsx';
-
-export function AnswersBlock({ respuestas, correcta }){
+//onAnswerSelect es la funcion de QuestionArea que se ejecuta al hacer click en boton 
+export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded}){
 
     const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
@@ -27,12 +27,14 @@ export function AnswersBlock({ respuestas, correcta }){
     }, [respuestasCopy]);
 
     const handleButtonClick = (respuesta) => {
-        if (respuesta === correcta) {
-            alert("¡Respuesta correcta!");
-        } else {
-            alert("Respuesta incorrecta.");
+        if (isGameEnded) {
+            return;
         }
-        console.log("owimawe");
+        if (respuesta === correcta) {
+            onAnswerSelect(true);
+        } else {
+            onAnswerSelect(false);
+        }
     };
 
     return (

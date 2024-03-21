@@ -8,14 +8,14 @@ function Game({gameMode}) {
 
   useEffect(() => {
     async function fetchData() {
-      await gameMode.fetchQuestions();
-      setQuestions(gameMode.questions);
+      setQuestions(await gameMode.fetchQuestions());
+      console.log("preguntas en el useeffect del game"+questions);
+
     }
-
+  
     fetchData();
-  }, []);
-
-
+  }, [gameMode]);
+  
   return (
     <Box minH="100vh" minW="100vw" 
       bgGradient="linear(to-t, #08313A, #107869)"

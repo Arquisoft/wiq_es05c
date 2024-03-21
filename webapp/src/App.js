@@ -14,7 +14,7 @@ import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
 import History from './components/history/History';
-import {BasicGameMode } from './components/game/gameModes/BasicGameMode';
+import {BasicGameMode } from './components/game/gameModes/basicGameMode';
 import {GameProvider} from './components/game/GameContext';
 const App = () => {
   return (

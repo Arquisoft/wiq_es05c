@@ -4,7 +4,7 @@ import './startButton.css'
 import { GameContext } from '../game/GameContext';
 const StartButton = () => {
 
-  const { startGame, questions, isLoading } = useContext(GameContext);
+  const { startGame} = useContext(GameContext);
 
   const navigate = useNavigate();
 

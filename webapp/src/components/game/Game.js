@@ -5,8 +5,6 @@ import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
 import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 
-import axios from 'axios';
-
 /*
 recibe el obj gameMode que contieene las preguntas para ese modo de juego */
 function Game() {

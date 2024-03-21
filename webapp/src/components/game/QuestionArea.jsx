@@ -1,5 +1,5 @@
 import { useEffect, useState,useRef  } from 'react';
-import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
 import { Timer } from './Timer';

@@ -9,6 +9,7 @@ const port = 8000;
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 const questionServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8003';
+const historyServiceUrl = process.env.HISTORY_SERVICE_URL || 'http://localhost:8004';
 
 app.use(cors());
 app.use(express.json());
@@ -44,6 +45,8 @@ app.post('/adduser', async (req, res) => {
     res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
+
+//*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */
 
 app.get('/getQuestion', async (req, res) => {
   try {
@@ -81,7 +84,31 @@ app.get('/generateQuestions', async (req, res) => {
   }
 });
 
+//***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 
+app.get('/getHistoryDetallado', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.get(historyServiceUrl+'/getHistoryDetallado', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
+app.get('/getHistoryTotal', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.get(historyServiceUrl+'/getHistoryTotal', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
 
 // Start the gateway service
 const server = app.listen(port, () => {

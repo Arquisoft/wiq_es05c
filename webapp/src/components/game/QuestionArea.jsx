@@ -28,7 +28,6 @@ export function QuestionArea({questions}){
       const data = questions[questionIndex]; // Usar el índice de la pregunta para obtener la pregunta actual
       setQuestionData(data); // Actualizar el estado con los datos de la pregunta obtenidos del array
       //Meto la correcta
-      console.log("preguntas en el fetchQuestionData: ", data);
       setCorrecta(data.correcta);
       //calcular respuestas 
       const respuestasArray = [data.correcta, data.respuestasIncorrecta1, data.respuestasIncorrecta2, data.respuestasIncorrecta3];

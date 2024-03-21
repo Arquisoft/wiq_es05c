@@ -5,12 +5,16 @@ import { useEffect, useState } from 'react';
 recibe el obj gameMode que contieene las preguntas para ese modo de juego */
 function Game({gameMode}) {
   const [questions, setQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      setQuestions(await gameMode.fetchQuestions());
-      console.log("preguntas en el useeffect del game"+questions);
+      const fetchedQuestions = await gameMode.fetchQuestions();
+      setQuestions(fetchedQuestions);
+      setIsLoading(false);
 
+
+      console.log("preguntas en el game "+questions);
     }
   
     fetchData();
@@ -20,11 +24,13 @@ function Game({gameMode}) {
     <Box minH="100vh" minW="100vw" 
       bgGradient="linear(to-t, #08313A, #107869)"
       display="flex" justifyContent="center" alignItems="center">
-      <QuestionArea data-testid="question-area" questions={questions}/>
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <QuestionArea data-testid="question-area" questions={questions}/>
+      )}
     </Box>
   );
-   
-  
 }
 
 export default Game;

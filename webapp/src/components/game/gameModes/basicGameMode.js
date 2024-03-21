@@ -8,19 +8,15 @@ export class BasicGameMode {
 
   async fetchQuestions() {
     try {
-      const response = await axios.get(`${this.apiEndpoint}/getQuestion`);
-      const data = response.data.resultado1;
-      const questionJson = data;
-      const correcta = data.correcta;
-      const respuestas = [data.correcta, data.respuestasIncorrecta1, data.respuestasIncorrecta2, data.respuestasIncorrecta3];
-  
-      console.log("Pregunta: ", questionJson);
-      console.log("Respuestas: ", respuestas);
-      console.log("Correcta: ", correcta);
-      return { questionJson, correcta, respuestas };
+      const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
+      const data = await response.json();
+
+      this.questions = Object.values(data);
+    console.log("questions en fetchQuestions BasicGameMode: ", this.questions);
     } catch (error) {
       console.error('Error fetching question data:', error);
     }
+    return this.questions;
   }
   
 };

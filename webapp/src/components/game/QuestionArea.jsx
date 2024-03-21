@@ -17,7 +17,7 @@ export function QuestionArea({questions}){
   const [correctAnswers, setCorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas correctas
   const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
 
-
+  const[isGameEnded, setIsGameEnded] = useState(false); // Nuevo estado para controlar si el juego ha terminado o no
   // Función para obtener los datos de la pregunta
   const fetchQuestionData = () => {
     try {
@@ -59,6 +59,9 @@ export function QuestionArea({questions}){
     if(questionIndex===questions.length-1)
     {
       alert("Has terminado el juego, has acertado "+correctAnswers+" preguntas y has fallado "+incorrectAnswers+" preguntas");
+      //poner a true el estado de juego terminado y ademas parar el reloj 
+      setIsGameEnded(true);
+
     }else
     {
       loadNextQuestion();
@@ -101,7 +104,7 @@ useEffect(() => {
   };
   //Este cuando quedemos sin tiempo (perder)
   const handleTimeout = () => {
-    //alert("Te quedaste sin tiempo jopelines :'c");
+    Finish();
   };
 
   const handleClose = () => {
@@ -116,7 +119,7 @@ useEffect(() => {
                     <Timer onTimeout={handleTimeout} onReset={handleReset} timeout={30000} />
                     <EnunciadoBlock pregunta={questionData?.pregunta} />
                   </Box>
-                  <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} />
+                  <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
                  
               
         <AlertDialog isOpen={open} onClose={handleClose}>

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const Model = require('./history-model')
 
 const History = require("./obtenerDetallesUsuarioBaseDatos");
 const history = new History();

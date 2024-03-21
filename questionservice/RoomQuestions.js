@@ -29,8 +29,9 @@ class RoomQuestions{
             let id=this.generateRandomInteger(1000,9999);
             this.rooms.set(id.toString(),[username]);//agregar al usuario a la sala 
             console.log( "Room created");
-            return "sala creada correctamente con el id"+id;
-        }catch(error){
+            return { room: id.toString() }; // Devuelve un objeto JSON con el campo 'room'
+
+          }catch(error){
             console.log(error);
             return "Error al crear la sala"; // Devuelve un mensaje de error
 

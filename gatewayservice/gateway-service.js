@@ -124,6 +124,7 @@ app.get('/createroom/:username',async(req,res)=> {
   try {
     const {username}=req.params;
     //crea la sala y te une dentro 
+    //room es el id  
     const room = await axios.get(`${questionServiceUrl}/createroom/${username}`);
     res.json(room.data);
 

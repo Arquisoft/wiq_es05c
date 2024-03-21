@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Game from './Game';
 import io from 'socket.io-client';
 import { GameProvider } from './GameContext'; // Importa el nuevo contexto
-import RoomGameMode from './gameModes/RoomGameMode'; // Importa la clase RoomGameMode
-/*
+import { RoomGameMode } from './gameModes/RoomGameMode';/*
 recibe la peticoion del serrvidor y lanza para todos los usuarios de la sala el juego con las preguntas */
 
 const GameMultiplayer = () => {
@@ -52,4 +51,4 @@ const GameMultiplayer = () => {
 
 
 };
-module.exports = GameMultiplayer;
+export default GameMultiplayer;

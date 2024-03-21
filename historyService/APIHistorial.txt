@@ -10,10 +10,12 @@ Cuando se obtiene un resultado del historial getHistorialDetallado devuelve un J
 
 La llamada a getHistorialTotal nos devolvera un JSON con el mismo formato, el numero de juegos sera la suma del numero de juegos totales y 
 preguntas_acertadas, preguntas_falladas sera la suma de todas las partidas, lo mismo con el tiempo. La fecha no aparecera tampoco.
-
+El tiempo medio sera el tiempoTotal/numeroJuegos.
+Las preguntas falladas y acertadas totales seran devueltas en porcentaje.
 {
     "nº juegoTotales": "2",
-    "preguntas_falladasTotales": "7",
-    "preguntas_acertadasTotales": "13",
+    "preguntas_falladasTotales": "40",
+    "preguntas_acertadasTotales": "60",
     "tiempo": "500",
+    "tiempoMedio": "250"
 }

@@ -44,6 +44,7 @@ class History{
         var preguntasAcertadas = 0;
         var preguntasFalladas = 0;
         var tiempoTotal = 0;
+        var tiempoMedio = 0;
         for(var i = 0; i < usuarioDetalles.juegos.length; i++){
             console.log(usuarioDetalles.juegos[i]);
             preguntasAcertadas += usuarioDetalles.juegos[i].preguntasAcertadas;
@@ -52,9 +53,10 @@ class History{
         }
     resultado = {
         numeroJuegos: numeroJuegos,
-        preguntas_falladas: preguntasFalladas,
-        preguntas_acertadas: preguntasAcertadas,
-        tiempoTotal : tiempoTotal
+        preguntas_falladas: (preguntasFalladas/(preguntasAcertadas+preguntasFalladas ) * 100),
+        preguntas_acertadas:  (preguntasAcertadas/(preguntasAcertadas+preguntasFalladas ) * 100),
+        tiempoTotal : tiempoTotal,
+        tiempoMedio : tiempoTotal/numeroJuegos
     }; 
     console.log(resultado);
     objetoExterno["resultado"] = resultado;

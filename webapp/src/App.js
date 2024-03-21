@@ -16,6 +16,7 @@ import Logout from './components/logout/Logout';
 import History from './components/history/History';
 import {BasicGameMode } from './components/game/gameModes/basicGameMode';
 import {GameProvider} from './components/game/GameContext';
+import PrincipalView from './components/principalView/PrincipalView';
 const App = () => {
   return (
     <AuthProvider>
@@ -24,7 +25,7 @@ const App = () => {
         <GameProvider gameMode={new BasicGameMode()}>
 
         <Routes>
-          <Route path="/" element={<StartButton/>} />
+          <Route path="/" element={<ChakraProvider><PrincipalView/></ChakraProvider>} />
           <Route path="/login" element={ <GuestLayout> <Login /> </GuestLayout>} />
           <Route path="/adduser" element={<GuestLayout> <AddUser /> </GuestLayout>}  />
           <Route path="/logout" element={  <AuthenticatedLayout> <Logout /> </AuthenticatedLayout>} />

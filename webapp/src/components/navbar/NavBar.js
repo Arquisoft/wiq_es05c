@@ -19,7 +19,7 @@ const NavBar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Button color="inherit" component={Link} to="/">
+        <Button color="inherit" component={Link} to="/home">
           Home
         </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />

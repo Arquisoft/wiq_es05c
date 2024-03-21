@@ -4,13 +4,14 @@ const Historial = mongoose.model('historial');
 
 class History{
     
-    async obtenerDetalleUser(usuario){    
+    async obtenerDetalleUser(usuario){  
+        console.log("entra en obtenerDetalleUser");  
         var resultado = {}; //el json con la informacion de un juego
         var resultadoFinal= {}; //el json con la informacion de todos los juegos
        
         console.log(usuario);
         //Se cojen los detalles del usuario que se pase por parametro
-        var usuarioDetalles = await Historial.findOne({ idUsuario: { $in: usuario._id } });
+        var usuarioDetalles = await Historial.findOne({ user: { $in: usuario} });
 
         //recorre todos los juegos que tiene el usuario y los guarda en un json
         for(var i = 0; i < usuarioDetalles.juegos.length; i++){
@@ -35,7 +36,7 @@ class History{
         console.log(usuario);
         
         //Se cojen los detalles del usuario que se pase por parametro
-        var usuarioDetalles = await Historial.findOne({ idUsuario: { $in: usuario._id } });
+        var usuarioDetalles = await Historial.findOne({ user: { $in: usuario } });
 
         //variables para guardar los datos totales
         var numeroJuegos = usuarioDetalles.juegos.length;

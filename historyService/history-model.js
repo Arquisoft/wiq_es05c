@@ -9,15 +9,15 @@ const historySchema = new mongoose.Schema({
   },
   
   juegos: [{
-    numeroDeJuego: {
+    numeroJuego: {
       type: Number,
       required: true
     },
-    numeroDePreguntasFalladas: {
+    preguntasFalladas: {
       type: Number,
       required: true
     },
-    numeroDePreguntasAcertadas: {
+    preguntasAcertadas: {
       type: Number,
       required: true
     },
@@ -31,6 +31,7 @@ const historySchema = new mongoose.Schema({
     }
   }]
 
-  });
+});
 
 const History = mongoose.model('historial', historySchema);
+

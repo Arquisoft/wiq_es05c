@@ -20,6 +20,8 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
   const [open, setOpen] = useState(false); // Nuevo estado para controlar si el diálogo está abierto o cerrado
   const [correctAnswers, setCorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas correctas
   const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
+  const [totalTime, setTotalTime] = useState(0);
+
 
   const[isGameEnded, setIsGameEnded] = useState(false); // Nuevo estado para controlar si el juego ha terminado o no
   const resetTimer = useRef(null); // Ref para almacenar la función resetTimer
@@ -115,7 +117,7 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
                   <Box display="flex" borderBottom="0.1em solid #000">
                     <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
                     <EnunciadoBlock pregunta={questionData?.pregunta} />
-                    <GameTimer isGameEnded={isGameEnded}/>
+                    <GameTimer isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
                   </Box>
                   <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
                  

@@ -11,6 +11,7 @@ Cuando se obtiene una pregunta con el /getQuestion devuelve un JSON con el sigui
 }
 
 Cuando se obtienen preguntas con el /getQuestionModoBasico devuelve 10 con el siguiente formato (ejemplo de las preguntas)
+si no se tienen 10 preguntas en la bd devuelve un error
 {
     "resultado1":{
         "pregunta":"¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a Quini?",

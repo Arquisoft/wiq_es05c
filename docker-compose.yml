@@ -53,6 +53,20 @@ services:
     environment:
       MONGODB_URI: mongodb://mongodb:27017/questionsdb
 
+  historyservice:
+    container_name: historyservice-${teamname:-wiq_es05c}
+    image: ghcr.io/arquisoft/wiq_es05c/historyservice:latest
+    profiles: ["dev", "prod"]
+    build: ./historyservice
+    depends_on:
+      - mongodb
+    ports:
+      - "8004:8004"
+    networks:
+      - mynetwork
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/historydb
+
   gatewayservice:
     container_name: gatewayservice-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/gatewayservice:latest
@@ -70,7 +84,8 @@ services:
     environment:
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
-      QUESTION_SERVICE_URL: http://questionservice:8003
+      QUESTION_SERVICE_URL: http://questionservice:8003      
+      HISTORY_SERVICE_URL: http://questionservice:8004
 
   webapp:
     container_name: webapp-${teamname:-wiq_es05c}

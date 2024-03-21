@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const Model = require('./question-model')
+
 const Question = require("./obtenerPreguntasBaseDatos");
 const question = new Question();
 

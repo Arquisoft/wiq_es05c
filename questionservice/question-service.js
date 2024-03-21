@@ -8,7 +8,8 @@ const question = new Question();
 
 const NewQuestion = require("./questionGeneration");
 const newquestion = new NewQuestion();
-
+const RoomQuestions = require('./RoomQuestions');
+const roomQuestions = new RoomQuestions();
 const app = express();
 const port = 8003; 
 
@@ -54,7 +55,43 @@ app.get('/generateQuestions', async(req,res)=> {
       
   });
 
+app.get('/joinroom/:id/:username',async(req,res)=> {
+  try {
+    const { id,username } = req.params;
+    // Aquí puedes buscar en tu base de datos las preguntas para la sala con el ID proporcionado
+    // y devolverlas en la respuesta. Este es solo un ejemplo y puede que necesites ajustarlo
+    // a tus necesidades.
+    const questions = await roomQuestions.joinRoom(id,username);
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las preguntas para la sala' });
+  }
 
+});
+app.get('/createroom/:username',async(req,res)=> {
+  console.log("entra");
+  try{
+    const { username } = req.params;
+    const room = await roomQuestions.createRoom(username);
+    console.log("sale con valor ",room);
+    res.json(room);
+  }catch(error){
+    res.status(500).json({ error: 'Error al crear la sala' });
+  }});
+
+  app.get('/startgame/:id/:username',async(req,res)=> {
+    try {
+      const { id,username } = req.params;
+      // Aquí puedes buscar en tu base de datos las preguntas para la sala con el ID proporcionado
+      // y devolverlas en la respuesta. Este es solo un ejemplo y puede que necesites ajustarlo
+      // a tus necesidades.
+      const questions = await roomQuestions.startGame(id,username);
+      res.json(questions);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener las preguntas para la sala' });
+    }
+  
+  });
 // Start the server
 const server = app.listen(port, () => {
   console.log(`Generate Service listening at http://localhost:${port}`);

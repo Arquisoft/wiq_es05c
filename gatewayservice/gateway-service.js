@@ -109,6 +109,29 @@ app.get('/getHistoryTotal', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
   }
 });
+//***************************************************endpoints de las salas */
+app.get('/joinroom/:id/:username',async(req,res)=> {
+  try {
+    console.log("controlador gateway parametros"+req.params);
+    const { id,username } = req.params;
+    const roomQuestionsResult = await axios.get(`${questionServiceUrl}/joinroom/${id}/${username}`);
+    res.json(roomQuestionsResult.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas' });
+  }
+});
+app.get('/createroom/:username',async(req,res)=> {
+  try {
+    const {username}=req.params;
+    //crea la sala y te une dentro 
+    const room = await axios.get(`${questionServiceUrl}/createroom/${username}`);
+    res.json(room.data);
+
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: 'Error al crear la sala' });
+  }
+});
 
 // Start the gateway service
 const server = app.listen(port, () => {

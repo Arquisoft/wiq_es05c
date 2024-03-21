@@ -24,8 +24,11 @@ app.get('/health', (_req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
+    console.log('Login request received');
     // Forward the login request to the authentication service
     const authResponse = await axios.post(authServiceUrl+'/login', req.body);
+    console.log('Login request forwarded to authentication service');
+    console.log('Response from authentication service:', authResponse.data);
     res.json(authResponse.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
@@ -54,11 +57,11 @@ app.get('/getQuestion', async (req, res) => {
   }
 });
 
-app.get('/getQuestionBasico', async (req, res) => {
+
+app.get('/getQuestionModoBasico', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
-    const questionResponse = await axios.get(questionServiceUrl+'/getQuestionBasico', req.body);
-    
+    const questionResponse = await axios.get(questionServiceUrl+'/getQuestionModoBasico', req.body);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 

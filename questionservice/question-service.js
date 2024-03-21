@@ -29,7 +29,7 @@ app.get('/getQuestion', async(req,res)=> {
   }
     
 }); 
-app.get('/getQuestionBasico', async(req,res)=> {
+app.get('/getQuestionModoBasico', async(req,res)=> {
   try{  
     //coger pregunta bd
     const questions = await question.obtenerPregunta(10);

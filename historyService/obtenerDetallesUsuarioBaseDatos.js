@@ -44,7 +44,7 @@ class History{
         var preguntasFalladas = 0;
         var tiempoTotal = 0;
         var tiempoMedio = 0;
-
+		
         //recorre todos los juegos que tiene el usuario y suma los datos
         for(var i = 0; i < usuarioDetalles.juegos.length; i++){
             console.log(usuarioDetalles.juegos[i]);
@@ -53,14 +53,14 @@ class History{
             tiempoTotal += usuarioDetalles.juegos[i].tiempo; 
         }
 
-        //resultado con la suma de los datos totales del usuario
         resultado = {
-            numeroJuegos: numeroJuegos,
-            preguntas_falladas: (preguntasFalladas/(preguntasAcertadas+preguntasFalladas ) * 100),
-            preguntas_acertadas:  (preguntasAcertadas/(preguntasAcertadas+preguntasFalladas ) * 100),
-            tiempoTotal : tiempoTotal,
-            tiempoMedio : tiempoTotal/numeroJuegos
+        numeroJuegos: numeroJuegos,
+        preguntas_falladas: (preguntasFalladas/(preguntasAcertadas+preguntasFalladas ) * 100),
+        preguntas_acertadas:  (preguntasAcertadas/(preguntasAcertadas+preguntasFalladas ) * 100),
+        tiempoTotal : tiempoTotal,
+        tiempoMedio : tiempoTotal/numeroJuegos
         }; 
+      
         console.log(resultado);
         return resultado;
     }

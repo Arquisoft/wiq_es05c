@@ -22,8 +22,11 @@ const NavBar = () => {
         <Button color="inherit" component={Link} to="/home">
           Home
         </Button>
-        <Button color="inherit" component={Link} to="/joinroom/1:8000">
+        <Button color="inherit" component={Link} to="/joinroom">
           Join Room
+        </Button>
+        <Button color="inherit" component={Link} to="/createroom">
+          Create room 
         </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
         {isLoggedIn() ? (

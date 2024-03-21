@@ -12,7 +12,6 @@ export class BasicGameMode {
       const data = await response.json();
 
       this.questions = Object.values(data);
-    console.log("questions en fetchQuestions BasicGameMode: ", this.questions);
     } catch (error) {
       console.error('Error fetching question data:', error);
     }

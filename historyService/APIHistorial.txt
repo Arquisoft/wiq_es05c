@@ -17,3 +17,17 @@ preguntas_acertadas, preguntas_falladas sera la suma de todas las partidas, lo m
     "preguntas_acertadasTotales": "13",
     "tiempo": "500",
 }
+
+llamada para insertar en el historial , la categoria puede ser opcional 
+url /historyAdd
+
+{
+    user: usuario,
+    correctas:7
+    incorrectas:3,
+    tiempoTotal:300 seg ,
+    categoria: opcional
+
+
+
+}

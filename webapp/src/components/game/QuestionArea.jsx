@@ -4,8 +4,11 @@ import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
 import { Timer } from './Timer';
 
+/*
+*maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
+cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
 
-export function QuestionArea({questions}){
+export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
@@ -24,7 +27,7 @@ export function QuestionArea({questions}){
   // Función para obtener los datos de la pregunta
   const fetchQuestionData = () => {
     try {
-      console.log("Array de preguntas en el fetchQuestionData: ", questions);
+      console.log("Array de preguntas en el juego: ", questions);
       // Obtener los datos de la pregunta del array de preguntas
       const data = questions[questionIndex]; // Usar el índice de la pregunta para obtener la pregunta actual
       setQuestionData(data); // Actualizar el estado con los datos de la pregunta obtenidos del array
@@ -43,7 +46,19 @@ export function QuestionArea({questions}){
     fetchQuestionData();
   }, [questionIndex]);
 
-  
+  //se lanza si se acaba el juego 
+  useEffect(()=>{
+    //como esto se lanza cada que se actiliza tb cuando se pone a false solamente guardas el historial al ser true 
+    if(isGameEnded){
+      //alert("Has terminado el juego, has acertado "+correctAnswers+" preguntas y has fallado "+incorrectAnswers+" preguntas");
+      setOpen(true);
+      setTotalCorrectAnswers(correctAnswers);
+      setTotalIncorrectAnswers(incorrectAnswers);
+      setFinished(true);
+      
+    }
+   
+  },[isGameEnded])
   // Función para manejar cuando se selecciona una respuesta
   const handleAnswerSelect = (isCorrect) => {
     if (isCorrect) {
@@ -60,9 +75,11 @@ export function QuestionArea({questions}){
   const Finish = () => {
     if(questionIndex===questions.length-1)
     {
-      alert("Has terminado el juego, has acertado "+correctAnswers+" preguntas y has fallado "+incorrectAnswers+" preguntas");
       //poner a true el estado de juego terminado y ademas parar el reloj 
       setIsGameEnded(true);
+
+       
+
 
     }else
     {
@@ -76,9 +93,8 @@ export function QuestionArea({questions}){
     setQuestionIndex(questionIndex+1);
     fetchQuestionData();//obtener la siguiente pregunnta 
    
-
     
-    console.log("Pregunta actual: ", questionData.pregunta);
+    
   };
 
 
@@ -102,30 +118,7 @@ export function QuestionArea({questions}){
                   <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
                  
               
-        <AlertDialog isOpen={open} onClose={handleClose}>
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Use Google's location service?
-              </AlertDialogHeader>
-
-              <AlertDialogBody>
-                Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-                Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-              </AlertDialogBody>
-
-              <AlertDialogFooter>
-                <Button onClick={handleClose} colorScheme="red">
-                  Disagree
-                </Button>
-                <Button onClick={handleClose} colorScheme="green" ml={3}>
-                  Agree
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-              
+       
            
         </Box>
     )

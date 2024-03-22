@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Model = require('./question-model')
 const socketIO = require('socket.io');
-const http = require('http'); // Añade esta línea
+const http = require('http'); 
+const cors = require('cors');
 
 const Question = require("./obtenerPreguntasBaseDatos");
 const question = new Question();
@@ -10,10 +11,12 @@ const question = new Question();
 const NewQuestion = require("./questionGeneration");
 const newquestion = new NewQuestion();
 const RoomQuestions = require('./RoomQuestions');
-const roomQuestions = new RoomQuestions(question);
 const app = express();
+app.use(cors());
 const servidor = http.createServer(app);
 const io = socketIO(servidor);
+const roomQuestions = new RoomQuestions(question,io);
+
 const port = 8003; 
 
 // Middleware to parse JSON in request body

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import socketIOClient from "socket.io-client";
+const socket = socketIOClient('http://localhost:8005'); // Reemplazar esto por algo no hardcoded
 const CreateRoomForm = () => {
     const navigate = useNavigate();
 
@@ -13,13 +14,16 @@ const CreateRoomForm = () => {
     const handleCreateRoom = async () => {
         try {
             setIsLoading(true);
-            // Realizar la solicitud GET para crear la sala
-            const response = await axios.get(`${apiEndpoint}/createroom/${username}`);
-            
+            // no necesitas esto escuchara el evento socket.io
+            //const response = await axios.get(`${apiEndpoint}/createroom/${username}`);
+             
+            // Emitir evento para crear la sala
+            socket.emit('createRoom', { username });
+
             // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
-            console.log('Sala creada webapp:', response.data.room);
-            // Navegar a la sala después de crearla
-            navigate(`/room/${response.data.room}`);
+            socket.on('roomCreated', (roomId) => {
+                navigate(`/room/${roomId}`);
+              });
 
         } catch (error) {
             // Manejar errores, por ejemplo, mostrar un mensaje de error

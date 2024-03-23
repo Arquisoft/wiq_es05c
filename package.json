@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "axios": "^1.6.8",
+    "express": "^4.19.1",
     "react-bootstrap": "^2.10.2",
     "socket.io-client": "^4.7.5"
   },

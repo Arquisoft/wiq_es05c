@@ -10,13 +10,13 @@ const Room = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const newSocket = socketIOClient('http://localhost:8003'); // Reemplaza esto con la URL de tu servidor
+    const newSocket = socketIOClient('http://localhost:8005'); // Reemplaza esto con la URL de tu servidor
     setSocket(newSocket);
 
-    // Escuchar eventos del servidor
-    newSocket.on('userJoined', (username) => {
-      setUsers((users) => [...users, username]);
-    });
+    //emitir eventos para el servidor 
+     // Emitir evento para unirse a la sala
+    newSocket.emit('joinRoom', { id: roomId, username: 'usuario1' }); // Reemplaza 'usuario1' con el nombre de usuario real
+
 
     // Manejar evento cuando un usuario abandona la sala
     newSocket.on('userLeft', (username) => {

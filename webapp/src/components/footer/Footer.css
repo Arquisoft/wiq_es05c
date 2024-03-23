@@ -24,3 +24,9 @@
     text-decoration: underline; /* Subraya enlaces al pasar el ratón */
   }
 
+  .sec-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+

@@ -9,7 +9,7 @@ import { GameTimer } from './timers/GameTimer.jsx';
 *maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
 cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
 
-export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, timeToAnswer=30000}){
+export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, timeToAnswer=30000}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
@@ -115,15 +115,11 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
         maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
           
                   <Box display="flex" borderBottom="0.1em solid #000">
-                    <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
-                    <EnunciadoBlock pregunta={questionData?.pregunta} />
-                    <GameTimer isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
+                    <Timer darkMode={darkMode} onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
+                    <EnunciadoBlock darkMode={darkMode} pregunta={questionData?.pregunta} />
+                    <GameTimer darkMode={darkMode} isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
                   </Box>
-                  <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
-                 
-              
-       
-           
+                  <AnswersBlock darkMode={darkMode} respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded}/>
         </Box>
     )
 }

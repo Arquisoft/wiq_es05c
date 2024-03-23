@@ -1,11 +1,13 @@
 import {Center } from "@chakra-ui/react";
 
 
-export function EnunciadoBlock({pregunta}){
+export function EnunciadoBlock({darkMode, pregunta}){
+
+    let textColor = darkMode.darkMode? "#FCFAF0" : "#08313A";
 
     return(
         <Center fontSize="1.5em" 
-        color="#FCFAF0" fontWeight="bolder"flex="2">
+        color={textColor} fontWeight="bolder"flex="2">
             {pregunta}
         </Center>
     )

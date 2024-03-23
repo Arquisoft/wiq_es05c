@@ -1,5 +1,5 @@
 import { QuestionArea } from './QuestionArea';
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState,useContext, useRef } from 'react';
 import { CircularProgress } from "@mui/material";
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader
 
 /*
 recibe el obj gameMode que contieene las preguntas para ese modo de juego */
-function Game() {
+function Game(darkMode) {
   const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
   const { startGame, questions, isLoading } = useContext(GameContext);
@@ -49,15 +49,21 @@ function Game() {
     setIsOpen(false);
     navigate('/home');
   }
+  //Colores chakra dark - light
+  console.log("En game"+darkMode.darkMode);
+  let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
+  let backgroundColorSecond= darkMode.darkMode? '#107869' : '#FDF4E3';
+  //#08313A, #107869
+
   return (
     <Box minH="100vh" minW="100vw" 
-      bgGradient="linear(to-t, #08313A, #107869)"
+      bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
       display="flex" justifyContent="center" alignItems="center">
       {isLoading ? (
          <CircularProgress color="inherit" />
 
       ) : (
-        <QuestionArea data-testid="question-area" questions={questions}       setTotalCorrectAnswers={setCorrectAnswers}
+        <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
         setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} timeToAnswer={timeToAnswer}/>
       )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>

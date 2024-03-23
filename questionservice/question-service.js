@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Model = require('./question-model')
+const Model = require('./question-model');
 const socketIO = require('socket.io');
 const http = require('http'); 
 const cors = require('cors');

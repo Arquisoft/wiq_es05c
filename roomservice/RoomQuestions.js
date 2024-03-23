@@ -2,7 +2,6 @@ const { Server } = require("socket.io");
 
 class RoomQuestions{
     constructor(question,io){
-        this.question=question;//recibe el generador de preguntas 
         this.rooms = new Map();
         this.io = io;
     }

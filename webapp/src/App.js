@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Navbar from './components/navbar/NavBar';
 import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
@@ -9,7 +9,6 @@ import Game from './components/game/Game';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
-
 import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
@@ -18,10 +17,23 @@ import {BasicGameMode } from './components/game/gameModes/basicGameMode';
 import {GameProvider} from './components/game/GameContext';
 import PrincipalView from './components/principalView/PrincipalView';
 const App = () => {
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      console.log('dark mode');
+      document.body.classList.add('dark-mode');
+    } else {
+      console.log('light mode');
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
+
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        <Navbar setDarkMode={setDarkMode}/>
         <GameProvider gameMode={new BasicGameMode()}>
 
         <Routes>

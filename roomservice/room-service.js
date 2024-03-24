@@ -54,7 +54,8 @@ io.on('connection', (socket) => {
   });
   //mostrar los usuarios una vez la pagina esta cargada 
   socket.on('ready',({id}) => {
-    roomQuestions.emitCurrentUsers(id);
+    console.log("evento ready redibido");
+    roomQuestions.emitCurrentUsers(id,socket);
   });
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');

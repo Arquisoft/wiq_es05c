@@ -8,31 +8,32 @@ class RoomQuestions{
         this.rooms = new Map();
         this.io = io;
     }
-    async joinRoom(id, username,socket) {
-  
-        try {
-          if (id != null && id !== undefined) {
-            if (this.rooms.has(id)) { // Verifica si la sala existe
-              let userList = this.rooms.get(id);
-              userList.push(username);
-              this.rooms.set(id, userList);
-              console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
-              //this.io.to(id).emit('questions', questions);
+    async joinRoom(id, username, socket) {
+      try {
+        if (id != null && id !== undefined) {
+          if (this.rooms.has(id)) { // Verifica si la sala existe
+            let userList = this.rooms.get(id);
+            userList.push(username);
+            this.rooms.set(id, userList);
+            console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
-              // Emitir evento 'roomCreated' con el ID de la sala SOLO AL USER SE USA EL SOCKET 
-              socket.emit('roomJoined', id);
-               // Escuchar evento 'ready' antes de emitir 'currentUsers'
-
-            } else {
-              throw new Error("la sala no existe ");
-            }
+            //asociar el socket a la sala
+            socket.join(id);
+            // Emitir evento 'roomJoined' solo al usuario que se acaba de unir a la sala
+            socket.emit('roomJoined', id);
+    
+         
+            this.emitCurrentUsers(id,socket);
           } else {
-            throw new Error("ID de sala inválido");
+            throw new Error("la sala no existe ");
           }
-        } catch (error) {
-          console.log(error);
+        } else {
+          throw new Error("ID de sala inválido");
         }
+      } catch (error) {
+        console.log(error);
       }
+    }
 
     async createRoom(username,socket){
         console.log("entraCrearRoom");
@@ -46,8 +47,9 @@ class RoomQuestions{
             // Emitir evento 'roomCreated' con el ID de la sala
             socket.emit('roomCreated', id);
 
-            //unirte a ti mismo a la sala 
-           // this.joinRoom(id.toString(), username,);
+            //unir el socket a la sala
+            socket.join(id);
+
             return id.toString(); // no haria falta 
           }catch(error){
             console.log(error);
@@ -82,12 +84,17 @@ class RoomQuestions{
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    emitCurrentUsers(id) {
+    emitCurrentUsers(id,socket) {
       console.log("Emitting current users");
       if (this.rooms.has(id)) {
         const users = this.rooms.get(id);
         console.log("Users in room: " + users);
-        this.io.to(id).emit('currentUsers', users);
+
+           // Emitir evento 'currentUsers' al usuario que se acaba de unir a la sala
+           socket.emit('currentUsers', users);
+    
+           // Emitir evento 'currentUsers' a todos los demás usuarios en la sala
+          this.io.emit('currentUsers', users);
       } else {
         console.log(`La sala con id ${id} no existe.`);
       }

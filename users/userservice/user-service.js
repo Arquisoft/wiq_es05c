@@ -34,31 +34,36 @@ function validatePasswords(req) {
 }
 
 // funcion que comprueba si la contraseña tiene el formato adecuado
-function validateFormatPassword(req) {
+//si hay errores, los añade para despues enseñarlos al usuario
+function validateFormatPassword(password) {
+  const errors = [];
+
   //la contraseña tiene que tener al menos 12 caracteres
-  if (req.body.password.length < 12) {
-    throw new Error('La contraseña tiene que tener al menos 12 caracteres');
+  if (password.length < 12) {
+    errors.push('La contraseña tiene que tener al menos 12 caracteres');
   }
 
   //la contraseña tiene que tener al menos una letra mayúscula
-  if(!req.body.password.match(/[A-Z]/)){
-    throw new Error('La contraseña tiene que tener al menos una letra mayúscula');
+  if(!password.match(/[A-Z]/)){
+    errors.push('La contraseña tiene que tener al menos una letra mayúscula');
   }
 
   //la contraseña tiene que tener al menos una letra minúscula
-  if(!req.body.password.match(/[a-z]/)){
-    throw new Error('La contraseña tiene que tener al menos una letra minúscula');
+  if(!password.match(/[a-z]/)){
+    errors.push('La contraseña tiene que tener al menos una letra minúscula');
   }
 
   //la contraseña tiene que tener al menos un número
-  if(!req.body.password.match(/[0-9]/)){
-    throw new Error('La contraseña tiene que tener al menos un número');
+  if(!password.match(/[0-9]/)){
+    errors.push('La contraseña tiene que tener al menos un número');
   }
 
   //la contraseña tiene que tener al menos un carácter especial
-  if(!req.body.password.match(/[^a-zA-Z0-9]/)){
-    throw new Error('La contraseña tiene que tener al menos un carácter especial');
+  if(!password.match(/[^a-zA-Z0-9]/)){
+    errors.push('La contraseña tiene que tener al menos un carácter especial');
   }
+
+  return errors;
 }
 
 app.post('/adduser', async (req, res) => {
@@ -70,7 +75,10 @@ app.post('/adduser', async (req, res) => {
         validatePasswords(req);
 
         // comprobamos si las contraseñas tienen el formato adecuado
-        validateFormatPassword(req);
+        const passwordErrors = validateFormatPassword(req.body.password);
+        if (passwordErrors.length > 0) {
+          throw new Error(passwordErrors.join('; \n'));
+        }
 
         // Encrypt the password before saving it
         const hashedPassword = await bcrypt.hash(req.body.password, 10);

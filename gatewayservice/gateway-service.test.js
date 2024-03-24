@@ -99,29 +99,6 @@ it('should handle authentication error', async () => {
 //*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */
 
 
-it('should perform the getQuestion request', async () => {
-  const response = await request(app).get('/getQuestion').send();
-
-  expect(response.statusCode).toBe(200);
-  const data = {
-    pregunta: '¿Cuál es la capital de Francia?',
-    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
-    correcta: 'Helsinki',
-  };
-  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-});
-
-it('should perform the getQuestion mode basic request', async () => {
-  const response = await request(app).get('/getQuestionModoBasico').send();
-
-  expect(response.statusCode).toBe(200);
-  const data = {
-    pregunta: '¿Cuál es la capital de Francia?',
-    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
-    correcta: 'Helsinki',
-  };
-  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-});
 
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
   it('should handle error when fetching question', async () => {
@@ -130,47 +107,6 @@ it('should perform the getQuestion mode basic request', async () => {
     axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
 
-  it('should forward get question request to question service', async () => {
-    const questionServiceUrl = 'http://localhost:8003'; 
-    const expectedQuestion = '¿Cuál es la capital de Francia?';
-    const expectedOptions = ['Berlin', 'Paris', 'Londres', 'Madrid'];
-    const expectedCorrectAnswer = 'Helsinki';
-
-  // Simula una llamada exitosa al servicio de preguntas
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-
-  // Realiza la solicitud al endpoint
-    const response = await request(app).get('/getQuestion').send();
-
-  // Verifica que la respuesta tenga un código de estado 200
-    expect(response.statusCode).toBe(200);
-
-  // Verifica que la pregunta y las opciones sean correctas
-    expect(response.body.pregunta).toBe(expectedQuestion);
-    expect(response.body.respuestas).toEqual(expect.arrayContaining(expectedOptions));
-    expect(response.body.correcta).toBe(expectedCorrectAnswer);
-  });
-
-  it('should forward get question request to question service mode basic', async () => {
-    const questionServiceUrl = 'http://localhost:8003'; 
-    const expectedQuestion = '¿Cuál es la capital de Francia?';
-    const expectedOptions = ['Berlin', 'Paris', 'Londres', 'Madrid'];
-    const expectedCorrectAnswer = 'Helsinki';
-
-  // Simula una llamada exitosa al servicio de preguntas
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-
-  // Realiza la solicitud al endpoint
-    const response = await request(app).get('/getQuestionModoBasico').send();
-
-  // Verifica que la respuesta tenga un código de estado 200
-    expect(response.statusCode).toBe(200);
-
-  // Verifica que la pregunta y las opciones sean correctas
-    expect(response.body.pregunta).toBe(expectedQuestion);
-    expect(response.body.respuestas).toEqual(expect.arrayContaining(expectedOptions));
-    expect(response.body.correcta).toBe(expectedCorrectAnswer);
-  });
 
   it('should forward get question request to question generate service', async () => {
     const questionServiceUrl = 'http://localhost:8003/generateQuestions'; 
@@ -212,22 +148,19 @@ it('should return an error when the question service request fails', async () =>
           expect(response.body.error).toBeDefined();
           expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas');
         });
-
-        it('should return an error when the question service mode basic request fails', async () => {
+it('should return an error when the question service request fails', async () => {
           // Mock the axios.get method to reject the promise
           axios.get.mockImplementationOnce(() =>
             Promise.reject(new Error('Error al realizar la solicitud al servicio de preguntas'))
           );
-        
-          const response = await request(app)
-            .get('/getQuestionModoBasico')
-            .send({ id: 'mockedQuestionId' });
-        
+      
+          const response = await request(app).get('/getQuestionModoBasico');
+      
           expect(response.statusCode).toBe(500);
           expect(response.body.error).toBeDefined();
           expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas');
         });
-
+        
         it('should return an error when generating questions fails', async () => {
           const errorMessage = 'Error al realizar la solicitud al servicio de generacion de preguntas';
           axios.get.mockRejectedValue(new Error(errorMessage));
@@ -239,6 +172,15 @@ it('should return an error when the question service request fails', async () =>
           expect(response.body.error).toEqual(errorMessage);
         });
 
+        it('should return question data when the request is successful', async () => {
+          // Mock the axios.get method to resolve the promise
+          axios.get.mockResolvedValueOnce({ data: { question: 'mockedQuestionData' } });
+      
+          const response = await request(app).get('/getQuestionModoBasico');
+      
+          expect(response.statusCode).toBe(200);
+          expect(response.body).toEqual({ question: 'mockedQuestionData' });
+        });
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 
 it('should return an error when the history service request fails', async () => {

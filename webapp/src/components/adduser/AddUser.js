@@ -33,13 +33,13 @@ const AddUser = () => {
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       <Typography component="h1" variant="h5">
-        Add User
+        Añadir usuario
       </Typography>
       <TextField
         name="username"
         margin="normal"
         fullWidth
-        label="Username"
+        label="Usuario"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -47,22 +47,24 @@ const AddUser = () => {
         name="password"
         margin="normal"
         fullWidth
-        label="Password"
+        label="Contraseña"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        helperText="La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial"
       />
       <TextField
         name="passwordConfirm"
         margin="normal"
         fullWidth
-        label="PasswordConfirm"
+        label="Confirme la contraseña"
         type="password"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
+        helperText="Las contraseñas tienen que coincidir"
       />
       <Button variant="contained" color="primary" onClick={addUser}>
-        Add User
+        Añadir usuario
       </Button>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
       {error && (

@@ -26,15 +26,52 @@ function validateRequiredFields(req, requiredFields) {
     }
 }
 
+
+function validatePasswords(req) {
+  if (req.body.password !== req.body.passwordConfirm) {
+    throw new Error('Las contraseñas no coinciden');
+  }
+}
+
+// funcion que comprueba si la contraseña tiene el formato adecuado
+function validateFormatPassword(req) {
+  //la contraseña tiene que tener al menos 12 caracteres
+  if (req.body.password.length < 12) {
+    throw new Error('La contraseña tiene que tener al menos 12 caracteres');
+  }
+
+  //la contraseña tiene que tener al menos una letra mayúscula
+  if(!req.body.password.match(/[A-Z]/)){
+    throw new Error('La contraseña tiene que tener al menos una letra mayúscula');
+  }
+
+  //la contraseña tiene que tener al menos una letra minúscula
+  if(!req.body.password.match(/[a-z]/)){
+    throw new Error('La contraseña tiene que tener al menos una letra minúscula');
+  }
+
+  //la contraseña tiene que tener al menos un número
+  if(!req.body.password.match(/[0-9]/)){
+    throw new Error('La contraseña tiene que tener al menos un número');
+  }
+
+  //la contraseña tiene que tener al menos un carácter especial
+  if(!req.body.password.match(/[^a-zA-Z0-9]/)){
+    throw new Error('La contraseña tiene que tener al menos un carácter especial');
+  }
+}
+
 app.post('/adduser', async (req, res) => {
     try {
         // Check if required fields are present in the request body
         validateRequiredFields(req, ['username', 'password', 'passwordConfirm']);
 
         // comprobar si las contraseñas introducidas por el usuario son iguales
-        if (req.body.password !== req.body.passwordConfirm) {
-            throw new Error('Passwords do not match');
-        }
+        validatePasswords(req);
+
+        // comprobamos si las contraseñas tienen el formato adecuado
+        validateFormatPassword(req);
+
         // Encrypt the password before saving it
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 

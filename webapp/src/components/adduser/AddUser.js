@@ -8,13 +8,14 @@ const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 const AddUser = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const navigate = useNavigate();
   const addUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/adduser`, { username, password });
+      await axios.post(`${apiEndpoint}/adduser`, { username, password , passwordConfirm});
       setOpenSnackbar(true);
 
       
@@ -50,6 +51,15 @@ const AddUser = () => {
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+      />
+      <TextField
+        name="passwordConfirm"
+        margin="normal"
+        fullWidth
+        label="PasswordConfirm"
+        type="password"
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
       />
       <Button variant="contained" color="primary" onClick={addUser}>
         Add User

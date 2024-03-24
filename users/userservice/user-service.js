@@ -29,8 +29,12 @@ function validateRequiredFields(req, requiredFields) {
 app.post('/adduser', async (req, res) => {
     try {
         // Check if required fields are present in the request body
-        validateRequiredFields(req, ['username', 'password']);
+        validateRequiredFields(req, ['username', 'password', 'passwordConfirm']);
 
+        // comprobar si las contraseñas introducidas por el usuario son iguales
+        if (req.body.password !== req.body.passwordConfirm) {
+            throw new Error('Passwords do not match');
+        }
         // Encrypt the password before saving it
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 const AddUser = () => {
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -15,7 +16,7 @@ const AddUser = () => {
   const navigate = useNavigate();
   const addUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/adduser`, { username, password , passwordConfirm});
+      await axios.post(`${apiEndpoint}/adduser`, { email, username, password , passwordConfirm});
       setOpenSnackbar(true);
 
       
@@ -35,6 +36,14 @@ const AddUser = () => {
       <Typography component="h1" variant="h5">
         Añadir usuario
       </Typography>
+      <TextField
+        name="email"
+        margin="normal"
+        fullWidth
+        label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <TextField
         name="username"
         margin="normal"

@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const User = require('./user-model')
 
+const validator = require('validator');
+
 const app = express();
 const port = 8001;
 
@@ -26,7 +28,7 @@ function validateRequiredFields(req, requiredFields) {
     }
 }
 
-
+// Funcion que comprueba si las contraseñas introducidas por el usuario son iguales
 function validatePasswords(req) {
   if (req.body.password !== req.body.passwordConfirm) {
     throw new Error('Las contraseñas no coinciden');
@@ -66,10 +68,39 @@ function validateFormatPassword(password) {
   return errors;
 }
 
+// funcion que comprueba si el email introducido por el usuario es valido
+//si es valido comprueba si ya existe en la base de datos
+async function validateEmail(req) {
+  if(!validator.isEmail(req.body.email)){
+    throw new Error('El email es invalido');
+  }
+  //comprobamos si existe el email en la base de datos
+  else{
+    const user = await User.findOne({email: req.body.email});
+    if(user !== null){
+      throw new Error('El email ya existe en la base de datos')
+    }
+  }
+}
+
+//si es valido comprueba si ya existe en la base de datos
+async function checkUsername(req) {
+  const user = await User.findOne({username: req.body.username});
+  if(user !== null){
+    throw new Error('El username ya existe en la base de datos')
+  }
+}
+
 app.post('/adduser', async (req, res) => {
     try {
         // Check if required fields are present in the request body
-        validateRequiredFields(req, ['username', 'password', 'passwordConfirm']);
+        validateRequiredFields(req, ['email', 'username', 'password', 'passwordConfirm']);
+
+        // comprobar si el email introducido por el usuario es valido
+        await validateEmail(req);
+
+        // comprobar si el nombre de usuario introducido por el usuario ya existe en la base de datos
+        await checkUsername(req);
 
         // comprobar si las contraseñas introducidas por el usuario son iguales
         validatePasswords(req);
@@ -84,6 +115,7 @@ app.post('/adduser', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const newUser = new User({
+            email: req.body.email,
             username: req.body.username,
             password: hashedPassword,
         });

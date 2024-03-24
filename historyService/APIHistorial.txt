@@ -1,11 +1,22 @@
 Cuando se obtiene un resultado del historial getHistorialDetallado devuelve un JSON con el siguiente formato.
 
 {
-    "nº juego": "1",
-    "preguntas_falladas": "3",
-    "preguntas_acertadas": "7",
-    "tiempo": "300",
-    "fecha": "20/03/2024"
+    {
+        "nº juego": "1",
+        "preguntas_falladas": "3",
+        "preguntas_acertadas": "7",
+        "tiempo": "300",
+        "fecha": "20/03/2024"
+    },
+    {
+        "nº juego": "2",
+        "preguntas_falladas": "6",
+        "preguntas_acertadas": "4",
+        "tiempo": "250",
+        "fecha": "21/03/2024"
+    }
+
+    //habra tantos json como numero de juegos haya jugado el usuario
 }
 
 La llamada a getHistorialTotal nos devolvera un JSON con el mismo formato, el numero de juegos sera la suma del numero de juegos totales y 

@@ -1,11 +1,11 @@
 // src/components/Login.js
-import React, { useContext, useState ,useEffect} from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 
 import { AuthContext } from '../authcontext';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 
 const Login = () => {
   //hacer que el navbar guarde el contexo de si estas loggeado o no 
@@ -90,6 +90,11 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          
+          <Typography>
+          <Link to="/adduser">¿No tienes cuenta , registrate aqui ?</Link>
+
+            </Typography>
           <Button variant="contained" color="primary" onClick={loginUser}>
             Login
           </Button>

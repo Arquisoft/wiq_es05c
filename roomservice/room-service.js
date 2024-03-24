@@ -32,6 +32,7 @@ io.on('connection', (socket) => {
   // Evento personalizado para unir a un usuario a una sala
   socket.on('joinRoom', async ({ id, username }) => {
     try {
+      console.log("microservicio--joinroom , valor id "+id+" username "+username);
       await roomQuestions.joinRoom(id, username);
       console.log(`Usuario ${username} se ha unido a la sala ${id}`);
     } catch (error) {
@@ -41,7 +42,8 @@ io.on('connection', (socket) => {
   // Evento personalizado para crear una sala
   socket.on('createRoom', async ({ username }) => {
     try {
-      await roomQuestions.createRoom(username);
+     const id= await roomQuestions.createRoom(username);
+     console.log("id de la sala creada : "+id);
       console.log(`Usuario ${username} ha creado la sala ${id}`);
     } catch (error) {
       console.log(`Error al crear la sala: ${error.message}`);

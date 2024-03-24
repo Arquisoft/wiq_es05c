@@ -18,7 +18,9 @@ class RoomQuestions{
               this.rooms.set(id, userList);
               console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
               //this.io.to(id).emit('questions', questions);
-
+    
+              // Emitir evento 'roomCreated' con el ID de la sala
+              this.io.emit('roomJoined', id);
 
             } else {
               throw new Error("la sala no existe ");

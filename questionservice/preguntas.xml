@@ -37,6 +37,7 @@
            }
         </query>
     </pregunta>
+    
    
    <pregunta question="libro" type="autor"  category="arte">
     <query>
@@ -61,6 +62,54 @@
             ?genero rdfs:label ?nombregenero filter (lang(?nombregenero) = "es").
         }
         GROUP BY ?nombreLibro
+    </query>
+   </pregunta>
+
+   <pregunta question="nombreLibro" type="paisLibro"  category="arte">
+    <query>
+        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombrePais; SEPARATOR=", ") AS ?paises) 
+        WHERE { 
+            ?book wdt:P31 wd:Q571.  # libro (clase) 
+            ?book wdt:P495 ?country.  # Relación "país de origen" 
+            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es"). 
+            ?country rdfs:label ?nombrePais filter (lang(?nombrePais) = "es"). 
+        } 
+        GROUP BY ?nombreLibro 
+    </query>
+   </pregunta>
+
+   <pregunta question="actores" type="fechaNacimiento"  category="arte">
+    <query>
+        SELECT ?personLabel ?birthDate { 
+
+            ?person wdt:P27 wd:Q29 . 
+          
+            ?person wdt:P106 wd:Q33999 . 
+          
+            ?person wdt:P569 ?birthDate . 
+          
+            SERVICE wikibase:label { 
+          
+              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
+          
+            } 
+          
+          } 
+    </query>
+   </pregunta>
+
+   <pregunta question="chef" type="startDate"  category="arte">
+    <query>
+        SELECT ?personLabel ?startDate {  
+
+            ?person wdt:P27 wd:Q29 .  
+            ?person wdt:P106 wd:Q156839 .  
+            ?person wdt:P2031 ?startDate.  
+            SERVICE wikibase:label {  
+              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
+          
+            }  
+          } 
     </query>
    </pregunta>
 
@@ -113,6 +162,34 @@
         }
     </query>
    </pregunta>
+
+   <pregunta question="futbolistas" type="fechaNacimiento"  category="deportes">
+    <query>
+        SELECT ?personLabel ?birthDate { 
+            ?person wdt:P27 wd:Q29 . 
+            ?person wdt:P106 wd:Q937857 . 
+            ?person wdt:P569 ?birthDate . 
+            SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
+            } 
+        } 
+    </query>
+   </pregunta>
+
+   <pregunta question="futbolistas" type="startDate"  category="deportes">
+    <query>
+        SELECT ?personLabel ?startDate {  
+            ?person wdt:P27 wd:Q29 .  
+            ?person wdt:P106 wd:Q937857 .  
+            ?person wdt:P2031 ?startDate.  
+            SERVICE wikibase:label {  
+              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
+          
+            }  
+          }
+    </query>
+   </pregunta>
+
    
    <pregunta question="presidenteEspaña" type="fechaNacimiento"  category="historia">
     <query>
@@ -139,4 +216,102 @@
     </query>
    </pregunta>
 
+  
+
+   <pregunta question="nombreCientifico" type="camposCientifico"  category="ciencia">
+    <query>
+        SELECT DISTINCT ?nombreCientifico (GROUP_CONCAT(DISTINCT ?nombreCampo; SEPARATOR=", ") AS ?campos) 
+        WHERE { 
+            ?scientist wdt:P31 wd:Q5.  # humano (clase) 
+            ?scientist wdt:P106 wd:Q901.  # Relación "ocupación" con valor "científico" 
+            ?scientist wdt:P101 ?field.  # Relación "campo de trabajo" 
+            ?scientist rdfs:label ?nombreCientifico filter (lang(?nombreCientifico) = "es"). 
+            ?field rdfs:label ?nombreCampo filter (lang(?nombreCampo) = "es"). 
+        } 
+        GROUP BY ?nombreCientifico
+    </query>
+   </pregunta>
+
+   <pregunta question="nombreCientifico" type="interesesCientifico"  category="ciencia">
+    <query>
+        SELECT DISTINCT ?nombreCientifico (GROUP_CONCAT(DISTINCT ?nombreInteres; SEPARATOR=", ") AS ?intereses) 
+        WHERE { 
+            ?scientist wdt:P31 wd:Q5.  # humano (clase) 
+            ?scientist wdt:P106 wd:Q901.  # Relación "ocupación" con valor "científico" 
+            ?scientist wdt:P2650 ?interest.  # Relación "área de interés" 
+            ?scientist rdfs:label ?nombreCientifico filter (lang(?nombreCientifico) = "es"). 
+            ?interest rdfs:label ?nombreInteres filter (lang(?nombreInteres) = "es"). 
+        } 
+        GROUP BY ?nombreCientifico 
+    </query>
+   </pregunta>
+
+   <pregunta question="nombreElemento" type="numeroAtomico"  category="ciencia">
+    <query>
+        SELECT DISTINCT ?nombreElemento ?numeroAtomico 
+        WHERE { 
+            ?element wdt:P31 wd:Q11344.  # elemento químico (clase) 
+            ?element wdt:P1086 ?atomicNumber.  # Relación "número atómico" 
+             ?element rdfs:label ?nombreElemento filter (lang(?nombreElemento) = "es"). 
+             BIND(str(?atomicNumber) AS ?numeroAtomico) 
+            } 
+    </query>
+   </pregunta>
+
+
+   <pregunta question="dj" type="startDate" category="musica">
+    <query>
+        SELECT ?personLabel ?startDate {  
+            ?person wdt:P27 wd:Q29 .  
+            ?person wdt:P106 wd:Q130857 .  
+          
+            ?person wdt:P2031 ?startDate.  
+          
+            SERVICE wikibase:label {  
+          
+              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
+          
+            }  
+          
+          } 
+    </query>
+    </pregunta>
+
+    <pregunta question="guitarrista" type="startDate" category="musica">
+        <query>
+            SELECT ?personLabel ?startDate {  
+                ?person wdt:P27 wd:Q29 .  
+              
+                ?person wdt:P106 wd:Q855091 .  
+              
+                ?person wdt:P2031 ?startDate.  
+              
+                SERVICE wikibase:label {  
+              
+                  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
+              
+                }  
+              
+              } 
+        </query>
+    </pregunta>
+
+    <pregunta question="cantante" type="startDate" category="musica">
+        <query>
+            SELECT ?personLabel ?startDate{  
+
+                ?person wdt:P27 wd:Q29 .  
+              
+                ?person wdt:P106 wd:Q177220 .  
+              
+                ?person wdt:P2031 ?startDate.  
+
+                SERVICE wikibase:label {  
+              
+                  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
+              
+                } 
+              } 
+        </query>
+    </pregunta>
 </preguntas>

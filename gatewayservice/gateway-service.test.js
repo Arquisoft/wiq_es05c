@@ -239,6 +239,32 @@ it('should return an error when the question service request fails', async () =>
           expect(response.body.error).toEqual(errorMessage);
         });
 
+//***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 
+it('should return an error when the history service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+    Promise.reject(new Error('Error al realizar la solicitud al servicio de historial'))
+  );
+
+  const response = await request(app).get('/getHistoryDetallado');
+
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
+});
+
+it('should return an error when the total history service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+    Promise.reject(new Error('Error al realizar la solicitud al servicio de historial'))
+  );
+
+  const response = await request(app).get('/getHistoryTotal');
+
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
+});
    
 });

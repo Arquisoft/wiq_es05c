@@ -1,9 +1,26 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography,ListItem } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography,ListItem, Switch } from '@mui/material';
+import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../authcontext';
 
-const NavBar = () => {
+
+const CustomSwitch = styled(Switch)({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: 'white', // Color del thumb cuando el switch está activado
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: 'white', // Color del track cuando el switch está activado
+  },
+  '& .MuiSwitch-switchBase': {
+    color: 'black', // Color del thumb cuando el switch está desactivado
+  },
+  '& .MuiSwitch-track': {
+    backgroundColor: 'black', // Color del track cuando el switch está desactivado
+  },
+});
+
+const NavBar = ({ setDarkMode }) => {
   const { isLoggedIn,username } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -15,6 +32,10 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
+  const handleToggle = () => {
+    setDarkMode(prevDarkMode => !prevDarkMode);
+  };
+
   console.log('isLoggedIn', isLoggedIn);
   return (
     <AppBar position="static">
@@ -23,6 +44,7 @@ const NavBar = () => {
           Home
         </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
+        <CustomSwitch onChange={handleToggle} />
         {isLoggedIn() ? (
          <>
          <IconButton onClick={handleClick}>

@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const Model = require('./question-model')
+
 const Question = require("./obtenerPreguntasBaseDatos");
 const question = new Question();
 
@@ -29,7 +31,7 @@ app.get('/getQuestion', async(req,res)=> {
   }
     
 }); 
-app.get('/getQuestionBasico', async(req,res)=> {
+app.get('/getQuestionModoBasico', async(req,res)=> {
   try{  
     //coger pregunta bd
     const questions = await question.obtenerPregunta(10);

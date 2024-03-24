@@ -1,65 +1,71 @@
-import React, { useState } from 'react';
-import AddUser from './components/AddUser';
-import Login from './components/Login';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import React, {useState,useEffect} from 'react';
+import Navbar from './components/navbar/NavBar';
+import AddUser from './components/adduser/AddUser';
+import Login from './components/login/Login';
+import { AuthProvider } from './components/authcontext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import StartButton from './components/startbutton/StartButton';
+import Game from './components/game/Game';
+import Home from './components/home/Home';
+import Footer from './components/footer/Footer';
+import { ChakraProvider } from "@chakra-ui/react";
+import AuthenticatedLayout from './components/authenticationLayout';
+import GuestLayout from './components/GuestLayout';
+import Logout from './components/logout/Logout';
+import History from './components/history/History';
+import {BasicGameMode } from './components/game/gameModes/basicGameMode';
+import {GameProvider} from './components/game/GameContext';
+import PrincipalView from './components/principalView/PrincipalView';
 
+const App = () => {
 
-import Game from './components/Game';
-import { ChakraProvider } from '@chakra-ui/react';
+  const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      console.log('dark mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+      console.log('light mode');
+    }
+  }, [darkMode]);
 
-function App() {
-  const [showLogin, setShowLogin] = useState(true);
-  const [showGame, setShowGame] = useState(false); // Nuevo estado para controlar si se muestra el juego
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true); // Estado para controlar la visibilidad del mensaje de bienvenida y los enlaces
-
-
-  const handleToggleView = () => {
-    setShowLogin(!showLogin);
-    setShowWelcomeMessage(true);
-  };
-
-  // Función para activar el juego y ocultar el resto de la interfaz
-  const startGame = () => {
-    setShowLogin(false);
-    setShowGame(true);
-    setShowWelcomeMessage(false);
-  };
- 
   return (
-    <Container component="main" maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <CssBaseline />
-      {/* Mostrar el mensaje de bienvenida y los enlaces solo si showWelcomeMessage es true */}
-      {showWelcomeMessage && (
-        <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
-          Welcome to the 2024 edition of the Software Architecture course
-          <Typography component="div" align="center" sx={{ marginTop: 2 }}>
-            {showLogin ? (
-              <Link name="gotoregister" component="button" variant="body2" onClick={handleToggleView}>
-                Don't have an account? Register here.
-              </Link>
-            ) : (
-              <Link component="button" variant="body2" onClick={handleToggleView}>
-                Already have an account? Login here.
-              </Link>
-            )}
-          </Typography>
-        </Typography>
-      )}
+    <AuthProvider>
+      <Router>
+      <Navbar setDarkMode={setDarkMode}/>
+        <GameProvider gameMode={new BasicGameMode()}>
 
-      {showLogin && <Login startGame={startGame} />}
-      {!showLogin && !showGame && <AddUser />}
-      {showGame && (
-        <ChakraProvider>
-          <Game />
-        </ChakraProvider>
-      )}
-    </Container>
+        <Routes>
+          <Route path="/" element={<ChakraProvider><PrincipalView/></ChakraProvider>} />
+          <Route path="/login" element={ <GuestLayout> <Login /> </GuestLayout>} />
+          <Route path="/adduser" element={<GuestLayout> <AddUser /> </GuestLayout>}  />
+          <Route path="/logout" element={  <AuthenticatedLayout> <Logout /> </AuthenticatedLayout>} />
+
+          <Route path="/home" element={
+            <AuthenticatedLayout>
+              <Home />
+            </AuthenticatedLayout>
+          } />
+          <Route path="/game" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+           <Route path="/history" element={
+            <AuthenticatedLayout>
+              <History />
+            </AuthenticatedLayout>
+          } />
+        </Routes>
+        </GameProvider>
+
+        <Footer/>
+      </Router>
+      </AuthProvider>
+
   );
-  
-}
+};
 
 export default App;

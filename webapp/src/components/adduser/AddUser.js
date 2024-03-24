@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
-
-const apiEndpoint = process.env.REACT_APP_API_URI || 'http://localhost:8000';
+import { useNavigate } from 'react-router-dom';
+const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 const AddUser = () => {
   const [username, setUsername] = useState('');
@@ -11,10 +11,15 @@ const AddUser = () => {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  const navigate = useNavigate();
   const addUser = async () => {
     try {
       await axios.post(`${apiEndpoint}/adduser`, { username, password });
       setOpenSnackbar(true);
+
+      
+      //navegar hacia el loggin si fue correcto 
+      navigate('/login');
     } catch (error) {
       setError(error.response.data.error);
     }

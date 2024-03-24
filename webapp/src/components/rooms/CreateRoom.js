@@ -23,7 +23,7 @@ const CreateRoomForm = () => {
             // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
             socket.on('roomCreated', (roomId) => {
                 navigate(`/room/${roomId}`);
-              });
+            });
 
         } catch (error) {
             // Manejar errores, por ejemplo, mostrar un mensaje de error

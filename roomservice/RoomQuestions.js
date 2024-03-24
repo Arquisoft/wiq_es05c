@@ -8,7 +8,7 @@ class RoomQuestions{
         this.rooms = new Map();
         this.io = io;
     }
-    async joinRoom(id, username) {
+    async joinRoom(id, username,socket) {
   
         try {
           if (id != null && id !== undefined) {
@@ -19,8 +19,9 @@ class RoomQuestions{
               console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
               //this.io.to(id).emit('questions', questions);
     
-              // Emitir evento 'roomCreated' con el ID de la sala
-              this.io.emit('roomJoined', id);
+              // Emitir evento 'roomCreated' con el ID de la sala SOLO AL USER SE USA EL SOCKET 
+              socket.emit('roomJoined', id);
+               // Escuchar evento 'ready' antes de emitir 'currentUsers'
 
             } else {
               throw new Error("la sala no existe ");
@@ -33,7 +34,7 @@ class RoomQuestions{
         }
       }
 
-    async createRoom(username){
+    async createRoom(username,socket){
         console.log("entraCrearRoom");
         try{
             let id=this.generateRandomInteger(1000,9999);
@@ -43,7 +44,10 @@ class RoomQuestions{
             //this.io.emit('roomListUpdated', [...this.rooms]);
             
             // Emitir evento 'roomCreated' con el ID de la sala
-            this.io.emit('roomCreated', id);
+            socket.emit('roomCreated', id);
+
+            //unirte a ti mismo a la sala 
+           // this.joinRoom(id.toString(), username,);
             return id.toString(); // no haria falta 
           }catch(error){
             console.log(error);
@@ -76,6 +80,17 @@ class RoomQuestions{
 
     generateRandomInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    emitCurrentUsers(id) {
+      console.log("Emitting current users");
+      if (this.rooms.has(id)) {
+        const users = this.rooms.get(id);
+        console.log("Users in room: " + users);
+        this.io.to(id).emit('currentUsers', users);
+      } else {
+        console.log(`La sala con id ${id} no existe.`);
+      }
     }
 }
 module.exports=RoomQuestions;

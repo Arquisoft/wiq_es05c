@@ -33,8 +33,9 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', async ({ id, username }) => {
     try {
       console.log("microservicio--joinroom , valor id "+id+" username "+username);
-      await roomQuestions.joinRoom(id, username);
+      await roomQuestions.joinRoom(id, username,socket);
       console.log(`Usuario ${username} se ha unido a la sala ${id}`);
+  
     } catch (error) {
       console.log(`Error al unir al usuario a la sala: ${error.message}`);
     }
@@ -42,53 +43,24 @@ io.on('connection', (socket) => {
   // Evento personalizado para crear una sala
   socket.on('createRoom', async ({ username }) => {
     try {
-     const id= await roomQuestions.createRoom(username);
+     const id= await roomQuestions.createRoom(username,socket);
      console.log("id de la sala creada : "+id);
       console.log(`Usuario ${username} ha creado la sala ${id}`);
+    
+   
     } catch (error) {
       console.log(`Error al crear la sala: ${error.message}`);
     }
   });
+  //mostrar los usuarios una vez la pagina esta cargada 
+  socket.on('ready',({id}) => {
+    roomQuestions.emitCurrentUsers(id);
+  });
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
   });
+
 });
-app.get('/joinroom/:id/:username',async(req,res)=> {
-    try {
-      const { id,username } = req.params;
-      // Aquí puedes buscar en tu base de datos las preguntas para la sala con el ID proporcionado
-      // y devolverlas en la respuesta. Este es solo un ejemplo y puede que necesites ajustarlo
-      // a tus necesidades.
-      const questions = await roomQuestions.joinRoom(id,username);
-      res.json(questions);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al obtener las preguntas para la sala' });
-    }
-  
-  });
-  app.get('/createroom/:username',async(req,res)=> {
-    console.log("entra");
-    try{
-      const { username } = req.params;
-      const room = await roomQuestions.createRoom(username);
-      console.log("sale con valor ",room);
-      res.json(room);
-    }catch(error){
-      res.status(500).json({ error: 'Error al crear la sala' });
-    }});
-  
-    app.get('/startgame/:id/:username',async(req,res)=> {
-      try {
-        const { id,username } = req.params;
-        // Aquí puedes buscar en tu base de datos las preguntas para la sala con el ID proporcionado
-        // y devolverlas en la respuesta. Este es solo un ejemplo y puede que necesites ajustarlo
-        // a tus necesidades.
-        const questions = await roomQuestions.startGame(id,username);
-        res.json(questions);
-      } catch (error) {
-        res.status(500).json({ error: 'Error al obtener las preguntas para la sala' });
-      }
-    
-    });
+
 // Iniciar el servidor
 server.listen(port, () => console.log(`Servidor corriendo en el puerto ${port}`));

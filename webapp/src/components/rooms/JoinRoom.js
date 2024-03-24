@@ -20,7 +20,7 @@ const JoinRoomForm = () => {
       console.log("id de la sala: "+roomId+" username: "+username);
       socket.emit('joinRoom', {id:roomId, username:username });
 
-      // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
+      // manjear el unido a sala , pasandole al componente room los usuarios que estan en la sala
       socket.on('roomJoined', (roomId) => {
         navigate(`/room/${roomId}`);
       });

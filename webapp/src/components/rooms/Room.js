@@ -2,29 +2,30 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import GameMultiplayer from '../game/GameMultiplayer';
 import { useParams } from 'react-router-dom';
-
+const socket = socketIOClient('http://localhost:8005'); // Reemplazar esto por algo no hardcoded
 const Room = () => {
   const { roomId } = useParams();
-  const [socket, setSocket] = useState(null);
   const [startGame, setStartGame] = useState(false);
   const [users, setUsers] = useState([]);
 
+  /*
+indica que la vista esta lista 
+  */
+
   useEffect(() => {
-    const newSocket = socketIOClient('http://localhost:8005'); // Reemplaza esto con la URL de tu servidor
-    setSocket(newSocket);
-
-    //emitir eventos para el servidor 
-     // Emitir evento para unirse a la sala
-    newSocket.emit('joinRoom', { id: roomId, username: 'usuario1' }); // Reemplaza 'usuario1' con el nombre de usuario real
+  
 
 
-    // Manejar evento cuando un usuario abandona la sala
-    newSocket.on('userLeft', (username) => {
-      setUsers((users) => users.filter((user) => user !== username));
-    });
+     // Emitir evento 'ready' después de registrarse para escuchar 'currentUsers'
+    socket.emit('ready',{id:roomId});
 
-    return () => newSocket.close();
+
+  
   }, []);
+
+  useEffect(() => {
+    console.log('Usuarios actuales: (Estado)', users);
+  }, [users]);
 
   // Función para iniciar el juego
   const handleStartGame = () => {
@@ -37,6 +38,11 @@ const Room = () => {
       <h2>Sala: {roomId}</h2>
       <button onClick={handleStartGame}>Iniciar juego</button>
       <p>Usuarios: {users.join(', ')}</p>
+      <ul>
+      {users.map((user, index) => (
+        <li key={index}>{user}</li>
+      ))}
+    </ul>
       {startGame && <GameMultiplayer />}
     </div>
   );

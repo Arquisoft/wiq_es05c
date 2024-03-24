@@ -6,7 +6,7 @@ const Home = () => {
     <div>
 
    
-      <StartButton isLoggedIn={true} />
+      <StartButton />
 
     </div>
   );

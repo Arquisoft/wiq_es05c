@@ -1,15 +1,16 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { AnswerButton } from './AnswerButton.jsx';
-
-export function AnswersBlock({ respuestas, correcta }){
+//onAnswerSelect es la funcion de QuestionArea que se ejecuta al hacer click en boton 
+export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded, darkMode}){
 
     const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
     let respuestasCopy = respuestas;
 
     //Colores de los botones para que tengan orden random
-    const colorsArray = ["#FFD743","#D773A2","#07BB9C","#A06AB4"];
+    console.log("En asnblock "+darkMode.darkMode);
+    const colorsArray= darkMode.darkMode? ["#FFD743","#D773A2","#07BB9C","#A06AB4"] : ["#E3C7E0","#BAE5C0","#84C7F2","#E8F7FF"];
     //Baraja con algoritmo de Fisher-Yates los colores
     for (let i = colorsArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -27,18 +28,20 @@ export function AnswersBlock({ respuestas, correcta }){
     }, [respuestasCopy]);
 
     const handleButtonClick = (respuesta) => {
-        if (respuesta === correcta) {
-            alert("¡Respuesta correcta!");
-        } else {
-            alert("Respuesta incorrecta.");
+        if (isGameEnded) {
+            return;
         }
-        console.log("owimawe");
+        if (respuesta === correcta) {
+            onAnswerSelect(true);
+        } else {
+            onAnswerSelect(false);
+        }
     };
 
     return (
         <Box display="grid" flex="1" gridTemplateColumns="repeat(2,1fr)" gridColumnGap="2em" padding="4em" alignItems="center">
             {respuestasAleatorizadas.map((respuesta, index) => (
-                <AnswerButton key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
+                <AnswerButton darkMode={darkMode} key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
             ))}
         </Box>
     );

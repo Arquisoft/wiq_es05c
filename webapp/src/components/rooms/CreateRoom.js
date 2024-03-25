@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import socket from './socket';
 const CreateRoomForm = () => {
@@ -21,7 +20,9 @@ const CreateRoomForm = () => {
 
             // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
             socket.on('roomCreated', (roomId) => {
-                navigate(`/room/${roomId}`);
+                //madnarle al room quien es el host 
+                navigate(`/room/${roomId}`, { state: { isHost: true } });
+
             });
 
         } catch (error) {

@@ -1,7 +1,7 @@
 const { Server } = require("socket.io");
 const axios = require('axios');
 
-const questionServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8003';
+const questionServiceUrl = 'http://gatewayservice:8000';
 
 class RoomQuestions{
     constructor(io){
@@ -64,15 +64,15 @@ class RoomQuestions{
         try {
           if (this.checkEnoughPlayers(id)) {
             let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
-            socket.emit('gameStarted', preguntas);
-            socket.to(id).emit('gameStarted', preguntas);
+            console.log("Preguntas: "+preguntas.data);
+            socket.emit('gameStarted', preguntas.data);
+            socket.to(id).emit('gameStarted', preguntas.data);
             
           } else {
             throw new Error('Error al iniciar el juego en la sala');
           }
         } catch (error) {
           console.error(error);
-          //res.status(500).json({ error: error.message });
         }
       }
     //compreuba si hay suficientes jugadores para comenzar el juego min 2 

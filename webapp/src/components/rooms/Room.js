@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import socket from './socket';
-
+import { QuestionArea } from '../game/QuestionArea';
 
 function Room() {
   const { roomId } = useParams();
@@ -34,7 +34,7 @@ function Room() {
       if(!gameStarted && isHost){
         setGameStarted(true);
         socket.emit('startGame', { id: roomId });
-
+      }
         socket.on('gameStarted', (questions) => {
           //hace la peticion por la preguntas a la gateway y se las manda los jugadores 
           console.log('Juego iniciado, preguntas: ', questions);
@@ -44,7 +44,7 @@ function Room() {
         console.log('Emitiendo evento startGame');
 
        
-    }
+    
   }
   return (
     <div>
@@ -55,7 +55,9 @@ function Room() {
             <li key={index}>{username}</li>
           ))}
       </ul>
-      <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>
+      {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
+      {gameStarted && <QuestionArea questions={questions} />}
+
 
     </div>
   );

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import socket from './socket';
 function Room() {
   const { roomId } = useParams();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState({});
 
   useEffect(() => {
     socket.emit('ready', { id: roomId });
@@ -23,9 +23,9 @@ function Room() {
       <h1>Sala: {roomId}</h1>
       <h2>Usuarios:</h2>
       <ul>
-        {users.map((user, index) => (
-          <li key={index}>{user}</li>
-        ))}
+        {Object.keys(users).map((username, index) => (
+            <li key={index}>{username}</li>
+          ))}
       </ul>
     </div>
   );

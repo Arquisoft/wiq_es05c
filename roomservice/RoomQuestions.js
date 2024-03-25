@@ -85,17 +85,25 @@ class RoomQuestions{
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    emitCurrentUsers(id,socket) {
+    emitCurrentUsers(id, socket) {
       console.log("Emitting current users");
       if (this.rooms.has(id)) {
-        const users = this.rooms.get(id);
-        console.log("Users in room: " + users);
-
-           // Emitir evento 'currentUsers' al usuario que se acaba de unir a la sala
-           socket.emit('currentUsers', users);
+        const usersArray = this.rooms.get(id);
+        console.log("Users in room: " + usersArray);
     
-           // Emitir evento 'currentUsers' a todos los demás usuarios en la sala
-            socket.to(id).emit('currentUsers', users);
+        // Convertir la matriz de usuarios en un objeto de usuarios
+        const usersObject = usersArray.reduce((obj, user) => {
+          obj[user] = {
+            // Aquí puedes poner cualquier detalle que quieras sobre el usuario
+            // Por ahora, sólo pondré un valor de 'presente' para indicar que el usuario está en la sala
+            presente: true
+          };
+          return obj;
+        }, {});
+    
+        // Emitir el objeto de usuarios en lugar de la matriz de usuarios
+        socket.emit('currentUsers', usersObject);
+        socket.to(id).emit('currentUsers', usersObject);
       } else {
         console.log(`La sala con id ${id} no existe.`);
       }

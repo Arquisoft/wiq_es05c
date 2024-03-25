@@ -7,12 +7,13 @@ function Room() {
   const [users, setUsers] = useState({});
 
   useEffect(() => {
-    socket.emit('ready', { id: roomId });
 
     socket.on('currentUsers', (users) => {
       console.log('Usuarios actuales: ', users);
       setUsers(users);
     });
+    socket.emit('ready', { id: roomId });
+
 
     return () => {
       socket.off('currentUsers');

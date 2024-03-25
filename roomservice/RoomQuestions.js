@@ -15,7 +15,7 @@ class RoomQuestions{
             let userList = this.rooms.get(id);
             userList.push(username);
             this.rooms.set(id, userList);
-            console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
+           // console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
             //asociar el socket a la sala
             socket.join(id);
@@ -23,7 +23,7 @@ class RoomQuestions{
             socket.emit('roomJoined', id);
     
          
-            this.emitCurrentUsers(id,socket);
+            this.emitCurrentUsers(id, socket);
           } else {
             throw new Error("la sala no existe ");
           }
@@ -43,12 +43,11 @@ class RoomQuestions{
             console.log( "Room created");
             // Emitir evento 'roomListUpdated' a todos los clientes
             //this.io.emit('roomListUpdated', [...this.rooms]);
-            
             // Emitir evento 'roomCreated' con el ID de la sala
             socket.emit('roomCreated', id);
 
-            //unir el socket a la sala
-            socket.join(id);
+            //llamar al join para unirte a la sala 
+            this.joinRoom(id.toString(), username, socket);
 
 
             return id.toString(); // no haria falta 
@@ -86,7 +85,7 @@ class RoomQuestions{
     }
 
     emitCurrentUsers(id, socket) {
-      console.log("Emitting current users");
+  
       if (this.rooms.has(id)) {
         const usersArray = this.rooms.get(id);
         console.log("Users in room: " + usersArray);
@@ -94,16 +93,15 @@ class RoomQuestions{
         // Convertir la matriz de usuarios en un objeto de usuarios
         const usersObject = usersArray.reduce((obj, user) => {
           obj[user] = {
-            // Aquí puedes poner cualquier detalle que quieras sobre el usuario
-            // Por ahora, sólo pondré un valor de 'presente' para indicar que el usuario está en la sala
             presente: true
           };
           return obj;
         }, {});
     
         // Emitir el objeto de usuarios en lugar de la matriz de usuarios
-        socket.emit('currentUsers', usersObject);
-        socket.to(id).emit('currentUsers', usersObject);
+       // Emitir el objeto de usuarios a todos los sockets en la sala
+        socket.to(id).emit('currentUsers', usersObject); // Modificado aquí
+        socket.emit('currentUsers', usersObject); // 
       } else {
         console.log(`La sala con id ${id} no existe.`);
       }

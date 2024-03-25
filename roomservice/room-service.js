@@ -44,17 +44,17 @@ io.on('connection', (socket) => {
   socket.on('createRoom', async ({ username }) => {
     try {
      const id= await roomQuestions.createRoom(username,socket);
-     console.log("id de la sala creada : "+id);
       console.log(`Usuario ${username} ha creado la sala ${id}`);
     
-   
+  
     } catch (error) {
       console.log(`Error al crear la sala: ${error.message}`);
     }
   });
   //mostrar los usuarios una vez la pagina esta cargada 
+  
   socket.on('ready',({id}) => {
-    console.log("evento ready redibido");
+
     roomQuestions.emitCurrentUsers(id,socket);
   });
   socket.on('disconnect', () => {

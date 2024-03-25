@@ -47,6 +47,7 @@ function Room() {
       
     
   }
+  
   return (
     <div>
       <h1>Sala: {roomId}</h1>
@@ -57,8 +58,7 @@ function Room() {
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && <Game questions={questions} />}
-
+      {gameStarted && questions.length > 0 && <Game questions={questions} />}
 
     </div>
   );

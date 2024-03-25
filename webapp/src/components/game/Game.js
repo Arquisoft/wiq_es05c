@@ -4,11 +4,13 @@ import { CircularProgress } from "@mui/material";
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
 import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
+import axios from 'axios';
+
+const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 /*
 recibe el obj gameMode que contieene las preguntas para ese modo de juego */
 function Game(darkMode) {
-  const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
   const { startGame, questions, isLoading } = useContext(GameContext);
   const [isOpen, setIsOpen] = useState(false);//es el cuadro de dialogo que se abre al finalizar el juego
@@ -37,7 +39,27 @@ function Game(darkMode) {
 
 
       console.log("hola se ha enviado el hisotrial al servidor con los datos" ,data);
-     // axios.post(`${apiEndpoint}/historyAdd`, data);
+      fetch(`${apiEndpoint}/updateHistory`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Respuesta del servidor:', data);
+        setIsOpen(true); // Hacer que aparezca el cuadro de diálogo
+    })
+    .catch(error => {
+        console.error('Error al enviar el historial al servidor:', error);
+        // Manejar el error si es necesario
+    });
     
 
       setIsOpen(true);//hacer que aparzca el cuadro de dialogo 

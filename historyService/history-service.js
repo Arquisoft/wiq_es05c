@@ -9,6 +9,9 @@ const prueba = require('./history-datainitial')
 const Historial = require("./obtenerDetallesUsuarioBaseDatos");
 const historial = new Historial();
 
+const UpdateHistorial = require("./guardarDatosUsuarioHistorial");
+const updateHistory = new UpdateHistorial();
+
 const app = express();
 const port = 8004; 
 
@@ -45,7 +48,13 @@ app.get('/getHistoryTotal', async(req,res)=> {
     
 }); 
 
-
+app.post('/updateHistory', async (req, res) => {
+  try {
+    console.log("Entra en guardar usuario");
+    await updateHistory.guardarPartida(req.body);    
+  } catch (error) {
+      res.status(400).json({ error: error.message }); 
+  }});
 
 // Start the server
 const server = app.listen(port, () => {

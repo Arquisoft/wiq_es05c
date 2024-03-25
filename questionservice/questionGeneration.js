@@ -11,6 +11,7 @@ class GenerarPregunta {
 
         //si se ha generado pregunta, guardarla en la base de datos
         if (preguntaWiki.obtenerPregunta() !== undefined) {
+            console.log("Pregunta generada: ", preguntaWiki.obtenerPregunta());
             guardarPregunta.guardarEnBaseDatos(preguntaWiki.obtenerPregunta());            
         }
     }

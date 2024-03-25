@@ -6,15 +6,17 @@ import { useNavigate } from 'react-router-dom';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 const AddUser = () => {
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const navigate = useNavigate();
   const addUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/adduser`, { username, password });
+      await axios.post(`${apiEndpoint}/adduser`, { email, username, password , passwordConfirm});
       setOpenSnackbar(true);
 
       
@@ -32,13 +34,21 @@ const AddUser = () => {
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       <Typography component="h1" variant="h5">
-        Add User
+        Añadir usuario
       </Typography>
+      <TextField
+        name="email"
+        margin="normal"
+        fullWidth
+        label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <TextField
         name="username"
         margin="normal"
         fullWidth
-        label="Username"
+        label="Usuario"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -46,13 +56,24 @@ const AddUser = () => {
         name="password"
         margin="normal"
         fullWidth
-        label="Password"
+        label="Contraseña"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        helperText="La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial"
+      />
+      <TextField
+        name="passwordConfirm"
+        margin="normal"
+        fullWidth
+        label="Confirme la contraseña"
+        type="password"
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+        helperText="Las contraseñas tienen que coincidir"
       />
       <Button variant="contained" color="primary" onClick={addUser}>
-        Add User
+        Añadir usuario
       </Button>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
       {error && (

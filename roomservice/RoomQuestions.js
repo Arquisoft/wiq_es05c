@@ -62,7 +62,7 @@ class RoomQuestions{
      */
     async startGame(id,socket) {
         try {
-          if (this.checkEnoughPlayers(id) && this.rooms.get(id).includes(username)) {
+          if (this.checkEnoughPlayers(id)) {
             let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
             socket.emit('gameStarted', preguntas);
             socket.to(id).emit('gameStarted', preguntas);

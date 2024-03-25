@@ -50,6 +50,7 @@ class RoomQuestions{
             //unir el socket a la sala
             socket.join(id);
 
+
             return id.toString(); // no haria falta 
           }catch(error){
             console.log(error);
@@ -94,7 +95,7 @@ class RoomQuestions{
            socket.emit('currentUsers', users);
     
            // Emitir evento 'currentUsers' a todos los demás usuarios en la sala
-          this.io.emit('currentUsers', users);
+            socket.to(id).emit('currentUsers', users);
       } else {
         console.log(`La sala con id ${id} no existe.`);
       }

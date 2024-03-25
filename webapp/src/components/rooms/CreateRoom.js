@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import socketIOClient from "socket.io-client";
-const socket = socketIOClient('http://localhost:8005'); // Reemplazar esto por algo no hardcoded
+import socket from './socket';
 const CreateRoomForm = () => {
     const navigate = useNavigate();
 

@@ -57,6 +57,13 @@ io.on('connection', (socket) => {
 
     roomQuestions.emitCurrentUsers(id,socket);
   });
+
+
+  socket.on('startGame', async ({id}) => {
+    console.log("solicitud empezar juego sala:"+id);
+    roomQuestions.startGame(id,socket);
+  });
+
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
   });

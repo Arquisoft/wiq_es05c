@@ -60,18 +60,19 @@ class RoomQuestions{
     /**
      * funcion empieza el juego para todos los usuersz 
      */
-    async startGame(id, username, res) {
+    async startGame(id,socket) {
         try {
           if (this.checkEnoughPlayers(id) && this.rooms.get(id).includes(username)) {
             let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
-            io.to(id).emit('startGame', preguntas);
-            res.json({ success: true });
+            socket.emit('gameStarted', preguntas);
+            socket.to(id).emit('gameStarted', preguntas);
+            
           } else {
             throw new Error('Error al iniciar el juego en la sala');
           }
         } catch (error) {
           console.error(error);
-          res.status(500).json({ error: error.message });
+          //res.status(500).json({ error: error.message });
         }
       }
     //compreuba si hay suficientes jugadores para comenzar el juego min 2 

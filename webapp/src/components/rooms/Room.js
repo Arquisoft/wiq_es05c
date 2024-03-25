@@ -5,6 +5,7 @@ import socket from './socket';
 function Room() {
   const { roomId } = useParams();
   const [users, setUsers] = useState({});
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
 
@@ -14,11 +15,20 @@ function Room() {
     });
     socket.emit('ready', { id: roomId });
 
+    socket.on('gameStarted', (questions) => {
+      console.log('Juego iniciado, preguntas: ', questions);
+      setQuestions(questions);
+    });
 
-    return () => {
-      socket.off('currentUsers');
-    };
+
   }, [roomId]);
+
+  
+  const startGame = () => {
+    console.log('Emitiendo evento startGame');
+
+    socket.emit('startGame', { id: roomId });
+  }
   return (
     <div>
       <h1>Sala: {roomId}</h1>
@@ -28,6 +38,8 @@ function Room() {
             <li key={index}>{username}</li>
           ))}
       </ul>
+      <button onClick={startGame}>Iniciar Juego</button>
+
     </div>
   );
 }

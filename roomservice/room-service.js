@@ -64,6 +64,12 @@ io.on('connection', (socket) => {
     roomQuestions.startGame(id,socket);
   });
 
+
+  socket.on('endGame', async ({id,results}) => {
+    console.log("Un usuario ha terminado el juego microservico "+id );
+    console.log("resultados "+results);
+    roomQuestions.endGame(id,results,socket);
+  });
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
   });

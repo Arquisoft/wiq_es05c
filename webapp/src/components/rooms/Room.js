@@ -34,6 +34,11 @@ function Room() {
       setGameStarted(true);
     });
 
+    socket.on('gameEnded', ({ winner }) => {
+      alert("El juego ha terminado. El ganador es " + winner);
+    });
+    
+
   }, [roomId]);
 
   
@@ -49,7 +54,16 @@ function Room() {
       
     
   }
+  //funcion que le pasas a game para gestionar el finaldel juego 
+  function endGame(results) {
+    socket.emit('endGame', {id:roomId, results:results});
+    socket.on('gameEnded', ({ winner }) => {
+      alert("El juego ha terminado. El ganador es " + winner);
+    });
+  }
+
   
+
   return (
     <div>
       <h1>Sala: {roomId}</h1>
@@ -60,7 +74,7 @@ function Room() {
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game questions={questions} />}
+      {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
 
     </div>
   );

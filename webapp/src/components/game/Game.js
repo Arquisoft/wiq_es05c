@@ -10,7 +10,7 @@ recibe el obj gameMode que contieene las preguntas para ese modo de juego
 recibe questions que son las del servidor si estas en multiplayer 
   si no le pasa contexto se utiliziara el por defecto que es el GameContext
 */
-function Game({questions:multiplayerQuestions}) {
+function Game({questions:multiplayerQuestions,endGame}) {
 
   //obtienes las preguntas del contexto o bien de la prop q se le pasa 
   const { startGame, questions: singleplayerQuestions, isLoading } = useContext(GameContext);
@@ -45,6 +45,11 @@ function Game({questions:multiplayerQuestions}) {
     
 
       setIsOpen(true);//hacer que aparzca el cuadro de dialogo 
+
+      //comprobar si es mnultiplayer y si lo es se enviara al servidor que se ha finalizado el juego
+      if(multiplayerQuestions!=null){
+        endGame(data);
+      }
      
     }
   },[setFinished,correctAnswers,incorrectAnswers])

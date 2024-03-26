@@ -6,6 +6,7 @@ const questionServiceUrl = 'http://gatewayservice:8000';
 class RoomQuestions{
     constructor(io){
         this.rooms = new Map();
+        this.gameResults= new Map();
         this.io = io;
     }
     async joinRoom(id, username, socket) {
@@ -50,6 +51,7 @@ class RoomQuestions{
             this.joinRoom(id.toString(), username, socket);
 
 
+
             return id.toString(); // no haria falta 
           }catch(error){
             console.log(error);
@@ -63,6 +65,9 @@ class RoomQuestions{
     async startGame(id,socket) {
         try {
           if (this.checkEnoughPlayers(id)) {
+            //crear la zona de reusltado se hace aqui para que en caso de que abandonen la sala no se haya creado ya 
+            this.gameResults.set(id,new Map());
+
             let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
             console.log("Preguntas: "+preguntas.data);
             socket.emit('gameStarted', preguntas.data);
@@ -74,6 +79,54 @@ class RoomQuestions{
         } catch (error) {
           console.error(error);
         }
+      }
+
+      //funcion que se encarga de guardarlos datos del usuario finalizado comprobaria si todos han termiando y dar ael ganador 
+
+      async endGame(id,result,socket) {
+        try {
+          // Recuperar el Map de resultados para la sala correspondiente
+          let roomResults = this.gameResults.get(id);
+      
+          // Crear una nueva entrada en este Map para el usuario y guardar sus resultados
+          roomResults.set(result.user, {
+            correctas: result.correctas,
+            incorrectas: result.incorrectas,
+            tiempoTotal: result.tiempoTotal
+          });
+      
+          // Comprobar si todos los usuarios de la sala han terminado el juego
+          if (roomResults.size === this.rooms.get(id).length) {
+            // Si todos los usuarios han terminado el juego, determinar quién ha ganado
+            let winner = this.determineWinner(roomResults);
+            socket.to(id).emit('gameEnded', winner); // enviar a todos los de sala quien gano 
+            socket.emit('gameEnded', winner); // 
+           
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      determineWinner(roomResults) {
+        let winner = null;
+        let maxCorrectAnswers = 0;
+        let minTotalTime = Infinity;
+      
+        for (let [username, userResults] of roomResults.entries()) {
+          if (userResults.correctas > maxCorrectAnswers) {
+            maxCorrectAnswers = userResults.correctas;
+            minTotalTime = userResults.tiempoTotal;
+            winner = username;
+          } else if (userResults.correctas === maxCorrectAnswers) {
+            if (userResults.tiempoTotal < minTotalTime) {
+              minTotalTime = userResults.tiempoTotal;
+              winner = username;
+            }
+          }
+        }
+      
+        return winner;
       }
     //compreuba si hay suficientes jugadores para comenzar el juego min 2 
     checkEnoughPlayers(id){

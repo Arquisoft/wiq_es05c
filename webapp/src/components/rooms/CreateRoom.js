@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socket from './socket';
 const CreateRoomForm = () => {
@@ -6,31 +6,24 @@ const CreateRoomForm = () => {
 
     const [roomId, setRoomId] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const apiEndpoint = process.env.REACT_APP_API_URI || 'http://localhost:8000';
     const username = localStorage.getItem('username');
-
-    const handleCreateRoom = async () => {
-        try {
-            setIsLoading(true);
-            // no necesitas esto escuchara el evento socket.io
-            //const response = await axios.get(`${apiEndpoint}/createroom/${username}`);
-             
-            // Emitir evento para crear la sala
-            socket.emit('createRoom', { username });
-
-            // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
-            socket.on('roomCreated', (roomId) => {
-                //madnarle al room quien es el host 
-                navigate(`/room/${roomId}`, { state: { isHost: true } });
-
-            });
-
-        } catch (error) {
-            // Manejar errores, por ejemplo, mostrar un mensaje de error
-            console.error('Error al crear la sala:', error);
-        } finally {
-            setIsLoading(false);
-        }
+  
+    useEffect(() => {
+      // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
+      socket.on('roomCreated', (roomId) => {
+        //madnarle al room quien es el host 
+        navigate(`/room/${roomId}`, { state: { isHost: true } });
+      });
+  
+      // No olvides limpiar el listener del evento cuando el componente se desmonte
+      return () => socket.off('roomCreated');
+    }, [navigate]);
+  
+    const handleCreateRoom = () => {
+        console.log("creando sala");
+      setIsLoading(true);
+      // Emitir evento para crear la sala
+      socket.emit('createRoom', { username });
     };
 
     return (

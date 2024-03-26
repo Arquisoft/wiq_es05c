@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 
 import socket from './socket';
-import Game  from '../game/Game';
+import Game  from '../game/GameMultiplayer';
 
 function Room() {
   const { roomId } = useParams();
@@ -14,6 +15,8 @@ function Room() {
   const [questions, setQuestions] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
 
+
+  const [winner, setWinner] = useState(null);
 
   useEffect(() => {
 
@@ -35,8 +38,10 @@ function Room() {
     });
 
     socket.on('gameEnded', ({ winner }) => {
-      alert("El juego ha terminado. El ganador es " + winner);
+      setWinner(winner);
     });
+    //limpiar el evento 
+    return () => socket.off('gameEnded');
     
 
   }, [roomId]);
@@ -57,9 +62,7 @@ function Room() {
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
     socket.emit('endGame', {id:roomId, results:results});
-    socket.on('gameEnded', ({ winner }) => {
-      alert("El juego ha terminado. El ganador es " + winner);
-    });
+
   }
 
   
@@ -75,7 +78,7 @@ function Room() {
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
       {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
-
+      {winner && <p>EL ganador es {winner}</p>}
     </div>
   );
 }

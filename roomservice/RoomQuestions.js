@@ -14,8 +14,11 @@ class RoomQuestions{
         if (id != null && id !== undefined) {
           if (this.rooms.has(id)) { // Verifica si la sala existe
             let userList = this.rooms.get(id);
-            userList.push(username);
-            this.rooms.set(id, userList);
+             // Verifica si el usuario ya existe en la sala
+            if (!userList.includes(username)) {
+              userList.push(username);
+              this.rooms.set(id, userList);
+            }
            // console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
             //asociar el socket a la sala
@@ -84,6 +87,7 @@ class RoomQuestions{
       //funcion que se encarga de guardarlos datos del usuario finalizado comprobaria si todos han termiando y dar ael ganador 
 
       async endGame(id,result,socket) {
+        console.log("entro en endGame function servidor");
         try {
           // Recuperar el Map de resultados para la sala correspondiente
           let roomResults = this.gameResults.get(id);
@@ -97,6 +101,7 @@ class RoomQuestions{
       
           // Comprobar si todos los usuarios de la sala han terminado el juego
           if (roomResults.size === this.rooms.get(id).length) {
+            console.log("entreo en el id de emitir el juego terminado");
             // Si todos los usuarios han terminado el juego, determinar quién ha ganado
             let winner = this.determineWinner(roomResults);
             socket.to(id).emit('gameEnded', winner); // enviar a todos los de sala quien gano 

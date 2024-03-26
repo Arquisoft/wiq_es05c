@@ -47,7 +47,7 @@ const History = () => {
     {(isLoadingGames || isLoadingStats) ? (
       <div>Loading...</div> // Esto se mostrará mientras se está cargando
     ) : (
-      <div>
+      <div style={{height: "100vh"}}>
         {/* Estadisticas */}
         <div>
         <p>Numero juegos: {stats.numeroJuegos}</p>

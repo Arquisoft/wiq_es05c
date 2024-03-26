@@ -38,10 +38,10 @@ const App = () => {
         <GameProvider gameMode={new BasicGameMode()}>
 
         <Routes>
-          <Route path="/" element={<ChakraProvider><PrincipalView/></ChakraProvider>} />
-          <Route path="/login" element={ <GuestLayout> <Login /> </GuestLayout>} />
-          <Route path="/adduser" element={<GuestLayout> <AddUser /> </GuestLayout>}  />
-          <Route path="/logout" element={  <AuthenticatedLayout> <Logout /> </AuthenticatedLayout>} />
+          <Route path="/" element={<ChakraProvider><PrincipalView darkMode={darkMode}/></ChakraProvider>} />
+          <Route path="/login" element={ <GuestLayout> <Login darkMode={darkMode}/> </GuestLayout>} />
+          <Route path="/adduser" element={<GuestLayout> <AddUser darkMode={darkMode}/> </GuestLayout>}  />
+          <Route path="/logout" element={  <AuthenticatedLayout> <Logout darkMode={darkMode}/> </AuthenticatedLayout>} />
 
           <Route path="/home" element={
             <AuthenticatedLayout>

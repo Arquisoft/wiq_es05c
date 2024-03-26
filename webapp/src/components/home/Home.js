@@ -3,11 +3,8 @@ import StartButton from '../startbutton/StartButton';
 
 const Home = () => {
   return (
-    <div>
-
-   
+    <div style={{height:"73vh"}}>
       <StartButton />
-
     </div>
   );
 };

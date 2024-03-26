@@ -1,5 +1,5 @@
 import { QuestionArea } from './QuestionArea';
-import { useEffect, useState,useContext, useRef } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import { CircularProgress } from "@mui/material";
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';

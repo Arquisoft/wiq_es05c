@@ -1,5 +1,7 @@
 /* Estilos del pie de página */
 .footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
     left:0%;
     background-color: #fef5c6;

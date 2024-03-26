@@ -1,21 +1,32 @@
-/* Estilo para el pie de página */
 /* Estilos del pie de página */
 .footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     left:0%;
-    background-color: #001f3f;
-    color: #ffffff;
+    background-color: #fef5c6;
+    color: #08313A;
     padding: 10px;
     text-align: center;
     display: flex;
     justify-content: space-around; /* Distribuye los elementos horizontalmente */
     align-items: center;
+    border-top: 0.1em solid #08313A; /* Añade esto si quieres un borde diferente en dark mode */
   }
-  
+/*Pie de página dark-mode*/
+body.dark-mode .footer {
+    background-color: #001c17;
+    color: #FCFAF0;
+    border-top: 0.1em solid #FCFAF0; /* Añade esto si quieres un borde diferente en dark mode */
+}
+
   .footer a {
-    color: #ffffff; /* Enlaces en texto blanco */
+    color: #08313A; /* Enlaces en texto blanco */
+    text-decoration: none;
+   
+  }
+  body.dark-mode .footer a {
+    color: #FCFAF0; /* Enlaces en texto blanco */
     text-decoration: none;
    
   }

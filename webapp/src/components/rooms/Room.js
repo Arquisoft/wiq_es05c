@@ -26,23 +26,25 @@ function Room() {
     console.log("eres el host "+isHost);
 
 
+    socket.on('gameStarted', (questions) => {
+      //hace la peticion por la preguntas a la gateway y se las manda los jugadores 
+      console.log('Juego iniciado, preguntas: ', questions);
+      const formated =Object.values(questions);
+      setQuestions(formated);
+      setGameStarted(true);
+    });
+
   }, [roomId]);
 
   
   function startGame  (){
 
       if(!gameStarted && isHost){
-        setGameStarted(true);
+        //setGameStarted(true);
         socket.emit('startGame', { id: roomId });
+        console.log("se ha iniciado el juego");
       }
-        socket.on('gameStarted', (questions) => {
-          //hace la peticion por la preguntas a la gateway y se las manda los jugadores 
-          console.log('Juego iniciado, preguntas: ', questions);
-          const formated =Object.values(questions);
-          setQuestions(formated);
-        });
-
-        console.log('Emitiendo evento startGame');
+     
 
       
     

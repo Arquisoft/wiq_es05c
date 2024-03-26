@@ -61,7 +61,7 @@ const App = () => {
         </Routes>
         </GameProvider>
 
-        <Footer/>
+        <Footer darkMode={darkMode}/>
       </Router>
       </AuthProvider>
 

@@ -34,7 +34,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-      <Navbar setDarkMode={setDarkMode}/>
+      <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
         <GameProvider gameMode={new BasicGameMode()}>
 
         <Routes>

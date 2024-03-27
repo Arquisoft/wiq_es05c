@@ -1,6 +1,9 @@
 import React from 'react';
 import { useEffect, useState} from 'react';
 import { Box, Center, Spinner} from "@chakra-ui/react";
+import { AllGamesBlock } from './AllGamesBlock';
+import { StatsBlock } from './StatsBlock';
+
 
 
 export function History({darkMode}){
@@ -59,9 +62,9 @@ export function History({darkMode}){
       marginTop='5em'
       />//Para mientras carga
     ) : (
-      <Center backgroundColor={backgroundColor} width="100vw">
-      <p>:)</p>
-      </Center>
+      <Box id='main-history'>
+      <StatsBlock playerStats={stats} />
+      </Box>
     )}
   </Center>
   );

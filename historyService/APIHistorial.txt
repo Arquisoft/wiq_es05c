@@ -26,6 +26,7 @@ El tiempo medio sera el tiempoTotal/numeroJuegos.
 Las preguntas falladas y acertadas totales seran devueltas en porcentaje.
 //Datos estadísticos del jugador
 {
+    "nombreUsuario": "usuario1",
     "nº juegoTotales": "2",
     "preguntas_falladasTotales": "40",
     "preguntas_acertadasTotales": "60",

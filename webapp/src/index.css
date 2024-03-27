@@ -30,4 +30,11 @@ code {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(to left, #b5b4b1,#FFFFF5);
+  color: #08313A;
+}
+
+body.dark-mode #root {
+  background: linear-gradient(to left, #08313A, #107869);
+  color: #08313A;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState} from 'react';
-import { Box, Center, Spinner} from "@chakra-ui/react";
+import { Box, Spinner} from "@chakra-ui/react";
 import { AllGamesBlock } from './AllGamesBlock';
 import { StatsBlock } from './StatsBlock';
 
@@ -47,11 +47,13 @@ export function History({darkMode}){
   }, []);
 
 
-  let backgroundColor = darkMode.darkMode ? '#001c17' : '#fef5c6';
-  let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
+
+  console.log(darkMode);
+  let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
+  let text = darkMode ? '#FCFAF0' : '#08313A';
 
   return (
-    <Center>
+    <Box backgroundColor={backgroundColor} margin="1em" borderRadius="1em" flexGrow="1" border={"0.1em solid"+text}>
     {(isLoadingGames || isLoadingStats) ? (
       <Spinner
       thickness='0.3em'
@@ -62,10 +64,10 @@ export function History({darkMode}){
       marginTop='5em'
       />//Para mientras carga
     ) : (
-      <Box id='main-history'>
-      <StatsBlock playerStats={stats} />
+      <Box id='main-history' backgroundColor={backgroundColor}>
+      <StatsBlock darkMode={darkMode} playerStats={stats} />
       </Box>
     )}
-  </Center>
+  </Box>
   );
 }

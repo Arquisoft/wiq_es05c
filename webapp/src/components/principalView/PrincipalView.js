@@ -8,7 +8,7 @@ const PrincipalView = (darkMode) => {
   let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
 
   return (
-    <Box p={5} textAlign="center" style={{ height: '80vh' }} backgroundColor={backgroundColor}>
+    <Box p={5} textAlign="center" style={{ flexGrow:"1"}} backgroundColor={backgroundColor}>
       <Heading as="h1" fontSize="4xl" mb={3} color={text}>wiq_es05c</Heading>
       <Text fontSize="2xl" mb={5} color={text}>Nuestro grupo: como y después el juego</Text>
       <Text fontSize="xl" color={text}>Bienvenido a nuestro juego de preguntas</Text>

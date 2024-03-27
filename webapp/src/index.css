@@ -1,5 +1,5 @@
 html {
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to left, #b5b4b1,#FFFFF5);
   color: #08313A;
 }
@@ -10,8 +10,10 @@ html.dark-mode {
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  display: flex;
+  flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -24,3 +26,8 @@ code {
     monospace;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

@@ -12,7 +12,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
-import History from './components/history/History';
+import {History} from './components/history/History';
 import {BasicGameMode } from './components/game/gameModes/basicGameMode';
 import {GameProvider} from './components/game/GameContext';
 import PrincipalView from './components/principalView/PrincipalView';
@@ -55,7 +55,7 @@ const App = () => {
           } />
            <Route path="/history" element={
             <AuthenticatedLayout>
-              <History />
+               <ChakraProvider><History darkMode={darkMode}/></ChakraProvider>
             </AuthenticatedLayout>
           } />
         </Routes>

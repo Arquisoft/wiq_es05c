@@ -4,10 +4,7 @@ import StartButton from '../startbutton/StartButton';
 const Home = () => {
   return (
     <div>
-
-   
       <StartButton />
-
     </div>
   );
 };

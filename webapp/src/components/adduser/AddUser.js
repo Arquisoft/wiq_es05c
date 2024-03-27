@@ -5,7 +5,7 @@ import { Container, Typography, TextField, Button, Snackbar } from '@mui/materia
 import { useNavigate } from 'react-router-dom';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
-const AddUser = () => {
+const AddUser = (darkMode) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,12 +31,33 @@ const AddUser = () => {
     setOpenSnackbar(false);
   };
 
+  let backgroundColor = darkMode.darkMode ? '#001c17' : '#fef5c6';
+  let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
+  let buttonColor = darkMode.darkMode ? '#107869' : '#FFFFF5';
+
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}
+    style={{ 
+      padding: '2em',
+      marginTop: '4rem', 
+      backgroundColor: backgroundColor,
+      marginBottom: '3em',
+      border: "0.1em solid"+text,
+      color: text
+    }}>
       <Typography component="h1" variant="h5">
         Añadir usuario
       </Typography>
       <TextField
+       InputProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       InputLabelProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       FormHelperTextProps={{
+         style: { color: text }, // Cambia el color del texto de ayuda
+       }}
         name="email"
         margin="normal"
         fullWidth
@@ -45,6 +66,15 @@ const AddUser = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <TextField
+       InputProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       InputLabelProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       FormHelperTextProps={{
+         style: { color: text }, // Cambia el color del texto de ayuda
+       }}
         name="username"
         margin="normal"
         fullWidth
@@ -53,6 +83,15 @@ const AddUser = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <TextField
+       InputProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       InputLabelProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       FormHelperTextProps={{
+         style: { color: text }, // Cambia el color del texto de ayuda
+       }}
         name="password"
         margin="normal"
         fullWidth
@@ -63,6 +102,15 @@ const AddUser = () => {
         helperText="La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial"
       />
       <TextField
+       InputProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       InputLabelProps={{
+         style: { color: text }, // Cambia 'red' al color que quieras
+       }}
+       FormHelperTextProps={{
+         style: { color: text }, // Cambia el color del texto de ayuda
+       }}
         name="passwordConfirm"
         margin="normal"
         fullWidth
@@ -72,7 +120,8 @@ const AddUser = () => {
         onChange={(e) => setPasswordConfirm(e.target.value)}
         helperText="Las contraseñas tienen que coincidir"
       />
-      <Button variant="contained" color="primary" onClick={addUser}>
+      <Button variant="contained" color="primary" onClick={addUser}
+      style={{ backgroundColor: buttonColor, color: text }}>
         Añadir usuario
       </Button>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />

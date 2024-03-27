@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
+import { Box, Input, Button, Text, Tooltip, Icon, Center, VStack, HStack } from "@chakra-ui/react"; 
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 import socket from './socket';
 const JoinRoomForm = () => {
@@ -13,18 +15,13 @@ const JoinRoomForm = () => {
   const handleJoinRoom = async () => {
     try {
       setIsLoading(true);
-      // Realizar la solicitud GET para unirse a la sala
-      //const response = await axios.get(`${apiEndpoint}/joinroom/${roomId}/${username}`);
-      // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
       console.log("id de la sala: "+roomId+" username: "+username);
       socket.emit('joinRoom', {id:roomId, username:username });
 
-      // manjear el unido a sala , pasandole al componente room los usuarios que estan en la sala
       socket.on('roomJoined', (roomId) => {
         navigate(`/room/${roomId}`);
       });
     } catch (error) {
-      // Manejar errores, por ejemplo, mostrar un mensaje de error
       console.error('Error al unirse a la sala:', error);
     } finally {
       setIsLoading(false);
@@ -32,17 +29,23 @@ const JoinRoomForm = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={roomId}
-        onChange={(e) => setRoomId(e.target.value)}
-        placeholder="Ingrese el ID de la sala"
-      />
-      <button onClick={handleJoinRoom} disabled={isLoading}>
-        {isLoading ? 'Uniéndose...' : 'Unirse a Sala'}
-      </button>
-    </div>
+    <Box p={5} shadow="md" borderWidth="1px">
+      <VStack spacing={5}>
+        <Center>
+          <Text fontSize="xl" textAlign="center">Unirse a Sala</Text>
+        </Center>
+        <Input
+          type="text"
+          value={roomId}
+          onChange={(e) => setRoomId(e.target.value)}
+          placeholder="Ingrese el ID de la sala"
+          size="lg"
+        />
+        <Button onClick={handleJoinRoom} isLoading={isLoading} colorScheme="teal" variant="outline">
+          Unirse a Sala
+        </Button>
+      </VStack>
+    </Box>
   );
 };
 

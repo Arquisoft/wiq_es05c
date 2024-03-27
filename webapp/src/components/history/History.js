@@ -1,7 +1,9 @@
 import React from 'react';
 import { useEffect, useState} from 'react';
+import { Box, Center, Spinner} from "@chakra-ui/react";
 
-const History = () => {
+
+export function History({darkMode}){
 
   const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
   let gamesEndpoint = apiEndpoint+'/getHistoryDetallado';
@@ -42,31 +44,25 @@ const History = () => {
   }, []);
 
 
-  return (
-    <div>
-    {(isLoadingGames || isLoadingStats) ? (
-      <div>Loading...</div> // Esto se mostrará mientras se está cargando
-    ) : (
-      <div style={{height: "100vh"}}>
-        {/* Estadisticas */}
-        <div>
-        <p>Numero juegos: {stats.numeroJuegos}</p>
-        <p>Aciertos: {stats.preguntas_acertadas}%</p>
-        <p>Fallos: {stats.preguntas_falladas}%</p>
-        <p>Tiempo total de juego: {stats.tiempoTotal}s</p>
-        <p>Tiempo medio de partida: {stats.tiempoMedio}s</p>
-        </div>
-        <div> 
-        {/* Partidas */}
-        {allGames.map(game => (
-          <div key={game.numeroJuego}>{game.fecha}</div> // Asegúrate de reemplazar 'id' y 'name' con las propiedades correctas de tus juegos
-        ))}
-        </div>
-      </div>
-    )}
-  </div>
-  );
-  
-};
+  let backgroundColor = darkMode.darkMode ? '#001c17' : '#fef5c6';
+  let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
 
-export default History;
+  return (
+    <Center>
+    {(isLoadingGames || isLoadingStats) ? (
+      <Spinner
+      thickness='0.3em'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='blue.500'
+      size='xl'
+      marginTop='5em'
+      />//Para mientras carga
+    ) : (
+      <Center backgroundColor={backgroundColor} width="100vw">
+      <p>:)</p>
+      </Center>
+    )}
+  </Center>
+  );
+}

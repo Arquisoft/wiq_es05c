@@ -2,13 +2,14 @@ import { useEffect, useState,useRef  } from 'react';
 import { Box } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
-import { Timer } from './Timer';
+import { Timer } from './timers/Timer';
+import { GameTimer } from './timers/GameTimer.jsx';
 
 /*
 *maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
 cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
 
-export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished}){
+export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, timeToAnswer=30000}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
@@ -19,6 +20,8 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
   const [open, setOpen] = useState(false); // Nuevo estado para controlar si el diálogo está abierto o cerrado
   const [correctAnswers, setCorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas correctas
   const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
+  const [totalTime, setTotalTime] = useState(0);
+
 
   const[isGameEnded, setIsGameEnded] = useState(false); // Nuevo estado para controlar si el juego ha terminado o no
   const resetTimer = useRef(null); // Ref para almacenar la función resetTimer
@@ -112,14 +115,11 @@ export function QuestionArea({questions,setTotalCorrectAnswers, setTotalIncorrec
         maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
           
                   <Box display="flex" borderBottom="0.1em solid #000">
-                  <Timer onTimeout={handleTimeout} resetTimer={resetTimer} timeout={30000} />
-                    <EnunciadoBlock pregunta={questionData?.pregunta} />
+                    <Timer darkMode={darkMode} onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
+                    <EnunciadoBlock darkMode={darkMode} pregunta={questionData?.pregunta} />
+                    <GameTimer darkMode={darkMode} isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
                   </Box>
-                  <AnswersBlock respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded} />
-                 
-              
-       
-           
+                  <AnswersBlock darkMode={darkMode} respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded}/>
         </Box>
     )
 }

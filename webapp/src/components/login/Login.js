@@ -81,6 +81,7 @@ const Login = () => {
             label="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            helperText="Puedes logearte con tu email o tu nombre de usuario"
           />
           <TextField
             margin="normal"

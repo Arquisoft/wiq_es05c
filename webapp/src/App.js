@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Navbar from './components/navbar/NavBar';
 import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
@@ -21,11 +21,25 @@ import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el compon
 import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
 import GameMultiplayer from './components/game/GameMultiplayer'; // Importa el componente para el juego multijugador
 
+
 const App = () => {
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      console.log('dark mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+      console.log('light mode');
+    }
+  }, [darkMode]);
+
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+      <Navbar setDarkMode={setDarkMode}/>
         <GameProvider gameMode={new BasicGameMode()}>
 
         <Routes>
@@ -41,7 +55,7 @@ const App = () => {
           } />
           <Route path="/game" element={
             <AuthenticatedLayout>
-              <ChakraProvider><Game />  </ChakraProvider>
+              <ChakraProvider><Game darkMode={darkMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

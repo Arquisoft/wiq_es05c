@@ -56,12 +56,14 @@ function Game({questions:multiplayerQuestions,endGame}) {
 
   const onClose=()=>{
     setIsOpen(false);
-    navigate('/home');
+    //espera a que el reso de usuarios terminen 
   }
   return (
     <Box minH="100vh" minW="100vw" 
       bgGradient="linear(to-t, #08313A, #107869)"
-      display="flex" justifyContent="center" alignItems="center">
+      display="flex" justifyContent="center" alignItems="center"
+      style={{ pointerEvents: finished ? 'none' : 'auto' }} // Deshabilitar los clics cuando el juego termina
+      >
       {isLoading ? (
          <CircularProgress color="inherit" />
 
@@ -69,28 +71,25 @@ function Game({questions:multiplayerQuestions,endGame}) {
         <QuestionArea data-testid="question-area" questions={questions}       setTotalCorrectAnswers={setCorrectAnswers}
         setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished}/>
       )}
-      <AlertDialog isOpen={isOpen} onClose={onClose}>
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Resultados:
+            <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+            <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Juego Terminado
             </AlertDialogHeader>
-          <AlertDialogBody fontSize='lg' fontWeight='italic'>
-            <Center>
-              respuestas correctas: {correctAnswers} <br/>
-              respuestas incorrectas: {incorrectAnswers}
-            </Center>
-          </AlertDialogBody>
 
-          <AlertDialogFooter>
+            <AlertDialogBody>
+                Esperando al resto de jugadores...
+            </AlertDialogBody>
 
-            <Button onClick={onClose} colorScheme="green" ml={3}>
-              Cerrar
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+            <AlertDialogFooter>
+                <Button colorScheme="blue" onClick={onClose} ml={3}>
+                Cerrar
+                </Button>
+            </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialogOverlay>
+        </AlertDialog>
     </Box>
   );
 }

@@ -1,10 +1,10 @@
 {
-    "name": "questionservice",
+    "name": "roomservice",
     "version": "1.0.0",
-    "description": "Microservicio de preguntas",
+    "description": "Microservicio de juego online",
     "main": "service.js",
     "scripts": {
-        "start": "node question-service.js",
+        "start": "node room-service.js",
         "test": "jest"
     },
     "repository": {

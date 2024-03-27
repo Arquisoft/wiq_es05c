@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
+import { useNavigate } from 'react-router-dom';
 
 import socket from './socket';
 import Game  from '../game/GameMultiplayer';
 
 function Room() {
+  const nagivate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
   const isHost = location.state?.isHost;
@@ -17,6 +19,15 @@ function Room() {
 
 
   const [winner, setWinner] = useState(null);
+
+
+  //para el mensaje del ganador 
+  const [isOpen, setIsOpen] = useState(false);
+  const cancelRef = useRef();
+  const onClose = () =>{
+    setIsOpen(false);
+    nagivate('/home');
+  };
 
   useEffect(() => {
 
@@ -37,7 +48,8 @@ function Room() {
       setGameStarted(true);
     });
 
-    socket.on('gameEnded', ({ winner }) => {
+    socket.on('gameEnded', ( winner ) => {
+      console.log('Juego terminado, ganador: ', winner);
       setWinner(winner);
     });
     //limpiar el evento 
@@ -46,7 +58,12 @@ function Room() {
 
   }, [roomId]);
 
-  
+  //muestra el ganador 
+  useEffect(() => {
+    if (winner) {
+      setIsOpen(true);
+    }
+  }, [winner]);
   function startGame  (){
 
       if(!gameStarted && isHost){
@@ -78,7 +95,29 @@ function Room() {
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
       {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
-      {winner && <p>EL ganador es {winner}</p>}
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Juego terminado
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              El ganador es {winner}
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cerrar
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </div>
   );
 }

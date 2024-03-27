@@ -104,6 +104,7 @@ class RoomQuestions{
             console.log("entreo en el id de emitir el juego terminado");
             // Si todos los usuarios han terminado el juego, determinar quién ha ganado
             let winner = this.determineWinner(roomResults);
+            console.log("el ganador determinado es "+winner);
             socket.to(id).emit('gameEnded', winner); // enviar a todos los de sala quien gano 
             socket.emit('gameEnded', winner); // 
            

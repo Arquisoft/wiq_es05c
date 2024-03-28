@@ -39,6 +39,7 @@ class History{
         var usuarioDetalles = await Historial.findOne({ user: { $in: usuario } });
 
         //variables para guardar los datos totales
+        var nombreUser = usuarioDetalles.user;
         var numeroJuegos = usuarioDetalles.juegos.length;
         var preguntasAcertadas = 0;
         var preguntasFalladas = 0;
@@ -54,6 +55,7 @@ class History{
         }
 
         resultado = {
+        nombreUsuario: nombreUser,
         numeroJuegos: numeroJuegos,
         preguntas_falladas: (preguntasFalladas/(preguntasAcertadas+preguntasFalladas ) * 100),
         preguntas_acertadas:  (preguntasAcertadas/(preguntasAcertadas+preguntasFalladas ) * 100),

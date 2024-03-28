@@ -3,7 +3,6 @@ import { useEffect, useState,useContext } from 'react';
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
-import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 

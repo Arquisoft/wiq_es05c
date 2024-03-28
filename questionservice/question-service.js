@@ -44,7 +44,7 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     
 }); 
 
-app.get('/generateQuestions', async(req,res)=> {
+app.get('/generateQuestion', async(req,res)=> {
     try{  
       const instancia =  newquestion.ejecutarOperaciones();
      

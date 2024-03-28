@@ -16,6 +16,7 @@ function Game(darkMode) {
   //e le pasaran al Question area para que cuando acabe el juego tengan el valor de las respuestas correctas 
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
   const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
   const timeToAnswer = 20000;//Aquí podemos definir el tiempo para responder
@@ -27,16 +28,15 @@ function Game(darkMode) {
 
   //se ejecuta al cambiar el num de correctas que solo cambia si se ha terminado el juego 
   useEffect(()=>{
-    if(finished&&localStorage.getItem('username')!=null){//tienes que estar logeado para guardar el historial
+    if(finished&&localStorage.getItem('username')!=null && totalTime != 0){//tienes que estar logeado para guardar el historial
       const data={
         user:localStorage.getItem('username'),
         correctas:correctAnswers,
         incorrectas:incorrectAnswers,
-        tiempoTotal:999
+        tiempoTotal:totalTime
       };
 
-
-      console.log("hola se ha enviado el hisotrial al servidor con los datos" ,data);
+      console.log("See envian los siguientes datos al historial" ,data);
       fetch(`${apiEndpoint}/updateHistory`, {
         method: 'POST',
         headers: {
@@ -63,7 +63,7 @@ function Game(darkMode) {
       setIsOpen(true);//hacer que aparzca el cuadro de dialogo 
      
     }
-  },[setFinished,correctAnswers,incorrectAnswers])
+  },[setFinished,correctAnswers,incorrectAnswers, totalTime])
 
   const onClose=()=>{
     setIsOpen(false);
@@ -91,7 +91,7 @@ function Game(darkMode) {
 
       ) : (
         <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
-        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} timeToAnswer={timeToAnswer}/>
+        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} setTotalTimeFinish={setTotalTime} timeToAnswer={timeToAnswer}/>
       )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>

@@ -9,7 +9,7 @@ import { GameTimer } from './timers/GameTimer.jsx';
 *maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
 cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
 
-export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, timeToAnswer=30000}){
+export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, setTotalTimeFinish, timeToAnswer=30000}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
@@ -57,11 +57,13 @@ export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTot
       setOpen(true);
       setTotalCorrectAnswers(correctAnswers);
       setTotalIncorrectAnswers(incorrectAnswers);
+      console.log("El juego ha terminado con un tiempo total de: ", totalTime, " segundos.");
+      setTotalTimeFinish(totalTime);
       setFinished(true);
       
     }
    
-  },[isGameEnded])
+  },[isGameEnded, totalTime])
   // Función para manejar cuando se selecciona una respuesta
   const handleAnswerSelect = (isCorrect) => {
     if (isCorrect) {
@@ -79,12 +81,9 @@ export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTot
     if(questionIndex===questions.length-1)
     {
       //poner a true el estado de juego terminado y ademas parar el reloj 
-      setIsGameEnded(true);
-
-       
-
-
-    }else
+      setIsGameEnded(true);   
+    }
+    else
     {
       loadNextQuestion();
     }
@@ -94,10 +93,7 @@ export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTot
   const loadNextQuestion = () => {
     //poes el indice en la nueva preggunta y actualizas el valor de la pregunta actual 
     setQuestionIndex(questionIndex+1);
-    fetchQuestionData();//obtener la siguiente pregunnta 
-   
-    
-    
+    fetchQuestionData();//obtener la siguiente pregunnta     
   };
 
 

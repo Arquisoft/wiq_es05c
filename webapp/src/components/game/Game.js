@@ -1,9 +1,8 @@
 import { QuestionArea } from './QuestionArea';
-import { useEffect, useState,useContext, useRef } from 'react';
-import { CircularProgress } from "@mui/material";
+import { useEffect, useState,useContext } from 'react';
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
-import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
+import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
@@ -82,7 +81,14 @@ function Game(darkMode) {
       bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
       display="flex" justifyContent="center" alignItems="center">
       {isLoading ? (
-         <CircularProgress color="inherit" />
+         <Spinner
+         thickness='0.3em'
+         speed='0.65s'
+         emptyColor='gray.200'
+         color='blue.500'
+         size='xl'
+         marginTop='5em'
+         />//Para mientras carga
 
       ) : (
         <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}

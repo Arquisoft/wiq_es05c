@@ -28,19 +28,19 @@ export function GameBlock( {darkMode, gameInfo} ){
         tiempo %= 3600;
     
         let minutes = Math.floor(tiempo / 60);
-        let seconds = tiempo % 60;
-    
+        let seconds =  Math.floor(tiempo % 60);
+            
         let tiempoFormateado = '';
     
         if (hours > 0) {
-            tiempoFormateado += `${hours}h `;
+            tiempoFormateado += `${hours.toFixed(2)}h `;
         }
     
         if (minutes > 0 || hours > 0) { // Si hay horas, se mostrarán los minutos aunque sean 0
-            tiempoFormateado += `${minutes}m `;
+            tiempoFormateado += `${minutes.toFixed(2)}m `;
         }
     
-        tiempoFormateado += `${seconds}s`;
+        tiempoFormateado += `${seconds.toFixed(2)}s`;
     
         return tiempoFormateado;
     }

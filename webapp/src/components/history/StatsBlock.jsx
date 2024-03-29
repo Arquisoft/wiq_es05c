@@ -17,7 +17,7 @@ export function StatsBlock({ darkMode,playerStats }){
         tiempo %= 3600;
     
         let minutes = Math.floor(tiempo / 60);
-        let seconds = tiempo % 60;
+        let seconds =  Math.floor(tiempo % 60);
     
         let tiempoFormateado = '';
     

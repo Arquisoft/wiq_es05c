@@ -16,6 +16,14 @@
         ¿Cuál es el genero/s del libro llamado {RELLENAR}?
     </pregunta>
 
+    <pregunta  question="actores" type="fechaNacimiento"> 
+        ¿Cuál es la fecha de nacimiento del actor español {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="chef" type="startDate"> 
+        ¿Cuál es la fecha de nacimiento del chef español {RELLENAR}?
+        </pregunta>
+
     <pregunta  question="videojuego" type="plataforma"> 
         ¿Cuál es la plataforma/s que desarrollo el videojuego llamado {RELLENAR}?
     </pregunta>
@@ -28,8 +36,16 @@
         ¿Cuál es el estadio del club de futbol llamado {RELLENAR}?
     </pregunta>
 
-    <pregunta  question="tenista" type="paisNacimiento"> 
-        ¿Cuál es el pais de nacimiento del tenista llamado {RELLENAR}?
+    <pregunta  question="tenista" type="lugarNacimiento"> 
+        ¿Cuál es el lugar de nacimiento del tenista llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="futbolistas" type="fechaNacimiento"> 
+        ¿Cuál es la fecha de nacimiento del futbolista llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta  question="futbolistas" type="startDate"> 
+        ¿Cuál es la fecha en la que comenzo su carrera el futbolista llamado {RELLENAR}?
     </pregunta>
 
     <pregunta  question="presidenteEspaña" type="fechaNacimiento"> 
@@ -40,4 +56,27 @@
         ¿Cuál es la fecha de nacimiento de la personalidad de Oviedo llamado/a {RELLENAR}?
     </pregunta>
 
+    <pregunta question="nombreCientifico" type="camposCientifico">
+        ¿Cual/es son los campos de estudio del cientifico llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta question="nombreCientifico" type="interesesCientifico">
+        ¿Cual/es son los intereses de estudio del cientifico llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta question="nombreElemento" type="numeroAtomico">
+        ¿Cual es el numero atomico del elemento llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta question="dj" type="startDate">
+        ¿Cual es la fecha en la que comenzo su carrera el dj llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta question="guitarrista" type="startDate">
+        ¿Cual es la fecha en la que comenzo su carrera el guitarrista llamado {RELLENAR}?
+    </pregunta>
+
+    <pregunta question="cantante" type="startDate">
+        ¿Cual es la fecha en la que comenzo su carrera el/la cantante llamado {RELLENAR}?
+    </pregunta>
 </textoPreguntas>

@@ -9,6 +9,9 @@ const question = new Question();
 const NewQuestion = require("./questionGeneration");
 const newquestion = new NewQuestion();
 
+const Scheduler = require('./scheduler');
+const scheduler = new Scheduler();
+
 const app = express();
 const port = 8003; 
 

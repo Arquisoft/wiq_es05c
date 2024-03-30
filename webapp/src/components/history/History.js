@@ -8,9 +8,12 @@ import { StatsBlock } from './StatsBlock';
 
 export function History({darkMode}){
 
+  //obtenemos el usuario en sesion
+  const usuario = localStorage.getItem('username');
+
   const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
-  let gamesEndpoint = apiEndpoint+'/getHistoryDetallado';
-  let statisticsEndpoint = apiEndpoint+'/getHistoryTotal';
+  let gamesEndpoint = apiEndpoint+`/getHistoryDetallado?usuario=${usuario}`;
+  let statisticsEndpoint = apiEndpoint+`/getHistoryTotal?usuario=${usuario}`;
 
   const [allGames, setAllGames] = useState([]);//Para todos los juegos
   const [isLoadingGames, setIsLoadingGames] = useState(true);

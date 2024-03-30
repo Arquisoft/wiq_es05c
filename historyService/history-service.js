@@ -23,27 +23,50 @@ mongoose.connect(mongoUri);
 
 app.get('/getHistoryDetallado', async(req,res)=> {
   try{  
+    console.log("entra en gethistory detallado");
+    //obtenemos el usuario en sesion
+    const usuario = req.query.usuario;
+
+    console.log("Usuario: "+usuario);
+
+    //comprobamos si se ha pasado un usuario
+    if(usuario === undefined){
+      throw new Error('No hay un usuario en la petición');
+    }
+
     //coger datos bd
     console.log("entra en gethistory detallado");
-    const history = await historial.obtenerDetalleUser("usuario1");
+    const history = await historial.obtenerDetalleUser(usuario);
     //para devolver la informacion detallada del usuario
     res.json(history);
     
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(400).json({  error: error.message  });
   }
     
 }); 
 
 app.get('/getHistoryTotal', async(req,res)=> {
   try{  
+    console.log("entra en gethistory total");
+
+    //obtenemos el usuario en sesion
+    const usuario = req.query.usuario;
+
+    console.log("Usuario: "+usuario);
+
+    //comprobamos si se ha pasado un usuario
+    if(usuario === undefined){
+      throw new Error('No hay un usuario en la petición');
+    }
+
     //coger detalles totales de la bd
-    const historyTotal = await historial.obtenerDatosTotales("usuario1");
+    const historyTotal = await historial.obtenerDatosTotales(usuario);
     //para devolver los detalles totales del historial
     res.json(historyTotal);
     
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(400).json({  error: error.message  });
   }
     
 }); 

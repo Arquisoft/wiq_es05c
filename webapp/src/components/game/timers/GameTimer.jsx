@@ -9,6 +9,7 @@ export function GameTimer({darkMode, isGameEnded, setTotalTime }) {
 
   useEffect(() => {
     if (isGameEnded) {
+      console.log("El juego ha terminado con un tiempo total de: ", seconds, " segundos.");
       setTotalTime(seconds);
       return;
     }

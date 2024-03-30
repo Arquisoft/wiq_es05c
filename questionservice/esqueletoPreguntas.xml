@@ -36,8 +36,8 @@
         ¿Cuál es el estadio del club de futbol llamado {RELLENAR}?
     </pregunta>
 
-    <pregunta  question="tenista" type="paisNacimiento"> 
-        ¿Cuál es el pais de nacimiento del tenista llamado {RELLENAR}?
+    <pregunta  question="tenista" type="lugarNacimiento"> 
+        ¿Cuál es el lugar de nacimiento del tenista llamado {RELLENAR}?
     </pregunta>
 
     <pregunta  question="futbolistas" type="fechaNacimiento"> 

@@ -1,16 +1,18 @@
 const express = require('express');
+
 const axios = require('axios');
 const cors = require('cors');
 const promBundle = require('express-prom-bundle');
 
 const app = express();
+
 const port = 8000;
 
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 const questionServiceUrl = process.env.QUESTION_SERVICE_URL || 'http://localhost:8003';
 const historyServiceUrl = process.env.HISTORY_SERVICE_URL || 'http://localhost:8004';
-
+const roomServiceUrl = process.env.ROOM_SERVICE_URL || 'http://localhost:8005';
 app.use(cors());
 app.use(express.json());
 
@@ -23,6 +25,8 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'OK' });
 });
 
+
+;
 app.post('/login', async (req, res) => {
   try {
     console.log('Login request received');
@@ -112,6 +116,43 @@ app.get('/getHistoryTotal', async (req, res) => {
   } catch (error) {
     //Modifico el error 
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+//***************************************************endpoints de las salas */
+app.get('/joinroom/:id/:username',async(req,res)=> {
+  try {
+    console.log("controlador gateway parametros"+req.params);
+    const { id,username } = req.params;
+    const roomQuestionsResult = await axios.get(`${roomServiceUrl}/joinroom/${id}/${username}`);
+    res.json(roomQuestionsResult.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas' });
+  }
+});
+app.get('/createroom/:username',async(req,res)=> {
+  try {
+    const {username}=req.params;
+    //crea la sala y te une dentro 
+    //room es el id  
+    const room = await axios.get(`${roomServiceUrl}/createroom/${username}`);
+    res.json(room.data);
+
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: 'Error al crear la sala' });
+  }
+});
+app.get('/startgame/:id/:username',async(req,res)=> {
+  try {
+    const {id,username}=req.params;
+    //crea la sala y te une dentro 
+    //room es el id  
+    const room = await axios.get(`${roomServiceUrl}/startgame/${username}`);
+    res.json(room.data);
+
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: 'Error al crear la sala' });
   }
 });
 

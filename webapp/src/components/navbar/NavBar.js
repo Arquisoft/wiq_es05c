@@ -48,6 +48,12 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <Button color="inherit" component={Link} to="/home">
           Home
         </Button>
+        <Button color="inherit" component={Link} to="/joinroom">
+          Join Room
+        </Button>
+        <Button color="inherit" component={Link} to="/createroom">
+          Create room 
+        </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
         <CustomSwitch onChange={handleToggle} />
         {isLoggedIn() ? (
@@ -69,6 +75,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
            <MenuItem onClick={handleClose} component={Link} to="/history">
              Historial
            </MenuItem>
+       
          </Menu>
        </>
         ) : (
@@ -80,6 +87,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
               Registrarse
             </Button>
           </>
+         
         )}
       </Toolbar>
     </AppBar>

@@ -66,6 +66,7 @@ export function History({darkMode}){
     ) : (
       <Box id='main-history' backgroundColor={backgroundColor}>
       <StatsBlock darkMode={darkMode} playerStats={stats} />
+      <AllGamesBlock games={allGames} darkMode={darkMode}/>
       </Box>
     )}
   </Box>

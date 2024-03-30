@@ -29,12 +29,9 @@ describe('User Service', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('email', 'username', 'testuser');
   });
-});
-
 
 //pruebas para el formato de las contraseñas
 
-describe('User Service', () => {
   it('should send an error because the password need to have 12 characters long minimum on POST /adduser', async () => {
     const newUser = {
       email: 'test2@email.com',
@@ -47,9 +44,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('La contraseña tiene que tener al menos 12 caracteres');
   });
-});
 
-describe('User Service', () => {
   it('should send an error because the password need to have a capital letter on POST /adduser', async () => {
     const newUser = {
       email: 'test3@email.com',
@@ -62,9 +57,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('La contraseña tiene que tener al menos una letra mayúscula');
   });
-});
 
-describe('User Service', () => {
   it('should send an error because the password need to have a lowercase letter on POST /adduser', async () => {
     const newUser = {
       email: 'test4@email.com',
@@ -77,9 +70,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('La contraseña tiene que tener al menos una letra minúscula');
   });
-});
-
-describe('User Service', () => {
+  
   it('should send an error because the password need to have a number on POST /adduser', async () => {
     const newUser = {
       email: 'test5@email.com',
@@ -92,9 +83,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('La contraseña tiene que tener al menos un número');
   });
-});
-
-describe('User Service', () => {
+  
   it('should send an error because the password need to have a special character on POST /adduser', async () => {
     const newUser = {
       email: 'test6@email.com',
@@ -107,12 +96,9 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('La contraseña tiene que tener al menos un carácter especial');
   });
-});
-
-
+  
 //pruebas para comprobar el formato del email
 
-describe('User Service', () => {
   it('should send an error because the email is not valid on POST /adduser', async () => {
     const newUser = {
       email: 'testemail.com',
@@ -125,9 +111,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('El email es invalido');
   });
-});
 
-describe('User Service', () => {
   it('should send an error because the email is not valid on POST /adduser', async () => {
     const newUser = {
       email: 'test@email',
@@ -140,12 +124,9 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('El email es invalido');
   });
-});
-
 
 //pruebas para comprobar si el email o el username ya existe en la bd
 
-describe('User Service', () => {
   it('should send an error because the email already exist in the database on POST /adduser', async () => {
     const newUser = {
       email: 'test@email.com',
@@ -158,9 +139,7 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('El email ya existe en la base de datos');
   });
-});
 
-describe('User Service', () => {
   it('should send an error because the username already exist in the database on POST /adduser', async () => {
     const newUser = {
       email: 'test10@email.com',
@@ -173,12 +152,11 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('El username ya existe en la base de datos');
   });
-});
 
 
 //pruebas para comprobar si las contraseñas son iguales
-describe('User Service', () => {
-  it('should send an error because the passwords are not equals on POST /adduser', async () => {
+
+it('should send an error because the passwords are not equals on POST /adduser', async () => {
     const newUser = {
       email: 'test11@email.com',
       username: 'test11user',
@@ -190,4 +168,5 @@ describe('User Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('Las contraseñas no coinciden');
   });
+  
 });

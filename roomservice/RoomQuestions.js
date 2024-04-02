@@ -11,31 +11,27 @@ class RoomQuestions{
     }
     async joinRoom(id, username, socket) {
       try {
-        if (id != null && id !== undefined) {
+        if (id && id.trim() !== '') { // Comprueba que la id no sea null, undefined o un string vacío
           if (this.rooms.has(id)) { // Verifica si la sala existe
             let userList = this.rooms.get(id);
-             // Verifica si el usuario ya existe en la sala
+            // Verifica si el usuario ya existe en la sala
             if (!userList.includes(username)) {
               userList.push(username);
               this.rooms.set(id, userList);
             }
-           // console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
-            //asociar el socket a la sala
+            // Asociar el socket a la sala
             socket.join(id);
             // Emitir evento 'roomJoined' solo al usuario que se acaba de unir a la sala
             socket.emit('roomJoined', id);
-    
-         
-            this.emitCurrentUsers(id, socket);
+            console.log(`Usuario ${username} se ha unido a la sala ${id}`);
           } else {
-            throw new Error("la sala no existe ");
+            throw new Error("la sala no existe");
+           
           }
-        } else {
-          throw new Error("ID de sala inválido");
         }
       } catch (error) {
-        console.log(error);
+        throw new Error('Error al unirse a la sala:', error);
       }
     }
 

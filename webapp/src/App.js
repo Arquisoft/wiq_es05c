@@ -63,8 +63,8 @@ const App = () => {
             </AuthenticatedLayout>
           } />
 
-          <Route path="/joinroom" element={<AuthenticatedLayout><JoinRoomForm /></AuthenticatedLayout>} />
-          <Route path="/createroom" element={<AuthenticatedLayout><CreateRoomForm /></AuthenticatedLayout>} />
+          <Route path="/joinroom" element={<AuthenticatedLayout> <ChakraProvider> <JoinRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
+          <Route path="/createroom" element={<AuthenticatedLayout> <ChakraProvider><CreateRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
           <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
           
         </Routes>

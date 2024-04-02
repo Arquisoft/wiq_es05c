@@ -34,10 +34,12 @@ io.on('connection', (socket) => {
     try {
       console.log("microservicio--joinroom , valor id "+id+" username "+username);
       await roomQuestions.joinRoom(id, username,socket);
-      console.log(`Usuario ${username} se ha unido a la sala ${id}`);
+     // console.log(`Usuario ${username} se ha unido a la sala ${id}`);
   
     } catch (error) {
       console.log(`Error al unir al usuario a la sala: ${error.message}`);
+      socket.emit('roomErrorJoining');
+      console.log("error al unir al usuario a la sala lanzado envento RoomErrorJoining");
     }
   });
   // Evento personalizado para crear una sala

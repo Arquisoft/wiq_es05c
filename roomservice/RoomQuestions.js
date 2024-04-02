@@ -166,5 +166,15 @@ class RoomQuestions{
         console.log(`La sala con id ${id} no existe.`);
       }
     }
+    getRoomUsers(id) {
+      // Check if the room exists
+      if (this.rooms.has(id)) {
+          // Return the list of users in the room
+          return this.rooms.get(id);
+      } else {
+          // If the room does not exist, return an empty array
+          return [];
+      }
+  }
 }
 module.exports=RoomQuestions;

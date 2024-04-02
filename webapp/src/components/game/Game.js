@@ -11,7 +11,7 @@ recibe el obj gameMode que contieene las preguntas para ese modo de juego
 recibe questions que son las del servidor si estas en multiplayer 
   si no le pasa contexto se utiliziara el por defecto que es el GameContext
 */
-function Game({darkMode,questions:multiplayerQuestions,endGame}) {
+function Game({darkMode,questions:multiplayerQuestions=null,endGame=null}) {
 
   //obtienes las preguntas del contexto o bien de la prop q se le pasa 
   const { startGame, questions: singleplayerQuestions, isLoading } = useContext(GameContext);
@@ -78,6 +78,8 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
 
   const onClose=()=>{
     setIsOpen(false);
+    //solamente te iras si has cerrado el singleplayer en multiplayer no te vas hasta que no ves el ganador 
+    if( multiplayerQuestions==null)
     navigate('/home');
   }
   //Colores chakra dark - light
@@ -87,6 +89,7 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
   //#08313A, #107869
 
   return (
+    console.log("En game"+darkMode.darkMode),
     <Box minH="100vh" minW="100vw" 
       bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
       display="flex" justifyContent="center" alignItems="center">
@@ -104,7 +107,29 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
         <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
         setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} setTotalTimeFinish={setTotalTime} timeToAnswer={timeToAnswer}/>
       )}
+      
+
+    {multiplayerQuestions ? (<div id="waitingForPlayers">
       <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+            <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Juego Terminado
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+                Esperando al resto de jugadores...
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+                <Button colorScheme="blue" onClick={onClose} ml={3}>
+                Cerrar
+                </Button>
+            </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialogOverlay>
+        </AlertDialog>
+        </div>  ):(<AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
@@ -125,7 +150,7 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
-    </AlertDialog>
+    </AlertDialog>)}
     </Box>
   );
 }

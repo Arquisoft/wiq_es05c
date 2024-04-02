@@ -20,7 +20,7 @@ class Scheduler {
     }
 
     start() {
-        cron.schedule('*/30 * * * *', async () => {
+        cron.schedule('*/1 * * * *', async () => {
             try {
                 await this.generarPregunta();
             }

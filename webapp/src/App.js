@@ -19,7 +19,6 @@ import PrincipalView from './components/principalView/PrincipalView';
 import Room from './components/rooms/Room'; // Importa el componente de sala
 import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el componente para crear sala
 import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
-import GameMultiplayer from './components/game/GameMultiplayer'; // Importa el componente para el juego multijugador
 
 
 const App = () => {
@@ -66,8 +65,8 @@ const App = () => {
 
           <Route path="/joinroom" element={<AuthenticatedLayout><JoinRoomForm /></AuthenticatedLayout>} />
           <Route path="/createroom" element={<AuthenticatedLayout><CreateRoomForm /></AuthenticatedLayout>} />
-          <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room /> </ChakraProvider></AuthenticatedLayout>} />
-          <Route path="/multiplayer" element={<AuthenticatedLayout><ChakraProvider > <GameMultiplayer /> </ChakraProvider></AuthenticatedLayout>} />
+          <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
+          
         </Routes>
         </GameProvider>
 

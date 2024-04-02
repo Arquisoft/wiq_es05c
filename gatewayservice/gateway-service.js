@@ -76,10 +76,10 @@ app.get('/getQuestionModoBasico', async (req, res) => {
   }
 });
 
-app.get('/generateQuestions', async (req, res) => {
+app.get('/generateQuestion', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
-    await axios.get(questionServiceUrl+'/generateQuestions', req.body);
+    await axios.get(questionServiceUrl+'/generateQuestion', req.body);
     
   } catch (error) {
     //Modifico el error
@@ -92,8 +92,11 @@ app.get('/generateQuestions', async (req, res) => {
 
 app.get('/getHistoryDetallado', async (req, res) => {
   try {
+    // Obtener el usuario de la consulta
+    const usuario = req.query.usuario;
+
     // llamamos al servicio de preguntas
-    const historyResponse = await axios.get(historyServiceUrl+'/getHistoryDetallado', req.body);
+    const historyResponse = await axios.get(`${historyServiceUrl}/getHistoryDetallado?usuario=${usuario}`);
     
     res.json(historyResponse.data);
   } catch (error) {
@@ -104,8 +107,10 @@ app.get('/getHistoryDetallado', async (req, res) => {
 
 app.get('/getHistoryTotal', async (req, res) => {
   try {
+    // Obtener el usuario de la consulta
+    const usuario = req.query.usuario;
     // llamamos al servicio de preguntas
-    const historyResponse = await axios.get(historyServiceUrl+'/getHistoryTotal', req.body);
+    const historyResponse = await axios.get(`${historyServiceUrl}/getHistoryTotal?usuario=${usuario}`);
     
     res.json(historyResponse.data);
   } catch (error) {

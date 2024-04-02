@@ -10,6 +10,9 @@ const question = new Question();
 
 const NewQuestion = require("./questionGeneration");
 const newquestion = new NewQuestion();
+
+const Scheduler = require('./scheduler');
+const scheduler = new Scheduler();
 const RoomQuestions = require('./RoomQuestions');
 const app = express();
 app.use(cors());
@@ -51,7 +54,7 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     
 }); 
 
-app.get('/generateQuestions', async(req,res)=> {
+app.get('/generateQuestion', async(req,res)=> {
     try{  
       const instancia =  newquestion.ejecutarOperaciones();
      

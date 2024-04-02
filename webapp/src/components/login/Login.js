@@ -3,11 +3,12 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 
+
 import { AuthContext } from '../authcontext';
 
 import { useNavigate ,Link} from 'react-router-dom';
 
-const Login = () => {
+const Login = (darkMode) => {
   //hacer que el navbar guarde el contexo de si estas loggeado o no 
   //ademas metes en localStorage que es como una cookie , el usuario para poder sacar sus datos en historial etc 
 
@@ -57,8 +58,20 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+  let backgroundColor = darkMode.darkMode ? '#001c17' : '#fef5c6';
+  let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
+  let buttonColor = darkMode.darkMode ? '#107869' : '#FFFFF5';
+
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}
+    style={{ 
+      padding: '2em',
+      marginTop: '4rem', 
+      backgroundColor: backgroundColor,
+      marginBottom: '3em',
+      border: "0.1em solid"+text,
+      color: text
+    }}>
       {loginSuccess ? (
         <div>
           <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
@@ -76,6 +89,15 @@ const Login = () => {
             Login
           </Typography>
           <TextField
+            InputProps={{
+              style: { color: text }, // Cambia 'red' al color que quieras
+            }}
+            InputLabelProps={{
+              style: { color: text }, // Cambia 'red' al color que quieras
+            }}
+            FormHelperTextProps={{
+              style: { color: text }, // Cambia el color del texto de ayuda
+            }}
             margin="normal"
             fullWidth
             label="Username"
@@ -84,6 +106,15 @@ const Login = () => {
             helperText="Puedes logearte con tu email o tu nombre de usuario"
           />
           <TextField
+          InputProps={{
+            style: { color: text }, // Cambia 'red' al color que quieras
+          }}
+          InputLabelProps={{
+            style: { color: text }, // Cambia 'red' al color que quieras
+          }}
+          FormHelperTextProps={{
+            style: { color: text }, // Cambia el color del texto de ayuda
+          }}
             margin="normal"
             fullWidth
             label="Password"
@@ -93,10 +124,11 @@ const Login = () => {
           />
           
           <Typography>
-          <Link to="/adduser">¿No tienes cuenta , registrate aqui ?</Link>
+          <Link to="/adduser" style={{color: text}}>¿No tienes cuenta , registrate aqui ?</Link>
 
             </Typography>
-          <Button variant="contained" color="primary" onClick={loginUser}>
+          <Button variant="contained" color="primary" onClick={loginUser} 
+          style={{ backgroundColor: buttonColor, color: text }}>
             Login
           </Button>
           <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />

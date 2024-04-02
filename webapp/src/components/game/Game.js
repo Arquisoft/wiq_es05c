@@ -1,10 +1,8 @@
 import { QuestionArea } from './QuestionArea';
-import { useEffect, useState,useContext, useRef } from 'react';
-import { CircularProgress } from "@mui/material";
+import { useEffect, useState,useContext } from 'react';
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
-import { Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
-import axios from 'axios';
+import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
@@ -24,6 +22,7 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
   //e le pasaran al Question area para que cuando acabe el juego tengan el valor de las respuestas correctas 
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
   const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
   const timeToAnswer = 20000;//Aquí podemos definir el tiempo para responder
@@ -35,16 +34,15 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
 
   //se ejecuta al cambiar el num de correctas que solo cambia si se ha terminado el juego 
   useEffect(()=>{
-    if(finished&&localStorage.getItem('username')!=null){//tienes que estar logeado para guardar el historial
+    if(finished&&localStorage.getItem('username')!=null && totalTime != 0){//tienes que estar logeado para guardar el historial
       const data={
         user:localStorage.getItem('username'),
         correctas:correctAnswers,
         incorrectas:incorrectAnswers,
-        tiempoTotal:999
+        tiempoTotal:totalTime
       };
 
-
-      console.log("hola se ha enviado el hisotrial al servidor con los datos" ,data);
+      console.log("See envian los siguientes datos al historial" ,data);
       fetch(`${apiEndpoint}/updateHistory`, {
         method: 'POST',
         headers: {
@@ -76,7 +74,7 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
       }
      
     }
-  },[setFinished,correctAnswers,incorrectAnswers])
+  },[setFinished,correctAnswers,incorrectAnswers, totalTime])
 
   const onClose=()=>{
     setIsOpen(false);
@@ -93,11 +91,18 @@ function Game({darkMode,questions:multiplayerQuestions,endGame}) {
       bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
       display="flex" justifyContent="center" alignItems="center">
       {isLoading ? (
-         <CircularProgress color="inherit" />
+         <Spinner
+         thickness='0.3em'
+         speed='0.65s'
+         emptyColor='gray.200'
+         color='blue.500'
+         size='xl'
+         marginTop='5em'
+         />//Para mientras carga
 
       ) : (
         <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
-        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} timeToAnswer={timeToAnswer}/>
+        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} setTotalTimeFinish={setTotalTime} timeToAnswer={timeToAnswer}/>
       )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>

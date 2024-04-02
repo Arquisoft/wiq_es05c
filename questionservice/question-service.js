@@ -22,6 +22,8 @@ app.use(express.json());
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questionsdb';
 mongoose.connect(mongoUri);
 
+// Endpoints para la obtención de preguntas para los modos de juego
+
 app.get('/getQuestion', async(req,res)=> {
   try{  
     //coger pregunta bd
@@ -30,10 +32,10 @@ app.get('/getQuestion', async(req,res)=> {
     res.json(questions);
     
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(500).json({ error: error.message }); 
   }
-    
 }); 
+
 app.get('/getQuestionModoBasico', async(req,res)=> {
   try{  
     //coger pregunta bd
@@ -42,19 +44,19 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     res.json(questions);
     
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(500).json({ error: error.message }); 
   }
     
 }); 
 
+// Endpoints para la generación de preguntas
+
 app.get('/generateQuestion', async(req,res)=> {
     try{  
-      const instancia =  newquestion.ejecutarOperaciones();
-     
+      await newquestion.ejecutarOperaciones();     
     } catch(error) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    }
-      
+      res.status(500).json({ error: error.message }); 
+    }      
   });
 
 

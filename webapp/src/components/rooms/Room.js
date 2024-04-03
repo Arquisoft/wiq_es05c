@@ -5,9 +5,9 @@ import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, Ale
 import { useNavigate } from 'react-router-dom';
 
 import socket from './socket';
-import Game  from '../game/GameMultiplayer';
+import Game  from '../game/Game';
 
-function Room() {
+function Room({ darkMode }) {
   const nagivate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
@@ -94,7 +94,7 @@ function Room() {
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
+      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} questions={questions} endGame={endGame} />}
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}

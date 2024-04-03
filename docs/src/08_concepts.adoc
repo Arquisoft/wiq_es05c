@@ -30,4 +30,4 @@ In development...
 
 === Development concepts
 
-    * Test: Realizadas pruebas de testing del microservicio gateway-service y del componente de webapp Game,
+    * Test: Realizadas pruebas de testing del microservicio gateway-service y del componente de webapp Game.

@@ -80,3 +80,5 @@ io.on('connection', (socket) => {
 
 // Iniciar el servidor
 server.listen(port, () => console.log(`Servidor corriendo en el puerto ${port}`));
+
+module.exports = server;

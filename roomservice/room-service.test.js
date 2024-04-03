@@ -76,7 +76,19 @@ it('should show the users once the page is loaded', (done) => {
     });
   });
 });
- 
+  //caso de que la sala no exista 
+  it('should not join a room that dont exist ', (done) => {
+    let roomId= "1234Noexiste";
+    socket2.emit('joinRoom', { id: roomId, username: 'username0Segundo' });
+    socket2.on('roomErrorJoining', () => {
+  
+        done();
+      });
+  
+    
+  });
+
+
  //test start game 
  it('should start game', (done) => {
   // Mock axios.get to simulate getting questions

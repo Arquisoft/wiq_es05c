@@ -10,6 +10,7 @@ class RoomQuestions{
         this.io = io;
     }
     async joinRoom(id, username, socket) {
+      console.log("valores del join room params id "+id+" username "+username+" socket "+socket);
       try {
         if (id && id.trim() !== '') { // Comprueba que la id no sea null, undefined o un string vacío
           if (this.rooms.has(id)) { // Verifica si la sala existe
@@ -26,11 +27,13 @@ class RoomQuestions{
             socket.emit('roomJoined', id);
             console.log(`Usuario ${username} se ha unido a la sala ${id}`);
           } else {
+            console.log(`La sala con id ${id} no existe.`);
             throw new Error("la sala no existe");
            
           }
         }
       } catch (error) {
+        console.log(`Error al unirse a la sala: ${error.message}`);
         throw new Error('Error al unirse a la sala:', error);
       }
     }

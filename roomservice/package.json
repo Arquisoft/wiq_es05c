@@ -1,10 +1,10 @@
 {
-    "name": "questionservice",
+    "name": "roomservice",
     "version": "1.0.0",
-    "description": "Microservicio de preguntas",
+    "description": "Microservicio de juego online",
     "main": "service.js",
     "scripts": {
-        "start": "node question-service.js",
+        "start": "node room-service.js",
         "test": "jest"
     },
     "repository": {
@@ -22,8 +22,7 @@
         "express": "^4.18.2",
         "mongoose": "^8.0.4",
         "socket.io": "^4.7.5",
-        "xml2js": "^0.4.23",        
-        "node-cron": "^3.0.0"
+        "xml2js": "^0.4.23"
     },
     "devDependencies": {
         "jest": "^29.7.0",

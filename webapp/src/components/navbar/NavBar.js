@@ -20,7 +20,7 @@ const CustomSwitch = styled(Switch)({
   },
 });
 
-const NavBar = ({ setDarkMode }) => {
+const NavBar = ({ setDarkMode, darkMode}) => {
   const { isLoggedIn,username } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -36,12 +36,23 @@ const NavBar = ({ setDarkMode }) => {
     setDarkMode(prevDarkMode => !prevDarkMode);
   };
 
+  console.log('darkMode naav', darkMode);
+  let barBackgroundColor = darkMode?"#001c17" : "#fef5c6";
+  let textColor = darkMode?"#FCFAF0" : "#08313A";
+
+
   console.log('isLoggedIn', isLoggedIn);
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}}  >
       <Toolbar>
         <Button color="inherit" component={Link} to="/home">
           Home
+        </Button>
+        <Button color="inherit" component={Link} to="/joinroom">
+          Join Room
+        </Button>
+        <Button color="inherit" component={Link} to="/createroom">
+          Create room 
         </Button>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
         <CustomSwitch onChange={handleToggle} />
@@ -64,6 +75,7 @@ const NavBar = ({ setDarkMode }) => {
            <MenuItem onClick={handleClose} component={Link} to="/history">
              Historial
            </MenuItem>
+       
          </Menu>
        </>
         ) : (
@@ -75,6 +87,7 @@ const NavBar = ({ setDarkMode }) => {
               Registrarse
             </Button>
           </>
+         
         )}
       </Toolbar>
     </AppBar>

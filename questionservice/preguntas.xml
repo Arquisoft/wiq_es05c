@@ -80,36 +80,29 @@
 
    <pregunta question="actores" type="fechaNacimiento"  category="arte">
     <query>
-        SELECT ?personLabel ?birthDate { 
-
-            ?person wdt:P27 wd:Q29 . 
-          
-            ?person wdt:P106 wd:Q33999 . 
-          
-            ?person wdt:P569 ?birthDate . 
-          
+        SELECT ?personLabel ?persona ?birthDate 
+        WHERE{ 
+            ?person wdt:P27 wd:Q29 .           
+            ?person wdt:P106 wd:Q33999 .           
+            ?person wdt:P569 ?birthDate .           
             SERVICE wikibase:label { 
-          
-              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
-          
-            } 
-          
-          } 
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
+            }           
+        } 
     </query>
    </pregunta>
 
    <pregunta question="chef" type="startDate"  category="arte">
     <query>
-        SELECT ?personLabel ?startDate {  
-
+        SELECT ?personLabel ?persona ?startDate         
+        WHERE {  
             ?person wdt:P27 wd:Q29 .  
             ?person wdt:P106 wd:Q156839 .  
             ?person wdt:P2031 ?startDate.  
             SERVICE wikibase:label {  
-              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-          
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
             }  
-          } 
+        } 
     </query>
    </pregunta>
 
@@ -152,12 +145,12 @@
     </query>
    </pregunta>
 
-   <pregunta question="tenista" type="paisNacimiento"  category="deportes">
+   <pregunta question="tenista" type="lugarNacimiento"  category="deportes">
     <query>
-        SELECT ?tenistaLabel ?tenista ?paisNacimientoLabel
+        SELECT ?tenistaLabel ?tenista ?lugarNacimientoLabel
         WHERE {
             ?tenista wdt:P106 wd:Q10833314. # Instancia de tenista
-            ?tenista wdt:P19 ?paisNacimiento. # País de nacimiento
+            ?tenista wdt:P19 ?lugarNacimiento. # Lugar de nacimiento
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
     </query>
@@ -165,7 +158,8 @@
 
    <pregunta question="futbolistas" type="fechaNacimiento"  category="deportes">
     <query>
-        SELECT ?personLabel ?birthDate { 
+        SELECT ?personLabel ?person ?birthDate 
+        WHERE { 
             ?person wdt:P27 wd:Q29 . 
             ?person wdt:P106 wd:Q937857 . 
             ?person wdt:P569 ?birthDate . 
@@ -178,15 +172,15 @@
 
    <pregunta question="futbolistas" type="startDate"  category="deportes">
     <query>
-        SELECT ?personLabel ?startDate {  
+        SELECT ?personLabel ?person ?startDate 
+        WHERE {  
             ?person wdt:P27 wd:Q29 .  
             ?person wdt:P106 wd:Q937857 .  
             ?person wdt:P2031 ?startDate.  
             SERVICE wikibase:label {  
-              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-          
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".            
             }  
-          }
+        }
     </query>
    </pregunta>
 
@@ -248,7 +242,7 @@
 
    <pregunta question="nombreElemento" type="numeroAtomico"  category="ciencia">
     <query>
-        SELECT DISTINCT ?nombreElemento ?numeroAtomico 
+        SELECT DISTINCT ?nombreElemento ?element ?numeroAtomico 
         WHERE { 
             ?element wdt:P31 wd:Q11344.  # elemento químico (clase) 
             ?element wdt:P1086 ?atomicNumber.  # Relación "número atómico" 
@@ -261,57 +255,43 @@
 
    <pregunta question="dj" type="startDate" category="musica">
     <query>
-        SELECT ?personLabel ?startDate {  
+        SELECT ?personLabel ?person ?startDate 
+        WHERE {  
             ?person wdt:P27 wd:Q29 .  
-            ?person wdt:P106 wd:Q130857 .  
-          
-            ?person wdt:P2031 ?startDate.  
-          
-            SERVICE wikibase:label {  
-          
-              bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-          
-            }  
-          
-          } 
+            ?person wdt:P106 wd:Q130857 .            
+            ?person wdt:P2031 ?startDate.            
+            SERVICE wikibase:label {            
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".            
+            }            
+        } 
     </query>
     </pregunta>
 
     <pregunta question="guitarrista" type="startDate" category="musica">
         <query>
-            SELECT ?personLabel ?startDate {  
-                ?person wdt:P27 wd:Q29 .  
-              
-                ?person wdt:P106 wd:Q855091 .  
-              
-                ?person wdt:P2031 ?startDate.  
-              
-                SERVICE wikibase:label {  
-              
-                  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-              
-                }  
-              
-              } 
+            SELECT ?personLabel ?person ?startDate 
+            WHERE {  
+                ?person wdt:P27 wd:Q29 .                
+                ?person wdt:P106 wd:Q855091 .                
+                ?person wdt:P2031 ?startDate.                
+                SERVICE wikibase:label {                
+                    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".              
+                }                
+            } 
         </query>
     </pregunta>
 
     <pregunta question="cantante" type="startDate" category="musica">
         <query>
-            SELECT ?personLabel ?startDate{  
-
-                ?person wdt:P27 wd:Q29 .  
-              
-                ?person wdt:P106 wd:Q177220 .  
-              
+            SELECT ?personLabel ?person ?startDate
+            WHERE {  
+                ?person wdt:P27 wd:Q29 .                
+                ?person wdt:P106 wd:Q177220 .                
                 ?person wdt:P2031 ?startDate.  
-
-                SERVICE wikibase:label {  
-              
-                  bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-              
+                SERVICE wikibase:label {                
+                    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".               
                 } 
-              } 
+            } 
         </query>
     </pregunta>
 </preguntas>

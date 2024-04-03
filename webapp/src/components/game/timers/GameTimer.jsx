@@ -9,6 +9,7 @@ export function GameTimer({darkMode, isGameEnded, setTotalTime }) {
 
   useEffect(() => {
     if (isGameEnded) {
+      console.log("El juego ha terminado con un tiempo total de: ", seconds, " segundos.");
       setTotalTime(seconds);
       return;
     }
@@ -25,7 +26,7 @@ export function GameTimer({darkMode, isGameEnded, setTotalTime }) {
   return (
     <Box display="flex" alignItems="baseline">
         <Box display="flex" alignItems="center" margin="1em">
-            <FaRegClock style={{ marginRight: "1em", color:{textColor}}} size="2em" />
+            <FaRegClock style={{ marginRight: "1em", color:textColor}} size="2em" />
             <Text color={textColor} fontSize="1.3em"> {seconds} </Text>
         </Box>
     </Box>

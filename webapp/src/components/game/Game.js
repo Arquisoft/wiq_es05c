@@ -7,10 +7,16 @@ import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDia
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 /*
-recibe el obj gameMode que contieene las preguntas para ese modo de juego */
-function Game(darkMode) {
+recibe el obj gameMode que contieene las preguntas para ese modo de juego
+recibe questions que son las del servidor si estas en multiplayer 
+  si no le pasa contexto se utiliziara el por defecto que es el GameContext
+*/
+function Game({darkMode,questions:multiplayerQuestions=null,endGame=null}) {
 
-  const { startGame, questions, isLoading } = useContext(GameContext);
+  //obtienes las preguntas del contexto o bien de la prop q se le pasa 
+  const { startGame, questions: singleplayerQuestions, isLoading } = useContext(GameContext);
+  const questions = multiplayerQuestions || singleplayerQuestions;
+ 
   const [isOpen, setIsOpen] = useState(false);//es el cuadro de dialogo que se abre al finalizar el juego
 
   //e le pasaran al Question area para que cuando acabe el juego tengan el valor de las respuestas correctas 
@@ -61,12 +67,19 @@ function Game(darkMode) {
     
 
       setIsOpen(true);//hacer que aparzca el cuadro de dialogo 
+
+      //comprobar si es mnultiplayer y si lo es se enviara al servidor que se ha finalizado el juego
+      if(multiplayerQuestions!=null){
+        endGame(data);
+      }
      
     }
   },[setFinished,correctAnswers,incorrectAnswers, totalTime])
 
   const onClose=()=>{
     setIsOpen(false);
+    //solamente te iras si has cerrado el singleplayer en multiplayer no te vas hasta que no ves el ganador 
+    if( multiplayerQuestions==null)
     navigate('/home');
   }
   //Colores chakra dark - light
@@ -76,6 +89,7 @@ function Game(darkMode) {
   //#08313A, #107869
 
   return (
+    console.log("En game"+darkMode.darkMode),
     <Box minH="100vh" minW="100vw" 
       bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
       display="flex" justifyContent="center" alignItems="center">
@@ -93,7 +107,29 @@ function Game(darkMode) {
         <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
         setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} setTotalTimeFinish={setTotalTime} timeToAnswer={timeToAnswer}/>
       )}
+      
+
+    {multiplayerQuestions ? (<div id="waitingForPlayers">
       <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+            <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Juego Terminado
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+                Esperando al resto de jugadores...
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+                <Button colorScheme="blue" onClick={onClose} ml={3}>
+                Cerrar
+                </Button>
+            </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialogOverlay>
+        </AlertDialog>
+        </div>  ):(<AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
@@ -114,7 +150,7 @@ function Game(darkMode) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
-    </AlertDialog>
+    </AlertDialog>)}
     </Box>
   );
 }

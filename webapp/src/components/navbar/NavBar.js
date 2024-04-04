@@ -68,6 +68,13 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <Button color="inherit" component={Link} to="/home">
           {t('home')}
         </Button>
+           
+        <Button color="inherit" component={Link} to="/joinroom">
+          Join Room
+        </Button>
+        <Button color="inherit" component={Link} to="/createroom">
+          Create room 
+        </Button>
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
@@ -112,6 +119,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
            <MenuItem onClick={handleClose} component={Link} to="/history">
              {t('history')}
            </MenuItem>
+       
          </Menu>
        </>
         ) : (
@@ -123,6 +131,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
               {t('signUp')}
             </Button>
           </>
+         
         )}
 
       </Toolbar>

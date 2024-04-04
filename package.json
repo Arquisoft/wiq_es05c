@@ -1,8 +1,13 @@
 {
   "dependencies": {
-    "react-bootstrap": "^2.10.2"
+    "@chakra-ui/icons": "^2.1.1",
+    "axios": "^1.6.8",
+    "express": "^4.19.1",
+    "react-bootstrap": "^2.10.2",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "react-router-dom": "^6.22.3"
   }
 }

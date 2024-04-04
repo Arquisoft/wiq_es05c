@@ -8,7 +8,7 @@ import StartButton from './components/startbutton/StartButton';
 import Game from './components/game/Game';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from '@chakra-ui/react';
 import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
@@ -16,6 +16,10 @@ import {History} from './components/history/History';
 import {BasicGameMode } from './components/game/gameModes/basicGameMode';
 import {GameProvider} from './components/game/GameContext';
 import PrincipalView from './components/principalView/PrincipalView';
+import Room from './components/rooms/Room'; // Importa el componente de sala
+import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el componente para crear sala
+import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
+
 
 const App = () => {
 
@@ -58,6 +62,11 @@ const App = () => {
                <ChakraProvider><History darkMode={darkMode}/></ChakraProvider>
             </AuthenticatedLayout>
           } />
+
+          <Route path="/joinroom" element={<AuthenticatedLayout> <ChakraProvider> <JoinRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
+          <Route path="/createroom" element={<AuthenticatedLayout> <ChakraProvider><CreateRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
+          <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
+          
         </Routes>
         </GameProvider>
 

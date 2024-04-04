@@ -19,5 +19,13 @@
     "password": "Contraseña",
     "passwordHelper": "La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
     "passwordRepeat": "Repetir Contraseña",
-    "passwordRepeatHelper": "Las contraseñas tienen que coincidir"
+    "passwordRepeatHelper": "Las contraseñas tienen que coincidir",
+    "historyMessage": "Historial de ",
+    "resume": "Resumen",
+    "gamesPlayed": "Partidas jugadas",
+    "questionsCorrect": "Preguntas acertadas",
+    "questionsFailed": "Preguntas falladas",
+    "date": "Fecha",
+    "totalTime": "Tiempo total jugado",
+    "averageTime": "Tiempo medio por partida"
 }

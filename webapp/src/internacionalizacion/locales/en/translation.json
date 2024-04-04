@@ -19,5 +19,13 @@
     "password": "Password",
     "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
     "passwordRepeat": "Repeat Password",
-    "passwordRepeatHelper": "Passwords must match"
+    "passwordRepeatHelper": "Passwords must match",
+    "historyMessage": "History of ",
+    "resume": "Summary",
+    "gamesPlayed": "Games played",
+    "questionsCorrect": "Questions correct",
+    "questionsFailed": "Questions failed",
+    "date": "Date",
+    "totalTime": "Total time played",
+    "averageTime": "Average time per game"
 }

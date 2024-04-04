@@ -11,5 +11,13 @@
     "signIn": "Iniciar sesión",
     "github": "Github del Proyecto",
     "university": "Escuela de Ingeniería Informática",
-    "subject": "Trabajo de Arquitectura de Software"
+    "subject": "Trabajo de Arquitectura de Software",
+    "addUser": "Añadir Usuario",
+    "addUserMessage": "Usuario añadido correctamente",
+    "email": "Correo Electrónico",
+    "userName": "Nombre de Usuario",
+    "password": "Contraseña",
+    "passwordHelper": "La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+    "passwordRepeat": "Repetir Contraseña",
+    "passwordRepeatHelper": "Las contraseñas tienen que coincidir"
 }

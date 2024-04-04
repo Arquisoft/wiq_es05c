@@ -11,5 +11,13 @@
     "signIn": "Sign In",
     "github": "Project's Github",
     "university": "School of Computer Engineering",
-    "subject": "Software Architecture Assignment"
+    "subject": "Software Architecture Assignment",
+    "addUser": "Add User",
+    "addUserMessage": "User added successfully",
+    "email": "Email",
+    "userName": "Username",
+    "password": "Password",
+    "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
+    "passwordRepeat": "Repeat Password",
+    "passwordRepeatHelper": "Passwords must match"
 }

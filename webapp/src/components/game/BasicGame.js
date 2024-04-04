@@ -9,16 +9,18 @@ import GameMode from './gameModes/GameMode';
 class BasicGame extends GameMode {
   constructor() {
     super();
-    this.isLoading = true;
+    
     
   }
   async fetchQuestions() {
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
       const data = await response.json();
+      
 
       this.questions = Object.values(data);
-      this.isLoading = false;
+     // console.log('preguntas', this.questions);
+            this.isLoading = false;
 
     } catch (error) {
       console.error('Error fetching question data:', error);
@@ -29,6 +31,8 @@ class BasicGame extends GameMode {
     this.isLoading = true;
     this.questionIndex = 0;
     await this.fetchQuestions();
+    this.isLoading = false;
+
   }
   endGame() {
     this.isGameEnded = true;
@@ -83,10 +87,15 @@ class BasicGame extends GameMode {
       this.endGame();
     }
   }
- async  getCurrentQuestion() {
+  async  getCurrentQuestion() {
+    // Comprobar si this.questions[this.questionIndex] es undefined
+    if (this.questions[this.questionIndex] === undefined) {
+      throw new Error('No question at index ' + this.questionIndex);
+    }
+  
     // Obtener la pregunta actual del array de preguntas
     const data = this.questions[this.questionIndex];
-
+  
     // Convertir los datos de la pregunta al formato que necesita QuestionArea
     const questionData = {
       pregunta: data.pregunta,
@@ -95,7 +104,7 @@ class BasicGame extends GameMode {
       respuestasIncorrecta2: data.respuestasIncorrecta2,
       respuestasIncorrecta3: data.respuestasIncorrecta3
     };
-
+  
     return questionData;
   }
 }

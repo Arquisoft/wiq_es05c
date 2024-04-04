@@ -9,7 +9,7 @@ class GameMode {
         this.isLoading=false;
         this.apiEndpoint = process.env.REACT_APP_API_URI || 'http://localhost:8000';
         this.isGameEnded=false;
-        this.questionIndex=-1;
+        this.questionIndex=0;
         this.timeToAnswer=20000;
     }
    async fetchQuestions() {

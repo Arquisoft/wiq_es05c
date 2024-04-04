@@ -24,12 +24,21 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   //se la pasa a questionArea 
   const [isFinished, setIsFinished] = useState(false);
 
+  //ojo no es el mismo que loading de gameMode
+  const[isLoading,setIsLoading]=useState(true);//para que no cargue el questionArea hasta que tengas las preguntas
 
-  
 
   //empiza el juego al cargar el componente
   useEffect(() => {
-    gameMode.startGame();
+    const startGameAsync = async () => {
+      await gameMode.startGame();
+      console.log('preguntas', gameMode.questions);
+  
+      // Establecer isLoading a false después de que las preguntas se hayan cargado
+      setIsLoading(false);
+    };
+  
+    startGameAsync();
   }, []);
 
   //se encarga de comprobar el estado del juego y si ha terminado llama al metodo history del modo de juego 
@@ -106,7 +115,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
     <Box minH="100vh" minW="100vw" 
     bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
     display="flex" justifyContent="center" alignItems="center">
-    {gameMode.isLoading ? (
+    {isLoading ? (
        <Spinner
        thickness='0.3em'
        speed='0.65s'

@@ -29,31 +29,45 @@ function Game({darkMode,gameMode= new BasicGame()}) {
 
 
   const [currentQuestion, setCurrentQuestion] = useState(null);
-
+  const [gameModeInstance, setGameModeInstance] = useState(gameMode);//guarda la instancia tras obtener las preguntas 
   useEffect(() => {
     const startGameAsync = async () => {
+      setIsLoading(true); // Establecer isLoading a true antes de cargar las preguntas
       await gameMode.startGame();
       console.log('preguntas', gameMode.questions);
-
+  
       const currentQuestion = gameMode.getCurrentQuestion();
       console.log('primera pregunta ', currentQuestion);
-
+  
       // Establecer la pregunta actual y isLoading a false después de que las preguntas se hayan cargado
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
 
+      setGameModeInstance(gameMode);
     };
-
+  
     startGameAsync();
   }, []);
-  //se llamad cada vez que hace una pregunta 
-  useEffect(() => {
-    //carga la siguiente pregunta el !==0 es porque al cargar el componente ya sacas la primera 
-    if (!gameMode.isGameEnded && gameMode.questionIndex>0) {
-      const nextQuestion = gameMode.nextQuestion();
-      setCurrentQuestion(nextQuestion);
-    }
-  }, [correctAnswers, incorrectAnswers]);
+  
+
+
+// Función para manejar cuando se selecciona una respuesta
+const handleAnswerSelect = (isCorrect) => {
+  if (isCorrect) {
+    setCorrectAnswers(correctAnswers + 1);
+  } else {
+    setIncorrectAnswers(incorrectAnswers + 1);
+  }
+};
+
+// useEffect que se dispara cuando correctAnswers o incorrectAnswers cambian
+useEffect(() => {
+  console.log('corectAnswer useEffect el valor de las preguntas es ',gameModeInstance.questions);
+  if (correctAnswers + incorrectAnswers < gameModeInstance.questions.length) {
+    const nextQuestion = gameModeInstance.nextQuestion();
+    setCurrentQuestion(nextQuestion);
+  }
+}, [correctAnswers, incorrectAnswers]);
 
   useEffect(() => {
  
@@ -76,7 +90,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
         });
         gameMode.endGame();//terminar el juego 
     }
-  }, [finished, totalTime,gameMode.isGameEnded]);
+  }, [finished, totalTime,gameModeInstance.isGameEnded]);
 
   const onClose=()=>{
     setIsOpen(false);
@@ -86,27 +100,14 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   }
 
 
-  /*funcioneess que cuentas las correctas y demas para la interfaaz */
-
-// Función para manejar cuando se selecciona una respuesta
-  const handleAnswerSelect = (isCorrect) => {
-    if (isCorrect) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
-    else{
-      setIncorrectAnswers(incorrectAnswers + 1);
-    }
-    Finish();
-  };
-
   /*
   comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
   const Finish = async () => {
     console.log('entra en el finish');
-    if(gameMode.questionIndex === gameMode.questions.length - 1) {
-      gameMode.setIsGameEnded(true);   
+    if(gameModeInstance.questionIndex === gameModeInstance.questions.length - 1) {
+      gameModeInstance.setIsGameEnded(true);   
     } else {
-      const nextQuestion = await gameMode.nextQuestion();
+      const nextQuestion = await gameModeInstance.nextQuestion();
 
       setCurrentQuestion(nextQuestion);
       console.log('siguiente pregunta tras hacer click ', nextQuestion);

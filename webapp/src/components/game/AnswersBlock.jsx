@@ -9,7 +9,8 @@ export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded,
     let respuestasCopy = respuestas;
 
     //Colores de los botones para que tengan orden random
-    console.log("En asnblock "+darkMode.darkMode);
+    //console.log("En asnblock "+darkMode.darkMode);
+    
     const colorsArray= darkMode.darkMode? ["#FFD743","#D773A2","#07BB9C","#A06AB4"] : ["#E3C7E0","#BAE5C0","#84C7F2","#E8F7FF"];
     //Baraja con algoritmo de Fisher-Yates los colores
     for (let i = colorsArray.length - 1; i > 0; i--) {

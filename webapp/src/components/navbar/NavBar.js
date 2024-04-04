@@ -70,10 +70,10 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         </Button>
            
         <Button color="inherit" component={Link} to="/joinroom">
-          Join Room
+          {t('roomJoinButton')}
         </Button>
         <Button color="inherit" component={Link} to="/createroom">
-          Create room 
+          {t('roomCreateButton')}
         </Button>
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />

@@ -31,6 +31,11 @@
     "date": "Fecha",
     "totalTime": "Tiempo total jugado",
     "averageTime": "Tiempo medio por partida",
+    "gameTime": "Tiempo de la partida",
+    "timeUnit" : " segundos",
+    "timeUnitMinutes" : " minutos",
+    "timeUnitHours" : " horas",
+    "questionsPercentage": " %",
 
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",
@@ -48,5 +53,17 @@
     "welcomeMessage3": "Somos un equipo de desarrolladores apasionados por los juegos de preguntas.",
     "welcomeMessage4": "En este juego, te desafiamos a responder una serie de preguntas aleatorias de diferentes categorías. Ofrecemos varios modos de juego para mantener las cosas interesantes. ¡Buena suerte!",
 
-    "startButton": "Comenzar juego"
+    "startButton": "Comenzar juego",
+
+    "roomCreatePlaceholder": "Ingrese el ID de la sala",
+    "roomCreateButton": "Crear sala",
+    "roomWaitCreateMessage": "Creando...",
+    "roomJoinButton": "Unirse a Sala",
+    "room" : "Sala: ",
+    "roomUsers" : "Usuarios:",
+    "roomStartGameButton": "Iniciar Juego",
+    "roomEndGame": "Juego terminado",
+    "roomWinner": "El ganador es ",
+    
+    "close": "Cerrar"
 }

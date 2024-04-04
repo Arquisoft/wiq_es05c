@@ -31,6 +31,11 @@
     "date": "Date",
     "totalTime": "Total time played",
     "averageTime": "Average time per game",
+    "gameTime": "Game time",
+    "timeUnit" : " seconds",
+    "timeUnitMinutes" : " minutes",
+    "timeUnitHours" : " hours",
+    "questionsPercentage": " %",
 
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",
@@ -48,5 +53,17 @@
     "welcomeMessage3": "We are a team of developers passionate about quiz games.",
     "welcomeMessage4": "In this game, we challenge you to answer a series of random questions from various categories. We offer several game modes to keep things interesting. Good luck!",
 
-    "startButton": "Start game"
+    "startButton": "Start game",
+
+    "roomCreatePlaceholder": "Enter the room ID",
+    "roomCreateButton": "Create room",
+    "roomWaitCreateMessage": "Creating...",
+    "roomJoinButton": "Join Room",
+    "room" : "Room: ",
+    "roomUsers" : "Users:",
+    "roomStartGameButton": "Start Game",
+    "roomEndGame": "Game over",
+    "roomWinner": "The winner is ",
+    
+    "close": "Close"
 }

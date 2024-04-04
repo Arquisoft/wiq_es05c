@@ -4,6 +4,8 @@ import { Box, Input, Button, Text, Tooltip, Icon, Center, VStack, HStack } from 
 import { InfoOutlineIcon } from '@chakra-ui/icons';
 import { useToast } from "@chakra-ui/react";
 import socket from './socket';
+import { useTranslation } from 'react-i18next';
+
 const JoinRoomForm = () => {
   const navigate = useNavigate();
 
@@ -13,6 +15,9 @@ const JoinRoomForm = () => {
   const username = localStorage.getItem('username');
 
   const toast = useToast();
+
+  //para la internacionalización
+  const {t} = useTranslation();
 
   useEffect(() => {
     socket.on('roomJoined', (roomId) => {
@@ -67,17 +72,17 @@ const JoinRoomForm = () => {
     <Box p={5} shadow="md" borderWidth="1px">
       <VStack spacing={5}>
         <Center>
-          <Text fontSize="xl" textAlign="center">Unirse a Sala</Text>
+          <Text fontSize="xl" textAlign="center">{t('roomJoinButton')}</Text>
         </Center>
         <Input
           type="text"
           value={roomId}
           onChange={(e) => setRoomId(e.target.value)}
-          placeholder="Ingrese el ID de la sala"
+          placeholder={t('roomCreatePlaceholder')}
           size="lg"
         />
         <Button onClick={handleJoinRoom} isLoading={isLoading} colorScheme="teal" variant="outline">
-          Unirse a Sala
+          {t('roomJoinButton')}
         </Button>
       </VStack>
     </Box>

@@ -14,6 +14,12 @@ class ObtenerPreguntas{
             //Se cojen las preguntas del numero que se pase por parametro
             var preguntas = await Pregunta.aggregate([{ $sample: { size: numeroPreguntas } }]);
 
+            //comprobamos si hay preguntas 
+            if(preguntas.length != numeroPreguntas){
+                console.log("Entra al error");
+                throw new Error("No se han devuelto el numero de preguntas necesario");
+            }
+
             for(var i = 0; i < preguntas.length; i++){   
                 try{                   
                     var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
@@ -42,11 +48,6 @@ class ObtenerPreguntas{
                 throw new Error("Error al obtener el tipo o las respuestas de la base de datos");
             }            
         } 
-
-        //comprobamos si hay preguntas 
-        if(preguntas.lenght != numeroPreguntas){
-            throw new Error("No se han devuelto el numero de preguntas necesario");
-        }
 
         console.log("Preguntas finales: " + objetoExterno);
             return objetoExterno;

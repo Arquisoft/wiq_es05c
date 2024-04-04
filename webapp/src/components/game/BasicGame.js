@@ -33,17 +33,56 @@ class BasicGame extends GameMode {
     this.isGameEnded = true;
     this.questionIndex=0;
   }
-  sendHistory() {
-    // Implementación por defecto para enviar historial
+  /*
+  recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 
+  */
+  async sendHistory(historyData) {
+    if (localStorage.getItem('username') != null) {
+      if (!('correctas' in historyData) || !('incorrectas' in historyData) || !('tiempoTotal' in historyData)) {
+        throw new Error('historyData must have correctas, incorrectas, and tiempoTotal properties');
+      }
+  
+      const data = {
+        user: localStorage.getItem('username'),
+        correctas: historyData.correctas,
+        incorrectas: historyData.incorrectas,
+        tiempoTotal: historyData.tiempoTotal
+      };
+  
+      console.log("Se envian los siguientes datos al historial", data);
+      fetch(`${this.apiEndpoint}/updateHistory`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Respuesta del servidor:', data);
+      })
+      .catch(error => {
+        console.error('Error al enviar el historial al servidor:', error);
+      });
+    }
   }
-    nextQuestion() {
-        if(!this.isGameEnded){
-            this.questionIndex++;
-            //es el json con pregunta {resp1 resp2 resp3 resp4 correcta}
-            return this.questions[this.questionIndex];
-        }else
-        this.endGame();
-   }
+  async nextQuestion() {
+    this.isLoading = true;
+    if(!this.isGameEnded){
+      this.questionIndex++;
+      // es el json con pregunta {resp1 resp2 resp3 resp4 correcta}
+      const nextQuestion = this.questions[this.questionIndex];
+      this.isLoading = false;
+      return nextQuestion;
+    } else {
+      this.endGame();
+    }
+  }
 }
 
 export default BasicGame;

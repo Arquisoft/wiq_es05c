@@ -3,7 +3,7 @@ import { useEffect, useState,useContext } from 'react';
 import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
-
+import BasicGame from './BasicGame';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 /*
@@ -11,25 +11,19 @@ recibe el obj gameMode que contieene las preguntas para ese modo de juego
 recibe questions que son las del servidor si estas en multiplayer 
   si no le pasa contexto se utiliziara el por defecto que es el GameContext
 */
-function Game({darkMode,questions:multiplayerQuestions=null,endGame=null}) {
+function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
 
-  //obtienes las preguntas del contexto o bien de la prop q se le pasa 
-  const { startGame, questions: singleplayerQuestions, isLoading } = useContext(GameContext);
-  const questions = multiplayerQuestions || singleplayerQuestions;
- 
-  const [isOpen, setIsOpen] = useState(false);//es el cuadro de dialogo que se abre al finalizar el juego
-
-  //e le pasaran al Question area para que cuando acabe el juego tengan el valor de las respuestas correctas 
+  const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
-  const timeToAnswer = 20000;//Aquí podemos definir el tiempo para responder
+  const timeToAnswer = 20000;
 
 
   useEffect(() => {
-    startGame();
+    gameMode.startGame();
   }, []);
 
   //se ejecuta al cambiar el num de correctas que solo cambia si se ha terminado el juego 

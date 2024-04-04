@@ -1,4 +1,5 @@
 import { Box, Text, Heading } from "@chakra-ui/react";
+import { useTranslation } from 'react-i18next';
 
 export function GameBlock( {darkMode, gameInfo} ){
 
@@ -22,6 +23,8 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
+    //para la internacionalización
+    const {t} = useTranslation();
     
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);
@@ -67,22 +70,22 @@ export function GameBlock( {darkMode, gameInfo} ){
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{numeroJuego}</Text>
             </Box>
             <Box id='fecha-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly" borderRight={"1px solid"+text}>
-                <Heading fontSize='1.5em' color={text} textAlign="center">Fecha</Heading>
+                <Heading fontSize='1.5em' color={text} textAlign="center">{t('date')}</Heading>
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{fechaFormateada}</Text>
             </Box>
             <Box id='accuarcy-partida' flex="4" display="flex" flexDirection="column" borderRight={"1px solid"+text}>
                 <Box id='num-aciertos' display="flex" flexDirection="column" margin="1em">
-                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">Número aciertos</Heading>
+                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
                     <Text fontSize='1.5em' color="#32CD30" textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
                 </Box>
                 <Box id='num-fallos' display="flex" flexDirection="column" margin="1em"  alignItems="center"> 
-                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">Número fallos</Heading>
+                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
                     <Text fontSize='1.5em' color="#970C10" textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
                 </Box>
             </Box>
             <Box id='duracion-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly">
-                <Heading fontSize='1.5em' color={text} textAlign="center">Duración partida</Heading>
-                <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{tiempo}s</Text>
+                <Heading fontSize='1.5em' color={text} textAlign="center">{t('gameTime')}</Heading>
+                <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{tiempo}{t('timeUnit')}</Text>
             </Box>
         </Box>
     );

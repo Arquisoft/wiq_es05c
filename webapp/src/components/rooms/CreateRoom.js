@@ -1,12 +1,17 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socket from './socket';
+import { useTranslation } from 'react-i18next';
+
 const CreateRoomForm = () => {
     const navigate = useNavigate();
 
     const [roomId, setRoomId] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const username = localStorage.getItem('username');
+
+    //para la internacionalización
+    const {t} = useTranslation();
   
     useEffect(() => {
       // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
@@ -32,10 +37,10 @@ const CreateRoomForm = () => {
                 type="text"
                 value={roomId}
                 onChange={(e) => setRoomId(e.target.value)}
-                placeholder="Ingrese el ID de la sala"
+                placeholder={t('roomCreatePlaceholder')}
             />
             <button onClick={handleCreateRoom} disabled={isLoading}>
-                {isLoading ? 'Creando...' : 'Crear Sala'}
+                {isLoading ? t('roomWaitCreateMessage') : t('roomCreateButton')}
             </button>
         </div>
     );

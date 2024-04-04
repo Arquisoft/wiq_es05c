@@ -61,13 +61,13 @@ export function StatsBlock({ darkMode,playerStats }){
                         <Box id='stats-aciertos' flex="1" display="flex" flexDirection="row" margin="1em" justifyContent="space-evenly" alignItems="center">
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
                             <CircularProgress value={playerStats.preguntas_acertadas} color="#32CD30" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_acertadas}%</CircularProgressLabel>
+                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_acertadas}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>                        
                         </Box>
                         <Box id='stats-fallos' flex="1" display="flex" flexDirection="row" margin="1em"  alignItems="center"> 
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
                             <CircularProgress value={playerStats.preguntas_falladas} color="#970C10" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_falladas}%</CircularProgressLabel>
+                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_falladas}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>   
                         </Box>
                     </Box>

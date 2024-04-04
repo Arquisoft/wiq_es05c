@@ -8,5 +8,8 @@
     "logout": "Cerrar sesión",
     "history": "Historial",
     "signUp": "Registrarse",
-    "signIn": "Iniciar sesión"
+    "signIn": "Iniciar sesión",
+    "github": "Github del Proyecto",
+    "university": "Escuela de Ingeniería Informática",
+    "subject": "Trabajo de Arquitectura de Software"
 }

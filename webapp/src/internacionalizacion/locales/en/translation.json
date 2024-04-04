@@ -1,5 +1,15 @@
 {
     "language": "Language",
     "spanish": "Spanish",
-    "english": "English"
+    "spanishFlag": "Spanish Flag",
+    "englishFlag": "English Flag",
+    "english": "English",
+    "home": "Home",
+    "logout": "Logout",
+    "history": "History",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "github": "Project's Github",
+    "university": "School of Computer Engineering",
+    "subject": "Software Architecture Assignment"
 }

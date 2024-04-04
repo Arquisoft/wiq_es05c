@@ -18,17 +18,11 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
   const navigate = useNavigate();
-  const timeToAnswer = 20000;
-  const [finished, setFinished] = useState(false);
+  const timeToAnswer = gameMode.timeToAnswer;
 
+  // Utilizar el estado isGameEnded de gameMode en lugar de mantener un estado separado en Game
+  const finished = gameMode.isGameEnded;
 
-
-  //cada vez que cambie el estado finished actualizas tb el del game 
-  useEffect(() => {
-    if (finished) {
-      gameMode.endGame();
-    }
-  }, [finished]);
 
   
 
@@ -36,6 +30,7 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
   useEffect(() => {
     gameMode.startGame();
   }, []);
+
   //se encarga de comprobar el estado del juego y si ha terminado llama al metodo history del modo de juego 
   useEffect(() => {
     if (finished && localStorage.getItem('username') != null && totalTime != 0) {
@@ -49,12 +44,13 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
         .then(() => {
           setIsOpen(true);
           //enviar el fin del juego para que se reinicie el juego o te quites el socket 
-            endGame(data);
+         
           
         })
         .catch(error => {
           console.error('Error al enviar el historial al servidor:', error);
         });
+        gameMode.endGame();//terminar el juego 
     }
   }, [finished, correctAnswers, incorrectAnswers, totalTime]);
 

@@ -10,6 +10,7 @@ class BasicGame extends GameMode {
   constructor() {
     super();
     this.isLoading = true;
+    
   }
   async fetchQuestions() {
     try {
@@ -76,12 +77,27 @@ class BasicGame extends GameMode {
     if(!this.isGameEnded){
       this.questionIndex++;
       // es el json con pregunta {resp1 resp2 resp3 resp4 correcta}
-      const nextQuestion = this.questions[this.questionIndex];
+      this.questions[this.questionIndex];
       this.isLoading = false;
-      return nextQuestion;
+      return this.getCurrentQuestion();//devolver la nueva pregunta 
     } else {
       this.endGame();
     }
+  }
+ async  getCurrentQuestion() {
+    // Obtener la pregunta actual del array de preguntas
+    const data = this.questions[this.questionIndex];
+
+    // Convertir los datos de la pregunta al formato que necesita QuestionArea
+    const questionData = {
+      pregunta: data.pregunta,
+      correcta: data.correcta,
+      respuestasIncorrecta1: data.respuestasIncorrecta1,
+      respuestasIncorrecta2: data.respuestasIncorrecta2,
+      respuestasIncorrecta3: data.respuestasIncorrecta3
+    };
+
+    return questionData;
   }
 }
 

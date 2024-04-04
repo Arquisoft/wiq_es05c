@@ -9,7 +9,8 @@ class GameMode {
         this.isLoading=false;
         this.apiEndpoint = process.env.REACT_APP_API_URI || 'http://localhost:8000';
         this.isGameEnded=false;
-        this.questionIndex=0;
+        this.questionIndex=-1;
+        this.timeToAnswer=20000;
     }
    async fetchQuestions() {
       throw new Error("Method 'fetchQuestions' must be implemented.");
@@ -30,7 +31,7 @@ class GameMode {
     nextQuestion(){
         throw new Error("Method 'nextQuestion' must be implemented.");
     }
-
+    async  getCurrentQuestion(){}
     
   }
   

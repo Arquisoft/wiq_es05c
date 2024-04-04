@@ -1,15 +1,10 @@
 import { QuestionArea } from './QuestionArea';
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 import BasicGame from './BasicGame';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
-/*
-recibe el obj gameMode que contieene las preguntas para ese modo de juego
-recibe questions que son las del servidor si estas en multiplayer 
-  si no le pasa contexto se utiliziara el por defecto que es el GameContext
-*/
 function Game({darkMode,gameMode= new BasicGame()}) {
   const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -18,60 +13,73 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   const navigate = useNavigate();
   const timeToAnswer = gameMode.timeToAnswer;
   
-  // Utilizar el estado isGameEnded de gameMode en lugar de mantener un estado separado en Game
-  const finished = gameMode.isGameEnded;
-
-  //se la pasa a questionArea 
   const [isFinished, setIsFinished] = useState(false);
-
-  //ojo no es el mismo que loading de gameMode
-  const[isLoading,setIsLoading]=useState(true);//para que no cargue el questionArea hasta que tengas las preguntas
-
-
+  const[isLoading,setIsLoading]=useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [gameModeInstance, setGameModeInstance] = useState(gameMode);//guarda la instancia tras obtener las preguntas 
+
+  const gameModeRef = useRef(gameMode);
+
   useEffect(() => {
     const startGameAsync = async () => {
-      setIsLoading(true); // Establecer isLoading a true antes de cargar las preguntas
+      setIsLoading(true);
       await gameMode.startGame();
       console.log('preguntas', gameMode.questions);
   
       const currentQuestion = gameMode.getCurrentQuestion();
       console.log('primera pregunta ', currentQuestion);
   
-      // Establecer la pregunta actual y isLoading a false después de que las preguntas se hayan cargado
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
-
-      setGameModeInstance(gameMode);
+  
+      gameModeRef.current = gameMode;
     };
   
     startGameAsync();
   }, []);
-  
-
-
-// Función para manejar cuando se selecciona una respuesta
-const handleAnswerSelect = (isCorrect) => {
-  if (isCorrect) {
-    setCorrectAnswers(correctAnswers + 1);
-  } else {
-    setIncorrectAnswers(incorrectAnswers + 1);
-  }
-};
-
-// useEffect que se dispara cuando correctAnswers o incorrectAnswers cambian
-useEffect(() => {
-  console.log('corectAnswer useEffect el valor de las preguntas es ',gameModeInstance.questions);
-  if (correctAnswers + incorrectAnswers < gameModeInstance.questions.length) {
-    const nextQuestion = gameModeInstance.nextQuestion();
-    setCurrentQuestion(nextQuestion);
-  }
-}, [correctAnswers, incorrectAnswers]);
 
   useEffect(() => {
- 
-    if (finished && localStorage.getItem('username') != null && totalTime != 0) {
+    const startGameAsync = async () => {
+      setIsLoading(true);
+      await gameModeRef.current.startGame();
+      console.log('preguntas', gameModeRef.current.questions);
+
+      const currentQuestion = gameModeRef.current.getCurrentQuestion();
+      console.log('primera pregunta ', currentQuestion);
+
+      setCurrentQuestion(currentQuestion);
+      setIsLoading(false);
+    };
+
+    startGameAsync();
+  }, []);
+
+  const handleAnswerSelect = (isCorrect) => {
+    if (isCorrect) {
+      setCorrectAnswers(correctAnswers + 1);
+    } else {
+      setIncorrectAnswers(incorrectAnswers + 1);
+    }
+  };
+
+  useEffect(() => {
+    //console.log('corectAnswer useEffect el valor de las preguntas es ',gameModeRef.questions);
+    console.log("entra en el useEffect de correctAnswer",correctAnswers,incorrectAnswers,gameModeRef.current.questions.length);
+    
+    if (correctAnswers + incorrectAnswers < gameModeRef.current.questions.length ) { //para que no entre en el finished nada mas cargar el juegu
+      console.log("entra en el if del correctAnswer");
+      const nextQuestion = gameModeRef.current.nextQuestion();
+      console.log('siguiente pregunta',nextQuestion);
+      setCurrentQuestion(nextQuestion);
+    } else if(gameModeRef.current.questions.length != 0){ //no deberia entrar cuando se cargue el componente
+      console.log("use effect finish");
+      gameModeRef.current.finishGame();
+    }
+  }, [correctAnswers, incorrectAnswers]);
+
+  useEffect(() => {
+    console.log("entra en el useEffect del finished");
+    console.log('valores de IsGameEnded y totalTime',gameModeRef.current.isGameEnded,totalTime)
+    if (gameModeRef.current.isGameEnded &&localStorage.getItem('username') != null && totalTime != 0) {
       const data = {
         correctas: correctAnswers,
         incorrectas: incorrectAnswers,
@@ -80,55 +88,30 @@ useEffect(() => {
 
       gameMode.sendHistory(data)
         .then(() => {
-          setIsOpen(true);
-          //enviar el fin del juego para que se reinicie el juego o te quites el socket 
-         
-          
+          console.log('Historial enviado correctamente');
         })
         .catch(error => {
           console.error('Error al enviar el historial al servidor:', error);
         });
-        gameMode.endGame();//terminar el juego 
+        setIsOpen(true);
     }
-  }, [finished, totalTime,gameModeInstance.isGameEnded]);
+  }, [totalTime,gameModeRef.current.isGameEnded]);
 
   const onClose=()=>{
     setIsOpen(false);
-    //solamente te iras si has cerrado el singleplayer en multiplayer no te vas hasta que no ves el ganador 
-    
     navigate('/home');
   }
 
-
-  /*
-  comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
-  const Finish = async () => {
-    console.log('entra en el finish');
-    if(gameModeInstance.questionIndex === gameModeInstance.questions.length - 1) {
-      gameModeInstance.setIsGameEnded(true);   
-    } else {
-      const nextQuestion = await gameModeInstance.nextQuestion();
-
-      setCurrentQuestion(nextQuestion);
-      console.log('siguiente pregunta tras hacer click ', nextQuestion);
-    }
-  };
-
-  //Este cuando quedemos sin tiempo (perder)
   const handleTimeout = () => {
-    Finish();
+    handleAnswerSelect(false);
   };
-  //incrementa el timepo en x 
+  
   const incrementTime = (x) => {
     setTotalTime(totalTime + x);
   };
   
-  
-  //Colores chakra dark - light
-  
   let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
   let backgroundColorSecond= darkMode.darkMode? '#107869' : '#FDF4E3';
-  //#08313A, #107869
 
   return (
     <Box minH="100vh" minW="100vw" 
@@ -142,10 +125,8 @@ useEffect(() => {
        color='blue.500'
        size='xl'
        marginTop='5em'
-       />//Para mientras carga
-  
+       />
     ) : (
-    
       <QuestionArea 
       darkMode={darkMode} 
       data-testid="question-area" 
@@ -155,11 +136,9 @@ useEffect(() => {
       setFinished={setIsFinished}
       setTotalTime={setTotalTime} 
       timeToAnswer={timeToAnswer}
-      onAnswerSelect={handleAnswerSelect} // Pasar handleAnswerSelect como prop
-      handleTimeout={handleTimeout} // Pasar handleTimeout como prop
-      incrementTime={incrementTime} // Pasar incrementTime como prop
-
-    
+      onAnswerSelect={handleAnswerSelect}
+      handleTimeout={handleTimeout}
+      incrementTime={incrementTime}
     />
     )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
@@ -176,7 +155,6 @@ useEffect(() => {
           </AlertDialogBody>
 
           <AlertDialogFooter>
-
             <Button onClick={onClose} colorScheme="green" ml={3}>
               Cerrar
             </Button>
@@ -184,7 +162,6 @@ useEffect(() => {
         </AlertDialogContent>
       </AlertDialogOverlay>
     </AlertDialog>
-   
     </Box>
   );
 }

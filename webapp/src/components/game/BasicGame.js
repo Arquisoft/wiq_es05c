@@ -34,6 +34,7 @@ class BasicGame extends GameMode {
     this.isLoading = false;
   }
   async endGame() {
+    console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
   }
@@ -75,16 +76,20 @@ class BasicGame extends GameMode {
       });
     }
   }
-   nextQuestion() {
+  nextQuestion() {
     console.log('questions en el next questions ',this.questions);
     this.isLoading = true;
-    if (this.questionIndex >= this.questions.length - 1) {
-      this.endGame();
+    console.log('a ',this.questionIndex);
+    if (this.questionIndex >=9) {
+      console.log("fin juego");
+      this.finishGame();
       return null;
     } else {
+      // Incrementar this.questionIndex después de comprobar si has llegado a la última pregunta
       this.questionIndex++;
+      console.log('b ',this.questionIndex);
       const currentQuestion = this.getCurrentQuestion();
-     
+     console.log('c ',currentQuestion);
       this.isLoading = false;
       return currentQuestion; // devolver la pregunta actual
     }
@@ -108,6 +113,11 @@ class BasicGame extends GameMode {
     };
   
     return questionData;
+  }
+
+  finishGame(){
+    this.isGameEnded = true;
+    this.endGame();
   }
 }
 

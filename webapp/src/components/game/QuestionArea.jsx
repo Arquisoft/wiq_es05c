@@ -9,7 +9,7 @@ import { GameTimer } from './timers/GameTimer.jsx';
 *maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
 cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
 
-export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, setTotalTimeFinish, timeToAnswer=30000}){
+export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, setTotalTimeFinish, timeToAnswer=30000,nextQuestion}){
   const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
   // Estado para almacenar los datos de la pregunta
   const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta

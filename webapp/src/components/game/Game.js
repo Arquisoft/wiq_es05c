@@ -17,58 +17,46 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
-  const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
   const timeToAnswer = 20000;
+  const [finished, setFinished] = useState(false);
 
 
+
+  //cada vez que cambie el estado finished actualizas tb el del game 
+  useEffect(() => {
+    if (finished) {
+      gameMode.endGame();
+    }
+  }, [finished]);
+
+  
+
+  //empiza el juego al cargar el componente
   useEffect(() => {
     gameMode.startGame();
   }, []);
-
-  //se ejecuta al cambiar el num de correctas que solo cambia si se ha terminado el juego 
-  useEffect(()=>{
-    if(finished&&localStorage.getItem('username')!=null && totalTime != 0){//tienes que estar logeado para guardar el historial
-      const data={
-        user:localStorage.getItem('username'),
-        correctas:correctAnswers,
-        incorrectas:incorrectAnswers,
-        tiempoTotal:totalTime
+  //se encarga de comprobar el estado del juego y si ha terminado llama al metodo history del modo de juego 
+  useEffect(() => {
+    if (finished && localStorage.getItem('username') != null && totalTime != 0) {
+      const data = {
+        correctas: correctAnswers,
+        incorrectas: incorrectAnswers,
+        tiempoTotal: totalTime
       };
 
-      console.log("See envian los siguientes datos al historial" ,data);
-      fetch(`${apiEndpoint}/updateHistory`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Respuesta del servidor:', data);
-        setIsOpen(true); // Hacer que aparezca el cuadro de diálogo
-    })
-    .catch(error => {
-        console.error('Error al enviar el historial al servidor:', error);
-        // Manejar el error si es necesario
-    });
-    
-
-      setIsOpen(true);//hacer que aparzca el cuadro de dialogo 
-
-      //comprobar si es mnultiplayer y si lo es se enviara al servidor que se ha finalizado el juego
-      if(multiplayerQuestions!=null){
-        endGame(data);
-      }
-     
+      gameMode.sendHistory(data)
+        .then(() => {
+          setIsOpen(true);
+          //enviar el fin del juego para que se reinicie el juego o te quites el socket 
+            endGame(data);
+          
+        })
+        .catch(error => {
+          console.error('Error al enviar el historial al servidor:', error);
+        });
     }
-  },[setFinished,correctAnswers,incorrectAnswers, totalTime])
+  }, [finished, correctAnswers, incorrectAnswers, totalTime]);
 
   const onClose=()=>{
     setIsOpen(false);
@@ -98,8 +86,18 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
          />//Para mientras carga
 
       ) : (
-        <QuestionArea darkMode={darkMode} data-testid="question-area" questions={questions} setTotalCorrectAnswers={setCorrectAnswers}
-        setTotalIncorrectAnswers={setIncorrectAnswers} setFinished={setFinished} setTotalTimeFinish={setTotalTime} timeToAnswer={timeToAnswer}/>
+      
+        <QuestionArea 
+          darkMode={darkMode} 
+          data-testid="question-area" 
+          questions={gameMode.questions} 
+          setTotalCorrectAnswers={setCorrectAnswers}
+          setTotalIncorrectAnswers={setIncorrectAnswers} 
+          setFinished={setFinished} 
+          setTotalTimeFinish={setTotalTime} 
+          timeToAnswer={timeToAnswer}
+          nextQuestion={gameMode.nextQuestion}
+        />
       )}
       
 

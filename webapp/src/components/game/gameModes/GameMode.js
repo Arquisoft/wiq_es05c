@@ -30,6 +30,8 @@ class GameMode {
     nextQuestion(){
         throw new Error("Method 'nextQuestion' must be implemented.");
     }
+
+    
   }
   
   export default GameMode;

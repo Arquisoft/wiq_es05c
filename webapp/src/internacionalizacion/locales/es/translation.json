@@ -31,12 +31,22 @@
     "date": "Fecha",
     "totalTime": "Tiempo total jugado",
     "averageTime": "Tiempo medio por partida",
-    
+
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",
     "loginMessage": "Inicia sesión",
     "loginUsername": "Nombre de Usuario o email",
     "loginPassword": "Contraseña",
     "loginToAddUser": "¿No tienes cuenta? Regístrate aquí",
-    "loginSuccess": "Inicio de sesión correcto"
+    "loginSuccess": "Inicio de sesión correcto",
+
+    "logoutMessage": "Gracias por jugar. ¡Vuelve pronto!",
+
+    "group": "WIQ_ES05C",
+    "welcomeMessage": "Nuestro grupo: como y después el juego",
+    "welcomeMessage2": "Bienvenido a nuestro juego de preguntas",
+    "welcomeMessage3": "Somos un equipo de desarrolladores apasionados por los juegos de preguntas.",
+    "welcomeMessage4": "En este juego, te desafiamos a responder una serie de preguntas aleatorias de diferentes categorías. Ofrecemos varios modos de juego para mantener las cosas interesantes. ¡Buena suerte!",
+
+    "startButton": "Comenzar juego"
 }

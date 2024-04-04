@@ -31,12 +31,22 @@
     "date": "Date",
     "totalTime": "Total time played",
     "averageTime": "Average time per game",
-    
+
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",
     "loginMessage": "Log in",
     "loginUsername": "Username or email",
     "loginPassword": "Password",
     "loginToAddUser": "Don't have an account? Sign up here",
-    "loginSuccess": "Login successful"
+    "loginSuccess": "Login successful",
+
+    "logoutMessage": "Thank you for playing. Come back soon!",
+
+    "group": "WIQ_ES05C",
+    "welcomeMessage": "Our group: how and then the game",
+    "welcomeMessage2": "Welcome to our quiz game",
+    "welcomeMessage3": "We are a team of developers passionate about quiz games.",
+    "welcomeMessage4": "In this game, we challenge you to answer a series of random questions from various categories. We offer several game modes to keep things interesting. Good luck!",
+
+    "startButton": "Start game"
 }

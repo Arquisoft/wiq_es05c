@@ -85,7 +85,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
               <img src="/spain_flag.png" alt={t('spanishFlag')} />
             </ListItemIcon> 
             {t('spanish')}</MenuItem>
-          <MenuItem onClick={() => changeLanguage('en')} startIcon={<img src="/public/uk_flag.png" alt="Spanish Flag" />}>
+          <MenuItem onClick={() => changeLanguage('en')} >
           <ListItemIcon>
             <img src="/uk_flag.png" alt={t('englishFlag')} />
           </ListItemIcon>            

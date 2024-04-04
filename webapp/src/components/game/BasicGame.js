@@ -4,7 +4,7 @@ implementacion por defecto dle juego , esta implementacion es muy similar siempr
 pero en ciertos casos como en el online si no quieres guardar el historial o quieres x cosa
 heredas y sobreescribes  y list */
 
-import GameMode from './GameMode';
+import GameMode from './gameModes/GameMode';
 
 class BasicGame extends GameMode {
   constructor() {
@@ -76,8 +76,7 @@ class BasicGame extends GameMode {
     this.isLoading = true;
     if(!this.isGameEnded){
       this.questionIndex++;
-      // es el json con pregunta {resp1 resp2 resp3 resp4 correcta}
-      this.questions[this.questionIndex];
+    
       this.isLoading = false;
       return this.getCurrentQuestion();//devolver la nueva pregunta 
     } else {

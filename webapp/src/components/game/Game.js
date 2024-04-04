@@ -1,6 +1,5 @@
 import { QuestionArea } from './QuestionArea';
 import { useEffect, useState,useContext } from 'react';
-import {GameContext} from './GameContext';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 import BasicGame from './BasicGame';
@@ -11,8 +10,7 @@ recibe el obj gameMode que contieene las preguntas para ese modo de juego
 recibe questions que son las del servidor si estas en multiplayer 
   si no le pasa contexto se utiliziara el por defecto que es el GameContext
 */
-function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
-
+function Game({darkMode,gameMode= new BasicGame()}) {
   const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
@@ -22,6 +20,9 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
 
   // Utilizar el estado isGameEnded de gameMode en lugar de mantener un estado separado en Game
   const finished = gameMode.isGameEnded;
+
+  //se la pasa a questionArea 
+  const [isFinished, setIsFinished] = useState(false);
 
 
   
@@ -57,9 +58,43 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
   const onClose=()=>{
     setIsOpen(false);
     //solamente te iras si has cerrado el singleplayer en multiplayer no te vas hasta que no ves el ganador 
-    if( multiplayerQuestions==null)
+    
     navigate('/home');
   }
+
+
+  /*funcioneess que cuentas las correctas y demas para la interfaaz */
+
+// Función para manejar cuando se selecciona una respuesta
+  const handleAnswerSelect = (isCorrect) => {
+    if (isCorrect) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+    else{
+      setIncorrectAnswers(incorrectAnswers + 1);
+    }
+    Finish();
+  };
+
+  /*
+  comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
+  const Finish = () => {
+    if(gameMode.questionIndex === gameMode.questions.length - 1)
+    {
+      gameMode.setIsGameEnded(true);   
+    }
+    else
+    {
+      gameMode.nextQuestion();
+    }
+  };
+
+  //Este cuando quedemos sin tiempo (perder)
+  const handleTimeout = () => {
+    Finish();
+  };
+
+  
   //Colores chakra dark - light
   console.log("En game"+darkMode.darkMode);
   let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
@@ -69,55 +104,33 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
   return (
     console.log("En game"+darkMode.darkMode),
     <Box minH="100vh" minW="100vw" 
-      bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
-      display="flex" justifyContent="center" alignItems="center">
-      {isLoading ? (
-         <Spinner
-         thickness='0.3em'
-         speed='0.65s'
-         emptyColor='gray.200'
-         color='blue.500'
-         size='xl'
-         marginTop='5em'
-         />//Para mientras carga
+    bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
+    display="flex" justifyContent="center" alignItems="center">
+    {gameMode.isLoading ? (
+       <Spinner
+       thickness='0.3em'
+       speed='0.65s'
+       emptyColor='gray.200'
+       color='blue.500'
+       size='xl'
+       marginTop='5em'
+       />//Para mientras carga
 
-      ) : (
-      
-        <QuestionArea 
-          darkMode={darkMode} 
-          data-testid="question-area" 
-          questions={gameMode.questions} 
-          setTotalCorrectAnswers={setCorrectAnswers}
-          setTotalIncorrectAnswers={setIncorrectAnswers} 
-          setFinished={setFinished} 
-          setTotalTimeFinish={setTotalTime} 
-          timeToAnswer={timeToAnswer}
-          nextQuestion={gameMode.nextQuestion}
-        />
-      )}
-      
-
-    {multiplayerQuestions ? (<div id="waitingForPlayers">
+    ) : (
+    
+          <QuestionArea 
+            darkMode={darkMode} 
+            data-testid="question-area" 
+            question={gameMode.getCurrentQuestion()} 
+            setTotalCorrectAnswers={setCorrectAnswers}
+            setTotalIncorrectAnswers={setIncorrectAnswers} 
+            setFinished={setIsFinished}
+            setTotalTimeFinish={setTotalTime} 
+            timeToAnswer={timeToAnswer}
+            nextQuestion={gameMode.nextQuestion}
+          />
+    )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
-        <AlertDialogOverlay>
-            <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Juego Terminado
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-                Esperando al resto de jugadores...
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-                <Button colorScheme="blue" onClick={onClose} ml={3}>
-                Cerrar
-                </Button>
-            </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialogOverlay>
-        </AlertDialog>
-        </div>  ):(<AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
@@ -138,7 +151,8 @@ function Game({darkMode,gameMode= new BasicMode(),endGame=null}) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
-    </AlertDialog>)}
+    </AlertDialog>
+   
     </Box>
   );
 }

@@ -31,7 +31,9 @@ class GameMode {
     nextQuestion(){
         throw new Error("Method 'nextQuestion' must be implemented.");
     }
-    async  getCurrentQuestion(){}
+      getCurrentQuestion(){
+        throw new Error("Method 'nextQuestion' must be implemented.");
+      }
     
   }
   

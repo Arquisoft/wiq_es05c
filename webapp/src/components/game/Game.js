@@ -17,7 +17,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   const [totalTime, setTotalTime] = useState(0);
   const navigate = useNavigate();
   const timeToAnswer = gameMode.timeToAnswer;
-
+  
   // Utilizar el estado isGameEnded de gameMode en lugar de mantener un estado separado en Game
   const finished = gameMode.isGameEnded;
 
@@ -28,21 +28,35 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   const[isLoading,setIsLoading]=useState(true);//para que no cargue el questionArea hasta que tengas las preguntas
 
 
-  //empiza el juego al cargar el componente
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+
   useEffect(() => {
     const startGameAsync = async () => {
       await gameMode.startGame();
       console.log('preguntas', gameMode.questions);
-  
-      // Establecer isLoading a false después de que las preguntas se hayan cargado
+
+      const currentQuestion = gameMode.getCurrentQuestion();
+      console.log('primera pregunta ', currentQuestion);
+
+      // Establecer la pregunta actual y isLoading a false después de que las preguntas se hayan cargado
+      setCurrentQuestion(currentQuestion);
       setIsLoading(false);
+
     };
-  
+
     startGameAsync();
   }, []);
-
-  //se encarga de comprobar el estado del juego y si ha terminado llama al metodo history del modo de juego 
+  //se llamad cada vez que hace una pregunta 
   useEffect(() => {
+    //carga la siguiente pregunta el !==0 es porque al cargar el componente ya sacas la primera 
+    if (!gameMode.isGameEnded && gameMode.questionIndex>0) {
+      const nextQuestion = gameMode.nextQuestion();
+      setCurrentQuestion(nextQuestion);
+    }
+  }, [correctAnswers, incorrectAnswers]);
+
+  useEffect(() => {
+ 
     if (finished && localStorage.getItem('username') != null && totalTime != 0) {
       const data = {
         correctas: correctAnswers,
@@ -62,7 +76,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
         });
         gameMode.endGame();//terminar el juego 
     }
-  }, [finished, correctAnswers, incorrectAnswers, totalTime]);
+  }, [finished, totalTime,gameMode.isGameEnded]);
 
   const onClose=()=>{
     setIsOpen(false);
@@ -87,14 +101,15 @@ function Game({darkMode,gameMode= new BasicGame()}) {
 
   /*
   comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
-  const Finish = () => {
-    if(gameMode.questionIndex === gameMode.questions.length - 1)
-    {
+  const Finish = async () => {
+    console.log('entra en el finish');
+    if(gameMode.questionIndex === gameMode.questions.length - 1) {
       gameMode.setIsGameEnded(true);   
-    }
-    else
-    {
-      gameMode.nextQuestion();
+    } else {
+      const nextQuestion = await gameMode.nextQuestion();
+
+      setCurrentQuestion(nextQuestion);
+      console.log('siguiente pregunta tras hacer click ', nextQuestion);
     }
   };
 
@@ -102,16 +117,19 @@ function Game({darkMode,gameMode= new BasicGame()}) {
   const handleTimeout = () => {
     Finish();
   };
-
+  //incrementa el timepo en x 
+  const incrementTime = (x) => {
+    setTotalTime(totalTime + x);
+  };
+  
   
   //Colores chakra dark - light
-  console.log("En game"+darkMode.darkMode);
+  
   let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
   let backgroundColorSecond= darkMode.darkMode? '#107869' : '#FDF4E3';
   //#08313A, #107869
 
   return (
-    console.log("En game"+darkMode.darkMode),
     <Box minH="100vh" minW="100vw" 
     bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
     display="flex" justifyContent="center" alignItems="center">
@@ -124,20 +142,24 @@ function Game({darkMode,gameMode= new BasicGame()}) {
        size='xl'
        marginTop='5em'
        />//Para mientras carga
-
+  
     ) : (
     
-          <QuestionArea 
-            darkMode={darkMode} 
-            data-testid="question-area" 
-            question={gameMode.getCurrentQuestion()} 
-            setTotalCorrectAnswers={setCorrectAnswers}
-            setTotalIncorrectAnswers={setIncorrectAnswers} 
-            setFinished={setIsFinished}
-            setTotalTimeFinish={setTotalTime} 
-            timeToAnswer={timeToAnswer}
-            nextQuestion={gameMode.nextQuestion}
-          />
+      <QuestionArea 
+      darkMode={darkMode} 
+      data-testid="question-area" 
+      question={currentQuestion} 
+      setTotalCorrectAnswers={setCorrectAnswers}
+      setTotalIncorrectAnswers={setIncorrectAnswers} 
+      setFinished={setIsFinished}
+      setTotalTime={setTotalTime} 
+      timeToAnswer={timeToAnswer}
+      onAnswerSelect={handleAnswerSelect} // Pasar handleAnswerSelect como prop
+      handleTimeout={handleTimeout} // Pasar handleTimeout como prop
+      incrementTime={incrementTime} // Pasar incrementTime como prop
+
+    
+    />
     )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>

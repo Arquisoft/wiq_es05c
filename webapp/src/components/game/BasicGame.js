@@ -9,32 +9,31 @@ import GameMode from './gameModes/GameMode';
 class BasicGame extends GameMode {
   constructor() {
     super();
-    
+       // Vincular nextQuestion al contexto correcto
+       this.nextQuestion = this.nextQuestion.bind(this);
     
   }
   async fetchQuestions() {
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
       const data = await response.json();
-      
-
+  
       this.questions = Object.values(data);
-     // console.log('preguntas', this.questions);
-            this.isLoading = false;
-
+      this.isLoading = false; // Mover esta línea aquí
+  
     } catch (error) {
       console.error('Error fetching question data:', error);
     }
     return this.questions;
   }
+  
   async startGame() {
     this.isLoading = true;
     this.questionIndex = 0;
     await this.fetchQuestions();
     this.isLoading = false;
-
   }
-  endGame() {
+  async endGame() {
     this.isGameEnded = true;
     this.questionIndex=0;
   }
@@ -76,18 +75,21 @@ class BasicGame extends GameMode {
       });
     }
   }
-  async nextQuestion() {
+   nextQuestion() {
+    console.log('questions en el next questions ',this.questions);
     this.isLoading = true;
-    if(!this.isGameEnded){
-      this.questionIndex++;
-    
-      this.isLoading = false;
-      return this.getCurrentQuestion();//devolver la nueva pregunta 
-    } else {
+    if (this.questionIndex >= this.questions.length - 1) {
       this.endGame();
+      return null;
+    } else {
+      this.questionIndex++;
+      const currentQuestion = this.getCurrentQuestion();
+     
+      this.isLoading = false;
+      return currentQuestion; // devolver la pregunta actual
     }
   }
-  async  getCurrentQuestion() {
+    getCurrentQuestion() {
     // Comprobar si this.questions[this.questionIndex] es undefined
     if (this.questions[this.questionIndex] === undefined) {
       throw new Error('No question at index ' + this.questionIndex);

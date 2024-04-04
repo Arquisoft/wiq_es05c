@@ -9,9 +9,11 @@
     "history": "History",
     "signUp": "Sign Up",
     "signIn": "Sign In",
+
     "github": "Project's Github",
     "university": "School of Computer Engineering",
     "subject": "Software Architecture Assignment",
+
     "addUser": "Add User",
     "addUserMessage": "User added successfully",
     "email": "Email",
@@ -20,6 +22,7 @@
     "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
     "passwordRepeat": "Repeat Password",
     "passwordRepeatHelper": "Passwords must match",
+
     "historyMessage": "History of ",
     "resume": "Summary",
     "gamesPlayed": "Games played",
@@ -27,5 +30,13 @@
     "questionsFailed": "Questions failed",
     "date": "Date",
     "totalTime": "Total time played",
-    "averageTime": "Average time per game"
+    "averageTime": "Average time per game",
+    
+    "loginWelcomeMessage": "Welcome ",
+    "loginDate": "Your account was created on ",
+    "loginMessage": "Log in",
+    "loginUsername": "Username or email",
+    "loginPassword": "Password",
+    "loginToAddUser": "Don't have an account? Sign up here",
+    "loginSuccess": "Login successful"
 }

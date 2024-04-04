@@ -34,22 +34,40 @@ class ObtenerPreguntaWikiData {
         fs.readFile('preguntas.xml', 'utf-8', (err, data) => {
           
           if (err) {
-          console.error('Error al leer el archivo:', err);
+            reject(new Error('Error al leer el archivo:', err));
             return;
           }
           
           // Parsear el XML
           xml2js.parseString(data, (parseErr, result) => {
             if (parseErr) {
-              console.error('Error al analizar el XML:', parseErr);
+              reject(new Error('Error al analizar el XML:', parseErr));
               return;
             }
+
+            if(!result || !result.preguntas || !result.preguntas.pregunta){
+              reject(new Error('No hay preguntas disponibles en el archivo'));
+              return;
+            }
+
             // Obtener las preguntas disponibles
             var preguntas = result.preguntas.pregunta;
+
+            //comprobamos si hay preguntas disponibles
+            if(preguntas.length === 0){
+              reject(new Error('No hay preguntas disponibles'));
+              return;
+            }
           
             // Seleccionar una pregunta aleatoria
             var pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
           
+            //comprobamos si tenemos todos los datos disponibles
+            if(!pregunta.$.question || !pregunta.$.type || !pregunta.$.category){
+              reject(new Error('La pregunta no tiene la estructura correcta'));
+              return;
+            }
+
             // Obtener la información relativa a la pregunta
             this.question = pregunta.$.question;
             this.type = pregunta.$.type;
@@ -66,6 +84,12 @@ class ObtenerPreguntaWikiData {
             this.labels = prueba.map(match => {
               return match.slice(1); // Elimina el primer carácter "?" y muestra el resto
             });
+            
+            //comprobamos que tenemos el numero de labels correcto
+            if(this.labels.length !== 3){
+              reject(new Error('La consulta no tiene el formato correcto para las labels'));
+              return;
+            }
 
             //obtenemos todas las entradas de wikidata para esa query
             this.obtenerEntidadesConsulta(query)
@@ -82,7 +106,7 @@ class ObtenerPreguntaWikiData {
     */
     obtenerEntidadesConsulta(consulta){    
       return new Promise((resolve, reject) => { 
-          const apiUrl = 'https://query.wikidata.org/sparql';
+        const apiUrl = 'https://query.wikidata.org/sparql';
           
         axios.get(apiUrl, {
           params: {
@@ -96,7 +120,8 @@ class ObtenerPreguntaWikiData {
               .catch(error => reject(error));
         })
         .catch(error => {
-            console.error('Error:', error);
+          reject(new Error('Error al obtener las entidades de wikidata:', error));
+          return;
         });
       });
     }
@@ -164,56 +189,73 @@ class ObtenerPreguntaWikiData {
         //leemos el archivo 
         fs.readFile('esqueletoPreguntas.xml', 'utf-8', (err, data) => {
           if (err) {
-            console.error('Error al leer el esqueleto de las preguntas:', err);
-              return;
+            reject(new Error('Error al leer el esqueleto de las preguntas:', err));
+            return;
           }
 
           //parseamos el xml
           xml2js.parseString(data, (parseErr, result) => {
             if (parseErr) {
-              console.error('Error al analizar el esqueleto de las preguntas:', parseErr);
+              reject(new Error('Error al analizar el esqueleto de las preguntas:', parseErr));
               return;
             } 
 
-            //obtenemos el esqueleto de la pregunta que queremos hacer
-            var textoPregunta = this.obtenerTextoPregunta(result, this.question, this.type);
-            
-            //para comprobar si es un Q
-            var regex = /^Q\d+/;
-            //comprobamos que el resultado es valido para hacer la pregunta (que no sea QXXXXX)
-            var preguntaCorrecta = this.answers.find(entidad => {
-              return entidad.label !== "Ninguna de las anteriores" && !regex.test(entidad.label);
-            });
-
-            if(preguntaCorrecta){
-              //rellenamos el esqueleto de la pregunta con los datos de la entidad
-              var pregunta = preguntaCorrecta.label;
-              var respuestaCorrecta = preguntaCorrecta.result;
-              var consulta = textoPregunta.replace('{RELLENAR}', pregunta);
-
-              this.generarPregunta(consulta, respuestaCorrecta)
-                .then(() => resolve())
-                .catch(error => reject(error));                       
+            if(!result || !result.textoPreguntas || !result.textoPreguntas.pregunta){
+              reject(new Error('No hay esqueletos de preguntas disponibles'));
+              return;
             }
-            
-            //si no hay pregunta resolvemos la promesa
             else{
-              resolve();
-            }
+              var preguntas = result.textoPreguntas.pregunta;            
+
+              //obtenemos el esqueleto de la pregunta que queremos hacer
+              var textoPregunta = this.obtenerTextoPregunta(preguntas, this.question, this.type);
+
+              //comprobamos si se ha encontrado el texto de la pregunta
+              if(textoPregunta === ""){
+                reject(new Error('No se ha encontrado el texto de la pregunta'));
+                return;
+              }
+              
+              //para comprobar si es un Q
+              var regex = /^Q\d+/;
+              //comprobamos que el resultado es valido para hacer la pregunta (que no sea QXXXXX)
+              var preguntaCorrecta = this.answers.find(entidad => {
+                return entidad.label !== "Ninguna de las anteriores" && !regex.test(entidad.label);
+              });
+
+              if(preguntaCorrecta){
+                //rellenamos el esqueleto de la pregunta con los datos de la entidad
+                var pregunta = preguntaCorrecta.label;
+                var respuestaCorrecta = preguntaCorrecta.result;
+                var consulta = textoPregunta.replace('{RELLENAR}', pregunta);
+
+                this.generarPregunta(consulta, respuestaCorrecta)
+                  .then(() => resolve())
+                  .catch(error => reject(error));                       
+              }
+              
+              //si no hay pregunta resolvemos la promesa
+              else{
+                reject(new Error('No se ha encontrado una entidad válida para hacer la pregunta'));
+                return;
+              }
+          }
           });
         });
-        });
+      });
     }
 
     /*
       obtenemos el texto de la pregunta que queremos hacer
     */
-    obtenerTextoPregunta(result, question, type) {
-      var preguntas = result.textoPreguntas.pregunta;
+    obtenerTextoPregunta(preguntas, question, type) {
       for (var pregunta of preguntas) {
-          if (pregunta.$.question === question && pregunta.$.type === type) {
-              return pregunta._;
-          }
+        if(!pregunta.$.question || !pregunta.$.type){
+          return "";
+        }
+        if (pregunta.$.question === question && pregunta.$.type === type) {
+          return pregunta._;
+        }
       }
       return "";
     }

@@ -7,13 +7,18 @@ const guardarPregunta = new GuardarPregunta();
 class GenerarPregunta {
     // Método para ejecutar las operaciones
     async ejecutarOperaciones() {
-        await preguntaWiki.leerYSacarConsultas();
+        try{
+            await preguntaWiki.leerYSacarConsultas();
 
-        //si se ha generado pregunta, guardarla en la base de datos
-        if (preguntaWiki.obtenerPregunta() !== undefined) {
-            console.log("Pregunta generada: ", preguntaWiki.obtenerPregunta());
-            guardarPregunta.guardarEnBaseDatos(preguntaWiki.obtenerPregunta());            
+            //si se ha generado pregunta, guardarla en la base de datos
+            if (preguntaWiki.obtenerPregunta() !== undefined) {
+                console.log("Pregunta generada: ", preguntaWiki.obtenerPregunta());
+                guardarPregunta.guardarEnBaseDatos(preguntaWiki.obtenerPregunta());            
+            }
         }
+        catch(error){
+            throw new Error(error.message);
+        };        
     }
 }
 

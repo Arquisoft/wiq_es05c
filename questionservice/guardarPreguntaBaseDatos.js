@@ -22,7 +22,7 @@ class GuardarBaseDatos{
             this.guardarSegundaIncorrecta(idTipo);
             this.guardarTerceraIncorrecta(idTipo);
         }).catch(error => {
-            console.error("Error al guardar la categoría o el tipo de pregunta:", error);
+          throw new Error("Error al guardar la pregunta: " + error.message);
         });
     }
 
@@ -43,6 +43,9 @@ class GuardarBaseDatos{
                 //guardamos el id de la categoria nueva
                   idCategoria = categoriaGuardada._id;
                   resolve(idCategoria); 
+              })
+              .catch(error => {
+                  reject(new Error('Error al guardar la nueva categoría en la base de datos: ' + error.message));
               });
             }
     
@@ -53,8 +56,7 @@ class GuardarBaseDatos{
             }
           });
       }) .catch(error => {
-        console.error("Error al ejecutar la consulta:", error);
-        reject(error); // Rechazamos la Promesa con el error
+        reject(new Error('No se ha guardado la categoria en la base de datos ' + error.message));
       });
     }
 
@@ -91,6 +93,9 @@ class GuardarBaseDatos{
                       //guardamos el id del tipo
                       idTipo = tipoGuardado._id;
                       resolve(idTipo);
+                    })
+                    .catch(error => {
+                        reject(new Error('Error al guardar el nuevo tipo en la base de datos: ' + error.message));
                     });
                   } 
                   else {
@@ -101,14 +106,22 @@ class GuardarBaseDatos{
                       //guardamos el id del tipo
                       idTipo = tipoGuardado._id;
                       resolve(idTipo);
+                    })
+                    .catch(error => {
+                        reject(new Error('Error al guardar el tipo actualizado en la base de datos: ' + error.message));
                     });
                   }            
-                });
+                })
+                .catch(error => {
+                  reject(new Error('Error al buscar el tipo de pregunta en la base de datos: ' + error.message));
+              }) 
+              .catch(error => {
+                reject(new Error('Error al guardar la nueva pregunta en la base de datos: ' + error.message));
+            });
             });
         }
         }).catch(error => {
-          console.error("Error al ejecutar la consulta:", error);
-          reject(error); // Rechazamos la Promesa con el error
+          reject(new Error('Error al guardar la pregunta en la base de datos: ' + error.message));
         });
       });
     }
@@ -136,6 +149,8 @@ class GuardarBaseDatos{
                respuestaExistente.save();
              }
            }
+         }).catch(error => {
+           throw new Error('Error al guardar la primera respuesta incorrecta en la base de datos: ' + error.message);
          });
     }
 
@@ -162,7 +177,9 @@ class GuardarBaseDatos{
               respuestaExistente.save();
             }
           }
-        });
+        }).catch(error => {
+          throw new Error('Error al guardar la segunda respuesta incorrecta en la base de datos: ' + error.message);
+        });        
     }
 
     guardarTerceraIncorrecta(idTipo){
@@ -188,9 +205,10 @@ class GuardarBaseDatos{
                respuestaExistente.save();
              }
            }
+        }).catch(error => { 
+          throw new Error('Error al guardar la tercera respuesta incorrecta en la base de datos: ' + error.message);
         });
     }
-
 }
 
 module.exports = GuardarBaseDatos;

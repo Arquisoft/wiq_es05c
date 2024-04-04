@@ -1,0 +1,52 @@
+{
+    "language": "Language",
+    "spanish": "Spanish",
+    "spanishFlag": "Spanish Flag",
+    "englishFlag": "English Flag",
+    "english": "English",
+    "home": "Home",
+    "logout": "Logout",
+    "history": "History",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+
+    "github": "Project's Github",
+    "university": "School of Computer Engineering",
+    "subject": "Software Architecture Assignment",
+
+    "addUser": "Add User",
+    "addUserMessage": "User added successfully",
+    "email": "Email",
+    "userName": "Username",
+    "password": "Password",
+    "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
+    "passwordRepeat": "Repeat Password",
+    "passwordRepeatHelper": "Passwords must match",
+
+    "historyMessage": "History of ",
+    "resume": "Summary",
+    "gamesPlayed": "Games played",
+    "questionsCorrect": "Questions correct",
+    "questionsFailed": "Questions failed",
+    "date": "Date",
+    "totalTime": "Total time played",
+    "averageTime": "Average time per game",
+
+    "loginWelcomeMessage": "Welcome ",
+    "loginDate": "Your account was created on ",
+    "loginMessage": "Log in",
+    "loginUsername": "Username or email",
+    "loginPassword": "Password",
+    "loginToAddUser": "Don't have an account? Sign up here",
+    "loginSuccess": "Login successful",
+
+    "logoutMessage": "Thank you for playing. Come back soon!",
+
+    "group": "WIQ_ES05C",
+    "welcomeMessage": "Our group: how and then the game",
+    "welcomeMessage2": "Welcome to our quiz game",
+    "welcomeMessage3": "We are a team of developers passionate about quiz games.",
+    "welcomeMessage4": "In this game, we challenge you to answer a series of random questions from various categories. We offer several game modes to keep things interesting. Good luck!",
+
+    "startButton": "Start game"
+}

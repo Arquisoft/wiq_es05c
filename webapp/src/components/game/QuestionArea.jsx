@@ -5,7 +5,7 @@ import { EnunciadoBlock } from './EnunciadoBlock.jsx';
 import { Timer } from './timers/Timer';
 import { GameTimer } from './timers/GameTimer.jsx';
 
-export function QuestionArea({darkMode, question, setFinished, setTotalTime, timeToAnswer=30000,onAnswerSelect,handleTimeout,incrementTime}){
+export function QuestionArea({darkMode, question, isFinished, setTotalTime, timeToAnswer=30000,onAnswerSelect,handleTimeout}){
 
   // Eliminar los estados correctAnswers e incorrectAnswers
 
@@ -32,7 +32,7 @@ export function QuestionArea({darkMode, question, setFinished, setTotalTime, tim
   const handleButtonClick = (isCorrect) => {
     // Llamar a onAnswerSelect cuando se selecciona una respuesta
     onAnswerSelect(isCorrect);
-    incrementTime(100);
+    //incrementTime(100);
   };
 
   const onTimeout = () => {
@@ -46,7 +46,7 @@ export function QuestionArea({darkMode, question, setFinished, setTotalTime, tim
       <Box display="flex" borderBottom="0.1em solid #000">
         <Timer darkMode={darkMode} onTimeout={onTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
         <EnunciadoBlock darkMode={darkMode} pregunta={question?.pregunta} />
-        <GameTimer darkMode={darkMode} isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
+        <GameTimer darkMode={darkMode} isFinished={isFinished} setTotalTime={setTotalTime}/>
       </Box>
       <AnswersBlock darkMode={darkMode} respuestas={respuestas} correcta={question?.correcta} onAnswerSelect={handleButtonClick} isGameEnded={isGameEnded}/>
     </Box>

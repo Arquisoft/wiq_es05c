@@ -73,6 +73,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
     } else if(gameModeRef.current.questions.length != 0){ //no deberia entrar cuando se cargue el componente
       console.log("use effect finish");
       gameModeRef.current.finishGame();
+      setIsFinished(true);
     }
   }, [correctAnswers, incorrectAnswers]);
 
@@ -106,10 +107,6 @@ function Game({darkMode,gameMode= new BasicGame()}) {
     handleAnswerSelect(false);
   };
   
-  const incrementTime = (x) => {
-    setTotalTime(totalTime + x);
-  };
-  
   let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
   let backgroundColorSecond= darkMode.darkMode? '#107869' : '#FDF4E3';
 
@@ -133,12 +130,13 @@ function Game({darkMode,gameMode= new BasicGame()}) {
       question={currentQuestion} 
       setTotalCorrectAnswers={setCorrectAnswers}
       setTotalIncorrectAnswers={setIncorrectAnswers} 
-      setFinished={setIsFinished}
+      isFinished={isFinished}
       setTotalTime={setTotalTime} 
       timeToAnswer={timeToAnswer}
       onAnswerSelect={handleAnswerSelect}
       handleTimeout={handleTimeout}
-      incrementTime={incrementTime}
+      
+
     />
     )}
       <AlertDialog isOpen={isOpen} onClose={onClose}>

@@ -4,11 +4,11 @@ import { FaRegClock } from 'react-icons/fa';
 
 
 
-export function GameTimer({darkMode, isGameEnded, setTotalTime }) {
+export function GameTimer({darkMode, isFinished, setTotalTime }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if (isGameEnded) {
+    if (isFinished) {
       console.log("El juego ha terminado con un tiempo total de: ", seconds, " segundos.");
       setTotalTime(seconds);
       return;
@@ -19,7 +19,7 @@ export function GameTimer({darkMode, isGameEnded, setTotalTime }) {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isGameEnded, seconds, setTotalTime]);
+  }, [isFinished, seconds, setTotalTime]);
 
   let textColor = darkMode.darkMode? "#FCFAF0" : "#08313A";
 

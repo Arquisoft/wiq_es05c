@@ -44,7 +44,7 @@ export function QuestionArea({darkMode, question, isFinished, setTotalTime, time
     <Box alignContent="center" bg="#0000004d" display="flex" flexDir="column"
     maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
       <Box display="flex" borderBottom="0.1em solid #000">
-        <Timer darkMode={darkMode} onTimeout={onTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
+        <Timer darkMode={darkMode} onTimeout={onTimeout} resetTimer={resetTimer} timeout={timeToAnswer} gameFinish={isFinished} />
         <EnunciadoBlock darkMode={darkMode} pregunta={question?.pregunta} />
         <GameTimer darkMode={darkMode} isFinished={isFinished} setTotalTime={setTotalTime}/>
       </Box>

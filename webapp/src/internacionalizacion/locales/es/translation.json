@@ -32,8 +32,10 @@
     "totalTime": "Tiempo total jugado",
     "averageTime": "Tiempo medio por partida",
     "gameTime": "Tiempo de la partida",
-    "timeUnit" : "segundos",
-    "questionsPercentage": "%",
+    "timeUnit" : " segundos",
+    "timeUnitMinutes" : " minutos",
+    "timeUnitHours" : " horas",
+    "questionsPercentage": " %",
 
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",

@@ -2,7 +2,10 @@ import React from 'react';
 import { Heading, Box, Text, CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-export function StatsBlock({ darkMode,playerStats }){
+export function StatsBlock({ darkMode,playerStats }){    
+    
+    //para la internacionalización
+    const {t} = useTranslation();
 
     let nombreJugador = playerStats.nombreUsuario;
     console.log(playerStats);
@@ -12,6 +15,8 @@ export function StatsBlock({ darkMode,playerStats }){
     let tiempoFormateado = formatTime(tiempo);
 
     let tiempoMedioFormateado = formatTime(playerStats.tiempoMedio);
+
+    
 
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);
@@ -23,14 +28,15 @@ export function StatsBlock({ darkMode,playerStats }){
         let tiempoFormateado = '';
     
         if (hours > 0) {
-            tiempoFormateado += `${hours}h `;
+            tiempoFormateado += `${hours}${t('timeUnitHours')} `;
         }
     
         if (minutes > 0 || hours > 0) { // Si hay horas, se mostrarán los minutos aunque sean 0
-            tiempoFormateado += `${minutes}m `;
+            tiempoFormateado += `${minutes}${t('timeUnitMinutes')}`;
         }
-    
-        tiempoFormateado += `${seconds}s`;
+
+        tiempoFormateado += `${seconds}${t('timeUnit')}`;
+        
     
         return tiempoFormateado;
     }
@@ -39,9 +45,6 @@ export function StatsBlock({ darkMode,playerStats }){
     let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';
     let text = darkMode ? '#FCFAF0' : '#08313A';
     let titles = darkMode ? '#90ADC6' : '#00325E';
-    
-    //para la internacionalización
-    const {t} = useTranslation();
 
     return (
         <Box id='stats-block-container'>

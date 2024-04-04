@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 export function GameBlock( {darkMode, gameInfo} ){
 
+    
+    //para la internacionalización
+    const {t, i18n} = useTranslation();
+
     console.log("Partida: " + gameInfo);
     /*
         let fecha = gameInfo.fecha;
@@ -12,10 +16,11 @@ export function GameBlock( {darkMode, gameInfo} ){
         let tiempo = gameInfo.tiempo;
     */
    //Parseo la fecha, la dife de hora es que la pasa a la hora de españa
-   //Sin parsear 2024-03-20T00:00:00.000Z --- Parseada  20 de marzo de 2024, 01:00
+   //Sin parsear 2024-03-20T00:00:00.000Z --- Parseada  20 de marzo de 2024, 01:00 
+   
     let fecha = new Date(gameInfo.fecha);
     let options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    let fechaFormateada = fecha.toLocaleDateString(undefined, options);
+    let fechaFormateada = fecha.toLocaleDateString(i18n.language, options);
 
     let numeroJuego = gameInfo.numeroJuego;
     let aciertos = gameInfo.preguntas_acertadas;
@@ -23,8 +28,6 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
-    //para la internacionalización
-    const {t} = useTranslation();
     
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);

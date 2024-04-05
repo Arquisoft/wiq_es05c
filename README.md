@@ -18,16 +18,15 @@ This repo is a basic application composed of several components.
 Both the user, auth service and questions service share a Mongo database that is accessed with mongoose.
 
 ## Members of the group
+      Nombre                    |   Identificador
 
-  Sonia Moro Lauda
+  Sonia Moro Lauda              |      UO282189
 
-  Lucía Villanueva Rodríguez
+  Lucía Villanueva Rodríguez    |      UO283535
 
-  Pedro Castro Montes
+  Pedro Castro Montes           |      UO288120
   
-  Adrián Santamarina Romero
-
-  David González González
+  David Alvarez Diaz            |      UO283196
 
 ## Quick start guide
 

@@ -7,37 +7,54 @@ const Respuesta = mongoose.model('Respuesta');
 
 class ObtenerPreguntas{
 
-
-
     async obtenerPregunta(numeroPreguntas){    
-        var resultado = {};
-        var objetoExterno= {};
-        //Se cojen las preguntas del numero que se pase por parametro
-        console.log("Numero" + numeroPreguntas);
-        var preguntas = await Pregunta.aggregate([{ $sample: { size: numeroPreguntas } }]);
-        console.log("Preguntas " + preguntas);
-        for(var i = 0; i < preguntas.length; i++){
-     
-        var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
-        console.log("Pregunta" + preguntas[i]);
-        var respuestas = await Respuesta.aggregate([
-            { $match: { tipos: {$in : [tipo._id]}, textoRespuesta: { $ne: [preguntas[i].respuestaCorrecta, "Ninguna de las anteriores" ]} } },
-            { $sample: { size: 3 } }
-        ]);
-       
-        resultado = {
-            pregunta: preguntas[i].textoPregunta,
-            correcta: preguntas[i].respuestaCorrecta,
-            respuestasIncorrecta1:  respuestas[0].textoRespuesta,
-            respuestasIncorrecta2:  respuestas[1].textoRespuesta,
-            respuestasIncorrecta3:  respuestas[2].textoRespuesta
-        };
-        console.log("Resultado" + resultado);
-        objetoExterno["resultado" + (i+1)] = resultado;
-        
-    }
-    console.log( "objeto entero " + objetoExterno);
-        return objetoExterno;
+        try{
+            var resultado = {};
+            var objetoExterno= {};
+            //Se cojen las preguntas del numero que se pase por parametro
+            var preguntas = await Pregunta.aggregate([{ $sample: { size: numeroPreguntas } }]);
+
+            //comprobamos si hay preguntas 
+            if(preguntas.length != numeroPreguntas){
+                console.log("Entra al error");
+                throw new Error("No se han devuelto el numero de preguntas necesario");
+            }
+
+            for(var i = 0; i < preguntas.length; i++){   
+                try{                   
+                    var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
+
+                    var respuestas = await Respuesta.aggregate([
+                        { $match: { tipos: {$in : [tipo._id]}, textoRespuesta: { $ne: [preguntas[i].respuestaCorrecta, "Ninguna de las anteriores" ]} } },
+                        { $sample: { size: 3 } }
+                    ]);
+
+                    //comprobamos si hay respuestas
+                    if(respuestas.length < 3){
+                        throw new Error("No hay suficientes respuestas en la base de datos");
+                    }
+            
+                    resultado = {
+                        pregunta: preguntas[i].textoPregunta,
+                        correcta: preguntas[i].respuestaCorrecta,
+                        respuestasIncorrecta1:  respuestas[0].textoRespuesta,
+                        respuestasIncorrecta2:  respuestas[1].textoRespuesta,
+                        respuestasIncorrecta3:  respuestas[2].textoRespuesta
+                    };
+
+                    objetoExterno["resultado" + (i+1)] = resultado;
+            }
+            catch(error){
+                throw new Error("Error al obtener el tipo o las respuestas de la base de datos");
+            }            
+        } 
+
+        console.log("Preguntas finales: " + objetoExterno);
+            return objetoExterno;
+        }
+        catch(error){
+            throw new Error("Error al obtener las preguntas de la base de datos"); 
+        }
     }
 }
 

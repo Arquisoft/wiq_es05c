@@ -2,9 +2,13 @@ import React , { useContext,useEffect }from 'react';
 
 import './Logout.css';
 import { AuthContext } from '../authcontext';
+import { useTranslation } from 'react-i18next';
+
 const Logout = () => {
   const { logout } = useContext(AuthContext);
-
+  
+  //para la internacionalización
+  const {t} = useTranslation();
     
   useEffect(() => {
     logout();
@@ -13,7 +17,7 @@ const Logout = () => {
 
       return (
         <div className="logout-message">
-            <h2>Gracias por jugar. ¡Vuelve pronto!</h2>
+            <h2>{t('logoutMessage')}</h2>
         </div>
     );
 

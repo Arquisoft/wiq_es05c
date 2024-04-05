@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 const AddUser = (darkMode) => {
@@ -35,6 +36,9 @@ const AddUser = (darkMode) => {
   let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
   let buttonColor = darkMode.darkMode ? '#107869' : '#FFFFF5';
 
+  //para la internacionalización
+  const {t} = useTranslation();
+
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}
     style={{ 
@@ -46,7 +50,7 @@ const AddUser = (darkMode) => {
       color: text
     }}>
       <Typography component="h1" variant="h5">
-        Añadir usuario
+        {t('addUser')}
       </Typography>
       <TextField
        InputProps={{
@@ -61,7 +65,7 @@ const AddUser = (darkMode) => {
         name="email"
         margin="normal"
         fullWidth
-        label="Email"
+        label={t('email')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
@@ -78,7 +82,7 @@ const AddUser = (darkMode) => {
         name="username"
         margin="normal"
         fullWidth
-        label="Usuario"
+        label={t('userName')}
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -95,11 +99,11 @@ const AddUser = (darkMode) => {
         name="password"
         margin="normal"
         fullWidth
-        label="Contraseña"
+        label={t('password')}
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        helperText="La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial"
+        helperText={t('passwordHelper')}
       />
       <TextField
        InputProps={{
@@ -114,17 +118,17 @@ const AddUser = (darkMode) => {
         name="passwordConfirm"
         margin="normal"
         fullWidth
-        label="Confirme la contraseña"
+        label={t('passwordRepeat')}
         type="password"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
-        helperText="Las contraseñas tienen que coincidir"
+        helperText={t('passwordRepeatHelper')}
       />
       <Button variant="contained" color="primary" onClick={addUser}
       style={{ backgroundColor: buttonColor, color: text }}>
-        Añadir usuario
+        {t('addUser')}
       </Button>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}

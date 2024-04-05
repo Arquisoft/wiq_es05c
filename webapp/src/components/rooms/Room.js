@@ -5,9 +5,10 @@ import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, Ale
 import { useNavigate } from 'react-router-dom';
 
 import socket from './socket';
-import Game  from '../game/GameMultiplayer';
+import Game  from '../game/Game';
+import { useTranslation } from 'react-i18next';
 
-function Room() {
+function Room({ darkMode }) {
   const nagivate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
@@ -20,6 +21,8 @@ function Room() {
 
   const [winner, setWinner] = useState(null);
 
+  //para la internacionalización
+  const {t} = useTranslation();
 
   //para el mensaje del ganador 
   const [isOpen, setIsOpen] = useState(false);
@@ -86,15 +89,15 @@ function Room() {
 
   return (
     <div>
-      <h1>Sala: {roomId}</h1>
-      <h2>Usuarios:</h2>
+      <h1>{t('room')}{roomId}</h1>
+      <h2>{t('roomUsers')}</h2>
       <ul>
         {Object.keys(users).map((username, index) => (
             <li key={index}>{username}</li>
           ))}
       </ul>
-      {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
+      {isHost && <button onClick={startGame} disabled={gameStarted}>{t('roomStartGameButton')}</button>}
+      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} questions={questions} endGame={endGame} />}
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
@@ -103,16 +106,16 @@ function Room() {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Juego terminado
+              {t('roomEndGame')}
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              El ganador es {winner}
+              {t('roomWinner')}{winner}
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                Cerrar
+                {t('close')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

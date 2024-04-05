@@ -10,32 +10,31 @@ class RoomQuestions{
         this.io = io;
     }
     async joinRoom(id, username, socket) {
+      console.log("valores del join room params id "+id+" username "+username+" socket "+socket);
       try {
-        if (id != null && id !== undefined) {
+        if (id && id.trim() !== '') { // Comprueba que la id no sea null, undefined o un string vacío
           if (this.rooms.has(id)) { // Verifica si la sala existe
             let userList = this.rooms.get(id);
-             // Verifica si el usuario ya existe en la sala
+            // Verifica si el usuario ya existe en la sala
             if (!userList.includes(username)) {
               userList.push(username);
               this.rooms.set(id, userList);
             }
-           // console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
-            //asociar el socket a la sala
+            // Asociar el socket a la sala
             socket.join(id);
             // Emitir evento 'roomJoined' solo al usuario que se acaba de unir a la sala
             socket.emit('roomJoined', id);
-    
-         
-            this.emitCurrentUsers(id, socket);
+            console.log(`Usuario ${username} se ha unido a la sala ${id}`);
           } else {
-            throw new Error("la sala no existe ");
+            console.log(`La sala con id ${id} no existe.`);
+            throw new Error("la sala no existe");
+           
           }
-        } else {
-          throw new Error("ID de sala inválido");
         }
       } catch (error) {
-        console.log(error);
+        console.log(`Error al unirse a la sala: ${error.message}`);
+        throw new Error('Error al unirse a la sala:', error);
       }
     }
 
@@ -166,5 +165,15 @@ class RoomQuestions{
         console.log(`La sala con id ${id} no existe.`);
       }
     }
+    getRoomUsers(id) {
+      // Check if the room exists
+      if (this.rooms.has(id)) {
+          // Return the list of users in the room
+          return this.rooms.get(id);
+      } else {
+          // If the room does not exist, return an empty array
+          return [];
+      }
+  }
 }
 module.exports=RoomQuestions;

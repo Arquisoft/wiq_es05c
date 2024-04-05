@@ -3,10 +3,11 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 
-
 import { AuthContext } from '../authcontext';
 
 import { useNavigate ,Link} from 'react-router-dom';
+
+import { useTranslation } from 'react-i18next';
 
 const Login = (darkMode) => {
   //hacer que el navbar guarde el contexo de si estas loggeado o no 
@@ -16,8 +17,6 @@ const Login = (darkMode) => {
 
   const{handleLogin}=useContext(AuthContext);
 
-
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,11 +24,10 @@ const Login = (darkMode) => {
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000'; 
 
-  const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
-
-  
-
+  //para la internacionalización
+  const {t} = useTranslation();
 
   const loginUser = async () => {
     try {
@@ -38,12 +36,10 @@ const Login = (darkMode) => {
       // Extract data from the response
       const { createdAt: userCreatedAt} = response.data;
 
-
       handleLogin(response.data.token,response.data.username);//pasasr el token que nos da el servidor 
 
       setCreatedAt(userCreatedAt);
-      setLoginSuccess(true);
-    
+      setLoginSuccess(true);    
 
       setOpenSnackbar(true);
       //ir a la url 
@@ -75,10 +71,10 @@ const Login = (darkMode) => {
       {loginSuccess ? (
         <div>
           <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
+            {t('loginWelcomeMessage')} {username}
           </Typography>
           <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
+            {t('loginDate')} {new Date(createdAt).toLocaleDateString()}.
           </Typography>
         
 
@@ -86,7 +82,7 @@ const Login = (darkMode) => {
       ) : (
         <div>
           <Typography component="h1" variant="h5">
-            Login
+            {t('loginMessage')}
           </Typography>
           <TextField
             InputProps={{
@@ -100,10 +96,9 @@ const Login = (darkMode) => {
             }}
             margin="normal"
             fullWidth
-            label="Username"
+            label={t('loginUsername')}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            helperText="Puedes logearte con tu email o tu nombre de usuario"
           />
           <TextField
           InputProps={{
@@ -117,21 +112,21 @@ const Login = (darkMode) => {
           }}
             margin="normal"
             fullWidth
-            label="Password"
+            label={t('loginPassword')}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           
           <Typography>
-          <Link to="/adduser" style={{color: text}}>¿No tienes cuenta , registrate aqui ?</Link>
+          <Link to="/adduser" style={{color: text}}>{t('loginToAddUser')}</Link>
 
             </Typography>
           <Button variant="contained" color="primary" onClick={loginUser} 
           style={{ backgroundColor: buttonColor, color: text }}>
-            Login
+            {t('loginMessage')}
           </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')} />
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import socket from './socket';
 import Game  from '../game/Game';
-
+import RoomGame from '../game/gameModes/RoomGame';
 function Room({ darkMode }) {
   const nagivate = useNavigate();
   const { roomId } = useParams();
@@ -82,7 +82,11 @@ function Room({ darkMode }) {
 
   }
 
-  
+const room={
+  endGame:endGame,
+  getQuestions:()=>questions,
+  winner:winner
+}
 
   return (
     <div>
@@ -94,30 +98,7 @@ function Room({ darkMode }) {
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} questions={questions} endGame={endGame} />}
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Juego terminado
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              El ganador es {winner}
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cerrar
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} gameMode={new RoomGame(room)} />}
     </div>
   );
 }

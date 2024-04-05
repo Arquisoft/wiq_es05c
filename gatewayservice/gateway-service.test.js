@@ -176,7 +176,8 @@ it('should perform the getQuestion modo basico request', async () => {
     axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
  
   });
-
+ 
+  
  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
  it('should handle error when fetching question', async () => {
   const questionServiceUrl = 'http://localhost:8003/generateQuestions';
@@ -214,8 +215,18 @@ it('should return an error when the question service request fails', async () =>
     expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas modo basico');
     });
   
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
+  it('should handle error when fetching question', async () => {
+    const questionServiceUrl = 'http://localhost:8003/getQuestionDiaria';
+    const errorMessage = 'Network Error';
+    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+
+      }
+  );
+
 
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
+
 //Caso positivo para el endpoint /getHistoryDetallado
 it('should perform the getHistoryDetallado request', async () => {
   const response = await request(app).get('/getHistoryDetallado').send();
@@ -257,6 +268,12 @@ it('should return an error when the history detallado service request fails', as
 
   
   // Test /getHistoryTotal endpoint
+
+  //Caso positivo para el endpoint /getHistoryDetallado
+it('should perform the getHistoryDetallado request', async () => {
+  const response = await request(app).get('/getHistoryTotal').send();
+  
+});
   //Caso negativo para el endpoint /getHistoryTotal
   it('should return an error when the history total service request fails', async () => {
     // Mock the axios.get method to reject the promise
@@ -277,6 +294,17 @@ it('should return an error when the history detallado service request fails', as
     const errorMessage = 'Network Error';
     axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
-  
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial total falla.
+   it('should handle error when fetching history total', async () => {
+      const historyServiceUrl = 'http://localhost:8004/getHistoryTotal';
+      const errorMessage = 'Network Error';
+      axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+});
+//Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial detallado falla.
+it('should handle error when fetching history detallado', async () => {
+  const historyServiceUrl = 'http://localhost:8004/getHistoryDetallado';
+  const errorMessage = 'Network Error';
+  axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+    });
 
 });

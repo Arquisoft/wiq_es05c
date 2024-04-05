@@ -6,6 +6,7 @@ export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded,
 
     const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
+    
     let respuestasCopy = respuestas;
 
     //Colores de los botones para que tengan orden random

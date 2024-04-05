@@ -65,10 +65,9 @@ function Game({darkMode,gameMode= new BasicGame()}) {
     //console.log('corectAnswer useEffect el valor de las preguntas es ',gameModeRef.questions);
     console.log("entra en el useEffect de correctAnswer",correctAnswers,incorrectAnswers,gameModeRef.current.questions.length);
     
-    if (correctAnswers + incorrectAnswers < gameModeRef.current.questions.length ) { //para que no entre en el finished nada mas cargar el juegu
+    if ( !isFinished && correctAnswers + incorrectAnswers < gameModeRef.current.questions.length ) { //para que no entre en el finished nada mas cargar el juegu
       console.log("entra en el if del correctAnswer");
       const nextQuestion = gameModeRef.current.nextQuestion();
-      console.log('siguiente pregunta',nextQuestion);
       setCurrentQuestion(nextQuestion);
     } else if(gameModeRef.current.questions.length != 0){ //no deberia entrar cuando se cargue el componente
       console.log("use effect finish");

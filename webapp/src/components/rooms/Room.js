@@ -78,6 +78,7 @@ function Room({ darkMode }) {
   }
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
+    console.log("emitir endGame socket.io");
     socket.emit('endGame', {id:roomId, results:results});
 
   }

@@ -15,12 +15,16 @@ class RoomGame extends BasicGame {
     async fetchQuestions() {
       this.questions = this.room.getQuestions();
     }
+    async sendHistory(){
+        console.log("no se envia el historial");
+        return;
+    }
   
     async endGame() {
       console.log('RoomGame endGame');
       this.isGameEnded = true;
       this.questionIndex = 0;
-      this.room.endGame({ correctas: this.correctAnswers, incorrectas: this.incorrectAnswers, tiempoTotal: this.totalTime });
+      //this.room.endGame({ correctas: this.correctAnswers, incorrectas: this.incorrectAnswers, tiempoTotal: this.totalTime });
   
       // Muestra el cuadro de diálogo aquí
       // Puedes utilizar un paquete como sweetalert2 para mostrar el cuadro de diálogo
@@ -30,5 +34,10 @@ class RoomGame extends BasicGame {
         confirmButtonText: 'Cerrar'
       });
     }
+
+    finishGame(){
+        this.isGameEnded = true;
+        this.endGame();
+      }
   }
   export default RoomGame;

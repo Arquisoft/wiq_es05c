@@ -86,6 +86,8 @@ it('should return 404 for nonexistent endpoint', async()=>{
 });
 
 //*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */
+
+
 //Caso positivo para el endpoint /getQuestion
 it('should perform the getQuestion request', async () => {
   const response = await request(app).get('/getQuestion').send();
@@ -97,6 +99,20 @@ it('should perform the getQuestion request', async () => {
   };
   axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
 });
+
+//Caso positivo para el endpoint /getQuestionDiario
+it('should perform the getQuestionDiario request', async () => {
+  const response = await request(app).get('/getQuestionDiaria').send();
+  expect(response.statusCode).toBe(200);
+  const data = {
+    pregunta: '¿Cuál es la capital de Francia?',
+    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
+    correcta: 'Paris',
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+});
+
+
 //Caso positivo para el endpoint /getQuestionModoBasico
 it('should perform the getQuestion modo basico request', async () => {
   const response = await request(app).get('/getQuestionModoBasico').send();
@@ -123,6 +139,8 @@ it('should perform the getQuestion modo basico request', async () => {
       });
     }
   });
+
+
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
   it('should handle error when fetching question', async () => {
     const questionServiceUrl = 'http://localhost:8003';
@@ -158,6 +176,7 @@ it('should perform the getQuestion modo basico request', async () => {
     axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
  
   });
+
  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
  it('should handle error when fetching question', async () => {
   const questionServiceUrl = 'http://localhost:8003/generateQuestions';
@@ -179,6 +198,7 @@ it('should return an error when the question service request fails', async () =>
   expect(response.body.error).toBeDefined();
   expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas');
   });
+
 //Caso negativo para el endpoint /getQuestionModoBasico
   it('should return an error when the question modo basico service request fails', async () => {
     // Mock the axios.get method to reject the promise
@@ -194,7 +214,6 @@ it('should return an error when the question service request fails', async () =>
     expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas modo basico');
     });
   
-    
 
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 //Caso positivo para el endpoint /getHistoryDetallado
@@ -259,6 +278,5 @@ it('should return an error when the history detallado service request fails', as
     axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
   
-  // Test /getHistoryTotal endpoint
 
 });

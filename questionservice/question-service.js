@@ -41,6 +41,19 @@ app.get('/getQuestion', async(req,res)=> {
   }
     
 }); 
+
+app.get('/getQuestionDiaria', async(req,res)=> {
+  try{  
+    //coger pregunta bd
+    const questions = await question.obtenerPregunta(1);
+    //para devolver la pregunta
+    res.json(questions);
+    
+  } catch(error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+    
+}); 
 app.get('/getQuestionModoBasico', async(req,res)=> {
   try{  
     //coger pregunta bd

@@ -69,7 +69,7 @@ function Game({darkMode,gameMode= new BasicGame()}) {
       console.log("entra en el if del correctAnswer");
       const nextQuestion = gameModeRef.current.nextQuestion();
       setCurrentQuestion(nextQuestion);
-    } else if(gameModeRef.current.questions.length != 0){ //no deberia entrar cuando se cargue el componente
+    } else if(gameModeRef.current.questions.length != 0 && isFinished){ //no deberia entrar cuando se cargue el componente
       console.log("use effect finish");
       gameModeRef.current.finishGame();
       setIsFinished(true);

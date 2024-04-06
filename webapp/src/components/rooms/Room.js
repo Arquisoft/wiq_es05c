@@ -82,6 +82,8 @@ function Room({ darkMode }) {
     socket.emit('endGame', {id:roomId, results:results});
 
   }
+//indica donde vas al accabar el juego 
+ 
 
 const room={
   endGame:endGame,
@@ -99,7 +101,7 @@ const room={
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} gameMode={new RoomGame(room)} />}
+      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} gameMode={new RoomGame(room,nagivate)} />}
     </div>
   );
 }

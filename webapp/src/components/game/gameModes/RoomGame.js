@@ -6,10 +6,11 @@ que son el fetchquestions y el endgame
 
 */
 class RoomGame extends BasicGame {
-    constructor(room) {
+    constructor(room,navigate) {
       super();
       this.room = room;
       this.winner=room.winner;
+      this.navigate=navigate;
     }
   
     async fetchQuestions() {
@@ -21,16 +22,18 @@ class RoomGame extends BasicGame {
     }
   
     async endGame() {
+      //this.navigate('/home');
+
       console.log('RoomGame endGame');
       this.isGameEnded = true;
-      this.questionIndex = 0;
+      //this.questionIndex = 0;
       //this.room.endGame({ correctas: this.correctAnswers, incorrectas: this.incorrectAnswers, tiempoTotal: this.totalTime });
   
       // Muestra el cuadro de diálogo aquí
       // Puedes utilizar un paquete como sweetalert2 para mostrar el cuadro de diálogo
       Swal.fire({
-        title: 'Juego terminado',
-        text: `El ganador es ${this.room.winner}`,
+        title: 'Esperando al resto de jugadores',
+        text: `Esperando a que el resto de jugaores terminen la partida `,
         confirmButtonText: 'Cerrar'
       });
     }

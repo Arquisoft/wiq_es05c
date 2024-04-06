@@ -83,7 +83,8 @@ class BasicGame extends GameMode {
     if (this.questionIndex >=9) {
       console.log("fin juego");
       this.finishGame();
-      return null;
+      //devuelve las ultima pregunta
+      return this.questions[this.questions.length-1];
     } else {
       // Incrementar this.questionIndex después de comprobar si has llegado a la última pregunta
       this.questionIndex++;

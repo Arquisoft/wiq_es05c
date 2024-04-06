@@ -12,6 +12,22 @@ export function AllGamesBlock({darkMode, games }){
     //para la internacionalización
     const {t} = useTranslation();
 
+    let hasHistory = true;//Por defecto lo pongo a true
+
+    let errorMessage = games[0];
+
+    if (!games || errorMessage.includes("Error")) {
+        hasHistory = false;
+    }
+
+    if (!hasHistory) {
+        return (
+            <Box id='stats-block-container'>
+                <Heading size="xl" margin="1em" color={darkMode ? '#FCFAF0' : '#08313A'} textAlign="center">{t('noHistoryGamesMessage')}</Heading>
+            </Box>
+        );
+    }
+
     console.log("Partidas  x: "+games);
     console.log(games);
     return (

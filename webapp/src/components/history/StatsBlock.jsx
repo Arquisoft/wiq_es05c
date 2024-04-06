@@ -7,18 +7,31 @@ export function StatsBlock({ darkMode,playerStats }){
     //para la internacionalización
     const {t} = useTranslation();
 
-    let nombreJugador = playerStats.nombreUsuario;
-    console.log(playerStats);
+    let hasHistory = true;//Por defecto lo pongo a true
 
+    if (!playerStats || !playerStats.nombreUsuario || playerStats.tiempoMedio == 0) {
+        hasHistory = false;
+    }
+
+    if (!hasHistory) {
+        return (
+            <Box id='stats-block-container'>
+                <Heading size="xl" margin="1em" color={darkMode ? '#FCFAF0' : '#08313A'} textAlign="center">{t('noHistoryMessage')}</Heading>
+            </Box>
+        );
+    }
+    
+    let nombreJugador = playerStats.nombreUsuario;
+    
     let tiempo = playerStats.tiempoTotal;
     
     let tiempoFormateado = formatTime(tiempo);
 
     let tiempoMedioFormateado = formatTime(playerStats.tiempoMedio);
 
-    let aciertosRedondeados = parseFloat(playerStats.preguntas_acertadas.toFixed(2));
+    let aciertosRedondeados = 1//parseFloat(playerStats.preguntas_acertadas.toFixed(2));
 
-    let fallosRedondeados = parseFloat(playerStats.preguntas_falladas.toFixed(2));
+    let fallosRedondeados = 1//parseFloat(playerStats.preguntas_falladas.toFixed(2));
 
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);

@@ -4,6 +4,10 @@ Visit our app : http://20.68.253.187:3000/
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
+[![SQALE Rating](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
 
 This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
@@ -19,15 +23,12 @@ Both the user, auth service and questions service share a Mongo database that is
 
 ## Members of the group
 
-  Sonia Moro Lauda
-
-  Lucía Villanueva Rodríguez
-
-  Pedro Castro Montes
-  
-  Adrián Santamarina Romero
-
-  David González González
+|         Nombre              | Identificador |
+|-----------------------------|---------------|
+| Sonia Moro Lauda            |   UO282189    |
+| Lucía Villanueva Rodríguez  |   UO283535    |
+| Pedro Castro Montes         |   UO288120    |
+| David Alvarez Diaz          |   UO283196    |
 
 ## Quick start guide
 

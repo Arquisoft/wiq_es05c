@@ -77,6 +77,7 @@ class BasicGame extends GameMode {
     }
   }
   nextQuestion() {
+    if(this.questions.length == 0){
     console.log('questions en el next questions ',this.questions);
     this.isLoading = true;
     console.log('a ',this.questionIndex);
@@ -94,6 +95,9 @@ class BasicGame extends GameMode {
       this.isLoading = false;
       return currentQuestion; // devolver la pregunta actual
     }
+  }else{
+    console.log("no se tiene seguiente preungta , el array es vaicio");
+  }
   }
     getCurrentQuestion() {
     // Comprobar si this.questions[this.questionIndex] es undefined

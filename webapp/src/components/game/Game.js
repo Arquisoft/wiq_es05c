@@ -5,7 +5,7 @@ import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDia
 import BasicGame from './BasicGame';
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
-function Game({darkMode,gameMode= new BasicGame()}) {
+function Game({darkMode,gameMode=new BasicGame()}) {
   const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
@@ -23,6 +23,8 @@ function Game({darkMode,gameMode= new BasicGame()}) {
     const startGameAsync = async () => {
       setIsLoading(true);
       await gameMode.startGame();
+      gameModeRef.current = gameMode;
+
       console.log('preguntas', gameMode.questions);
   
       const currentQuestion = gameMode.getCurrentQuestion();
@@ -31,7 +33,6 @@ function Game({darkMode,gameMode= new BasicGame()}) {
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
   
-      gameModeRef.current = gameMode;
     };
   
     startGameAsync();

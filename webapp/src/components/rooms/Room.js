@@ -20,6 +20,9 @@ function Room({ darkMode }) {
 
   const [winner, setWinner] = useState(null);
 
+  const [roomGame, setRoomGame] = useState(null);
+  
+
 
   //para el mensaje del ganador 
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +31,7 @@ function Room({ darkMode }) {
     setIsOpen(false);
     nagivate('/home');
   };
-
+ 
   useEffect(() => {
 
     socket.on('currentUsers', (users) => {
@@ -40,14 +43,20 @@ function Room({ darkMode }) {
     console.log("eres el host "+isHost);
 
 
-    socket.on('gameStarted', (questions) => {
-      //hace la peticion por la preguntas a la gateway y se las manda los jugadores 
-      console.log('Juego iniciado, preguntas: ', questions);
-      const formated =Object.values(questions);
-      setQuestions(formated);
+    socket.on('gameStarted', (questionsServer) => {
+      console.log('Juego iniciado, preguntas recibidas : ', questionsServer);
+     
+      let room={
+        getQuestions:questionsServer,
+        winner:function (){
+          return winner;
+        },
+        endGame:endGame,
+      }
+      setRoomGame(new RoomGame(room, nagivate));
+
       setGameStarted(true);
     });
-
     socket.on('gameEnded', ( winner ) => {
       console.log('Juego terminado, ganador: ', winner);
       setWinner(winner);
@@ -58,38 +67,38 @@ function Room({ darkMode }) {
 
   }, [roomId]);
 
+
+  //se encagr ad e que cuando las preguntas esten cargadas crees el modo de juego 
+
   //muestra el ganador 
   useEffect(() => {
     if (winner) {
       setIsOpen(true);
     }
   }, [winner]);
+  
   function startGame  (){
-
-      if(!gameStarted && isHost){
-        //setGameStarted(true);
+      if(!gameStarted && isHost ){
+        setGameStarted(true);
         socket.emit('startGame', { id: roomId });
         console.log("se ha iniciado el juego");
       }
-     
-
-      
     
   }
+
+ 
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
     console.log("emitir endGame socket.io");
     socket.emit('endGame', {id:roomId, results:results});
 
   }
-//indica donde vas al accabar el juego 
- 
+  //pasasrlelos datos al juego 
+  
+  
 
-const room={
-  endGame:endGame,
-  getQuestions:()=>questions,
-  winner:winner
-}
+
+
 
   return (
     <div>
@@ -101,7 +110,7 @@ const room={
           ))}
       </ul>
       {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game darkMode={darkMode} gameMode={new RoomGame(room,nagivate)} />}
+      {gameStarted && roomGame!=null && <Game darkMode={darkMode} gameMode={roomGame} />}
     </div>
   );
 }

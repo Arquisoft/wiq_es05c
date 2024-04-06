@@ -7,12 +7,36 @@ que son el fetchquestions y el endgame
 */
 class RoomGame extends BasicGame {
     constructor(room,navigate) {
+      console.log('RoomGame constructor', room);
       super();
       this.room = room;
+      console.log('RoomGame del constructor', this.room);
       this.winner=room.winner;
       this.navigate=navigate;
     }
   
+    startGame() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          this.isLoading = true;
+          this.questionIndex = 0;
+          console.log('RoomGame startGame', this.room);
+    
+          // Asegúrate de que getQuestions es una función que devuelve una promesa
+          this.questions = await this.room.getQuestions();
+    
+          console.log('questions:', this.questions); // Añade una declaración de registro para depurar
+    
+          this.isLoading = false;
+    
+          // Resuelve la promesa cuando todo ha terminado
+          resolve();
+        } catch (error) {
+          // Si algo sale mal, rechaza la promesa con el error
+          reject(error);
+        }
+      });
+    }
     async fetchQuestions() {
       this.questions = this.room.getQuestions();
     }

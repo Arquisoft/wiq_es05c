@@ -34,9 +34,9 @@
     "totalTime": "Total time played",
     "averageTime": "Average time per game",
     "gameTime": "Game time",
-    "timeUnit" : " seconds",
-    "timeUnitMinutes" : " minutes",
-    "timeUnitHours" : " hours",
+    "timeUnit" : " seconds ",
+    "timeUnitMinutes" : " minutes ",
+    "timeUnitHours" : " hours ",
     "questionsPercentage": " %",
 
     "loginWelcomeMessage": "Welcome ",

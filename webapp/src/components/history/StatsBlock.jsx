@@ -13,10 +13,12 @@ export function StatsBlock({ darkMode,playerStats }){
         hasHistory = false;
     }
 
+    let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
+ 
     if (!hasHistory) {
         return (
             <Box id='stats-block-container'>
-                <Heading size="xl" margin="1em" color={darkMode ? '#FCFAF0' : '#08313A'} textAlign="center">{t('noHistoryMessage')}</Heading>
+                <Heading size="xl" margin="1em" color={backgroundColor} textAlign="center">{t('noHistoryMessage')}</Heading>
             </Box>
         );
     }
@@ -56,8 +58,7 @@ export function StatsBlock({ darkMode,playerStats }){
         return tiempoFormateado;
     }
 
-    let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
-    let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';
+    let statBackgroundColor = darkMode ? '#282828' : '#D4F1F4';
     let text = darkMode ? '#FCFAF0' : '#08313A';
     let titles = darkMode ? '#90ADC6' : '#00325E';
 
@@ -79,13 +80,13 @@ export function StatsBlock({ darkMode,playerStats }){
                         <Box id='stats-aciertos' flex="1" display="flex" flexDirection="row" margin="1em" justifyContent="space-evenly" alignItems="center">
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
                             <CircularProgress value={aciertosRedondeados} color="#32CD30" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.4em' fontWeight="bold">{aciertosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
+                                <CircularProgressLabel color={text} fontSize='0.4em' fontWeight="bold">{aciertosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>                        
                         </Box>
                         <Box id='stats-fallos' flex="1" display="flex" flexDirection="row" margin="1em"  alignItems="center"> 
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
                             <CircularProgress value={fallosRedondeados} color="#970C10" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.4em' fontWeight="bold">{fallosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
+                                <CircularProgressLabel color={text} fontSize='0.4em' fontWeight="bold">{fallosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>   
                         </Box>
                     </Box>

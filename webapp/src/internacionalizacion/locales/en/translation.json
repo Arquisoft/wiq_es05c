@@ -9,6 +9,8 @@
     "history": "History",
     "signUp": "Sign Up",
     "signIn": "Sign In",
+    "noHistoryMessage": "No history available",
+    "noHistoryGamesMessage": "No games played yet",
 
     "github": "Project's Github",
     "university": "School of Computer Engineering",

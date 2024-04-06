@@ -16,7 +16,16 @@ export function AllGamesBlock({darkMode, games }){
 
     let errorMessage = games[0];
 
-    if (!games || errorMessage.includes("Error")) {
+    if(typeof errorMessage === 'string'){
+       let errorMessage = games[0];
+       //Si tiene el mensaje de error
+       if (errorMessage.includes("Error")) {
+           hasHistory = false;
+       }
+    }
+
+    //O si no tiene directamente games
+    if (!games) {
         hasHistory = false;
     }
 

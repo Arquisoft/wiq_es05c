@@ -9,6 +9,8 @@
     "history": "Historial",
     "signUp": "Registrarse",
     "signIn": "Iniciar sesión",
+    "noHistoryMessage": "No tiene historial",
+    "noHistoryGamesMessage": "No jugó partidas todavía",
 
     "github": "Github del Proyecto",
     "university": "Escuela de Ingeniería Informática",

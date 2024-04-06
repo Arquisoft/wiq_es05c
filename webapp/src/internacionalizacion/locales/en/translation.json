@@ -39,6 +39,8 @@
     "timeUnitHours" : " hours ",
     "questionsPercentage": " %",
 
+    "ranking": "Ranking",
+
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",
     "loginMessage": "Log in",

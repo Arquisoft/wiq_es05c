@@ -9,6 +9,8 @@
     "history": "History",
     "signUp": "Sign Up",
     "signIn": "Sign In",
+    "noHistoryMessage": "No history available",
+    "noHistoryGamesMessage": "No games played yet",
 
     "github": "Project's Github",
     "university": "School of Computer Engineering",
@@ -32,10 +34,12 @@
     "totalTime": "Total time played",
     "averageTime": "Average time per game",
     "gameTime": "Game time",
-    "timeUnit" : " seconds",
-    "timeUnitMinutes" : " minutes",
-    "timeUnitHours" : " hours",
+    "timeUnit" : " seconds ",
+    "timeUnitMinutes" : " minutes ",
+    "timeUnitHours" : " hours ",
     "questionsPercentage": " %",
+
+    "ranking": "Ranking",
 
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",

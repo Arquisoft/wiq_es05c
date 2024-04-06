@@ -7,16 +7,33 @@ export function StatsBlock({ darkMode,playerStats }){
     //para la internacionalización
     const {t} = useTranslation();
 
-    let nombreJugador = playerStats.nombreUsuario;
-    console.log(playerStats);
+    let hasHistory = true;//Por defecto lo pongo a true
 
+    if (!playerStats || !playerStats.nombreUsuario || playerStats.tiempoMedio == 0) {
+        hasHistory = false;
+    }
+
+    let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
+ 
+    if (!hasHistory) {
+        return (
+            <Box id='stats-block-container'>
+                <Heading size="xl" margin="1em" color={backgroundColor} textAlign="center">{t('noHistoryMessage')}</Heading>
+            </Box>
+        );
+    }
+    
+    let nombreJugador = playerStats.nombreUsuario;
+    
     let tiempo = playerStats.tiempoTotal;
     
     let tiempoFormateado = formatTime(tiempo);
 
     let tiempoMedioFormateado = formatTime(playerStats.tiempoMedio);
 
-    
+    let aciertosRedondeados = 1//parseFloat(playerStats.preguntas_acertadas.toFixed(2));
+
+    let fallosRedondeados = 1//parseFloat(playerStats.preguntas_falladas.toFixed(2));
 
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);
@@ -41,8 +58,7 @@ export function StatsBlock({ darkMode,playerStats }){
         return tiempoFormateado;
     }
 
-    let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
-    let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';
+    let statBackgroundColor = darkMode ? '#282828' : '#D4F1F4';
     let text = darkMode ? '#FCFAF0' : '#08313A';
     let titles = darkMode ? '#90ADC6' : '#00325E';
 
@@ -63,14 +79,14 @@ export function StatsBlock({ darkMode,playerStats }){
                     <Box id='stats-accuarcy'  flex="1" display="flex" flexDirection="column" borderTop={"2px solid"+text}>
                         <Box id='stats-aciertos' flex="1" display="flex" flexDirection="row" margin="1em" justifyContent="space-evenly" alignItems="center">
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
-                            <CircularProgress value={playerStats.preguntas_acertadas} color="#32CD30" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_acertadas}{t('questionsPercentage')}</CircularProgressLabel>
+                            <CircularProgress value={aciertosRedondeados} color="#32CD30" size="2em" flex="1" display="flex" justifyContent="center">
+                                <CircularProgressLabel color={text} fontSize='0.4em' fontWeight="bold">{aciertosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>                        
                         </Box>
                         <Box id='stats-fallos' flex="1" display="flex" flexDirection="row" margin="1em"  alignItems="center"> 
                             <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
-                            <CircularProgress value={playerStats.preguntas_falladas} color="#970C10" size="2em" flex="1" display="flex" justifyContent="center">
-                                <CircularProgressLabel fontSize='0.5em' fontWeight="bold">{playerStats.preguntas_falladas}{t('questionsPercentage')}</CircularProgressLabel>
+                            <CircularProgress value={fallosRedondeados} color="#970C10" size="2em" flex="1" display="flex" justifyContent="center">
+                                <CircularProgressLabel color={text} fontSize='0.4em' fontWeight="bold">{fallosRedondeados}{t('questionsPercentage')}</CircularProgressLabel>
                             </CircularProgress>   
                         </Box>
                     </Box>

@@ -19,6 +19,7 @@ import PrincipalView from './components/principalView/PrincipalView';
 import Room from './components/rooms/Room'; // Importa el componente de sala
 import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el componente para crear sala
 import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
+import { Ranking } from './components/ranking/Ranking';
 
 
 const App = () => {
@@ -60,6 +61,11 @@ const App = () => {
            <Route path="/history" element={
             <AuthenticatedLayout>
                <ChakraProvider><History darkMode={darkMode}/></ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/ranking" element={
+            <AuthenticatedLayout>
+               <ChakraProvider><Ranking darkMode={darkMode}/></ChakraProvider>
             </AuthenticatedLayout>
           } />
 

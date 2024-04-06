@@ -55,8 +55,10 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   const handleAnswerSelect = (isCorrect) => {
     if (isCorrect) {
       setCorrectAnswers(correctAnswers + 1);
+      gameModeRef.current.incrementCorrectas();
     } else {
       setIncorrectAnswers(incorrectAnswers + 1);
+      gameModeRef.current.incrementIncorrectas();
     }
   };
 
@@ -69,6 +71,8 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       setCurrentQuestion(nextQuestion);
     } else if(correctAnswers + incorrectAnswers === gameModeRef.current.questions.length){ 
       console.log("use effect finish");
+      //poner el tiepo que tardo 
+      gameModeRef.current.setTiempoTotal(totalTime);
       gameModeRef.current.finishGame();
       setIsFinished(true);
     }
@@ -83,7 +87,8 @@ function Game({darkMode,gameMode=new BasicGame()}) {
         incorrectas: incorrectAnswers,
         tiempoTotal: totalTime
       };
-
+      
+      //lo hace el endGame 
       gameMode.sendHistory(data)
         .then(() => {
           console.log('Historial enviado correctamente');
@@ -91,6 +96,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
         .catch(error => {
           console.error('Error al enviar el historial al servidor:', error);
         });
+        
         setIsOpen(true);
     }
   }, [totalTime,gameModeRef.current.isGameEnded]);

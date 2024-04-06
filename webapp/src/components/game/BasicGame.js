@@ -11,6 +11,10 @@ class BasicGame extends GameMode {
     super();
        // Vincular nextQuestion al contexto correcto
        this.nextQuestion = this.nextQuestion.bind(this);
+
+       this.correctas=0;
+       this.incorrectas=0;
+       this.tiempoTotal=null;
     
   }
   async fetchQuestions() {
@@ -81,10 +85,7 @@ class BasicGame extends GameMode {
       console.log("no se tiene seguiente preungta , el array es vaicio");
       return; // Salir del método si no hay preguntas
     }
-  
-    console.log('questions en el next questions ',this.questions);
     this.isLoading = true;
-    console.log('a ',this.questionIndex);
     if (this.questionIndex >=9) {
       console.log("fin juego");
       this.finishGame();
@@ -93,9 +94,7 @@ class BasicGame extends GameMode {
     } else {
       // Incrementar this.questionIndex después de comprobar si has llegado a la última pregunta
       this.questionIndex++;
-      console.log('b ',this.questionIndex);
       const currentQuestion = this.getCurrentQuestion();
-      console.log('c ',currentQuestion);
       this.isLoading = false;
       return currentQuestion; // devolver la pregunta actual
     }
@@ -124,6 +123,16 @@ class BasicGame extends GameMode {
   finishGame(){
     this.isGameEnded = true;
     this.endGame();
+  }
+
+  incrementCorrectas(){
+    this.correctas++;
+  }
+  incrementIncorrectas(){
+    this.incorrectas++;
+  }
+  setTiempoTotal(time){
+    this.tiempoTotal=time;
   }
 }
 

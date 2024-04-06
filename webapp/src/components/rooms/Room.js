@@ -57,8 +57,8 @@ function Room({ darkMode }) {
 
       setGameStarted(true);
     });
-    socket.on('gameEnded', ( winner ) => {
-      console.log('Juego terminado, ganador: ', winner);
+    socket.on('gameEnded', ( data ) => {
+      console.log('Juego terminado, ganador: correctas y tiempo', data.winner,data.correctas,data.tiempoTotal);
       setWinner(winner);
     });
     //limpiar el evento 
@@ -89,6 +89,7 @@ function Room({ darkMode }) {
  
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
+
     console.log("emitir endGame socket.io");
     socket.emit('endGame', {id:roomId, results:results});
 

@@ -42,19 +42,26 @@ class RoomGame extends BasicGame {
     async fetchQuestions() {
       this.questions = this.room.getQuestions();
     }
-    async sendHistory(){
-        console.log("no se envia el historial");
-        return;
-    }
+
   
+    async sendHistory(historyData) {
+      console.log("no se envia historial de este modo");
+      return ;
+    }
     async endGame() {
       //this.navigate('/home');
 
       console.log('RoomGame endGame');
       this.isGameEnded = true;
-      //this.questionIndex = 0;
-      //this.room.endGame({ correctas: this.correctAnswers, incorrectas: this.incorrectAnswers, tiempoTotal: this.totalTime });
-  
+      //emitir el evento y la logica relevante de socket.io le pasas los resultados
+   
+      let data={
+        user:localStorage.getItem('username'),
+        correctas:this.correctas,
+        incorrectas:this.incorrectas,
+        tiempoTotal:this.tiempoTotal
+      }
+      this.room.endGame(data);
       // Muestra el cuadro de diálogo aquí
       // Puedes utilizar un paquete como sweetalert2 para mostrar el cuadro de diálogo
       Swal.fire({

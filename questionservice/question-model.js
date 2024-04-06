@@ -2,11 +2,19 @@ const mongoose = require('mongoose');
 
 //preguntas
 const preguntaSchema = new mongoose.Schema({
-    textoPregunta: {
+    textoPregunta_es: {
         type: String,
         required: true
     },
-    respuestaCorrecta: {
+    respuestaCorrecta_es: {
+    type: String,
+        required: true
+    },
+    textoPregunta_en: {
+      type: String,
+      required: true
+    },
+    respuestaCorrecta_en: {
     type: String,
         required: true
     },
@@ -30,7 +38,11 @@ const Categoria = mongoose.model('Categoria', categoriaSchema);
 
 //Respuesta
 const respuestaSchema = new mongoose.Schema({
-  textoRespuesta: {
+  textoRespuesta_es: {
+    type: String,
+    required: true
+  },
+  textoRespuesta_en: {
     type: String,
     required: true
   },

@@ -64,13 +64,18 @@ class GuardarBaseDatos{
       return new Promise((resolve, reject) => {
         var idTipo;
         // Comprobar si la pregunta ya existe
-        Pregunta.findOne({ textoPregunta: this.finalQuestion.question })
+        Pregunta.findOne({ textoPregunta_es: this.finalQuestion.question_es })
         .then(preguntaExistente => {
           if (!preguntaExistente) {          
             // Si no existe la pregunta, se crea
             var nuevaPregunta = new Pregunta({
-              textoPregunta: this.finalQuestion.question,
-              respuestaCorrecta: this.finalQuestion.correct,
+              //en español
+              textoPregunta_es: this.finalQuestion.question_es,
+              respuestaCorrecta_es: this.finalQuestion.correct_es,
+              //en ingles
+              textoPregunta_en: this.finalQuestion.question_en,
+              respuestaCorrecta_en: this.finalQuestion.correct_en,
+              //categoria
               categoria: idCategoria
             });
     
@@ -121,19 +126,20 @@ class GuardarBaseDatos{
             });
         }
         }).catch(error => {
-          reject(new Error('Error al guardar la pregunta en la base de datos: ' + error.message));
+          reject(new Error('Error al guardar la pregunta en la base de datos, la pregunta ya existe: ' + error.message));
         });
       });
     }
 
     guardarPrimeraIncorrecta(idTipo){
          //comprobar si la primera respuesta existe ya en la base de datos
-         Respuesta.findOne({ textoRespuesta: this.finalQuestion.incorrect1 })
+         Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect1_es })
          .then(respuestaExistente => {
            if (!respuestaExistente) {          
              // Si no existe ya esa pregunta la crea
              var nuevaRespuesta = new Respuesta({
-               textoRespuesta: this.finalQuestion.incorrect1,
+               textoRespuesta_es: this.finalQuestion.incorrect1_es,
+               textoRespuesta_en: this.finalQuestion.incorrect1_en,
                tipos: [idTipo]
              });    
    
@@ -156,12 +162,13 @@ class GuardarBaseDatos{
 
     guardarSegundaIncorrecta(idTipo){    
         //comprobar si la segunda respuesta existe ya en la base de datos
-        Respuesta.findOne({ textoRespuesta: this.finalQuestion.incorrect2 })
+        Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect2_es })
         .then(respuestaExistente => {
           if (!respuestaExistente) {          
             // Si no existe ya esa pregunta la crea
             var nuevaRespuesta = new Respuesta({
-              textoRespuesta: this.finalQuestion.incorrect2,
+              textoRespuesta_es: this.finalQuestion.incorrect2_es,
+              textoRespuesta_en: this.finalQuestion.incorrect2_en,
               tipos: [idTipo]
             });    
   
@@ -184,12 +191,13 @@ class GuardarBaseDatos{
 
     guardarTerceraIncorrecta(idTipo){
         //comprobar si la tercera respuesta existe ya en la base de datos
-        Respuesta.findOne({ textoRespuesta: this.finalQuestion.incorrect3 })
+        Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect3_es })
         .then(respuestaExistente => {
             if (!respuestaExistente) {          
              // Si no existe ya esa pregunta la crea
              var nuevaRespuesta = new Respuesta({
-               textoRespuesta: this.finalQuestion.incorrect3,
+               textoRespuesta_es: this.finalQuestion.incorrect3_es,
+               textoRespuesta_en: this.finalQuestion.incorrect3_en,
                tipos: [idTipo]
              });    
    

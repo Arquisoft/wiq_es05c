@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 export const GameContext = createContext();
 /*
 es el encargado de crear el contexto par aque si te desloguae se peirdan los datos del juego, envolvera todos los componentes 
@@ -7,11 +9,13 @@ encapsula el modo de jeugo la funcion empezar a jugar y reinicir juego para que 
 export const GameProvider = ({ children,gameMode }) => {
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { i18n } = useTranslation();
+
 
   const startGame = async () => {
     resetGame();
     // Aquí deberías reemplazar `fetchQuestions` con tu propia lógica para obtener las preguntas
-    const fetchedQuestions = await gameMode.fetchQuestions();
+    const fetchedQuestions = await gameMode.fetchQuestions(i18n.language);
     setQuestions(fetchedQuestions);
     setIsLoading(false);
   };

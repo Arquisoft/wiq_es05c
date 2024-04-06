@@ -173,7 +173,7 @@ class ObtenerPreguntaWikiData {
           //comprobamos si es una fecha
           if(this.esFormatoISO8601(binding[propertyName].value)){
             //devolvemos la fecha formateada dependiendo del idioma
-            return this.formatearFecha(binding[propertyName].value, propertyName.substring(myString.length - 2) );
+            return this.formatearFecha(binding[propertyName].value, propertyName.substring(propertyName.length - 2));
           }
           //si no es una fecha devolvemos el valor
           else{
@@ -345,11 +345,11 @@ class ObtenerPreguntaWikiData {
     formateamos la fecha a un formato más legible
   */
   formatearFecha(fechaISO8601, idioma) {
-    if(idioma === "es"){
-      return this.formatearFechaEspañol(fechaISO8601);
+    if(idioma === "en"){
+      return this.formatearFechaIngles(fechaISO8601);
     }
     else{
-      return this.formatearFechaIngles(fechaISO8601);
+      return this.formatearFechaEspañol(fechaISO8601);
     }
   }
   

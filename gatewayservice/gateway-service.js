@@ -94,6 +94,7 @@ app.get('/generateQuestion', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
     await axios.get(questionServiceUrl+'/generateQuestion', req.body);        
+    res.status(200).send("Pregunta generada y guardada correctamente.");
   } catch (error) {
     //Modifico el error
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});

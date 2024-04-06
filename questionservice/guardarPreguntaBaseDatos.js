@@ -10,20 +10,31 @@ class GuardarBaseDatos{
         this.finalQuestion;
     }
 
-    guardarEnBaseDatos(finalQuestion){    
-      this.finalQuestion = finalQuestion;  
-      //primero deberiamos de guardar la categoria     
-      this.guardarCategoria().then(idCategoria => {
-        // Guardamos el tipo de pregunta
-        return this.guardarPreguntaTipo(idCategoria);
-        }).then(idTipo => {
-            // Guardamos las respuestas incorrectas
-            this.guardarPrimeraIncorrecta(idTipo);
-            this.guardarSegundaIncorrecta(idTipo);
-            this.guardarTerceraIncorrecta(idTipo);
-        }).catch(error => {
-          throw new Error("Error al guardar la pregunta: " + error.message);
-        });
+    guardarEnBaseDatos(finalQuestion){   
+      return new Promise((resolve, reject) => { 
+        this.finalQuestion = finalQuestion;  
+
+        //primero deberiamos de guardar la categoria     
+        this.guardarCategoria().then(idCategoria => {
+          // Guardamos el tipo de pregunta
+          return this.guardarPreguntaTipo(idCategoria);
+          }).then(idTipo => {
+            Promise.all([
+              this.guardarPrimeraIncorrecta(idTipo),
+              this.guardarSegundaIncorrecta(idTipo),
+              this.guardarTerceraIncorrecta(idTipo)
+            ]).then(() => {
+              console.log("Pregunta guardada correctamente en la base de datos.");
+              resolve(); //para que se resuelva cuando las tres respuestas incorrectas se hayan guardado
+            }).catch(error => {
+              throw new Error("Error al guardar las respuestas incorrectas: " + error.message);
+            });
+          }).catch(error => {
+            throw new Error("Error al guardar la pregunta: " + error.message);
+          });
+      }).catch(error => {
+        reject(new Error('Error al guardar la pregunta en la base de datos: ' + error.message));
+      });
     }
 
     guardarCategoria(){

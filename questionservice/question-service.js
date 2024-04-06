@@ -73,7 +73,8 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
 
 app.get('/generateQuestion', async(req,res)=> {
     try{  
-      await newquestion.ejecutarOperaciones();     
+      await newquestion.ejecutarOperaciones();           
+      res.status(200).send("Pregunta generada y guardada correctamente.");
     } catch(error) {
       res.status(500).json({ error: error.message }); 
     }      

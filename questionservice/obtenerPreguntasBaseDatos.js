@@ -78,6 +78,102 @@ class ObtenerPreguntas{
             throw new Error("Error al obtener las preguntas de la base de datos"); 
         }
     }
+
+    async obtenerPreguntaDiaria(idioma){
+        try{
+            console.log("entra en obtener pregunta diaria");
+            const fecha = new Date(); // Obtenemos la fecha actual
+            // como nos da tambien la hora y no queremos eso, la eliminamos
+            const año = fecha.getFullYear();
+            const mes = fecha.getMonth() + 1;
+            const dia = fecha.getDate();
+            // Formateamos la fecha como lo tenemos en la bd
+            const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+
+            console.log("Fecha sin hora: " + fechaSinHora);
+            console.log(typeof(fechaSinHora));
+
+            var pregunta = await Pregunta.findOne({ diaria: fechaSinHora });
+            var resultado;
+
+            if(pregunta != null){
+                try{            
+                    var tipo = await Tipos.findOne({ idPreguntas: { $in: pregunta._id } });
+
+                    var respuestas;
+                    
+                    if(idioma == "es"){
+                        respuestas = await Respuesta.aggregate([
+                            { $match: { tipos: {$in : [tipo._id]}, textoRespuesta_es: { $ne: [pregunta.respuestaCorrecta_es, "Ninguna de las anteriores" ]} } },
+                            { $sample: { size: 3 } }
+                        ]);
+                    }
+                    else{
+                        respuestas = await Respuesta.aggregate([
+                            { $match: { tipos: {$in : [tipo._id]}, textoRespuesta_en: { $ne: [pregunta.respuestaCorrecta_en, "Ninguna de las anteriores" ]} } },
+                            { $sample: { size: 3 } }
+                        ]);
+                    }
+
+                    //comprobamos si hay respuestas
+                    if(respuestas.length < 3){
+                        throw new Error("No hay suficientes respuestas en la base de datos");
+                    }
+
+                    if(idioma == "es"){            
+                        resultado = {
+                            pregunta: pregunta.textoPregunta_es,
+                            correcta: pregunta.respuestaCorrecta_es,
+                            respuestasIncorrecta1:  respuestas[0].textoRespuesta_es,
+                            respuestasIncorrecta2:  respuestas[1].textoRespuesta_es,
+                            respuestasIncorrecta3:  respuestas[2].textoRespuesta_es
+                        };
+                    }
+
+                    else{
+                        resultado = {
+                            pregunta: pregunta.textoPregunta_en,
+                            correcta: pregunta.respuestaCorrecta_en,
+                            respuestasIncorrecta1:  respuestas[0].textoRespuesta_en,
+                            respuestasIncorrecta2:  respuestas[1].textoRespuesta_en,
+                            respuestasIncorrecta3:  respuestas[2].textoRespuesta_en
+                        };
+                    }
+            }
+            catch(error){
+                throw new Error("Error al obtener el tipo o las respuestas de la base de datos");
+            }
+        }
+        else{
+            throw new Error("No se ha encontrado ninguna pregunta diaria en la base de datos");
+        }
+        
+        return resultado;
+
+        } catch (error) {
+            throw new Error("Error al obtener la pregunta diaria en la base de datos: " + error.message);
+        }
+    }
+
+    async generarPreguntaDiaria(fecha){
+        try{
+            console.log("Fecha: " + fecha);
+
+            var pregunta = await Pregunta.findOneAndUpdate(
+                { diaria: null }, // Filtro para encontrar una pregunta con 'diaria' igual a null
+                { $set: { diaria: fecha } }, // Establecer el valor de 'diaria' a la fecha proporcionada
+                { new: true, upsert: true, strict: false } // Para devolver el documento actualizado y permitir campos no definidos en el esquema
+            );
+            if (pregunta) {
+                console.log("Pregunta sin atributo 'diaria' encontrada y actualizada:", pregunta);
+                console.log("Pregunta con atributo 'diaria' guardada en la base de datos.");
+            } else {
+                console.log("No se encontraron preguntas sin el atributo 'diaria'.");
+            }
+        } catch (error) {
+            throw new Error("Error al obtener y actualizar la pregunta diaria en la base de datos: " + error.message);
+        }
+    }
 }
 
 module.exports = ObtenerPreguntas;

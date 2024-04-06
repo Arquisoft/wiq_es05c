@@ -48,7 +48,7 @@ app.get('/getQuestionDiaria', async(req,res)=> {
   try{      
     const idioma = req.query.idioma;
     //coger pregunta bd
-    const questions = await question.obtenerPregunta(1);
+    const questions = await question.obtenerPreguntaDiaria(idioma);
     //para devolver la pregunta
     res.json(questions);
     
@@ -60,9 +60,7 @@ app.get('/getQuestionDiaria', async(req,res)=> {
 
 app.get('/getQuestionModoBasico', async(req,res)=> {
   try{      
-    console.log("idioma del question service",req.query.idioma);
     const idioma = req.query.idioma;
-    console.log("idioma del question service",idioma);
     //coger pregunta bd
     const questions = await question.obtenerPregunta(10, idioma);
     //para devolver la pregunta

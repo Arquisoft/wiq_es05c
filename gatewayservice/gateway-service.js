@@ -83,7 +83,6 @@ app.get('/getQuestionModoBasico', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
-    console.log("Idioma: " + idioma);
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoBasico?idioma=${idioma}`, req.body);
     res.json(questionResponse.data);

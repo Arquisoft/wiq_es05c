@@ -47,8 +47,9 @@ app.get('/getQuestion', async(req,res)=> {
 app.get('/getQuestionDiaria', async(req,res)=> {
   try{      
     const idioma = req.query.idioma;
+    const fecha = req.query.fecha;
     //coger pregunta bd
-    const questions = await question.obtenerPreguntaDiaria(idioma);
+    const questions = await question.obtenerPreguntaDiaria(idioma, fecha);
     //para devolver la pregunta
     res.json(questions);
     

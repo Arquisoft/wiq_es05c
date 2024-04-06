@@ -79,21 +79,9 @@ class ObtenerPreguntas{
         }
     }
 
-    async obtenerPreguntaDiaria(idioma){
+    async obtenerPreguntaDiaria(idioma, fecha){
         try{
-            console.log("entra en obtener pregunta diaria");
-            const fecha = new Date(); // Obtenemos la fecha actual
-            // como nos da tambien la hora y no queremos eso, la eliminamos
-            const año = fecha.getFullYear();
-            const mes = fecha.getMonth() + 1;
-            const dia = fecha.getDate();
-            // Formateamos la fecha como lo tenemos en la bd
-            const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
-
-            console.log("Fecha sin hora: " + fechaSinHora);
-            console.log(typeof(fechaSinHora));
-
-            var pregunta = await Pregunta.findOne({ diaria: fechaSinHora });
+            var pregunta = await Pregunta.findOne({ diaria: fecha });
             var resultado;
 
             if(pregunta != null){

@@ -68,8 +68,10 @@ app.get('/getQuestion', async (req, res) => {
 app.get('/getQuestionDiaria', async (req, res) => {
   try {
     const idioma = req.query.idioma;
+    const fecha = req.query.fecha;
+
     // llamamos al servicio de preguntas
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}`, req.body);
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}?fecha=${fecha}`, req.body);
     
     res.json(questionResponse.data);
   } catch (error) {

@@ -9,6 +9,8 @@
     "history": "Historial",
     "signUp": "Registrarse",
     "signIn": "Iniciar sesión",
+    "noHistoryMessage": "No tiene historial",
+    "noHistoryGamesMessage": "No jugó partidas todavía",
 
     "github": "Github del Proyecto",
     "university": "Escuela de Ingeniería Informática",
@@ -32,10 +34,12 @@
     "totalTime": "Tiempo total jugado",
     "averageTime": "Tiempo medio por partida",
     "gameTime": "Tiempo de la partida",
-    "timeUnit" : " segundos",
-    "timeUnitMinutes" : " minutos",
-    "timeUnitHours" : " horas",
+    "timeUnit" : " segundos ",
+    "timeUnitMinutes" : " minutos ",
+    "timeUnitHours" : " horas ",
     "questionsPercentage": " %",
+
+    "ranking": "Ranking",
 
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",

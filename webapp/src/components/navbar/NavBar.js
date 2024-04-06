@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography,ListItem, ListItemIcon , Switch } from '@mui/material';
+import { Divider, AppBar, Toolbar, Button, IconButton, Avatar, Menu, MenuItem, Typography,ListItem, ListItemIcon , Switch } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../authcontext';
@@ -113,11 +113,16 @@ const NavBar = ({ setDarkMode, darkMode}) => {
            <ListItem button={false}>
              <Typography fontWeight="bold">{username}</Typography>
            </ListItem>
-           <MenuItem onClick={handleClose} component={Link} to="/logout">
-            {t('logout')}
-           </MenuItem>
+           <Divider orientation="horizontal" flexItem />
            <MenuItem onClick={handleClose} component={Link} to="/history">
              {t('history')}
+           </MenuItem>
+           <MenuItem onClick={handleClose} component={Link} to="/ranking">
+             {t('ranking')}
+           </MenuItem>
+           <Divider orientation="horizontal" flexItem />
+           <MenuItem onClick={handleClose} component={Link} to="/logout">
+            {t('logout')}
            </MenuItem>
        
          </Menu>

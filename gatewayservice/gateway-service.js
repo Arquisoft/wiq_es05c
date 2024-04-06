@@ -64,6 +64,19 @@ app.get('/getQuestion', async (req, res) => {
   }
 });
 
+app.get('/getQuestionDiaria', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const questionResponse = await axios.get(questionServiceUrl+'/getQuestionDiaria', req.body);
+    
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas' });
+  }
+});
+
+
 app.get('/getQuestionModoBasico', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
@@ -71,7 +84,9 @@ app.get('/getQuestionModoBasico', async (req, res) => {
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener las preguntas del modo básico -> ' + error.response.data.error});
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
   }
 });
 
@@ -98,7 +113,7 @@ app.get('/getHistoryDetallado', async (req, res) => {
     res.json(historyResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial detallado' });
   }
 });
 
@@ -112,7 +127,7 @@ app.get('/getHistoryTotal', async (req, res) => {
     res.json(historyResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial total' });
   }
 });
 //***************************************************endpoints de las salas */

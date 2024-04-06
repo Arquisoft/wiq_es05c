@@ -1,13 +1,17 @@
 [[section-architecture-constraints]]
 == Architecture Constraints
 
+Each of the following constraints plays a crucial role in the formation of the software architecture and in determining the best practices 
+for the development team. Next, we will explain the ones that the team must comply with.
+
 1.Technical Constraints
 [options = "header", cols = "1,2"]
 |===
 | Constraint | Description
 | Wikidata | Wikidata is a knowledge base that provides data sources, used to obtain information for the game. In this case, it is mandatory.
 | Docker | Software that allows automating the deployment of applications. The application will be running on a Docker host.
-| GitHub | Platform that allows us to have a repository where to develop the project and perform different actions such as creating issues or tasks.
+| GitHub | A cloud storage service for collaborative application development, which facilitates effective communication, 
+manages the tracking of different project versions, and distributes responsibilities equitably among team members.
 |===
 
 2.Organizational Constraints
@@ -15,9 +19,10 @@
 |===
 | Constraint | Description
 | Team | A team formed by 5 individuals who will need to learn to work and coordinate together.
-| Time | We need to learn how to manage time effectively as we must optimize the time between meetings, in-class work, and homework. The lack of experience and the learning curve associated with new technologies can lead to issues.
-| New Technologies | The majority of technologies are new to us, and we need to learn how to work with them.
-| Communication Difficulties | The lack of familiarity within the team can lead to misunderstandings or a lack of communication and coordination.
+| Time |  The team will need to present the project with new advancements, adapting to the anticipated delivery dates, 
+as well as what has been established in the minutes taken during the weekly team meetings.
+| Meetings | Every week there will be a meeting among the team members where problems will be discussed, the work that each member 
+should do for the next meeting will be established, and the work done to date will be reviewed.
 |===
 
 3.Convention Constraints
@@ -25,6 +30,6 @@
 |===
 | Constraint | Description
 | Documentation | Arc42 is a template for architecture documentation. It is the one we should use to generate the documentation.
-| Code | The code should follow an order that does not pose any problem when understanding it for another team member.
+| Clean Code | he code should follow an order that does not pose any problem for another team member to understand. In addition, good practices such as naming conventions should be followed.
 | Structure | The project must follow a fixed structure, both the documentation and the code must be done under the same standards.
 |===

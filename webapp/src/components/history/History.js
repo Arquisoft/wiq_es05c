@@ -20,18 +20,19 @@ export function History({darkMode}){
   const [stats, setStatistics] = useState([]);//Para las estadisticas completas de todos los juegos
   const [isLoadingStats, setIsLoadingStats] = useState(true);
 
+
   useEffect(() => {
     fetch(gamesEndpoint)
       .then(response => response.json())
       .then(partidas => {
-        console.log("Partidas: ");
-        console.log(partidas);
+        //console.log("Partidas: ");
+        //console.log(partidas);
         let gamesArray = Object.values(partidas);
         setAllGames(gamesArray);
         setIsLoadingGames(false);
       })
       .catch(error => {
-        console.error('Error cargando el historial de todas las partidas del usuario:', error);
+        //console.error('Error cargando el historial de todas las partidas del usuario:', error);
       });
   }, []);
 
@@ -39,19 +40,19 @@ export function History({darkMode}){
     fetch(statisticsEndpoint)
       .then(response => response.json())
       .then(estadisticas => {
-        console.log("Estadísticas: ");
-        console.log(estadisticas);
+        //console.log("Estadísticas: ");
+        //console.log(estadisticas);
         setStatistics(estadisticas);
         setIsLoadingStats(false);
       })
       .catch(error => {
-        console.error('Error cargando las estadísticas del usuario:', error);
+        //console.error('Error cargando las estadísticas del usuario:', error);
       });
   }, []);
 
 
 
-  console.log(darkMode);
+  //console.log(darkMode);
   let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
   let text = darkMode ? '#FCFAF0' : '#08313A';
 
@@ -68,6 +69,7 @@ export function History({darkMode}){
       />//Para mientras carga
     ) : (
       <Box id='main-history' backgroundColor={backgroundColor}>
+
       <StatsBlock darkMode={darkMode} playerStats={stats} />
       <AllGamesBlock games={allGames} darkMode={darkMode}/>
       </Box>

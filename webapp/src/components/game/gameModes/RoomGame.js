@@ -13,6 +13,7 @@ class RoomGame extends BasicGame {
       console.log('RoomGame del constructor', this.room);
       this.winner=room.winner;
       this.navigate=navigate;
+      this.questions=[];
     }
   
     startGame() {
@@ -23,8 +24,9 @@ class RoomGame extends BasicGame {
           console.log('RoomGame startGame', this.room);
     
           // Asegúrate de que getQuestions es una función que devuelve una promesa
-          this.questions = await this.room.getQuestions();
+          let data = await this.room.getQuestions;
     
+          this.questions=Object.values(data);
           console.log('questions:', this.questions); // Añade una declaración de registro para depurar
     
           this.isLoading = false;
@@ -66,5 +68,7 @@ class RoomGame extends BasicGame {
         this.isGameEnded = true;
         this.endGame();
       }
+
+    
   }
   export default RoomGame;

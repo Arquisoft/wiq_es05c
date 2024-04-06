@@ -78,6 +78,10 @@ class BasicGame extends GameMode {
   }
   nextQuestion() {
     if(this.questions.length == 0){
+      console.log("no se tiene seguiente preungta , el array es vaicio");
+      return; // Salir del método si no hay preguntas
+    }
+  
     console.log('questions en el next questions ',this.questions);
     this.isLoading = true;
     console.log('a ',this.questionIndex);
@@ -91,13 +95,10 @@ class BasicGame extends GameMode {
       this.questionIndex++;
       console.log('b ',this.questionIndex);
       const currentQuestion = this.getCurrentQuestion();
-     console.log('c ',currentQuestion);
+      console.log('c ',currentQuestion);
       this.isLoading = false;
       return currentQuestion; // devolver la pregunta actual
     }
-  }else{
-    console.log("no se tiene seguiente preungta , el array es vaicio");
-  }
   }
     getCurrentQuestion() {
     // Comprobar si this.questions[this.questionIndex] es undefined

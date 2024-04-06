@@ -22,17 +22,15 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   useEffect(() => {
     const startGameAsync = async () => {
       setIsLoading(true);
-      await gameMode.startGame();
-      gameModeRef.current = gameMode;
-
-      console.log('preguntas', gameMode.questions);
+      await gameModeRef.current.startGame();
+      console.log('preguntas', gameModeRef.current.questions);
   
-      const currentQuestion = gameMode.getCurrentQuestion();
+      console.log('gameMode',gameModeRef.current);
+      const currentQuestion = gameModeRef.current.getCurrentQuestion();
       console.log('primera pregunta ', currentQuestion);
   
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
-  
     };
   
     startGameAsync();
@@ -44,7 +42,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       await gameModeRef.current.startGame();
       console.log('preguntas', gameModeRef.current.questions);
 
-      const currentQuestion = gameModeRef.current.getCurrentQuestion();
+      let currentQuestion = gameModeRef.current.getCurrentQuestion();
       console.log('primera pregunta ', currentQuestion);
 
       setCurrentQuestion(currentQuestion);

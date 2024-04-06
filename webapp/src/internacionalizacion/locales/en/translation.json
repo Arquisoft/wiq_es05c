@@ -40,6 +40,10 @@
     "questionsPercentage": " %",
 
     "ranking": "Ranking",
+    "rankingTitle": "UJsers ranking",
+    "rankingPos": "Position",
+    "rankingUserName": "Player",
+    "rankingAcertadasDiarias": "Daily questions correct",
 
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",

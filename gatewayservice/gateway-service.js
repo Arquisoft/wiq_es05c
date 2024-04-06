@@ -130,6 +130,21 @@ app.get('/getHistoryTotal', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial total' });
   }
 });
+
+app.get('/getRankingDiarias', async (req, res) => {
+  console.log("ranking diarias endpointaaa");
+  try {
+    // llamamos al servicio de preguntas
+    console.log("ranking diarias endpointwewewe");
+    const historyResponse = await axios.get({historyServiceUrl}+"/getRankingDiarias");
+    console.log("ranking diarias endpoint");
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.log("ranking diarias errrrrrt");
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de ranking diarias' });
+  }
+});
 //***************************************************endpoints de las salas */
 app.get('/joinroom/:id/:username',async(req,res)=> {
   try {

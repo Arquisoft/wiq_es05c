@@ -15,6 +15,7 @@ class GuardarDatosUsuarioHistorial{
             // Si no existe historial para ese usuario lo crea
             var nuevoHistorial = new Historial({
                 user: datos.user,
+                diariasAcertadas:0,
                 juegos: [
                   {
                     numeroJuego: 1,

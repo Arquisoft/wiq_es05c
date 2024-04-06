@@ -40,6 +40,10 @@
     "questionsPercentage": " %",
 
     "ranking": "Ranking",
+    "rankingTitle": "Ranking de usuarios",
+    "rankingPos": "Posición",
+    "rankingUserName": "Jugador",
+    "rankingAcertadasDiarias": "Preguntas diarias acertadas",
 
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import socket from './socket';
 import Game  from '../game/Game';
 import RoomGame from '../game/gameModes/RoomGame';
@@ -59,7 +59,14 @@ function Room({ darkMode }) {
     });
     socket.on('gameEnded', ( data ) => {
       console.log('Juego terminado, ganador: correctas y tiempo', data.winner,data.correctas,data.tiempoTotal);
-      setWinner(winner);
+      setWinner(data.winner);
+
+      //imrpmir popup del ganador 
+      Swal.fire({
+        title: 'El ganador es ',
+        text: data.winner,
+        confirmButtonText: 'Cerrar'
+      });
     });
     //limpiar el evento 
     return () => socket.off('gameEnded');

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 import BasicGame from './BasicGame';
+
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 function Game({darkMode,gameMode=new BasicGame()}) {
@@ -36,21 +37,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     startGameAsync();
   }, []);
 
-  useEffect(() => {
-    const startGameAsync = async () => {
-      setIsLoading(true);
-      await gameModeRef.current.startGame();
-      console.log('preguntas', gameModeRef.current.questions);
-
-      let currentQuestion = gameModeRef.current.getCurrentQuestion();
-      console.log('primera pregunta ', currentQuestion);
-
-      setCurrentQuestion(currentQuestion);
-      setIsLoading(false);
-    };
-
-    startGameAsync();
-  }, []);
+ 
 
   const handleAnswerSelect = (isCorrect) => {
     if (isCorrect) {
@@ -60,6 +47,11 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       setIncorrectAnswers(incorrectAnswers + 1);
       gameModeRef.current.incrementIncorrectas();
     }
+
+    console.log('comprobar si se pone a true el finished:preguntas tamaño,correctas e incorrecas ',gameModeRef.current.questions.length)
+    
+    if(correctAnswers+incorrectAnswers==gameModeRef.current.questions.length-1)
+    setIsFinished(true);
   };
 
   useEffect(() => {
@@ -69,37 +61,19 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       console.log("entra en el if del correctAnswer");
       const nextQuestion = gameModeRef.current.nextQuestion();
       setCurrentQuestion(nextQuestion);
-    } else if(correctAnswers + incorrectAnswers === gameModeRef.current.questions.length){ 
+    } else  if (gameModeRef.current.questions.length>0){//comprobar que no sea vacia para que le ljuego no finalize al empezar  
       console.log("use effect finish");
+      setIsFinished(true);
       //poner el tiepo que tardo 
       gameModeRef.current.setTiempoTotal(totalTime);
       gameModeRef.current.finishGame();
-      setIsFinished(true);
-    }
+      gameModeRef.current.sendHistory({correctas: correctAnswers, incorrectas: incorrectAnswers, tiempoTotal: totalTime});
+     }
+      
+    
   }, [correctAnswers, incorrectAnswers]);
 
-  useEffect(() => {
-    console.log("entra en el useEffect del finished");
-    console.log('valores de IsGameEnded y totalTime',gameModeRef.current.isGameEnded,totalTime)
-    if (gameModeRef.current.isGameEnded &&localStorage.getItem('username') != null && totalTime != 0) {
-      const data = {
-        correctas: correctAnswers,
-        incorrectas: incorrectAnswers,
-        tiempoTotal: totalTime
-      };
-      
-      //lo hace el endGame 
-      gameMode.sendHistory(data)
-        .then(() => {
-          console.log('Historial enviado correctamente');
-        })
-        .catch(error => {
-          console.error('Error al enviar el historial al servidor:', error);
-        });
-        
-        setIsOpen(true);
-    }
-  }, [totalTime,gameModeRef.current.isGameEnded]);
+
 
   const onClose=()=>{
     setIsOpen(false);
@@ -142,27 +116,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
 
     />
     )}
-      <AlertDialog isOpen={isOpen} onClose={onClose}>
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Resultados:
-            </AlertDialogHeader>
-          <AlertDialogBody fontSize='lg' fontWeight='italic'>
-            <Center>
-              respuestas correctas: {correctAnswers} <br/>
-              respuestas incorrectas: {incorrectAnswers}
-            </Center>
-          </AlertDialogBody>
 
-          <AlertDialogFooter>
-            <Button onClick={onClose} colorScheme="green" ml={3}>
-              Cerrar
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
     </Box>
   );
 }

@@ -49,8 +49,6 @@ class RoomGame extends BasicGame {
       return ;
     }
     async endGame() {
-      //this.navigate('/home');
-
       console.log('RoomGame endGame');
       this.isGameEnded = true;
       //emitir el evento y la logica relevante de socket.io le pasas los resultados

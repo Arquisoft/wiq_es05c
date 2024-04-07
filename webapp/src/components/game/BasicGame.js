@@ -5,6 +5,7 @@ pero en ciertos casos como en el online si no quieres guardar el historial o qui
 heredas y sobreescribes  y list */
 
 import GameMode from './gameModes/GameMode';
+import Swal from 'sweetalert2';
 
 class BasicGame extends GameMode {
   constructor() {
@@ -57,6 +58,16 @@ class BasicGame extends GameMode {
         incorrectas: historyData.incorrectas,
         tiempoTotal: historyData.tiempoTotal
       };
+
+      Swal.fire({
+        title: 'Juego terminado, tus resultados son los siguientes:',
+        html: `
+          <p>Correctas: ${this.correctas}</p>
+          <p>Incorrectas: ${this.incorrectas}</p>
+          <p>Tiempo total: ${this.tiempoTotal}</p>
+        `,
+        confirmButtonText: 'Cerrar'
+      });
   
       console.log("Se envian los siguientes datos al historial", data);
       fetch(`${this.apiEndpoint}/updateHistory`, {
@@ -74,6 +85,7 @@ class BasicGame extends GameMode {
       })
       .then(data => {
         console.log('Respuesta del servidor:', data);
+        
       })
       .catch(error => {
         console.error('Error al enviar el historial al servidor:', error);

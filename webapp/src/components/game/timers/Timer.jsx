@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { CircularProgress, CircularProgressLabel, useColorModeValue } from '@chakra-ui/react';
 import { Box } from "@chakra-ui/react";
 
-export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkMode }) => {
+export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkMode,gameFinish }) => {
     const [progress, setProgress] = useState(100); // Inicia el progreso en 100%
     const intervalRef = useRef(null);
 
@@ -10,9 +10,16 @@ export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkM
         resetTimer.current = resetTimerFunction;
     }, []);
 
+   
+
     useEffect(() => {
         const startTime = Date.now();
         intervalRef.current = setInterval(() => {
+            if (gameFinish) {
+                clearInterval(intervalRef.current);
+                setProgress(100);
+                return;
+            }
             const elapsedTime = Date.now() - startTime;
             const remainingTime = timeout - elapsedTime;
             const remainingProgress = (remainingTime / timeout) * 100;
@@ -22,9 +29,9 @@ export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkM
                 onTimeout();
             }
         }, 1000); // Actualiza el progreso cada segundo
-
+    
         return () => clearInterval(intervalRef.current);
-    }, [timeout, onTimeout]);
+    }, [timeout, onTimeout, gameFinish]);
 
     const resetTimerFunction = () => {
         clearInterval(intervalRef.current);

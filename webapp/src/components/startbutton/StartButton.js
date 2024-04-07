@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 const StartButton = () => {
 
-  const { startGame} = useContext(GameContext);
 
   const navigate = useNavigate();
 
@@ -14,7 +13,7 @@ const StartButton = () => {
   const {t} = useTranslation();
 
   const handleClick = () => {
-    startGame();//llamar a la funcion empezar juego 
+  
     navigate("/game");
   };
 

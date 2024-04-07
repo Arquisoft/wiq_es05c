@@ -4,9 +4,7 @@ const axios = require('axios');
 
 class ObtenerPreguntaWikiData {
     
-    constructor(language = 'es') {
-        this.language = language;
-
+    constructor() {
         //obtenemos las labels de lo que queremos obtener (lo que esta en la select que queremos buscar)
         this.labels;       
 
@@ -86,7 +84,7 @@ class ObtenerPreguntaWikiData {
             });
             
             //comprobamos que tenemos el numero de labels correcto
-            if(this.labels.length !== 3){
+            if(this.labels.length !== 6){
               reject(new Error('La consulta no tiene el formato correcto para las labels'));
               return;
             }
@@ -135,10 +133,15 @@ class ObtenerPreguntaWikiData {
         if(data && data.results && data.results.bindings.length > 0){
           var entidades = data.results.bindings.map(binding => {
             return {
-                //obtenemos el label de la "pregunta" (ejemplo country)
-                label: this.obtenerValorPropiedad(binding, this.labels[0]),
-                //obtenemos el label de la "respuesta" (ejemplo capital)
-                result: this.obtenerValorPropiedad(binding, this.labels[2])
+                //obtenemos el label de la "pregunta" (ejemplo country) en español
+                label_es: this.obtenerValorPropiedad(binding, this.labels[0]),
+                //obtenemos el label de la "respuesta" (ejemplo capital) en español
+                result_es: this.obtenerValorPropiedad(binding, this.labels[3]),
+                
+                //obtenemos el label de la "pregunta" (ejemplo country) en ingles
+                label_en: this.obtenerValorPropiedad(binding, this.labels[1]),
+                //obtenemos el label de la "respuesta" (ejemplo capital) en ingles
+                result_en: this.obtenerValorPropiedad(binding, this.labels[5])
             };
           });
 
@@ -169,8 +172,8 @@ class ObtenerPreguntaWikiData {
         if (binding && binding.hasOwnProperty(propertyName)) {
           //comprobamos si es una fecha
           if(this.esFormatoISO8601(binding[propertyName].value)){
-            //devolvemos la fecha formateada
-            return this.formatearFecha(binding[propertyName].value);
+            //devolvemos la fecha formateada dependiendo del idioma
+            return this.formatearFecha(binding[propertyName].value, propertyName.substring(propertyName.length - 2));
           }
           //si no es una fecha devolvemos el valor
           else{
@@ -208,28 +211,37 @@ class ObtenerPreguntaWikiData {
               var preguntas = result.textoPreguntas.pregunta;            
 
               //obtenemos el esqueleto de la pregunta que queremos hacer
-              var textoPregunta = this.obtenerTextoPregunta(preguntas, this.question, this.type);
+              var textoPreguntaEspañol = this.obtenerTextoPregunta(preguntas, this.question, this.type, "es");
+              var textoPreguntaIngles = this.obtenerTextoPregunta(preguntas, this.question, this.type, "en");
 
               //comprobamos si se ha encontrado el texto de la pregunta
-              if(textoPregunta === ""){
-                reject(new Error('No se ha encontrado el texto de la pregunta'));
+              if(textoPreguntaEspañol === "" || textoPreguntaIngles === "") {
+                reject(new Error('No se ha encontrado el texto de la pregunta para español o para ingles'));
                 return;
               }
+
+              console.log("Texto pregunta español: ", textoPreguntaEspañol);
+              console.log("Texto pregunta ingles: ", textoPreguntaIngles);
               
               //para comprobar si es un Q
               var regex = /^Q\d+/;
               //comprobamos que el resultado es valido para hacer la pregunta (que no sea QXXXXX)
               var preguntaCorrecta = this.answers.find(entidad => {
-                return entidad.label !== "Ninguna de las anteriores" && !regex.test(entidad.label);
+                return entidad.label_es !== "Ninguna de las anteriores" && !regex.test(entidad.label_es) && entidad.label_en !== "Ninguna de las anteriores" && !regex.test(entidad.label_en);
               });
 
               if(preguntaCorrecta){
                 //rellenamos el esqueleto de la pregunta con los datos de la entidad
-                var pregunta = preguntaCorrecta.label;
-                var respuestaCorrecta = preguntaCorrecta.result;
-                var consulta = textoPregunta.replace('{RELLENAR}', pregunta);
+                //para generarla en español
+                var pregunta_es = preguntaCorrecta.label_es;
+                var respuestaCorrecta_es = preguntaCorrecta.result_es;
+                var consulta_es = textoPreguntaEspañol.replace('{RELLENAR}', pregunta_es);
+                //para generarla en inglés
+                var pregunta_en = preguntaCorrecta.label_en;
+                var respuestaCorrecta_en = preguntaCorrecta.result_en;
+                var consulta_en = textoPreguntaIngles.replace('{RELLENAR}', pregunta_en);
 
-                this.generarPregunta(consulta, respuestaCorrecta)
+                this.generarPregunta(consulta_es, respuestaCorrecta_es, consulta_en, respuestaCorrecta_en)
                   .then(() => resolve())
                   .catch(error => reject(error));                       
               }
@@ -248,13 +260,20 @@ class ObtenerPreguntaWikiData {
     /*
       obtenemos el texto de la pregunta que queremos hacer
     */
-    obtenerTextoPregunta(preguntas, question, type) {
+    obtenerTextoPregunta(preguntas, question, type, idioma) {
       for (var pregunta of preguntas) {
+        //si no tiene alguno de los datos que necesitamos
         if(!pregunta.$.question || !pregunta.$.type){
           return "";
         }
+        //comprobamos si es la pregunta que queremos
         if (pregunta.$.question === question && pregunta.$.type === type) {
-          return pregunta._;
+          if(idioma === "es"){
+            console.log("Pregunta: ", pregunta.es[0]);
+            return pregunta.es[0];
+          }
+          else if(idioma === "en")
+            return pregunta.en[0];
         }
       }
       return "";
@@ -263,25 +282,41 @@ class ObtenerPreguntaWikiData {
     /* 
       generamos un json con la info necesaria de la pregunta para poder guardarla en la base de datos
     */
-    generarPregunta(consulta, respuestaCorrecta){
+    generarPregunta(consulta_es, respuestaCorrecta_es, consulta_en, respuestaCorrecta_en){
       return new Promise((resolve, reject) => {
         var respuestasIncorrectas = [];
         var num = 0;
-        //añadimos el resto de respuestas
+        //añadimos el resto de respuestas en español
         for(var i = 0; i < this.answers.length; i++){
-          if(this.answers[i].result !== respuestaCorrecta){
-            respuestasIncorrectas[num] = this.answers[i].result;
+          if(this.answers[i].result_es !== respuestaCorrecta_es){
+            respuestasIncorrectas[num] = this.answers[i].result_es;
+            num++;
+          }
+        }
+        //añadimos el resto de respuestas en inglés
+        for(var i = 0; i < this.answers.length; i++){
+          if(this.answers[i].result_en !== respuestaCorrecta_en){
+            respuestasIncorrectas[num] = this.answers[i].result_en;
             num++;
           }
         }
 
         //guardamos la pregunta para añadirla a la base de datos
         this.finalQuestion = {
-          question: consulta.trim().replace(/\r?\n|\r/g, ''),
-          correct: respuestaCorrecta,
-          incorrect1: respuestasIncorrectas[0],
-          incorrect2: respuestasIncorrectas[1],
-          incorrect3: respuestasIncorrectas[2],
+          //para español
+          question_es: consulta_es.trim().replace(/\r?\n|\r/g, ''),
+          correct_es: respuestaCorrecta_es,
+          incorrect1_es: respuestasIncorrectas[0],
+          incorrect2_es: respuestasIncorrectas[1],
+          incorrect3_es: respuestasIncorrectas[2],
+          
+          //para ingles
+          question_en: consulta_en.trim().replace(/\r?\n|\r/g, ''),
+          correct_en: respuestaCorrecta_en,
+          incorrect1_en: respuestasIncorrectas[3],
+          incorrect2_en: respuestasIncorrectas[4],
+          incorrect3_en: respuestasIncorrectas[5],
+
           category: this.category,
           type: this.type
         }         
@@ -309,7 +344,19 @@ class ObtenerPreguntaWikiData {
   /*
     formateamos la fecha a un formato más legible
   */
-  formatearFecha(fechaISO8601) {
+  formatearFecha(fechaISO8601, idioma) {
+    if(idioma === "en"){
+      return this.formatearFechaIngles(fechaISO8601);
+    }
+    else{
+      return this.formatearFechaEspañol(fechaISO8601);
+    }
+  }
+  
+  /*
+    formateamos la fecha a un formato más legible en español
+  */
+  formatearFechaEspañol(fechaISO8601) {
     var meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
     var fecha = new Date(fechaISO8601);
     var dia = fecha.getDate();
@@ -317,7 +364,17 @@ class ObtenerPreguntaWikiData {
     var año = fecha.getFullYear();
     return dia + " de " + mes + " de " + año;
   }
-  
+
+  /*
+    formateamos la fecha a un formato más legible en inglés
+  */
+  formatearFechaIngles(fechaISO8601) {
+    var fecha = new Date(fechaISO8601);
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var año = fecha.getFullYear();
+    return mes + "/" + dia + "/" + año;
+  }
   
 }
 

@@ -1,296 +1,419 @@
 <preguntas>
 
     <pregunta question="pais" type="capital"  category="geografia">
+    <!-- Obtiene los paises y sus respectivas capitales -->
         <query>
-            SELECT DISTINCT ?countryLabel (SAMPLE(?nombreCapital) AS ?capitales)
+            SELECT DISTINCT ?countryLabel_es ?countryLabel_en (SAMPLE(?nombreCapital_es) AS ?capitales_es) (SAMPLE(?nombreCapital_en) AS ?capitales_en)
             WHERE {
                 ?country wdt:P31 wd:Q3624078.  # Instancia de país
                 ?country wdt:P36 ?capital.  # Tiene capital
-                ?country rdfs:label ?countryLabel filter (lang(?countryLabel) = "es").
-                ?capital rdfs:label ?nombreCapital filter (lang(?nombreCapital) = "es").
+                ?country rdfs:label ?countryLabel_es FILTER(LANG(?countryLabel_es) = "es").
+                ?country rdfs:label ?countryLabel_en FILTER(LANG(?countryLabel_en) = "en").
+                ?capital rdfs:label ?nombreCapital_es FILTER(LANG(?nombreCapital_es) = "es").
+                ?capital rdfs:label ?nombreCapital_en FILTER(LANG(?nombreCapital_en) = "en").
+                
             }
-            GROUP BY ?countryLabel
+            GROUP BY ?countryLabel_es ?countryLabel_en
         </query>
     </pregunta>
     
     <pregunta question="estado" type="capital"  category="geografia">
-        <query >
-            SELECT ?stateLabel ?state ?capitalLabel
+    <!-- Obtiene los estados de EEUU y sus respectivas capitales -->
+        <query >                    
+            SELECT ?stateLabel_es ?stateLabel_en ?state ?capitalLabel_es ?state_en ?capitalLabel_en
             WHERE {
+                # Obtener los estados y sus capitales
                 ?state wdt:P31 wd:Q35657 .
                 ?state p:P36 ?statement .
                 ?statement ps:P36 ?capital .
-            # Fetching the rank of the property
-            ?statement wikibase:rank ?rank .
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-            # Subquery to get the highest ranked capital for each state
-            {
-                SELECT ?state (MAX(?rank) AS ?maxRank)
-                WHERE {
-                    ?state wdt:P31 wd:Q35657 .
-                    ?state p:P36 ?statement .
-                    ?statement wikibase:rank ?rank .
+            
+                # Obtener el rango de la propiedad
+                ?statement wikibase:rank ?rank .
+            
+                # Subconsulta para obtener la capital con el rango máximo para cada estado
+                {
+                    SELECT ?state (MAX(?rank) AS ?maxRank)
+                    WHERE {
+                        ?state wdt:P31 wd:Q35657 .
+                        ?state p:P36 ?statement .
+                        ?statement wikibase:rank ?rank .
+                    }
+                    GROUP BY ?state
                 }
-                GROUP BY ?state
-            }
-            FILTER (?rank = ?maxRank)
-           }
+                FILTER (?rank = ?maxRank)
+            
+                # Obtener las etiquetas en diferentes idiomas para los estados y capitales
+                SERVICE wikibase:label {
+                    bd:serviceParam wikibase:language "en" .
+                    ?state rdfs:label ?stateLabel_en .
+                    ?capital rdfs:label ?capitalLabel_en .
+                }
+                SERVICE wikibase:label {
+                    bd:serviceParam wikibase:language "es" .
+                    ?state rdfs:label ?stateLabel_es .
+                    ?capital rdfs:label ?capitalLabel_es .
+                }
+            }            
         </query>
-    </pregunta>
-    
+    </pregunta>    
    
    <pregunta question="libro" type="autor"  category="arte">
+    <!-- Obtiene libros y sus autores -->
     <query>
-        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombreAuthor; SEPARATOR=", ") AS ?authors)
+        SELECT DISTINCT ?nombreLibro_es ?nombreLibro_en (GROUP_CONCAT(DISTINCT ?nombreAuthor_es; SEPARATOR=", ") AS ?autores_es) (GROUP_CONCAT(DISTINCT ?nombreAuthor_en; SEPARATOR=", ") AS ?autores_en)
         WHERE {
             ?book wdt:P31 wd:Q571.  # libro (clase)
             ?book wdt:P50 ?author.  # Relación "autor"
-            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es").
-            ?author rdfs:label ?nombreAuthor filter (lang(?nombreAuthor) = "es").
+            ?book rdfs:label ?nombreLibro_es filter (lang(?nombreLibro_es) = "es").
+            ?book rdfs:label ?nombreLibro_en filter (lang(?nombreLibro_en) = "en").
+            ?author rdfs:label ?nombreAuthor_es filter (lang(?nombreAuthor_es) = "es").
+            ?author rdfs:label ?nombreAuthor_en filter (lang(?nombreAuthor_en) = "en").
         }
-        GROUP BY ?nombreLibro
+        GROUP BY ?nombreLibro_es ?nombreLibro_en        
     </query>
    </pregunta>
 
    <pregunta question="libro" type="genero"  category="arte">
+    <!-- Obtiene libros y sus generos -->
     <query>
-        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombregenero; SEPARATOR=", ") AS ?generos)
+        SELECT DISTINCT ?nombreLibro_es ?nombreLibro_en (GROUP_CONCAT(DISTINCT ?nombregenero_es; SEPARATOR=", ") AS ?generos_es) (GROUP_CONCAT(DISTINCT ?nombregenero_en; SEPARATOR=", ") AS ?generos_en)
         WHERE {
             ?book wdt:P31 wd:Q571.  
             ?book wdt:P136 ?genero.  # Relación "género"
-            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es").
-            ?genero rdfs:label ?nombregenero filter (lang(?nombregenero) = "es").
+            ?book rdfs:label ?nombreLibro_es filter (lang(?nombreLibro_es) = "es").
+            ?book rdfs:label ?nombreLibro_en filter (lang(?nombreLibro_en) = "en").
+            ?genero rdfs:label ?nombregenero_es filter (lang(?nombregenero_es) = "es").
+            ?genero rdfs:label ?nombregenero_en filter (lang(?nombregenero_en) = "en").
         }
-        GROUP BY ?nombreLibro
+        GROUP BY ?nombreLibro_es ?nombreLibro_en
     </query>
    </pregunta>
 
    <pregunta question="nombreLibro" type="paisLibro"  category="arte">
+    <!-- Obtiene libros y su paus de origen -->
     <query>
-        SELECT DISTINCT ?nombreLibro (GROUP_CONCAT(DISTINCT ?nombrePais; SEPARATOR=", ") AS ?paises) 
+        SELECT DISTINCT ?nombreLibro_es ?nombreLibro_en (GROUP_CONCAT(DISTINCT ?nombrePais_es; SEPARATOR=", ") AS ?paises_es) (GROUP_CONCAT(DISTINCT ?nombrePais_en; SEPARATOR=", ") AS ?paises_en) 
         WHERE { 
             ?book wdt:P31 wd:Q571.  # libro (clase) 
             ?book wdt:P495 ?country.  # Relación "país de origen" 
-            ?book rdfs:label ?nombreLibro filter (lang(?nombreLibro) = "es"). 
-            ?country rdfs:label ?nombrePais filter (lang(?nombrePais) = "es"). 
+            ?book rdfs:label ?nombreLibro_es filter (lang(?nombreLibro_es) = "es"). 
+            ?book rdfs:label ?nombreLibro_en filter (lang(?nombreLibro_en) = "en"). 
+            ?country rdfs:label ?nombrePais_es filter (lang(?nombrePais_es) = "es"). 
+            ?country rdfs:label ?nombrePais_en filter (lang(?nombrePais_en) = "en"). 
         } 
-        GROUP BY ?nombreLibro 
+        GROUP BY ?nombreLibro_es ?nombreLibro_en
     </query>
    </pregunta>
 
    <pregunta question="actores" type="fechaNacimiento"  category="arte">
+    <!-- Obtiene los nombre de actores y su fecha de nacimiento -->
     <query>
-        SELECT ?personLabel ?persona ?birthDate 
-        WHERE{ 
+        SELECT ?personLabel_es ?personLabel_en ?person ?birthDate ?person_en ?birthDate_en
+        WHERE { 
             ?person wdt:P27 wd:Q29 .           
             ?person wdt:P106 wd:Q33999 .           
-            ?person wdt:P569 ?birthDate .           
+            ?person wdt:P569 ?birthDate .        
+            ?person wdt:P569 ?birthDate_en .             
             SERVICE wikibase:label { 
-                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
+                bd:serviceParam wikibase:language "es". 
+                ?person rdfs:label ?personLabel_es .
+            }
+            SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "en". 
+                ?person rdfs:label ?personLabel_en .
             }           
-        } 
+        }
     </query>
    </pregunta>
 
    <pregunta question="chef" type="startDate"  category="arte">
+    <!-- Obtiene nombre de chefs y su fecha de inicio -->
     <query>
-        SELECT ?personLabel ?persona ?startDate         
+        SELECT ?personLabel_es ?personLabel_en ?persona ?startDate ?persona_en ?startDate_en         
         WHERE {  
             ?person wdt:P27 wd:Q29 .  
             ?person wdt:P106 wd:Q156839 .  
             ?person wdt:P2031 ?startDate.  
+            ?person wdt:P2031 ?startDate_en        
+
             SERVICE wikibase:label {  
-                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".  
-            }  
-        } 
+                bd:serviceParam wikibase:language "es".  
+                ?person rdfs:label ?personLabel_es .
+            }
+
+            SERVICE wikibase:label {  
+                bd:serviceParam wikibase:language "en".  
+                ?person rdfs:label ?personLabel_en .
+            }         
+        }
     </query>
    </pregunta>
 
    <pregunta question="videojuego" type="plataforma"  category="entretenimiento">
+    <!-- Obtiene videojuegos y la plataforma que lo desarrollo -->
     <query>
-        SELECT DISTINCT ?nombreVideojuego (GROUP_CONCAT(DISTINCT ?nombrePlataforma; SEPARATOR=", ") AS ?plataformas)
+        SELECT DISTINCT ?nombreVideojuego_es ?nombreVideojuego_en (GROUP_CONCAT(DISTINCT ?nombrePlataforma_es; SEPARATOR=", ") AS ?plataformas_es) (GROUP_CONCAT(DISTINCT ?nombrePlataforma_en; SEPARATOR=", ") AS ?plataformas_en)
         WHERE {
             ?videojuego wdt:P31 wd:Q7889.  # Videojuegos (clase)
             ?videojuego wdt:P123 ?plataforma.  # Relación "plataforma"
-            ?videojuego rdfs:label ?nombreVideojuego filter (lang(?nombreVideojuego) = "es").
-            ?plataforma rdfs:label ?nombrePlataforma filter (lang(?nombrePlataforma) = "es").
+            ?videojuego rdfs:label ?nombreVideojuego_es filter (lang(?nombreVideojuego_es) = "es").
+            ?videojuego rdfs:label ?nombreVideojuego_en filter (lang(?nombreVideojuego_en) = "en").
+            ?plataforma rdfs:label ?nombrePlataforma_es filter (lang(?nombrePlataforma_es) = "es").
+            ?plataforma rdfs:label ?nombrePlataforma_en filter (lang(?nombrePlataforma_en) = "en").
         }
-        GROUP BY ?nombreVideojuego
+        GROUP BY ?nombreVideojuego_es ?nombreVideojuego_en
     </query>
    </pregunta>
 
    <pregunta question="videojuego" type="genero"  category="entretenimiento">
+    <!-- Obtiene videojuegos y sus generos -->
     <query>
-        SELECT DISTINCT ?nombreVideojuego (GROUP_CONCAT(DISTINCT ?nombreGenero; SEPARATOR=", ") AS ?generos)
+        SELECT DISTINCT ?nombreVideojuego_es ?nombreVideojuego_en (GROUP_CONCAT(DISTINCT ?nombreGenero_es; SEPARATOR=", ") AS ?generos_es) (GROUP_CONCAT(DISTINCT ?nombreGenero_en; SEPARATOR=", ") AS ?generos_en)
         WHERE {
             ?videojuego wdt:P31 wd:Q7889.  # Videojuegos (clase)
             ?videojuego wdt:P136 ?genero.  # Relación "género"
-            ?videojuego rdfs:label ?nombreVideojuego filter (lang(?nombreVideojuego) = "es").
-            ?genero rdfs:label ?nombreGenero filter (lang(?nombreGenero) = "es").
+            ?videojuego rdfs:label ?nombreVideojuego_es filter (lang(?nombreVideojuego_es) = "es").
+            ?videojuego rdfs:label ?nombreVideojuego_en filter (lang(?nombreVideojuego_en) = "en").
+            ?genero rdfs:label ?nombreGenero_es filter (lang(?nombreGenero_es) = "es").
+            ?genero rdfs:label ?nombreGenero_en filter (lang(?nombreGenero_en) = "en").
         }
-        GROUP BY ?nombreVideojuego
+        GROUP BY ?nombreVideojuego_es ?nombreVideojuego_en
     </query>
    </pregunta>
 
    <pregunta question="clubFutbol" type="estadio"  category="deportes">
+    <!-- Obtiene clubs de futbol y su estadio -->
     <query>
-        SELECT DISTINCT ?clubLabel (GROUP_CONCAT(DISTINCT ?estadioName; SEPARATOR=", ") AS ?estadios)
+        SELECT DISTINCT ?clubLabel_es ?clubLabel_en (GROUP_CONCAT(DISTINCT ?estadioName_es; SEPARATOR=", ") AS ?estadios_es) (GROUP_CONCAT(DISTINCT ?estadioName_en; SEPARATOR=", ") AS ?estadios_en)
         WHERE {
             ?club wdt:P31 wd:Q476028.  # club (clase)
             ?club wdt:P115 ?estadio.  # Relación "estadio"
-            ?club rdfs:label ?clubLabel filter (lang(?clubLabel) = "es").
-            ?estadio rdfs:label ?estadioName filter (lang(?estadioName) = "es").
+            ?club rdfs:label ?clubLabel_es filter (lang(?clubLabel_es) = "es").
+            ?club rdfs:label ?clubLabel_en filter (lang(?clubLabel_en) = "en").
+            ?estadio rdfs:label ?estadioName_es filter (lang(?estadioName_es) = "es").
+            ?estadio rdfs:label ?estadioName_en filter (lang(?estadioName_en) = "en").
         }
-        GROUP BY ?clubLabel
+        GROUP BY ?clubLabel_es ?clubLabel_en
     </query>
    </pregunta>
 
    <pregunta question="tenista" type="lugarNacimiento"  category="deportes">
+    <!-- Obtiene tenistas y su lugar de nacimiento -->
     <query>
-        SELECT ?tenistaLabel ?tenista ?lugarNacimientoLabel
+        SELECT ?tenistaLabel_es ?tenistaLabel_en ?tenista ?lugarNacimientoLabel_es ?tenista_en ?lugarNacimientoLabel_en
         WHERE {
             ?tenista wdt:P106 wd:Q10833314. # Instancia de tenista
             ?tenista wdt:P19 ?lugarNacimiento. # Lugar de nacimiento
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+
+            SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "en". 
+                ?tenista rdfs:label ?tenistaLabel_en.
+                ?lugarNacimiento rdfs:label ?lugarNacimientoLabel_en.
+            }
+            
+            SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "es". 
+                ?tenista rdfs:label ?tenistaLabel_es.
+                ?lugarNacimiento rdfs:label ?lugarNacimientoLabel_es.
+            }
         }
     </query>
    </pregunta>
 
    <pregunta question="futbolistas" type="fechaNacimiento"  category="deportes">
+    <!-- Obtiene futbolistas y su fecha de nacimiento -->
     <query>
-        SELECT ?personLabel ?person ?birthDate 
+        SELECT ?personLabel_es ?personLabel_en ?person ?birthDate ?person_en ?birthDate_en
         WHERE { 
             ?person wdt:P27 wd:Q29 . 
             ?person wdt:P106 wd:Q937857 . 
             ?person wdt:P569 ?birthDate . 
+            ?person wdt:P569 ?birthDate_en . 
             SERVICE wikibase:label { 
-                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". 
+                bd:serviceParam wikibase:language "es". 
+                ?person rdfs:label ?personLabel_es.
             } 
-        } 
+          SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "en". 
+                ?person rdfs:label ?personLabel_en.
+            } 
+        }
     </query>
    </pregunta>
 
    <pregunta question="futbolistas" type="startDate"  category="deportes">
+    <!-- Obtiene futbolistas y su fecha de inicio -->
     <query>
-        SELECT ?personLabel ?person ?startDate 
+        SELECT ?personLabel_es ?personLabel_en ?person ?startDate ?person_en ?startDate_en
         WHERE {  
             ?person wdt:P27 wd:Q29 .  
             ?person wdt:P106 wd:Q937857 .  
             ?person wdt:P2031 ?startDate.  
-            SERVICE wikibase:label {  
-                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".            
+            ?person wdt:P2031 ?startDate_en. 
+            SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "es". 
+                ?person rdfs:label ?personLabel_es.
+            } 
+          SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "en". 
+                ?person rdfs:label ?personLabel_en.
             }  
         }
     </query>
    </pregunta>
-
    
    <pregunta question="presidenteEspaña" type="fechaNacimiento"  category="historia">
+    <!-- Obtiene presidentes de España y su fecha de nacimiento -->
     <query>
-        SELECT DISTINCT ?nombreCompleto ?presidente ?fechaNacimiento
+        SELECT DISTINCT ?nombreCompleto_es ?nombreCompleto_en ?presidente ?fechaNacimiento ?presidente_en ?fechaNacimiento_en
         WHERE {
             ?presidente wdt:P31 wd:Q5; # Filtrar por personas
               wdt:P39 wd:Q844587; # Filtrar por posición: presidente del Gobierno de España
               wdt:P569 ?fechaNacimiento; # Obtener fecha de nacimiento (opcional)
+              wdt:P569 ?fechaNacimiento_en; # Obtener fecha de nacimiento (opcional)
               wdt:P1559 ?nombreCompleto.
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+              SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "es". 
+                ?presidente rdfs:label ?nombreCompleto_es.
+              }          
+              SERVICE wikibase:label { 
+                bd:serviceParam wikibase:language "en". 
+                ?presidente rdfs:label ?nombreCompleto_en.
+              }
             }
-        ORDER BY ?nombreCompleto
+        ORDER BY ?nombreCompleto_es 
     </query>
    </pregunta>
 
    <pregunta question="personasOviedo" type="fechaNacimiento"  category="historia">
+    <!-- Obtiene personas importantes de Oviedo y su fecha de nacimiento -->
     <query>
-        SELECT ?personLabel ?person ?fNacimiento
+        SELECT ?personLabel_es ?personLabel_en ?person ?fNacimiento ?person_en ?fNacimiento_en
         WHERE {
             ?person wdt:P19 wd:Q14317.
             ?person wdt:P569 ?fNacimiento .
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "es". }
+            ?person wdt:P569 ?fNacimiento_en .
+            SERVICE wikibase:label { 
+              bd:serviceParam wikibase:language "es". 
+              ?person rdfs:label ?personLabel_es.
+            }
+          SERVICE wikibase:label { 
+              bd:serviceParam wikibase:language "en". 
+              ?person rdfs:label ?personLabel_en.
+            }
         }
     </query>
-   </pregunta>
-
-  
+   </pregunta>  
 
    <pregunta question="nombreCientifico" type="camposCientifico"  category="ciencia">
+    <!-- Obtiene el nombre de cientificos y sus respectivos campos de trabajo -->
     <query>
-        SELECT DISTINCT ?nombreCientifico (GROUP_CONCAT(DISTINCT ?nombreCampo; SEPARATOR=", ") AS ?campos) 
+        SELECT DISTINCT ?nombreCientifico_es ?nombreCientifico_en (GROUP_CONCAT(DISTINCT ?nombreCampo_es; SEPARATOR=", ") AS ?campos_es) (GROUP_CONCAT(DISTINCT ?nombreCampo_en; SEPARATOR=", ") AS ?campos_en)
         WHERE { 
             ?scientist wdt:P31 wd:Q5.  # humano (clase) 
             ?scientist wdt:P106 wd:Q901.  # Relación "ocupación" con valor "científico" 
             ?scientist wdt:P101 ?field.  # Relación "campo de trabajo" 
-            ?scientist rdfs:label ?nombreCientifico filter (lang(?nombreCientifico) = "es"). 
-            ?field rdfs:label ?nombreCampo filter (lang(?nombreCampo) = "es"). 
+            ?scientist rdfs:label ?nombreCientifico_es filter (lang(?nombreCientifico_es) = "es"). 
+            ?field rdfs:label ?nombreCampo_es filter (lang(?nombreCampo_es) = "es"). 
+            ?scientist rdfs:label ?nombreCientifico_en filter (lang(?nombreCientifico_en) = "en").
+            ?field rdfs:label ?nombreCampo_en filter (lang(?nombreCampo_en) = "en").            
         } 
-        GROUP BY ?nombreCientifico
+        GROUP BY ?nombreCientifico_es ?nombreCientifico_en
     </query>
    </pregunta>
 
    <pregunta question="nombreCientifico" type="interesesCientifico"  category="ciencia">
+    <!-- Obtiene nombres de cientificos y sus intereses cientificos -->
     <query>
-        SELECT DISTINCT ?nombreCientifico (GROUP_CONCAT(DISTINCT ?nombreInteres; SEPARATOR=", ") AS ?intereses) 
+        SELECT DISTINCT ?nombreCientifico_es ?nombreCientifico_en (GROUP_CONCAT(DISTINCT ?nombreInteres_es; SEPARATOR=", ") AS ?intereses_es) (GROUP_CONCAT(DISTINCT ?nombreInteres_en; SEPARATOR=", ") AS ?intereses_en)
         WHERE { 
             ?scientist wdt:P31 wd:Q5.  # humano (clase) 
             ?scientist wdt:P106 wd:Q901.  # Relación "ocupación" con valor "científico" 
             ?scientist wdt:P2650 ?interest.  # Relación "área de interés" 
-            ?scientist rdfs:label ?nombreCientifico filter (lang(?nombreCientifico) = "es"). 
-            ?interest rdfs:label ?nombreInteres filter (lang(?nombreInteres) = "es"). 
+            ?scientist rdfs:label ?nombreCientifico_es filter (lang(?nombreCientifico_es) = "es"). 
+            ?interest rdfs:label ?nombreInteres_es filter (lang(?nombreInteres_es) = "es"). 
+            ?scientist rdfs:label ?nombreCientifico_en filter (lang(?nombreCientifico_en) = "en").
+            ?interest rdfs:label ?nombreInteres_en filter (lang(?nombreInteres_en) = "en").
         } 
-        GROUP BY ?nombreCientifico 
+        GROUP BY ?nombreCientifico_es ?nombreCientifico_en
     </query>
    </pregunta>
 
    <pregunta question="nombreElemento" type="numeroAtomico"  category="ciencia">
+    <!-- Obtiene nombres de elementos atomicos y su numero atomico -->
     <query>
-        SELECT DISTINCT ?nombreElemento ?element ?numeroAtomico 
+       SELECT DISTINCT ?nombreElemento_es ?nombreElemento_en ?element ?numeroAtomico ?element_en ?numeroAtomico_en
         WHERE { 
-            ?element wdt:P31 wd:Q11344.  # elemento químico (clase) 
-            ?element wdt:P1086 ?atomicNumber.  # Relación "número atómico" 
-             ?element rdfs:label ?nombreElemento filter (lang(?nombreElemento) = "es"). 
-             BIND(str(?atomicNumber) AS ?numeroAtomico) 
-            } 
+            ?element wdt:P31 wd:Q11344.  # Elemento químico (clase)
+            ?element wdt:P1086 ?atomicNumber.  # Relación "número atómico"
+            ?element rdfs:label ?nombreElemento_es filter (lang(?nombreElemento_es) = "es").
+            ?element rdfs:label ?nombreElemento_en filter (lang(?nombreElemento_en) = "en").
+            BIND(str(?atomicNumber) AS ?numeroAtomico)   
+            BIND(str(?atomicNumber) AS ?numeroAtomico_en)             
+        } 
+        ORDER BY ?nombreElemento_es
     </query>
    </pregunta>
 
-
    <pregunta question="dj" type="startDate" category="musica">
+    <!-- Obtiene el nombre de djs y su fecha de inicio -->
     <query>
-        SELECT ?personLabel ?person ?startDate 
+        SELECT ?personLabel_es ?personLabel_en ?person ?startDate ?person_en ?startDate_en
         WHERE {  
             ?person wdt:P27 wd:Q29 .  
             ?person wdt:P106 wd:Q130857 .            
-            ?person wdt:P2031 ?startDate.            
+            ?person wdt:P2031 ?startDate.             
+            ?person wdt:P2031 ?startDate_en.           
             SERVICE wikibase:label {            
-                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".            
+                bd:serviceParam wikibase:language "es".    
+                ?person rdfs:label ?personLabel_es.
+            }  
+            SERVICE wikibase:label {            
+                bd:serviceParam wikibase:language "en".   
+                ?person rdfs:label ?personLabel_en.
             }            
-        } 
+        }
     </query>
     </pregunta>
 
     <pregunta question="guitarrista" type="startDate" category="musica">
+    <!-- Obtiene nombres de guitarristas y su fecha de inicio -->
         <query>
-            SELECT ?personLabel ?person ?startDate 
+            SELECT ?personLabel_es ?personLabel_en ?person ?startDate ?person_en ?startDate_en
             WHERE {  
                 ?person wdt:P27 wd:Q29 .                
                 ?person wdt:P106 wd:Q855091 .                
-                ?person wdt:P2031 ?startDate.                
-                SERVICE wikibase:label {                
-                    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".              
-                }                
+                ?person wdt:P2031 ?startDate.           
+                  ?person wdt:P2031 ?startDate_en.               
+                SERVICE wikibase:label {            
+                    bd:serviceParam wikibase:language "es".    
+                    ?person rdfs:label ?personLabel_es.
+                }  
+                SERVICE wikibase:label {            
+                    bd:serviceParam wikibase:language "en".   
+                    ?person rdfs:label ?personLabel_en.
+                }                 
             } 
         </query>
     </pregunta>
 
     <pregunta question="cantante" type="startDate" category="musica">
+    <!-- Obtiene cantantes y su fecha de inicio -->
         <query>
-            SELECT ?personLabel ?person ?startDate
+            SELECT  ?personLabel_es ?personLabel_en ?person ?startDate ?person_en ?startDate_en
             WHERE {  
                 ?person wdt:P27 wd:Q29 .                
                 ?person wdt:P106 wd:Q177220 .                
-                ?person wdt:P2031 ?startDate.  
-                SERVICE wikibase:label {                
-                    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es".               
-                } 
+                ?person wdt:P2031 ?startDate.       
+                  ?person wdt:P2031 ?startDate_en. 
+                SERVICE wikibase:label {            
+                    bd:serviceParam wikibase:language "es".    
+                    ?person rdfs:label ?personLabel_es.
+                }  
+                SERVICE wikibase:label {            
+                    bd:serviceParam wikibase:language "en".   
+                    ?person rdfs:label ?personLabel_en.
+                }           
             } 
         </query>
     </pregunta>

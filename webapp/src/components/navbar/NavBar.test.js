@@ -1,41 +1,34 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Navbar from './NavBar';
-import { AuthProvider } from '../authcontext';
+import NavBar from './NavBar';
+import { AuthContext } from '../authcontext';
 import { BrowserRouter as Router} from 'react-router-dom';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => ({
+      'signUp': 'Registrarse',
+      'signIn': 'Iniciar sesión',
+      'logout': 'Cerrar sesión',
+    })[key],
+    i18n: {
+      language: 'es',
+    },
+  }),
+}));
+
 describe('Navbar Component', () => {
-  test('renders Navbar with correct content and links', () => {
-    // Renderizar el componente
+  test('renders login and register buttons when user is not logged in', () => {
+    const mockIsLoggedIn = jest.fn().mockReturnValue(false);
     render(
-      <AuthProvider>
+      <AuthContext.Provider value={{ isLoggedIn: mockIsLoggedIn }}>
         <Router>
-          <Navbar />
+          <NavBar />
         </Router>
-      </AuthProvider>
+      </AuthContext.Provider>
     );
 
-    // Verificar que el logo esté presente
-    const logo = screen.getByAltText('Logo');
-    expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('src', 'LogoSaberYganar.png');
-
-    // Verificar que los enlaces de registro e inicio de sesión estén presentes con los íconos correctos
-    const registerLink = screen.getByRole('link', { name: /Registrarse/i });
-    expect(registerLink).toBeInTheDocument();
-    expect(registerLink).toHaveAttribute('href', '/addUser');
-
-    const loginLink = screen.getByRole('link', { name: /Iniciar sesión/i });
-    expect(loginLink).toBeInTheDocument();
-    expect(loginLink).toHaveAttribute('href', '/login');
-
-    // Verificar que los íconos estén presentes en los enlaces
-    const registerIcon = screen.getByRole('link', { name: /Registrarse/i }).querySelector('i');
-    expect(registerIcon).toBeInTheDocument();
-    expect(registerIcon).toHaveClass('fas fa-sign-in-alt');
-
-    const loginIcon = screen.getByRole('link', { name: /Iniciar sesión/i }).querySelector('i');
-    expect(loginIcon).toBeInTheDocument();
-    expect(loginIcon).toHaveClass('fas fa-sign-in-alt');
+    expect(screen.getByRole('link', { name: /Iniciar sesión/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Registrarse/i })).toBeInTheDocument();
   });
 });

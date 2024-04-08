@@ -39,8 +39,6 @@ const App = () => {
     <AuthProvider>
       <Router>
       <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
-       
-
         <Routes>
           <Route path="/" element={<ChakraProvider><PrincipalView darkMode={darkMode}/></ChakraProvider>} />
           <Route path="/login" element={ <GuestLayout> <Login darkMode={darkMode}/> </GuestLayout>} />
@@ -73,8 +71,6 @@ const App = () => {
           <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
           <Route path="/rankingroom/:roomId" element={<AuthenticatedLayout><ChakraProvider> <RankingRoom darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
         </Routes>
-        
-
         <Footer darkMode={darkMode}/>
       </Router>
       </AuthProvider>

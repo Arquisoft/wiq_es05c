@@ -90,14 +90,26 @@ it('should return 404 for nonexistent endpoint', async()=>{
 
 //Caso positivo para el endpoint /getQuestion
 it('should perform the getQuestion request', async () => {
-  const response = await request(app).get('/getQuestion').send();
-  expect(response.statusCode).toBe(200);
-  const data = {
-    pregunta: '¿Cuál es la capital de Francia?',
-    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
-    correcta: 'Paris',
+  const idioma = 'es';
+  //para una pregunta
+  const mockQuestion = {
+    "resultado1":{
+      "pregunta":"¿Cuál es la capital del pais Argelia?",
+      "correcta":"Argel",
+      "respuestasIncorrecta1":"Castries",
+      "respuestasIncorrecta2":"Mogadiscio",
+      "respuestasIncorrecta3":"Oslo"
+    }
   };
-  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+  questionServiceUrl = 'http://localhost:8003';
+
+  axios.get.mockResolvedValue({ data: mockQuestion });
+  
+  const response = await request(app).get(`/getQuestion?idioma=${idioma}`);
+
+  expect(axios.get).toHaveBeenCalledWith(`${questionServiceUrl}/getQuestion?idioma=${idioma}`, {});
+  expect(response.statusCode).toBe(200);
+  expect(response.body).toEqual(mockQuestion);
 });
 
 //Caso positivo para el endpoint /getQuestionDiario
@@ -197,7 +209,7 @@ it('should return an error when the question service request fails', async () =>
         
   expect(response.statusCode).toBe(500);
   expect(response.body.error).toBeDefined();
-  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas');
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> Network Error');
   });
 
 //Caso negativo para el endpoint /getQuestionModoBasico

@@ -3,12 +3,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import Room from './Room';
 import socket from './socket';
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({ roomId: '1234' }),
   useNavigate: () => jest.fn(),
   useLocation: () => ({ state: { isHost: true } }),
 }));
+
 jest.mock('./socket', () => {
     return {
       emit: jest.fn(),
@@ -16,6 +18,20 @@ jest.mock('./socket', () => {
       off: jest.fn(),
     };
   });
+
+jest.mock('i18next', () => ({
+  use: () => {},
+  init: () => {},
+}));
+
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => ({
+      'room': 'Sala: ',
+    })[key],
+  }),
+}));
 
 test('renders Room component', () => {
   render(

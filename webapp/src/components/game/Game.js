@@ -58,6 +58,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     
     if(correctAnswers+incorrectAnswers==gameModeRef.current.questions.length-1)
     setIsFinished(true);
+    setTotalTime(totalTime);
   };
 
   useEffect(() => {
@@ -71,6 +72,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       console.log("use effect finish");
       setIsFinished(true);
       //poner el tiepo que tardo 
+      console.log("tiempo total tardado en acabar ",totalTime);
       gameModeRef.current.setTiempoTotal(totalTime);
       gameModeRef.current.finishGame();
       gameModeRef.current.sendHistory({correctas: correctAnswers, incorrectas: incorrectAnswers, tiempoTotal: totalTime});

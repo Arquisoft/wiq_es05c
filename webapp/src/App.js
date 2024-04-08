@@ -13,8 +13,6 @@ import AuthenticatedLayout from './components/authenticationLayout';
 import GuestLayout from './components/GuestLayout';
 import Logout from './components/logout/Logout';
 import {History} from './components/history/History';
-import {BasicGameMode } from './components/game/gameModes/basicGameMode';
-import {GameProvider} from './components/game/GameContext';
 import PrincipalView from './components/principalView/PrincipalView';
 import Room from './components/rooms/Room'; // Importa el componente de sala
 import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el componente para crear sala
@@ -40,7 +38,7 @@ const App = () => {
     <AuthProvider>
       <Router>
       <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
-        <GameProvider gameMode={new BasicGameMode()}>
+       
 
         <Routes>
           <Route path="/" element={<ChakraProvider><PrincipalView darkMode={darkMode}/></ChakraProvider>} />
@@ -74,7 +72,7 @@ const App = () => {
           <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
           
         </Routes>
-        </GameProvider>
+        
 
         <Footer darkMode={darkMode}/>
       </Router>

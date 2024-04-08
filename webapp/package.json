@@ -23,6 +23,7 @@
     "i18next": "^21.7.1",
     "react-i18next": "^11.13.10",
     "socket.io-client": "^4.7.5",
+    "sweetalert2": "^11.10.7",
     "web-vitals": "^3.5.1"
   },
   "scripts": {

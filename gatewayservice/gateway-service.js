@@ -188,6 +188,20 @@ app.post('/updateHistory', async (req, res) => {
   }
 });
 
+app.get('/getRankingDiarias', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    console.log("empiezo ranking diarias");
+    const historyResponse = await axios.post(historyServiceUrl+'/getRankingDiarias');
+    console.log("paso por el ranking diarias");
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.log("error ranking diarias");
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
 // Start the gateway service
 const server = app.listen(port, () => {
   console.log(`Gateway Service listening at http://localhost:${port}`);

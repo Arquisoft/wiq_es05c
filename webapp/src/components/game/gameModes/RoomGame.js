@@ -67,6 +67,8 @@ class RoomGame extends BasicGame {
         text: `Esperando a que el resto de jugaores terminen la partida `,
         confirmButtonText: 'Cerrar'
       });
+
+      this.navigate('/home');
     }
 
     finishGame(){

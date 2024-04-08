@@ -28,6 +28,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     const startGameAsync = async () => {
       setIsLoading(true);
       gameModeRef.current.idioma = i18n.language;
+      gameModeRef.current.navigate = navigate;//le das la prop dinamicamente al obj 
       await gameModeRef.current.startGame();
       console.log('preguntas', gameModeRef.current.questions);
   

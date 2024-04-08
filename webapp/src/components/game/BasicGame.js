@@ -6,7 +6,7 @@ heredas y sobreescribes  y list */
 
 import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
-
+import { Redirect } from 'react-router-dom';
 class BasicGame extends GameMode {
 
   constructor() {
@@ -48,6 +48,12 @@ class BasicGame extends GameMode {
     console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
+     // Imprimir la función navigate para verificar que se ha pasado correctamente
+    console.log('Función navigate:', this.navigate);
+  
+    
+    //redireccionar al usuario a /home con la prop dinamica que le pasas 
+    this.navigate('/home');
   }
 
   /*

@@ -10,7 +10,7 @@ const Footer = ({darkMode}) => {
   const {t} = useTranslation();
 
   return(  
-  <footer className="footer">
+  <footer className="footer" data-testid="footer">
     <div className="sec-footer">
     <p>{t('subject')}</p>
     </div>

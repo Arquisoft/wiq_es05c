@@ -8,6 +8,7 @@ import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
 
 class BasicGame extends GameMode {
+
   constructor() {
     super();
        // Vincular nextQuestion al contexto correcto
@@ -16,11 +17,15 @@ class BasicGame extends GameMode {
        this.correctas=0;
        this.incorrectas=0;
        this.tiempoTotal=null;
+       this.idioma = null;
     
   }
+
   async fetchQuestions() {
+    if(this.idioma == null)
+      this.idioma = 'en';
     try {
-      const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
+      const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
       const data = await response.json();
   
       this.questions = Object.values(data);
@@ -38,11 +43,13 @@ class BasicGame extends GameMode {
     await this.fetchQuestions();
     this.isLoading = false;
   }
+
   async endGame() {
     console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
   }
+
   /*
   recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 
   */
@@ -92,6 +99,7 @@ class BasicGame extends GameMode {
       });
     }
   }
+
   nextQuestion() {
     if(this.questions.length == 0){
       console.log("no se tiene seguiente preungta , el array es vaicio");
@@ -140,9 +148,11 @@ class BasicGame extends GameMode {
   incrementCorrectas(){
     this.correctas++;
   }
+
   incrementIncorrectas(){
     this.incorrectas++;
   }
+
   setTiempoTotal(time){
     this.tiempoTotal=time;
   }

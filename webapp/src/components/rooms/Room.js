@@ -23,7 +23,7 @@ function Room({ darkMode }) {
   const [winner, setWinner] = useState(null);
 
   //para la internacionalización
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [roomGame, setRoomGame] = useState(null);
   
 
@@ -91,7 +91,7 @@ function Room({ darkMode }) {
   function startGame  (){
       if(!gameStarted && isHost ){
         setGameStarted(true);
-        socket.emit('startGame', { id: roomId });
+        socket.emit('startGame', { id: roomId , idioma: i18n.language});
         console.log("se ha iniciado el juego");
       }
     

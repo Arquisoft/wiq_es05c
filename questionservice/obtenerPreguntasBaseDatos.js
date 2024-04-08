@@ -72,7 +72,7 @@ class ObtenerPreguntas{
         } 
 
         console.log("Preguntas finales: " + objetoExterno);
-            return objetoExterno;
+        return objetoExterno;
         }
         catch(error){
             throw new Error("Error al obtener las preguntas de la base de datos"); 

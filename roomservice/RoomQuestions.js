@@ -107,16 +107,11 @@ class RoomQuestions{
             let winner = this.determineWinner(roomResults);
             console.log("el ganador determinado es "+winner);
             //hacer uhnjson con el ganador y obtener su tiempo y correctas
-            /*
-            let data={
-              winner:winner,
-              correctas:roomResults.get(winner).correctas,
-              tiempoTotal:roomResults.get(winner).tiempoTotal
-            }
-            */
-           let ranking = this.determineRanking(roomResults);
+
+            let ranking = this.determineRanking(roomResults);
+            console.log("ranking",ranking);
             socket.to(id).emit('gameEnded', ranking); // enviar a todos los de sala quien gano 
-            socket.emit('gameEnded', winner); // 
+            socket.emit('gameEnded', ranking); // 
            
           }
         } catch (error) {

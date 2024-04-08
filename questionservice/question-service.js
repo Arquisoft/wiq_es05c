@@ -62,6 +62,8 @@ app.get('/getQuestionDiaria', async(req,res)=> {
 app.get('/getQuestionModoBasico', async(req,res)=> {
   try{      
     const idioma = req.query.idioma;
+
+    console.log("idioma",idioma);
     //coger pregunta bd
     const questions = await question.obtenerPregunta(10, idioma);
     //para devolver la pregunta

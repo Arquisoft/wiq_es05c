@@ -64,13 +64,15 @@ class RoomQuestions{
     /**
      * funcion empieza el juego para todos los usuersz 
      */
-    async startGame(id,socket) {
+    async startGame(id, idioma, socket) {
+      if(idioma==null)
+        idioma = 'en';
         try {
           if (this.checkEnoughPlayers(id)) {
             //crear la zona de reusltado se hace aqui para que en caso de que abandonen la sala no se haya creado ya 
             this.gameResults.set(id,new Map());
 
-            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
+            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico' + '?idioma=' + idioma);
             console.log("Preguntas: "+preguntas.data);
             socket.emit('gameStarted', preguntas.data);
             socket.to(id).emit('gameStarted', preguntas.data);

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
 import BasicGame from './BasicGame';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
@@ -20,9 +21,13 @@ function Game({darkMode,gameMode=new BasicGame()}) {
 
   const gameModeRef = useRef(gameMode);
 
+  //para pasarle el idioma
+  const { i18n } = useTranslation();
+
   useEffect(() => {
     const startGameAsync = async () => {
       setIsLoading(true);
+      gameModeRef.current.idioma = i18n.language;
       await gameModeRef.current.startGame();
       console.log('preguntas', gameModeRef.current.questions);
   

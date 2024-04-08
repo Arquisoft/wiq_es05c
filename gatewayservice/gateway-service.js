@@ -85,8 +85,11 @@ app.get('/getQuestionModoBasico', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
+    console.log("entro en getQuestionModoBasico " + idioma);
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoBasico?idioma=${idioma}`, req.body);
+    
+    console.log("getQuestionModoBasico response: ", questionResponse.data);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
@@ -138,6 +141,18 @@ app.get('/getHistoryTotal', async (req, res) => {
   }
 });
 
+app.post('/updateHistory', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
 //***************************************************endpoints de las salas */
 app.get('/joinroom/:id/:username',async(req,res)=> {
   try {
@@ -173,18 +188,6 @@ app.get('/startgame/:id/:username',async(req,res)=> {
   } catch (error) {
     console.error(error); 
     res.status(500).json({ error: 'Error al crear la sala' });
-  }
-});
-
-app.post('/updateHistory', async (req, res) => {
-  try {
-    // llamamos al servicio de preguntas
-    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
-    
-    res.json(historyResponse.data);
-  } catch (error) {
-    //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
   }
 });
 

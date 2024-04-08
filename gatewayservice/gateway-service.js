@@ -192,7 +192,7 @@ app.get('/getRankingDiarias', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
     console.log("empiezo ranking diarias");
-    const historyResponse = await axios.post(historyServiceUrl+'/getRankingDiarias');
+    const historyResponse = await axios.get(historyServiceUrl+'/getRankingDiarias');
     console.log("paso por el ranking diarias");
     res.json(historyResponse.data);
   } catch (error) {

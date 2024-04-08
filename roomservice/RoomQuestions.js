@@ -107,13 +107,11 @@ class RoomQuestions{
             let winner = this.determineWinner(roomResults);
             console.log("el ganador determinado es "+winner);
             //hacer uhnjson con el ganador y obtener su tiempo y correctas
-            let data={
-              winner:winner,
-              correctas:roomResults.get(winner).correctas,
-              tiempoTotal:roomResults.get(winner).tiempoTotal
-            }
-            socket.to(id).emit('gameEnded', data); // enviar a todos los de sala quien gano 
-            socket.emit('gameEnded', winner); // 
+
+            let ranking = this.determineRanking(roomResults);
+            console.log("ranking",ranking);
+            socket.to(id).emit('gameEnded', ranking); // enviar a todos los de sala quien gano 
+            socket.emit('gameEnded', ranking); // 
            
           }
         } catch (error) {
@@ -121,6 +119,35 @@ class RoomQuestions{
         }
       }
       
+      determineRanking(roomResults) {
+        // Convertir el Map de resultados en un array de objetos
+        let resultsArray = Array.from(roomResults.entries()).map(([username, userResults]) => ({
+          username,
+          correctas: userResults.correctas,
+          tiempoTotal: userResults.tiempoTotal
+        }));
+      
+        // Ordenar el array de resultados por el número de respuestas correctas y el tiempo total
+        resultsArray.sort((a, b) => {
+          if (a.correctas > b.correctas) {
+            return -1;
+          } else if (a.correctas < b.correctas) {
+            return 1;
+          } else {
+            if (a.tiempoTotal < b.tiempoTotal) {
+              return -1;
+            } else if (a.tiempoTotal > b.tiempoTotal) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        });
+      
+        // Devolver el array de resultados ordenado
+        return resultsArray;
+      }
+
       determineWinner(roomResults) {
         let winner = null;
         let maxCorrectAnswers = 0;

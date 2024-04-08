@@ -68,7 +68,7 @@ class RoomGame extends BasicGame {
         confirmButtonText: 'Cerrar'
       });
 
-      this.navigate('/home');
+     
     }
 
     finishGame(){

@@ -61,7 +61,7 @@ app.get('/getQuestion', async (req, res) => {
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> ' + error.response.data.error});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> ' + error.message});
   }
 });
 

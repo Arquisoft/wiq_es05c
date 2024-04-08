@@ -18,6 +18,30 @@ class BasicGame extends GameMode {
        this.tiempoTotal=null;
     
   }
+  //Paso el id y un booleano true si queremos que quede bloqueado o false para desbloquear (disabled solo funciona para inputs creo)
+  //El tipo es porque necesito diferente comportamiento entre el switch que es input y el button
+  blockComponent(typeComponent,componentId, putBlocked){
+    switch(typeComponent){
+      case 0://Switch oscuro claro
+        // Esto para desbloquear el darkMode
+        const switchToBlock = document.getElementById('dark-mode-switch');
+        //Si existe el componente lo deshabilita
+        if (switchToBlock) {
+          switchToBlock.disabled = putBlocked;
+        }
+        break;
+      case 1://Traductor
+        const tradToBlock = document.getElementById('change-language-button');
+        if (tradToBlock) {
+          tradToBlock.setAttribute('inGame', putBlocked);
+        }
+        break;
+      default:
+        console.log('No se ha pasado un tipo de componente correcto');
+        break;
+      }
+    }
+
   async fetchQuestions() {
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
@@ -37,11 +61,15 @@ class BasicGame extends GameMode {
     this.questionIndex = 0;
     await this.fetchQuestions();
     this.isLoading = false;
+    this.blockComponent(0,'dark-mode-switch', true);
+    this.blockComponent(1,'change-language-button', true);
   }
   async endGame() {
     console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
+    this.blockComponent(0,'dark-mode-switch', true);
+    this.blockComponent(1,'change-language-button', true);
   }
   /*
   recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 

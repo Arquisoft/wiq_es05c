@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './startButton.css'
-import { GameContext } from '../game/GameContext';
+//import { GameContext } from '../game/GameContext';
 import { useTranslation } from 'react-i18next';
 
 const StartButton = () => {

@@ -63,7 +63,7 @@ export function Ranking({darkMode}){
                     </Tr>
                 </Thead>
                 <Tbody>
-                {users.map((user, index) => (
+                {ranking.map((user, index) => (
                     <Tr key={index}>
                         <Td textAlign="center">{index + 1}</Td>
                         <Td textAlign="center">{user.user}</Td>

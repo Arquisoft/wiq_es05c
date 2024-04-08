@@ -18,6 +18,7 @@ import Room from './components/rooms/Room'; // Importa el componente de sala
 import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el componente para crear sala
 import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
 import { Ranking } from './components/ranking/Ranking';
+import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
 
 
 const App = () => {
@@ -70,7 +71,7 @@ const App = () => {
           <Route path="/joinroom" element={<AuthenticatedLayout> <ChakraProvider> <JoinRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
           <Route path="/createroom" element={<AuthenticatedLayout> <ChakraProvider><CreateRoomForm /> </ChakraProvider></AuthenticatedLayout>} />
           <Route path="/room/:roomId" element={<AuthenticatedLayout><ChakraProvider> <Room darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
-          
+          <Route path="/rankingroom/:roomId" element={<AuthenticatedLayout><ChakraProvider> <RankingRoom darkMode={darkMode}/> </ChakraProvider></AuthenticatedLayout>} />
         </Routes>
         
 

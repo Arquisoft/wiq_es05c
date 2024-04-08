@@ -65,7 +65,7 @@ function Room({ darkMode }) {
   
     
       // Redirigir a los jugadores a la página de ranking
-      navigate('/ranking', { state: { ranking } });
+      navigate('/rankingroom/'+roomId,{ state: { ranking: ranking } });
     });
     
 

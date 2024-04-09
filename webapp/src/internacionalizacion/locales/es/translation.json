@@ -69,5 +69,16 @@
     "roomEndGame": "Juego terminado",
     "roomWinner": "El ganador es ",
     
-    "close": "Cerrar"
+    "close": "Cerrar",
+
+    "roomGameWaitPlayersStart" : "Esperando al resto de jugadores",
+    "roomGameWaitPlayersEnd" : "Esperando a que el resto de jugaores terminen la partida",
+
+    "basicGameEnd" : "Juego terminado, tus resultados son los siguientes:",
+    "correctAnswers" : "Correctas: ",
+    "wrongAnswers" : "Incorrectas: ",
+    "timePlayed" : "Tiempo total: ",
+
+    "createRoomInfo" : "Al hacer clic en 'Crear Sala', se creará una nueva sala con un ID único. Deberás compartir este ID con las personas que quieras que se unan a tu sala."
+
 }

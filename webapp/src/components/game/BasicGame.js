@@ -7,6 +7,9 @@ heredas y sobreescribes  y list */
 import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
 
+
+import i18n from 'i18next'; // Importa i18n
+
 class BasicGame extends GameMode {
 
   constructor() {
@@ -54,6 +57,7 @@ class BasicGame extends GameMode {
   recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 
   */
   async sendHistory(historyData) {
+
     if (localStorage.getItem('username') != null) {
       if (!('correctas' in historyData) || !('incorrectas' in historyData) || !('tiempoTotal' in historyData)) {
         throw new Error('historyData must have correctas, incorrectas, and tiempoTotal properties');
@@ -67,13 +71,13 @@ class BasicGame extends GameMode {
       };
 
       Swal.fire({
-        title: 'Juego terminado, tus resultados son los siguientes:',
+        title: i18n.t('basicGameEnd'),
         html: `
-          <p>Correctas: ${this.correctas}</p>
-          <p>Incorrectas: ${this.incorrectas}</p>
-          <p>Tiempo total: ${this.tiempoTotal}</p>
+          <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
+          <p>${i18n.t('wrongAnswers')} ${this.incorrectas}</p>
+          <p>${i18n.t('timePlayed')} ${this.tiempoTotal}</p>
         `,
-        confirmButtonText: 'Cerrar'
+        confirmButtonText: i18n.t('close')
       });
   
       console.log("Se envian los siguientes datos al historial", data);

@@ -147,6 +147,8 @@ class ObtenerPreguntas{
             }            
         } 
 
+
+        
         console.log("Preguntas finales: " + objetoExterno);
         return objetoExterno;
         }

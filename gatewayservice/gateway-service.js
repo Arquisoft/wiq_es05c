@@ -102,6 +102,7 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
+    const categoria = req.query.categoria;
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
     res.json(questionResponse.data);
@@ -117,6 +118,7 @@ app.get('/getQuestionModoCustom', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
+    const numPreguntas = req.query.numPreguntas;
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
     res.json(questionResponse.data);

@@ -60,7 +60,7 @@ function Room({ darkMode }) {
     });
     
 
-  }, [roomId,users,navigate,winner]);
+  }, [roomId]);
 
 
   //se encagr ad e que cuando las preguntas esten cargadas crees el modo de juego 

@@ -65,8 +65,9 @@ class RoomQuestions{
      * funcion empieza el juego para todos los usuersz 
      */
     async startGame(id, idioma, socket) {
-      if(idioma==null)
+      if(idioma===null){
         idioma = 'en';
+      }
         try {
           if (this.checkEnoughPlayers(id)) {
             //crear la zona de reusltado se hace aqui para que en caso de que abandonen la sala no se haya creado ya 

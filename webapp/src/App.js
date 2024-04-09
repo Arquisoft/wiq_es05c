@@ -4,7 +4,6 @@ import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
 import { AuthProvider } from './components/authcontext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StartButton from './components/startbutton/StartButton';
 import Game from './components/game/Game';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';

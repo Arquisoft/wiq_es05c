@@ -1,14 +1,12 @@
 import { QuestionArea } from './QuestionArea';
 import { useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
+import { Spinner, Box} from "@chakra-ui/react";
 import BasicGame from './BasicGame';
 import { useTranslation } from 'react-i18next';
 
-const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 function Game({darkMode,gameMode=new BasicGame()}) {
-  const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
@@ -41,7 +39,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     };
   
     startGameAsync();
-  }, []);
+  }, [i18n.language, navigate]);//<-cambiar el array de depencias error despliegue 
 
  
 
@@ -79,14 +77,11 @@ function Game({darkMode,gameMode=new BasicGame()}) {
      }
       
     
-  }, [correctAnswers, incorrectAnswers]);
+  }, [correctAnswers, incorrectAnswers,totalTime]);//<-cambiar el array de depencias error despliegue 
 
 
 
-  const onClose=()=>{
-    setIsOpen(false);
-    navigate('/home');
-  }
+
 
   const handleTimeout = () => {
     handleAnswerSelect(false);

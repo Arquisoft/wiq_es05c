@@ -6,7 +6,6 @@ heredas y sobreescribes  y list */
 
 import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
-import { Redirect } from 'react-router-dom';
 class BasicGame extends GameMode {
 
   constructor() {
@@ -22,7 +21,7 @@ class BasicGame extends GameMode {
   }
 
   async fetchQuestions() {
-    if(this.idioma == null)
+    if(this.idioma === null || this.idioma === undefined)
       this.idioma = 'en';
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
@@ -107,7 +106,7 @@ class BasicGame extends GameMode {
   }
 
   nextQuestion() {
-    if(this.questions.length == 0){
+    if(this.questions.length === 0){
       console.log("no se tiene seguiente preungta , el array es vaicio");
       return; // Salir del método si no hay preguntas
     }

@@ -73,6 +73,39 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     
 }); 
 
+app.get('/getQuestionModoMismaCategoría', async(req,res)=> {
+  try{      
+    const idioma = req.query.idioma;
+    const categoria = req.query.categoria;
+
+    //coger pregunta bd
+    const questions = await question.obtenerPreguntaMismaCategoria(10, idioma, categoria);
+    //para devolver la pregunta
+    res.json(questions);
+    
+  } catch(error) {
+    res.status(500).json({ error: error.message }); 
+  }
+}); 
+
+app.get('/getQuestionModoCustom', async(req,res)=> {
+  try{      
+    const idioma = req.query.idioma;
+    const numPreguntas = parseInt(req.query.numPreguntas);
+
+    if(numPreguntas > 50)numPreguntas=50;//Limito por arriba a 50
+    if(numPreguntas < 1)numPreguntas=1;//Limito por abajo a 1
+
+    //coger pregunta bd
+    const questions = await question.obtenerPregunta(numPreguntas, idioma);
+    //para devolver la pregunta
+    res.json(questions);
+    
+  } catch(error) {
+    res.status(500).json({ error: error.message }); 
+  }
+}); 
+
 // Endpoints para la generación de preguntas
 
 app.get('/generateQuestion', async(req,res)=> {

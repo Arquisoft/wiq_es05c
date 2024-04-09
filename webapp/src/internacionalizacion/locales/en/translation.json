@@ -78,6 +78,12 @@
     "modoInfinito": "Infinite  Mode",
     "modoClasico": "Clasic Mode",  
     "modoDiario": "Daily Challenge",
+
+    "modoCustomTitle": "Custom Game Mode",
+    "customModeNumPreguntas":"Select the number of questions you want in the game",
+    "customModeNumTiempo":"Select the time you want in the game. ",
+    "cancelar": "Cancel",
+    "jugar": "Play",
     
     "close": "Close"
 }

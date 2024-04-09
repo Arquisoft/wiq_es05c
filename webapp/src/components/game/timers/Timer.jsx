@@ -7,6 +7,22 @@ export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkM
     const [progress, setProgress] = useState(100); // Inicia el progreso en 100%
     const intervalRef = useRef(null);
 
+    const resetTimerFunction = () => {
+        clearInterval(intervalRef.current);
+        setProgress(100);
+        const startTime = Date.now();
+        intervalRef.current = setInterval(() => {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = timeout - elapsedTime;
+            const remainingProgress = (remainingTime / timeout) * 100;
+            setProgress(remainingProgress > 0 ? remainingProgress : 0);
+            if (remainingProgress <= 0) {
+                clearInterval(intervalRef.current);
+                onTimeout();
+            }
+        }, 1000); // Actualiza el progreso cada segundo
+    };
+    
     useEffect(() => {
         resetTimer.current = resetTimerFunction;
     }, [resetTimer]);
@@ -32,21 +48,7 @@ export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkM
         return () => clearInterval(intervalRef.current);
     }, [timeout, onTimeout, gameFinish]);
 
-    const resetTimerFunction = () => {
-        clearInterval(intervalRef.current);
-        setProgress(100);
-        const startTime = Date.now();
-        intervalRef.current = setInterval(() => {
-            const elapsedTime = Date.now() - startTime;
-            const remainingTime = timeout - elapsedTime;
-            const remainingProgress = (remainingTime / timeout) * 100;
-            setProgress(remainingProgress > 0 ? remainingProgress : 0);
-            if (remainingProgress <= 0) {
-                clearInterval(intervalRef.current);
-                onTimeout();
-            }
-        }, 1000); // Actualiza el progreso cada segundo
-    };
+  
 
     const color = useColorModeValue(
         progress > 66.6 ? "green.400" : progress > 33.3 ? "orange.400" : "red.400",

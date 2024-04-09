@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,16 @@ function Room({ darkMode }) {
   //para el mensaje del ganador 
   const [setIsOpen] = useState(false);
 
+  const endGameRef = useRef(endGame);
+  const navigateRef = useRef(navigate);
+  const winnerRef = useRef(winner);
+  //para evitar error despligue 
+    useEffect(() => {
+      endGameRef.current = endGame;
+      navigateRef.current = navigate;
+      winnerRef.current = winner;
+  }, [endGame, navigate, winner]);
+
   useEffect(() => {
 
     socket.on('currentUsers', (users) => {
@@ -39,15 +49,15 @@ function Room({ darkMode }) {
 
     socket.on('gameStarted', (questionsServer) => {
       console.log('Juego iniciado, preguntas recibidas : ', questionsServer);
-     
+      
       let room={
-        getQuestions:questionsServer,
-        winner:function (){
-          return winner;
-        },
-        endGame:endGame,
+          getQuestions:questionsServer,
+          winner:function (){
+              return winnerRef.current;
+          },
+          endGame:endGameRef.current,
       }
-      setRoomGame(new RoomGame(room, navigate));
+      setRoomGame(new RoomGame(room, navigateRef.current));
 
       setGameStarted(true);
     });

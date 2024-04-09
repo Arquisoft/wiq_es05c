@@ -88,11 +88,12 @@ class ObtenerPreguntas{
             console.log("Cat: " + categoria);
             var resultado = {};
             var objetoExterno= {};
-            var categoria = await Categoria.findOne({ nombre: categoria });
-            console.log("Categoria: "+categoria);
+            var cat = await Categoria.findOne({ nombre: categoria });
+            console.log("Categoria: "+cat);
+            console.log("id: "+cat._id);
             //Se cojen las preguntas del numero que se pase por parametro
             var preguntas = await Pregunta.aggregate([
-                { $match: { categoria: categoria } }, // Filtra las preguntas por categoría
+                { $match: { categoria: cat._id } }, // Filtra las preguntas por categoría
                 { $sample: { size: numeroPreguntas } }
             ]);
 

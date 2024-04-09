@@ -1,6 +1,7 @@
 const { default: BasicGame } = require("../BasicGame");
+const { default: GameMode } = require("./GameMode");
 
-class CustomGameMode extends BasicGame{
+class InfinityGameMode extends BasicGame{
     constructor(){
         super();
     }
@@ -18,5 +19,8 @@ class CustomGameMode extends BasicGame{
         }
         return this.questions;
       }
+    
+   
 }
-module.exports = CustomGameMode;
+
+module.exports =  InfinityGameMode ;

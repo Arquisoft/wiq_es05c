@@ -16,7 +16,7 @@ const Footer = ({darkMode}) => {
     </div>
     <div className="sec-footer">
       <img src={darkMode ? "/logoGitHubBlanco.png" : "/logoGitHub.png"} alt="Logo Github" style={{ width: '20px', marginRight: '5px' }} />
-      <a href="https://github.com/Arquisoft/wiq_es04c" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/Arquisoft/wiq_es05c" target="_blank" rel="noopener noreferrer">
         {t('github')}
       </a>
     </div>

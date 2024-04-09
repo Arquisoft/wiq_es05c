@@ -1,6 +1,9 @@
 const { default: BasicGame } = require("../BasicGame");
 
 class SameCategoryMode extends BasicGame{
+  constructor(){
+    super();
+}
     async fetchQuestions() {
         try {
         //getQuestionModoMismaCategoria?idioma=${idioma}?=categoria=${categoria}
@@ -16,3 +19,4 @@ class SameCategoryMode extends BasicGame{
         return this.questions;
       }
 }
+module.exports =  SameCategoryMode ;

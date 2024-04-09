@@ -79,8 +79,13 @@ class ObtenerPreguntas{
         }
     }
     async obtenerPreguntaMismaCategoria(numeroPreguntas, idioma, categoria){    
+        console.log("Numero de preguntas: " + numeroPreguntas);
+        console.log("Cat: " + categoria);
         try{
+            console.log("creo iud: " );
+            //const cat = new ObjectId("65f077ea862bce1334c091e8");
             console.log("Numero de preguntas: " + numeroPreguntas);
+            console.log("Cat: " + categoria);
             var resultado = {};
             var objetoExterno= {};
             var categoria = await Categoria.findOne({ nombre: categoria });

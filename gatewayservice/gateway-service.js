@@ -98,6 +98,7 @@ app.get('/getQuestionModoBasico', async (req, res) => {
 
 
 app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;

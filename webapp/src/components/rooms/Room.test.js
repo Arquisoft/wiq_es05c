@@ -43,7 +43,6 @@ test('renders Room component', () => {
   );
 });
 
-
 test('renders Room component with correct room ID', () => {
   render(
     <Router>
@@ -56,8 +55,6 @@ test('renders Room component with correct room ID', () => {
   expect(screen.getByText('Sala: 1234')).toBeInTheDocument();
 });
 
-/*
-Comentado para probar el despliegue (dan un bucle infinito)
 test('renders Room component with users', () => {
     socket.on.mockImplementation((event, callback) => {
       if (event === 'currentUsers') {
@@ -95,4 +92,3 @@ test('renders Room component with users', () => {
     expect(screen.getByText('user1')).toBeInTheDocument();
     expect(screen.getByText('user2')).toBeInTheDocument();
   });
-  */

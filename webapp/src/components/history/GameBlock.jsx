@@ -28,29 +28,6 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
-    
-    function formatTime(tiempo) {
-        let hours = Math.floor(tiempo / 3600);
-        tiempo %= 3600;
-    
-        let minutes = Math.floor(tiempo / 60);
-        let seconds =  Math.floor(tiempo % 60);
-            
-        let tiempoFormateado = '';
-    
-        if (hours > 0) {
-            tiempoFormateado += `${hours.toFixed(2)}h `;
-        }
-    
-        if (minutes > 0 || hours > 0) { // Si hay horas, se mostrarán los minutos aunque sean 0
-            tiempoFormateado += `${minutes.toFixed(2)}m `;
-        }
-    
-        tiempoFormateado += `${seconds.toFixed(2)}s`;
-    
-        return tiempoFormateado;
-    }
-
     //Esta funcion devuelve el color en vista de los aciertos/fallos
     function getBackgroundColor(aciertos, total) {
         let porcentaje = aciertos / total;
@@ -64,7 +41,6 @@ export function GameBlock( {darkMode, gameInfo} ){
         }
     }
 
-    let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';
     let text = darkMode ? '#FCFAF0' : '#08313A';
     let titles = darkMode ? '#90ADC6' : '#00325E';
 

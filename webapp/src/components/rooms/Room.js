@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -17,14 +17,14 @@ function Room({ darkMode }) {
   const [gameStarted, setGameStarted] = useState(false);
 
 
-  const [winner, setWinner] = useState(null);
+  const [winner] = useState(null);
 
   //para la internacionalización
   const {t, i18n} = useTranslation();
   const [roomGame, setRoomGame] = useState(null);
   
   //para el mensaje del ganador 
-  const [isOpen, setIsOpen] = useState(false);
+  const [setIsOpen] = useState(false);
 
   useEffect(() => {
 

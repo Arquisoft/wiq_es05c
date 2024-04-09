@@ -54,7 +54,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
 
     console.log('comprobar si se pone a true el finished:preguntas tamaño,correctas e incorrecas ',gameModeRef.current.questions.length)
     
-    if(correctAnswers+incorrectAnswers==gameModeRef.current.questions.length-1)
+    if(correctAnswers+incorrectAnswers === gameModeRef.current.questions.length-1)
     setIsFinished(true);
     setTotalTime(totalTime);
   };
@@ -77,11 +77,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
      }
       
     
-  }, [correctAnswers, incorrectAnswers,totalTime]);//<-cambiar el array de depencias error despliegue 
-
-
-
-
+  }, [correctAnswers, incorrectAnswers,totalTime, isFinished]);//<-cambiar el array de depencias error despliegue 
 
   const handleTimeout = () => {
     handleAnswerSelect(false);

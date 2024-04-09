@@ -3,10 +3,6 @@ import { CircularProgress, CircularProgressLabel, useColorModeValue } from '@cha
 import { Box } from "@chakra-ui/react";
 
 
-// Define `resetTimerFunction` or import it from another module
-const resetTimerFunction = () => {
-    // Your code here
-  };
 export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkMode,gameFinish }) => {
     const [progress, setProgress] = useState(100); // Inicia el progreso en 100%
     const intervalRef = useRef(null);
@@ -14,8 +10,6 @@ export const Timer = React.memo(({ onTimeout, timeout = 30000, resetTimer, darkM
     useEffect(() => {
         resetTimer.current = resetTimerFunction;
     }, [resetTimer]);
-
-   
 
     useEffect(() => {
         const startTime = Date.now();

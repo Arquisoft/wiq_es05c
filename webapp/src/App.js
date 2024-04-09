@@ -9,6 +9,7 @@ import Game from './components/game/Game';
 import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
 import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
 import CustomGameMode from './components/game/gameModes/CustomGameMode';
+import {CustomWindow} from './components/game/gameModes/CustomWindow';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -41,7 +42,6 @@ const App = () => {
   const customMode = new CustomGameMode();
   const infinityMode = new InfinityGameMode();
 
-
   return (
     <AuthProvider>
       <Router>
@@ -72,6 +72,11 @@ const App = () => {
           <Route path="/gameCustom" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode} gameMode={customMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/customWindow" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><CustomWindow/></ChakraProvider>
             </AuthenticatedLayout>
           } />
           <Route path="/gameInfinity" element={

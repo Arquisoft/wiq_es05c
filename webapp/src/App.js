@@ -76,7 +76,7 @@ const App = () => {
           } />
           <Route path="/customWindow" element={
             <AuthenticatedLayout>
-              <ChakraProvider><CustomWindow/></ChakraProvider>
+              <ChakraProvider><CustomWindow darkMode={darkMode}/></ChakraProvider>
             </AuthenticatedLayout>
           } />
           <Route path="/gameInfinity" element={

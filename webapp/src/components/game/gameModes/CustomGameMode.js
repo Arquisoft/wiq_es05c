@@ -22,3 +22,5 @@ class CustomGameMode extends BasicGame{
     
    
 }
+
+module.exports =  CustomGameMode ;

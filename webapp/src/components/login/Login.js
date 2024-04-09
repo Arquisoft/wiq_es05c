@@ -119,7 +119,7 @@ const Login = (darkMode) => {
           />
           
           <Typography>
-          <Link to="/adduser" style={{color: text}}>{t('loginToAddUser')}</Link>
+          <Link id="register" to="/adduser" style={{color: text}}>{t('loginToAddUser')}</Link>
 
             </Typography>
           <Button variant="contained" color="primary" onClick={loginUser} 

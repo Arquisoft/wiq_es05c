@@ -73,7 +73,7 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     
 }); 
 
-app.get('/getQuestionModoMismaCategoría', async(req,res)=> {
+app.get('/getQuestionModoMismaCategoria', async(req,res)=> {
   try{      
     const idioma = req.query.idioma;
     const categoria = req.query.categoria;

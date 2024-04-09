@@ -55,48 +55,40 @@ test('renders Room component with correct room ID', () => {
   expect(screen.getByText('Sala: 1234')).toBeInTheDocument();
 });
 
-test('renders Room component with users', async () => {
-  socket.once.mockImplementation((event, callback) => {
-    if (event === 'currentUsers') {
-      setTimeout(() => callback({ 'user1': true, 'user2': true }), 0);
-    }
+test('renders Room component with users', () => {
+    socket.on.mockImplementation((event, callback) => {
+      if (event === 'currentUsers') {
+        callback({ 'user1': true, 'user2': true });
+      }
+    });
+  
+    render(
+      <Router>
+        <ChakraProvider>
+          <Room darkMode={false} />
+        </ChakraProvider>
+      </Router>
+    );
+  
+    expect(screen.getByText('user1')).toBeInTheDocument();
+    expect(screen.getByText('user2')).toBeInTheDocument();
   });
 
-  render(
-    <Router>
-      <ChakraProvider>
-        <Room darkMode={false} />
-      </ChakraProvider>
-    </Router>
-  );
-
-  // Use `findByText` to wait for the users to be rendered
-  const user1 = await screen.findByText('user1');
-  const user2 = await screen.findByText('user2');
-
-  expect(user1).toBeInTheDocument();
-  expect(user2).toBeInTheDocument();
-});
-
-test('renders Room component with users', async () => {
-  socket.once.mockImplementation((event, callback) => {
-    if (event === 'currentUsers') {
-      callback({ 'user1': true, 'user2': true });
-    }
+  test('renders Room component with users', () => {
+    socket.on.mockImplementation((event, callback) => {
+      if (event === 'currentUsers') {
+        callback({ 'user1': true, 'user2': true });
+      }
+    });
+  
+    render(
+      <Router>
+        <ChakraProvider>
+          <Room darkMode={false} />
+        </ChakraProvider>
+      </Router>
+    );
+  
+    expect(screen.getByText('user1')).toBeInTheDocument();
+    expect(screen.getByText('user2')).toBeInTheDocument();
   });
-
-  render(
-    <Router>
-      <ChakraProvider>
-        <Room darkMode={false} />
-      </ChakraProvider>
-    </Router>
-  );
-
-  // Use `findByText` to wait for the users to be rendered
-  const user1 = await screen.findByText('user1');
-  const user2 = await screen.findByText('user2');
-
-  expect(user1).toBeInTheDocument();
-  expect(user2).toBeInTheDocument();
-});

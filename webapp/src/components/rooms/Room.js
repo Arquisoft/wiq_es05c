@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import socket from './socket';
-import Game  from '../game/GameMultiplayer';
+import Game  from '../game/Game';
+import { useTranslation } from 'react-i18next';
 
-function Room() {
-  const nagivate = useNavigate();
+import RoomGame from '../game/gameModes/RoomGame';
+function Room({ darkMode }) {
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
   const isHost = location.state?.isHost;
@@ -20,15 +22,19 @@ function Room() {
 
   const [winner, setWinner] = useState(null);
 
+  //para la internacionalización
+  const {t, i18n} = useTranslation();
+  const [roomGame, setRoomGame] = useState(null);
+  
 
   //para el mensaje del ganador 
   const [isOpen, setIsOpen] = useState(false);
   const cancelRef = useRef();
   const onClose = () =>{
     setIsOpen(false);
-    nagivate('/home');
+    navigate('/home');
   };
-
+ 
   useEffect(() => {
 
     socket.on('currentUsers', (users) => {
@@ -40,23 +46,33 @@ function Room() {
     console.log("eres el host "+isHost);
 
 
-    socket.on('gameStarted', (questions) => {
-      //hace la peticion por la preguntas a la gateway y se las manda los jugadores 
-      console.log('Juego iniciado, preguntas: ', questions);
-      const formated =Object.values(questions);
-      setQuestions(formated);
+    socket.on('gameStarted', (questionsServer) => {
+      console.log('Juego iniciado, preguntas recibidas : ', questionsServer);
+     
+      let room={
+        getQuestions:questionsServer,
+        winner:function (){
+          return winner;
+        },
+        endGame:endGame,
+      }
+      setRoomGame(new RoomGame(room, navigate));
+
       setGameStarted(true);
     });
-
-    socket.on('gameEnded', ( winner ) => {
-      console.log('Juego terminado, ganador: ', winner);
-      setWinner(winner);
+    socket.on('gameEnded', (ranking) => {
+      console.log('Juego terminado, ranking:', ranking);
+  
+    
+      // Redirigir a los jugadores a la página de ranking
+      navigate('/rankingroom/'+roomId,{ state: { ranking: ranking } });
     });
-    //limpiar el evento 
-    return () => socket.off('gameEnded');
     
 
   }, [roomId]);
+
+
+  //se encagr ad e que cuando las preguntas esten cargadas crees el modo de juego 
 
   //muestra el ganador 
   useEffect(() => {
@@ -64,60 +80,42 @@ function Room() {
       setIsOpen(true);
     }
   }, [winner]);
+  
   function startGame  (){
-
-      if(!gameStarted && isHost){
-        //setGameStarted(true);
-        socket.emit('startGame', { id: roomId });
+      if(!gameStarted && isHost ){
+        setGameStarted(true);
+        socket.emit('startGame', { id: roomId , idioma: i18n.language});
         console.log("se ha iniciado el juego");
       }
-     
-
-      
     
   }
+
+ 
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
+
+    console.log("emitir endGame socket.io");
     socket.emit('endGame', {id:roomId, results:results});
 
   }
-
+  //pasasrlelos datos al juego 
   
+  
+
+
+
 
   return (
     <div>
-      <h1>Sala: {roomId}</h1>
-      <h2>Usuarios:</h2>
+      <h1>{t('room')}{roomId}</h1>
+      <h2>{t('roomUsers')}</h2>
       <ul>
         {Object.keys(users).map((username, index) => (
             <li key={index}>{username}</li>
           ))}
       </ul>
-      {isHost && <button onClick={startGame} disabled={gameStarted}>Iniciar Juego</button>}
-      {gameStarted && questions.length > 0 && <Game questions={questions} endGame={endGame} />}
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Juego terminado
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              El ganador es {winner}
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cerrar
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      {isHost && <button onClick={startGame} disabled={gameStarted}>{t('roomStartGameButton')}</button>}
+      {gameStarted && roomGame!=null && <Game darkMode={darkMode} gameMode={roomGame} />}
     </div>
   );
 }

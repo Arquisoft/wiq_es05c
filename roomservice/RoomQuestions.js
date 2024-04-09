@@ -10,32 +10,31 @@ class RoomQuestions{
         this.io = io;
     }
     async joinRoom(id, username, socket) {
+      console.log("valores del join room params id "+id+" username "+username+" socket "+socket);
       try {
-        if (id != null && id !== undefined) {
+        if (id && id.trim() !== '') { // Comprueba que la id no sea null, undefined o un string vacío
           if (this.rooms.has(id)) { // Verifica si la sala existe
             let userList = this.rooms.get(id);
-             // Verifica si el usuario ya existe en la sala
+            // Verifica si el usuario ya existe en la sala
             if (!userList.includes(username)) {
               userList.push(username);
               this.rooms.set(id, userList);
             }
-           // console.log("Rooms after adding: " + JSON.stringify([...this.rooms])); // mostrar los usuarios de la sala 
     
-            //asociar el socket a la sala
+            // Asociar el socket a la sala
             socket.join(id);
             // Emitir evento 'roomJoined' solo al usuario que se acaba de unir a la sala
             socket.emit('roomJoined', id);
-    
-         
-            this.emitCurrentUsers(id, socket);
+            console.log(`Usuario ${username} se ha unido a la sala ${id}`);
           } else {
-            throw new Error("la sala no existe ");
+            console.log(`La sala con id ${id} no existe.`);
+            throw new Error("la sala no existe");
+           
           }
-        } else {
-          throw new Error("ID de sala inválido");
         }
       } catch (error) {
-        console.log(error);
+        console.log(`Error al unirse a la sala: ${error.message}`);
+        throw new Error('Error al unirse a la sala:', error);
       }
     }
 
@@ -65,13 +64,15 @@ class RoomQuestions{
     /**
      * funcion empieza el juego para todos los usuersz 
      */
-    async startGame(id,socket) {
+    async startGame(id, idioma, socket) {
+      if(idioma==null)
+        idioma = 'en';
         try {
           if (this.checkEnoughPlayers(id)) {
             //crear la zona de reusltado se hace aqui para que en caso de que abandonen la sala no se haya creado ya 
             this.gameResults.set(id,new Map());
 
-            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
+            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico' + '?idioma=' + idioma);
             console.log("Preguntas: "+preguntas.data);
             socket.emit('gameStarted', preguntas.data);
             socket.to(id).emit('gameStarted', preguntas.data);
@@ -105,8 +106,12 @@ class RoomQuestions{
             // Si todos los usuarios han terminado el juego, determinar quién ha ganado
             let winner = this.determineWinner(roomResults);
             console.log("el ganador determinado es "+winner);
-            socket.to(id).emit('gameEnded', winner); // enviar a todos los de sala quien gano 
-            socket.emit('gameEnded', winner); // 
+            //hacer uhnjson con el ganador y obtener su tiempo y correctas
+
+            let ranking = this.determineRanking(roomResults);
+            console.log("ranking",ranking);
+            socket.to(id).emit('gameEnded', ranking); // enviar a todos los de sala quien gano 
+            socket.emit('gameEnded', ranking); // 
            
           }
         } catch (error) {
@@ -114,6 +119,35 @@ class RoomQuestions{
         }
       }
       
+      determineRanking(roomResults) {
+        // Convertir el Map de resultados en un array de objetos
+        let resultsArray = Array.from(roomResults.entries()).map(([username, userResults]) => ({
+          username,
+          correctas: userResults.correctas,
+          tiempoTotal: userResults.tiempoTotal
+        }));
+      
+        // Ordenar el array de resultados por el número de respuestas correctas y el tiempo total
+        resultsArray.sort((a, b) => {
+          if (a.correctas > b.correctas) {
+            return -1;
+          } else if (a.correctas < b.correctas) {
+            return 1;
+          } else {
+            if (a.tiempoTotal < b.tiempoTotal) {
+              return -1;
+            } else if (a.tiempoTotal > b.tiempoTotal) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        });
+      
+        // Devolver el array de resultados ordenado
+        return resultsArray;
+      }
+
       determineWinner(roomResults) {
         let winner = null;
         let maxCorrectAnswers = 0;
@@ -166,5 +200,15 @@ class RoomQuestions{
         console.log(`La sala con id ${id} no existe.`);
       }
     }
+    getRoomUsers(id) {
+      // Check if the room exists
+      if (this.rooms.has(id)) {
+          // Return the list of users in the room
+          return this.rooms.get(id);
+      } else {
+          // If the room does not exist, return an empty array
+          return [];
+      }
+  }
 }
 module.exports=RoomQuestions;

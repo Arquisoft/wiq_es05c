@@ -1,6 +1,11 @@
 import { Box, Text, Heading } from "@chakra-ui/react";
+import { useTranslation } from 'react-i18next';
 
 export function GameBlock( {darkMode, gameInfo} ){
+
+    
+    //para la internacionalización
+    const {t, i18n} = useTranslation();
 
     console.log("Partida: " + gameInfo);
     /*
@@ -11,10 +16,11 @@ export function GameBlock( {darkMode, gameInfo} ){
         let tiempo = gameInfo.tiempo;
     */
    //Parseo la fecha, la dife de hora es que la pasa a la hora de españa
-   //Sin parsear 2024-03-20T00:00:00.000Z --- Parseada  20 de marzo de 2024, 01:00
+   //Sin parsear 2024-03-20T00:00:00.000Z --- Parseada  20 de marzo de 2024, 01:00 
+   
     let fecha = new Date(gameInfo.fecha);
     let options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    let fechaFormateada = fecha.toLocaleDateString(undefined, options);
+    let fechaFormateada = fecha.toLocaleDateString(i18n.language, options);
 
     let numeroJuego = gameInfo.numeroJuego;
     let aciertos = gameInfo.preguntas_acertadas;
@@ -51,7 +57,11 @@ export function GameBlock( {darkMode, gameInfo} ){
     
         let hue = porcentaje * 120; // Interpola entre rojo (0) y verde (120) en el espacio de color HSL
     
-        return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+        if(darkMode){
+            return `hsl(${hue}, 50%, 20%)`; // Devuelve un color en formato HSL más oscuro
+        }else{
+            return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+        }
     }
 
     let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';
@@ -67,22 +77,22 @@ export function GameBlock( {darkMode, gameInfo} ){
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{numeroJuego}</Text>
             </Box>
             <Box id='fecha-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly" borderRight={"1px solid"+text}>
-                <Heading fontSize='1.5em' color={text} textAlign="center">Fecha</Heading>
+                <Heading fontSize='1.5em' color={text} textAlign="center">{t('date')}</Heading>
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{fechaFormateada}</Text>
             </Box>
             <Box id='accuarcy-partida' flex="4" display="flex" flexDirection="column" borderRight={"1px solid"+text}>
                 <Box id='num-aciertos' display="flex" flexDirection="column" margin="1em">
-                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">Número aciertos</Heading>
+                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
                     <Text fontSize='1.5em' color="#32CD30" textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
                 </Box>
                 <Box id='num-fallos' display="flex" flexDirection="column" margin="1em"  alignItems="center"> 
-                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">Número fallos</Heading>
+                    <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
                     <Text fontSize='1.5em' color="#970C10" textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
                 </Box>
             </Box>
             <Box id='duracion-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly">
-                <Heading fontSize='1.5em' color={text} textAlign="center">Duración partida</Heading>
-                <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{tiempo}s</Text>
+                <Heading fontSize='1.5em' color={text} textAlign="center">{t('gameTime')}</Heading>
+                <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{tiempo}{t('timeUnit')}</Text>
             </Box>
         </Box>
     );

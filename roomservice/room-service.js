@@ -34,10 +34,12 @@ io.on('connection', (socket) => {
     try {
       console.log("microservicio--joinroom , valor id "+id+" username "+username);
       await roomQuestions.joinRoom(id, username,socket);
-      console.log(`Usuario ${username} se ha unido a la sala ${id}`);
+     // console.log(`Usuario ${username} se ha unido a la sala ${id}`);
   
     } catch (error) {
       console.log(`Error al unir al usuario a la sala: ${error.message}`);
+      socket.emit('roomErrorJoining');
+      console.log("error al unir al usuario a la sala lanzado envento RoomErrorJoining");
     }
   });
   // Evento personalizado para crear una sala
@@ -59,9 +61,9 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('startGame', async ({id}) => {
+  socket.on('startGame', async ({id, idioma}) => {
     console.log("solicitud empezar juego sala:"+id);
-    roomQuestions.startGame(id,socket);
+    roomQuestions.startGame(id,idioma, socket);
   });
 
 
@@ -78,3 +80,5 @@ io.on('connection', (socket) => {
 
 // Iniciar el servidor
 server.listen(port, () => console.log(`Servidor corriendo en el puerto ${port}`));
+
+module.exports = server;

@@ -4,6 +4,9 @@ const cron = require('node-cron');
 const QuestionGenerator = require('./questionGeneration');
 const questionGenerator = new QuestionGenerator();
 
+const ObtenerPreguntaDiaria = require('./obtenerPreguntasBaseDatos');
+const obtenerPreguntaDiaria = new ObtenerPreguntaDiaria();
+
 
 class Scheduler {
 
@@ -19,6 +22,23 @@ class Scheduler {
         }
     }
 
+    async generarPreguntaDiaria() {
+        try {
+            const fecha = new Date(); // Obtenemos la fecha actual
+            // como nos da tambien la hora y no queremos eso, la eliminamos
+            const año = fecha.getFullYear();
+            const mes = fecha.getMonth() + 1;
+            const dia = fecha.getDate();
+            // Formateamos la fecha para que sea compatible con la base de datos
+            const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+
+            await obtenerPreguntaDiaria.generarPreguntaDiaria(fechaSinHora); //Generamos la pregunta diaria
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     start() {
         cron.schedule('*/30 * * * *', async () => {
             try {
@@ -28,6 +48,18 @@ class Scheduler {
                 console.error('Fallo al generar la pregunta:', error);
             }
         });
+
+        //para generar la pregunta diaria
+        
+        cron.schedule('0 0 */1 * *', async () => {
+            try {
+                await this.generarPreguntaDiaria();
+            }
+            catch (error) {
+                console.error('Fallo al generar la pregunta diaria:', error);
+            }
+        });
+        
     }
 }
 

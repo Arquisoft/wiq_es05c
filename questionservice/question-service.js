@@ -29,22 +29,27 @@ app.use(express.json());
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questionsdb';
 mongoose.connect(mongoUri);
 
+// Endpoints para la obtención de preguntas para los modos de juego
+
 app.get('/getQuestion', async(req,res)=> {
-  try{  
+  try{      
+    const idioma = req.query.idioma;
     //coger pregunta bd
-    const questions = await question.obtenerPregunta(1);
+    const questions = await question.obtenerPregunta(1, idioma);
     //para devolver la pregunta
     res.json(questions);
     
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(500).json({ error: error.message }); 
   }
-    
 }); 
-app.get('/getQuestionModoBasico', async(req,res)=> {
-  try{  
+
+app.get('/getQuestionDiaria', async(req,res)=> {
+  try{      
+    const idioma = req.query.idioma;
+    const fecha = req.query.fecha;
     //coger pregunta bd
-    const questions = await question.obtenerPregunta(10);
+    const questions = await question.obtenerPreguntaDiaria(idioma, fecha);
     //para devolver la pregunta
     res.json(questions);
     
@@ -54,14 +59,31 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     
 }); 
 
+app.get('/getQuestionModoBasico', async(req,res)=> {
+  try{      
+    const idioma = req.query.idioma;
+
+    console.log("idioma",idioma);
+    //coger pregunta bd
+    const questions = await question.obtenerPregunta(10, idioma);
+    //para devolver la pregunta
+    res.json(questions);
+    
+  } catch(error) {
+    res.status(500).json({ error: error.message }); 
+  }
+    
+}); 
+
+// Endpoints para la generación de preguntas
+
 app.get('/generateQuestion', async(req,res)=> {
     try{  
-      const instancia =  newquestion.ejecutarOperaciones();
-     
+      await newquestion.ejecutarOperaciones();           
+      res.status(200).send("Pregunta generada y guardada correctamente.");
     } catch(error) {
-      res.status(error.response.status).json({ error: error.response.data.error });
-    }
-      
+      res.status(500).json({ error: error.message }); 
+    }      
   });
 
 

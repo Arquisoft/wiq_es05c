@@ -13,11 +13,8 @@ image::level1.png["Level 1"]
 
 Motivation::
 
-The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application. 
-By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.
-The motivation for undertaking this decomposition is to gain a clear vision of the system developed for the WIQ application. 
-By breaking down the system into its constituent building blocks, we aim to establish a comprehensive understanding of its structure and functionality.
-
+The motivation for performing this decomposition is to obtain a clear view of the system developed for the WIQ application.
+By breaking the system down into its basic components, we aim to establish a comprehensive understanding of its structure and functionality.
 
 Contained Building Blocks::
 
@@ -26,45 +23,48 @@ Contained Building Blocks::
 | **Name** | **Responsibility**
 | Webapp | Provides the interface to register, play and check participation history
 | Gateway service | Facilitates communication between the different ports of the application
-| Databases | Stores information about users, games, questions and correct/failed answers
-| Services | They receive requests from the gateway service and execute the corresponding operations
+| Authservice | Allows a user to create an account in our application
+| Userservice | Allows a user to access our application to play and view their history
+| Roomservice | Service that handles multiplayer gaming in rooms
+| Historyservice | Service that is responsible for saving and returning the history of user games
+| Questionservice | It calls the Wikidata API using queries to retrieve questions, then stores them in the database. Additionally, it retrieves questions from the database when needed.
+| Databases | Stores information about users, games, questions and history
 |===
 
 
 === Level 2
 
-==== White Box User Interface
+==== White Box Users Services
 
-image::Level2Webapp.png["Level 2 Webapp"]
-
-[cols="1,2" options="header"]
-|===
-| **Name** | **Responsibility**
-| homepage | Allows a user to log in or sign up an account
-| gamepage | Allows a user to play the game
-| participation history | Allows the user to consult the history of their participation in the system
-|===
-
-==== White Box Services
-
-image::Level2Services.png["Level 2 Business Logic"]
+image::level2-Users.png["Level 2 Users Services"]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| authservice | Allows a user to create an account in our application
-| userservice | Allows a user to access our application to play and view their history
-| questionsService | It calls the Wikidata API using queries to retrieve questions, then stores them in the database. Additionally, it retrieves questions from the database when needed.
+| authservice | The authentication service validates user credentials by verifying their existence in the database and ensuring the correctness of the provided password.
+| userservice | The registration service validates user registration details by checking the uniqueness of the email and username in the database, as well as verifying the format and correctness of the provided password, ensuring it matches the repeated entry.
+| userdb | The user database stores user information, including their email, username, and hashed password. Each user have their credentials securely stored for authentication purposes.
 |===
 
-==== White Box Databases
+==== White Box Questionservice
 
-image::Level2Databases.png["Level 2 Database"]
+image::level2-Question.png["Level 2 Questionservice"]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| usersdb | Store all the information of the users
-| questionsdb | Store all the information of the questions
+| questionservice | The questionservice automatically generates questions by making a call to the Wikidata API, retrieving relevant information, and subsequently saving the generated question in the database. Additionally, it is responsible for providing questions tailored for each type of game available in the application.
+| questionsdb | Database that stores the question along with their correct answer, the category to which the question belongs, the type of the question and the answers to those questions.
 |===
+
+==== White Box Historyservice
+
+image::level2-History.png["Level 2 Historyservice"]
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| historyservice | The historyservice is responsible for storing data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.
+| historydb | The historydb stores user data and maintains a record of each normal game played. For every game, it saves essential details including the game number, the number of correct questions, the number of failed questions, the time taken to complete the game, and the date on which it was played.
+
 

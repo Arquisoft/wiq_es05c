@@ -5,6 +5,7 @@ const History = mongoose.model('historial');
 const datosDePrueba = [
   {
     user: 'usuario1',
+    diariasAcertadas: 0,
     juegos: [
       {
         numeroJuego: 1,
@@ -24,6 +25,7 @@ const datosDePrueba = [
   },
   {
     user: 'usuario2',
+    diariasAcertadas: 2,
     juegos: [
       {
         numeroJuego: 1,

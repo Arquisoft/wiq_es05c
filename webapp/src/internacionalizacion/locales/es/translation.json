@@ -40,6 +40,10 @@
     "questionsPercentage": " %",
 
     "ranking": "Ranking",
+    "rankingTitle": "Ranking de usuarios",
+    "rankingPos": "Posición",
+    "rankingUserName": "Jugador",
+    "rankingAcertadasDiarias": "Preguntas diarias acertadas",
 
     "loginWelcomeMessage": "Bienvenido ",
     "loginDate": "Tu cuenta fue creada el ",
@@ -68,6 +72,17 @@
     "roomStartGameButton": "Iniciar Juego",
     "roomEndGame": "Juego terminado",
     "roomWinner": "El ganador es ",
-    
+    "modoCustom" : "Modo personalizado",
+    "modoMismaCategoria" : "Modo maestro del tema",
+    "modoInfinito": "Modo infinito",
+    "modoClasico": "Modo clásico",  
+    "modoDiario": "Desafio diario",
+
+    "modoCustomTitle": "Modo de juego personalizado",
+    "customModeNumPreguntas":"Seleccione el número de preguntas que desea en la partida: ",
+    "customModeNumTiempo":"Seleccione el tiempo que desea de la partida: ",
+    "cancelar": "Cancelar",
+    "jugar": "Jugar",
+
     "close": "Cerrar"
 }

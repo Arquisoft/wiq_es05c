@@ -6,6 +6,10 @@ import { AuthProvider } from './components/authcontext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StartButton from './components/startbutton/StartButton';
 import Game from './components/game/Game';
+import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
+import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
+import CustomGameMode from './components/game/gameModes/CustomGameMode';
+import {CustomWindow} from './components/game/gameModes/CustomWindow';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -35,6 +39,10 @@ const App = () => {
     }
   }, [darkMode]);
 
+  const sameCatMode = new SameCategoryMode();
+  const customMode = new CustomGameMode();
+  const infinityMode = new InfinityGameMode();
+
   return (
     <AuthProvider>
       <Router>
@@ -55,6 +63,26 @@ const App = () => {
           <Route path="/game" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameSameCat" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={sameCatMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameCustom" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={customMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/customWindow" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><CustomWindow darkMode={darkMode}/></ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameInfinity" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={infinityMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

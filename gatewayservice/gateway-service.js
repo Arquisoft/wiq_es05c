@@ -103,7 +103,7 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
     const idioma = req.query.idioma;
     const categoria = req.query.categoria;
     // llamamos al servicio de preguntas    
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&?=categoria=${categoria}`, req.body);
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 

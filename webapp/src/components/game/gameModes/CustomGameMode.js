@@ -1,13 +1,15 @@
 const { default: BasicGame } = require("../BasicGame");
 
 class CustomGameMode extends BasicGame{
-    constructor(){
+    constructor(timeCustom, numQuestionCustom){
         super();
+        this.timeToAnswer = timeCustom; 
+        this.numQuestions = numQuestionCustom;
     }
    
     async fetchQuestions() {
         try {
-          const response = await fetch(`${this.apiEndpoint}/getQuestionModoCustom`);
+          const response = await fetch(`${this.apiEndpoint}/getQuestionModoCustom?numPreguntas=${this.numQuestions}`);
           const data = await response.json();
       
           this.questions = Object.values(data);

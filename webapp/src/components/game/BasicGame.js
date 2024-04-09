@@ -12,11 +12,10 @@ class BasicGame extends GameMode {
     super();
        // Vincular nextQuestion al contexto correcto
        this.nextQuestion = this.nextQuestion.bind(this);
-
        this.correctas=0;
        this.incorrectas=0;
        this.tiempoTotal=null;
-    
+       this.timeToAnswer = 20000;//Tiempo de responder por defecto (20sec)
   }
 
   async fetchQuestions() {
@@ -98,7 +97,7 @@ class BasicGame extends GameMode {
     }
   }
   nextQuestion() {
-    if(this.questions.length == 0){
+    if(this.questions.length === 0){
       console.log("no se tiene seguiente preungta , el array es vaicio");
       return; // Salir del método si no hay preguntas
     }

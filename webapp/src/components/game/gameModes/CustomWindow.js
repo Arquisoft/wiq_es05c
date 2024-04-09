@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export function CustomWindow({darkMode}){
+export function CustomWindow({darkMode, setTime, setNQuestions}){
 
     const [valueTime, changeTime] = useState(20);
     const [valueQuestionNum, changeQuestion] = useState(20);
@@ -30,6 +30,10 @@ export function CustomWindow({darkMode}){
     };
 
       const handleClickJugar = () => {
+        console.log('valueTime', valueTime);
+        console.log('valueQuestionNum', valueQuestionNum);
+        setTime(valueTime*1000);
+        setNQuestions(valueQuestionNum);
         navigate("/gameCustom");
     };
 

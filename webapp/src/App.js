@@ -4,7 +4,6 @@ import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
 import { AuthProvider } from './components/authcontext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StartButton from './components/startbutton/StartButton';
 import Game from './components/game/Game';
 import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
 import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
@@ -27,6 +26,9 @@ import { Ranking } from './components/ranking/Ranking';
 const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
+  // Para el custom mode
+  const [timeToAnswer, setTime] = useState(20);
+  const [nQuestions, setNQuestions] = useState(20);
 
   useEffect(() => {
     if (darkMode) {
@@ -39,7 +41,6 @@ const App = () => {
   }, [darkMode]);
 
   const sameCatMode = new SameCategoryMode();
-  const customMode = new CustomGameMode();
   const infinityMode = new InfinityGameMode();
 
   return (
@@ -71,12 +72,12 @@ const App = () => {
           } />
           <Route path="/gameCustom" element={
             <AuthenticatedLayout>
-              <ChakraProvider><Game darkMode={darkMode} gameMode={customMode}/>  </ChakraProvider>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={new CustomGameMode(timeToAnswer,nQuestions)}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
           <Route path="/customWindow" element={
             <AuthenticatedLayout>
-              <ChakraProvider><CustomWindow darkMode={darkMode}/></ChakraProvider>
+              <ChakraProvider><CustomWindow darkMode={darkMode} setTime={setTime} setNQuestions={setNQuestions}/></ChakraProvider>
             </AuthenticatedLayout>
           } />
           <Route path="/gameInfinity" element={

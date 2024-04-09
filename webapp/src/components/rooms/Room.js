@@ -1,9 +1,7 @@
 import React, { useState,useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import socket from './socket';
 import Game  from '../game/Game';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +14,6 @@ function Room({ darkMode }) {
   const isHost = location.state?.isHost;
 
   const [users, setUsers] = useState({});
-  const [questions, setQuestions] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
 
 
@@ -26,15 +23,9 @@ function Room({ darkMode }) {
   const {t, i18n} = useTranslation();
   const [roomGame, setRoomGame] = useState(null);
   
-
   //para el mensaje del ganador 
   const [isOpen, setIsOpen] = useState(false);
-  const cancelRef = useRef();
-  const onClose = () =>{
-    setIsOpen(false);
-    navigate('/home');
-  };
- 
+
   useEffect(() => {
 
     socket.on('currentUsers', (users) => {
@@ -43,7 +34,7 @@ function Room({ darkMode }) {
     });
     socket.emit('ready', { id: roomId });
 
-    console.log("eres el host "+isHost);
+    //console.log("eres el host "+isHost);
 
 
     socket.on('gameStarted', (questionsServer) => {
@@ -69,7 +60,7 @@ function Room({ darkMode }) {
     });
     
 
-  }, [roomId]);
+  }, [roomId,users,navigate,winner]);
 
 
   //se encagr ad e que cuando las preguntas esten cargadas crees el modo de juego 

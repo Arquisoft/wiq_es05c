@@ -20,5 +20,9 @@ class CustomGameMode extends BasicGame{
         }
         return this.questions;
       }
+
+      async sendHistory(historyData) {
+        //No se guarda la partida si no es clásica
+      }
 }
 module.exports = CustomGameMode;

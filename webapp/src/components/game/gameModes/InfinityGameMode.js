@@ -8,7 +8,7 @@ class InfinityGameMode extends BasicGame{
    
     async fetchQuestions() {
         try {
-          const response = await fetch(`${this.apiEndpoint}/getQuestionModoCustom`);
+          const response = await fetch(`${this.apiEndpoint}/getQuestion`);
           const data = await response.json();
       
           this.questions = Object.values(data);
@@ -18,6 +18,10 @@ class InfinityGameMode extends BasicGame{
           console.error('Error fetching question data:', error);
         }
         return this.questions;
+      }
+
+      async sendHistory(historyData) {
+        //No se guarda la partida si no es clásica
       }
     
    

@@ -2,6 +2,22 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Footer from './Footer';
 
+jest.mock('i18next', () => ({
+  use: () => {},
+  init: () => {},
+}));
+
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => ({
+      'subject': 'Trabajo de Arquitectura del Software',
+      'github': 'Github del Proyecto',
+      'university': 'Escuela de Ingeniería Informática',
+    })[key],
+  }),
+}));
+
 describe('Footer Component', () => {
   test('renders footer with correct content and links', () => {
     // Renderizar el componente
@@ -11,7 +27,7 @@ describe('Footer Component', () => {
     expect(screen.getByText('Trabajo de Arquitectura del Software')).toBeInTheDocument();
 
     // Verificar que el enlace al Github del Proyecto esté presente con el atributo target="_blank"
-    const githubLink = screen.getByRole('link', { name: /Github del Proyecto/i });
+    const githubLink = screen.getByRole('link', { name:  /Github del Proyecto/i });
     expect(githubLink).toBeInTheDocument();
     expect(githubLink).toHaveAttribute('href', 'https://github.com/Arquisoft/wiq_es04c');
     expect(githubLink).toHaveAttribute('target', '_blank');

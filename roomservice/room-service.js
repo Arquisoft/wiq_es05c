@@ -61,9 +61,9 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('startGame', async ({id}) => {
+  socket.on('startGame', async ({id, idioma}) => {
     console.log("solicitud empezar juego sala:"+id);
-    roomQuestions.startGame(id,socket);
+    roomQuestions.startGame(id,idioma, socket);
   });
 
 

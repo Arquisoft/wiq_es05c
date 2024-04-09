@@ -64,13 +64,15 @@ class RoomQuestions{
     /**
      * funcion empieza el juego para todos los usuersz 
      */
-    async startGame(id,socket) {
+    async startGame(id, idioma, socket) {
+      if(idioma==null)
+        idioma = 'en';
         try {
           if (this.checkEnoughPlayers(id)) {
             //crear la zona de reusltado se hace aqui para que en caso de que abandonen la sala no se haya creado ya 
             this.gameResults.set(id,new Map());
 
-            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico');
+            let preguntas =await axios.get(questionServiceUrl+'/getQuestionModoBasico' + '?idioma=' + idioma);
             console.log("Preguntas: "+preguntas.data);
             socket.emit('gameStarted', preguntas.data);
             socket.to(id).emit('gameStarted', preguntas.data);
@@ -104,8 +106,12 @@ class RoomQuestions{
             // Si todos los usuarios han terminado el juego, determinar quién ha ganado
             let winner = this.determineWinner(roomResults);
             console.log("el ganador determinado es "+winner);
-            socket.to(id).emit('gameEnded', winner); // enviar a todos los de sala quien gano 
-            socket.emit('gameEnded', winner); // 
+            //hacer uhnjson con el ganador y obtener su tiempo y correctas
+
+            let ranking = this.determineRanking(roomResults);
+            console.log("ranking",ranking);
+            socket.to(id).emit('gameEnded', ranking); // enviar a todos los de sala quien gano 
+            socket.emit('gameEnded', ranking); // 
            
           }
         } catch (error) {
@@ -113,6 +119,35 @@ class RoomQuestions{
         }
       }
       
+      determineRanking(roomResults) {
+        // Convertir el Map de resultados en un array de objetos
+        let resultsArray = Array.from(roomResults.entries()).map(([username, userResults]) => ({
+          username,
+          correctas: userResults.correctas,
+          tiempoTotal: userResults.tiempoTotal
+        }));
+      
+        // Ordenar el array de resultados por el número de respuestas correctas y el tiempo total
+        resultsArray.sort((a, b) => {
+          if (a.correctas > b.correctas) {
+            return -1;
+          } else if (a.correctas < b.correctas) {
+            return 1;
+          } else {
+            if (a.tiempoTotal < b.tiempoTotal) {
+              return -1;
+            } else if (a.tiempoTotal > b.tiempoTotal) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        });
+      
+        // Devolver el array de resultados ordenado
+        return resultsArray;
+      }
+
       determineWinner(roomResults) {
         let winner = null;
         let maxCorrectAnswers = 0;

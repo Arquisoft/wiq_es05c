@@ -57,7 +57,11 @@ export function GameBlock( {darkMode, gameInfo} ){
     
         let hue = porcentaje * 120; // Interpola entre rojo (0) y verde (120) en el espacio de color HSL
     
-        return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+        if(darkMode){
+            return `hsl(${hue}, 50%, 20%)`; // Devuelve un color en formato HSL más oscuro
+        }else{
+            return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+        }
     }
 
     let statBackgroundColor = darkMode ? '#D4F1F4' : '#D4F1F4';

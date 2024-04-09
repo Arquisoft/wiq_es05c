@@ -176,7 +176,7 @@ jobs:
     name: Deploy over SSH
     runs-on: ubuntu-latest
 
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-questionservice,docker-push-historyservice,docker-push-gatewayservice,docker-push-webapp]
+    needs: [docker-push-userservice,docker-push-authservice,docker-push-questionservice,docker-push-historyservice,docker-push-gatewayservice,docker-push-webapp,docker-push-roomservice]
 
     steps:
     - name: Deploy over SSH

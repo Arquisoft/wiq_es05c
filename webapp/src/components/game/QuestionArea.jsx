@@ -1,121 +1,54 @@
-import { useEffect, useState,useRef  } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Box } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
 import { Timer } from './timers/Timer';
 import { GameTimer } from './timers/GameTimer.jsx';
 
-/*
-*maneja la logica general del juego  reincia el contador del timepo salta de pregunas etc,
-cuando el juego termina actualiza las respuestas correctas e incorrectas y se las apsas a game con prop Drilling */
+export function QuestionArea({darkMode, question, isFinished, setTotalTime, timeToAnswer=30000,onAnswerSelect,handleTimeout}){
 
-export function QuestionArea({darkMode, questions,setTotalCorrectAnswers, setTotalIncorrectAnswers,setFinished, setTotalTimeFinish, timeToAnswer=30000}){
-  const [questionIndex, setQuestionIndex] = useState(0); // Nuevo estado para el índice de la pregunta
-  // Estado para almacenar los datos de la pregunta
-  const [questionData, setQuestionData] = useState(null); // Estado para almacenar los datosS de la pregunta
-  // Estado para almacenar las respuestas
-  const [respuestas, setRespuestas] = useState([]);
-  // Estado que almacena la correcta
-  const [correcta, setCorrecta] = useState();
-  const [open, setOpen] = useState(false); // Nuevo estado para controlar si el diálogo está abierto o cerrado
-  const [correctAnswers, setCorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas correctas
-  const [incorrectAnswers, setIncorrectAnswers] = useState(0); // Nuevo estado para llevar la cuenta de las respuestas incorrectas
-  const [totalTime, setTotalTime] = useState(0);
+  // Eliminar los estados correctAnswers e incorrectAnswers
 
+  const [time, setTime] = useState(0);
+  const [isGameEnded, setIsGameEnded] = useState(false);
+  const resetTimer = useRef(null);
 
-  const[isGameEnded, setIsGameEnded] = useState(false); // Nuevo estado para controlar si el juego ha terminado o no
-  const resetTimer = useRef(null); // Ref para almacenar la función resetTimer
-
-
-  // Función para obtener los datos de la pregunta
   const fetchQuestionData = () => {
     try {
-      console.log("Array de preguntas en el juego: ", questions);
-      // Obtener los datos de la pregunta del array de preguntas
-      const data = questions[questionIndex]; // Usar el índice de la pregunta para obtener la pregunta actual
-      setQuestionData(data); // Actualizar el estado con los datos de la pregunta obtenidos del array
-      //Meto la correcta
-      setCorrecta(data.correcta);
-      //calcular respuestas 
+      const data = question;
+      
       const respuestasArray = [data.correcta, data.respuestasIncorrecta1, data.respuestasIncorrecta2, data.respuestasIncorrecta3];
-      setRespuestas(respuestasArray);
+   
+      return respuestasArray;
+      
     } catch (error) {
       console.error('Error fetching question data:', error);
     }
   };
 
-     // Llamar a la función al cargar el componente y cuando cambie el índice de la pregunta
-  useEffect(() => {
-    fetchQuestionData();
-  }, [questionIndex]);
+  const respuestas = fetchQuestionData();
 
-  //se lanza si se acaba el juego 
-  useEffect(()=>{
-    //como esto se lanza cada que se actiliza tb cuando se pone a false solamente guardas el historial al ser true 
-    if(isGameEnded){
-      //alert("Has terminado el juego, has acertado "+correctAnswers+" preguntas y has fallado "+incorrectAnswers+" preguntas");
-      setOpen(true);
-      setTotalCorrectAnswers(correctAnswers);
-      setTotalIncorrectAnswers(incorrectAnswers);
-      console.log("El juego ha terminado con un tiempo total de: ", totalTime, " segundos.");
-      setTotalTimeFinish(totalTime);
-      setFinished(true);
-      
-    }
-   
-  },[isGameEnded, totalTime])
-  // Función para manejar cuando se selecciona una respuesta
-  const handleAnswerSelect = (isCorrect) => {
-    if (isCorrect) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
-    else{
-      setIncorrectAnswers(incorrectAnswers + 1);
-    }
-    Finish();
-    
-  };
-  /*
-  comprueba si terminaste el juego y si no es así, pasa a la siguiente pregunta */
-  const Finish = () => {
-    if(questionIndex===questions.length-1)
-    {
-      //poner a true el estado de juego terminado y ademas parar el reloj 
-      setIsGameEnded(true);   
-    }
-    else
-    {
-      loadNextQuestion();
-    }
-    };
-
-  // Función para cargar la siguiente pregunta
-  const loadNextQuestion = () => {
-    //poes el indice en la nueva preggunta y actualizas el valor de la pregunta actual 
-    setQuestionIndex(questionIndex+1);
-    fetchQuestionData();//obtener la siguiente pregunnta     
+  
+  const handleButtonClick = (isCorrect) => {
+    // Llamar a onAnswerSelect cuando se selecciona una respuesta
+    onAnswerSelect(isCorrect);
+    //incrementTime(100);
   };
 
+  const onTimeout = () => {
+    handleTimeout();
 
-  //Este cuando quedemos sin tiempo (perder)
-  const handleTimeout = () => {
-    Finish();
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-    return(
-        <Box alignContent="center" bg="#0000004d" display="flex" flexDir="column"
-        maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
-          
-                  <Box display="flex" borderBottom="0.1em solid #000">
-                    <Timer darkMode={darkMode} onTimeout={handleTimeout} resetTimer={resetTimer} timeout={timeToAnswer} />
-                    <EnunciadoBlock darkMode={darkMode} pregunta={questionData?.pregunta} />
-                    <GameTimer darkMode={darkMode} isGameEnded={isGameEnded} setTotalTime={setTotalTime}/>
-                  </Box>
-                  <AnswersBlock darkMode={darkMode} respuestas={respuestas} correcta={correcta} onAnswerSelect={handleAnswerSelect} isGameEnded={isGameEnded}/>
-        </Box>
-    )
+  return(
+    <Box alignContent="center" bg="#0000004d" display="flex" flexDir="column"
+    maxH="80vh" maxW="70vW" minH="70vh" minW="60vW">
+      <Box display="flex" borderBottom="0.1em solid #000">
+        <Timer darkMode={darkMode} onTimeout={onTimeout} resetTimer={resetTimer} timeout={timeToAnswer} gameFinish={isFinished} />
+        <EnunciadoBlock darkMode={darkMode} pregunta={question?.pregunta} />
+        <GameTimer darkMode={darkMode} isFinished={isFinished} setTotalTime={setTotalTime}/>
+      </Box>
+      <AnswersBlock darkMode={darkMode} respuestas={respuestas} correcta={question?.correcta} onAnswerSelect={handleButtonClick} isGameEnded={isGameEnded}/>
+    </Box>
+  )
 }

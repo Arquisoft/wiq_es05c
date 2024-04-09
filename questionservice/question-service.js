@@ -77,7 +77,7 @@ app.get('/getQuestionModoMismaCategoria', async(req,res)=> {
   try{      
     const idioma = req.query.idioma;
     const categoria = req.query.categoria;
-
+    console.log("idiomaasdasdasd: "+idioma+" categoria: "+categoria);
     //coger pregunta bd
     const questions = await question.obtenerPreguntaMismaCategoria(10, idioma, categoria);
     //para devolver la pregunta

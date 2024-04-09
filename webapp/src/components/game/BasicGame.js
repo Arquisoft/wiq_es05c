@@ -18,29 +18,6 @@ class BasicGame extends GameMode {
        this.tiempoTotal=null;
     
   }
-  //Paso el id y un booleano true si queremos que quede bloqueado o false para desbloquear (disabled solo funciona para inputs creo)
-  //El tipo es porque necesito diferente comportamiento entre el switch que es input y el button
-  blockComponent(typeComponent,componentId, putBlocked){
-    switch(typeComponent){
-      case 0://Switch oscuro claro
-        // Esto para desbloquear el darkMode
-        const switchToBlock = document.getElementById('dark-mode-switch');
-        //Si existe el componente lo deshabilita
-        if (switchToBlock) {
-          switchToBlock.disabled = putBlocked;
-        }
-        break;
-      case 1://Traductor
-        const tradToBlock = document.getElementById('change-language-button');
-        if (tradToBlock) {
-          tradToBlock.setAttribute('inGame', putBlocked);
-        }
-        break;
-      default:
-        console.log('No se ha pasado un tipo de componente correcto');
-        break;
-      }
-    }
 
   async fetchQuestions() {
     try {
@@ -174,6 +151,30 @@ class BasicGame extends GameMode {
   setTiempoTotal(time){
     this.tiempoTotal=time;
   }
+  //Paso el id y un booleano true si queremos que quede bloqueado o false para desbloquear (disabled solo funciona para inputs creo)
+  //El tipo es porque necesito diferente comportamiento entre el switch que es input y el button
+  blockComponent(typeComponent,componentId, putBlocked){
+    switch(typeComponent){
+      case 0://Switch oscuro claro
+        // Esto para desbloquear el darkMode
+        const switchToBlock = document.getElementById('dark-mode-switch');
+        //Si existe el componente lo deshabilita
+        if (switchToBlock) {
+          switchToBlock.disabled = putBlocked;
+        }
+        break;
+      case 1://Traductor
+        const tradToBlock = document.getElementById('change-language-button');
+        if (tradToBlock) {
+          tradToBlock.setAttribute('inGame', putBlocked);
+        }
+        break;
+      default:
+        console.log('No se ha pasado un tipo de componente correcto');
+        break;
+      }
+    }
+
 }
 
 export default BasicGame;

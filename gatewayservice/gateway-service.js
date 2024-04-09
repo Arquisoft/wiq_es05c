@@ -98,11 +98,12 @@ app.get('/getQuestionModoBasico', async (req, res) => {
 
 
 app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
     // llamamos al servicio de preguntas    
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&?=categoria=${categoria}`, req.body);
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 

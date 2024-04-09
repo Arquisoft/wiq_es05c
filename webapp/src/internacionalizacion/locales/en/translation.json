@@ -72,6 +72,12 @@
     "roomStartGameButton": "Start Game",
     "roomEndGame": "Game over",
     "roomWinner": "The winner is ",
+
+    "modoCustom" : "Custom Mode",
+    "modoMismaCategoria" : "Same Category Mode",
+    "modoInfinito": "Infinite  Mode",
+    "modoClasico": "Clasic Mode",  
+    "modoDiario": "Daily Challenge",
     
     "close": "Close"
 }

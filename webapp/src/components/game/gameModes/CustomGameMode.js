@@ -1,5 +1,4 @@
 const { default: BasicGame } = require("../BasicGame");
-const { default: GameMode } = require("./GameMode");
 
 class CustomGameMode extends BasicGame{
     constructor(){
@@ -19,6 +18,6 @@ class CustomGameMode extends BasicGame{
         }
         return this.questions;
       }
-    
-   
 }
+
+module.exports = CustomGameMode;

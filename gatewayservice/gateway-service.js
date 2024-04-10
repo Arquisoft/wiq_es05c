@@ -82,6 +82,7 @@ app.get('/getQuestionDiaria', async (req, res) => {
 
 
 app.get('/getQuestionModoBasico', async (req, res) => {
+  console.log("entra gatewayGetModoBasico");
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
@@ -93,7 +94,7 @@ app.get('/getQuestionModoBasico', async (req, res) => {
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
-
+    console.error(error); // Imprime el error
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
 
   }

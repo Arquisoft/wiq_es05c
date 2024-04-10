@@ -60,6 +60,7 @@ app.get('/getQuestionDiaria', async(req,res)=> {
 }); 
 
 app.get('/getQuestionModoBasico', async(req,res)=> {
+  console.log('entra en el getQuestionModoBasico del question Service');
   try{      
     const idioma = req.query.idioma;
 
@@ -67,6 +68,7 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     //coger pregunta bd
     const questions = await question.obtenerPregunta(10, idioma);
     //para devolver la pregunta
+    console.log('preguntasModoBasico en el microservicio',questions);
     res.json(questions);
     
   } catch(error) {

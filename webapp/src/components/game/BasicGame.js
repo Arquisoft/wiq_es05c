@@ -24,6 +24,7 @@ class BasicGame extends GameMode {
   async fetchQuestions() {
     if(this.idioma === null || this.idioma === undefined)
       this.idioma = 'en';
+    console.log("entra en fetchQuestions valor idioma "+this.idioma);
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
       const data = await response.json();

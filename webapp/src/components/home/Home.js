@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image, useDisclosure, Button,ChakraProvider } from '@chakra-ui/react';
+import { Box, Image, Button,ChakraProvider } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,7 @@ const Home = () => {
   const {t} = useTranslation();
   const navigate = useNavigate();
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  
 
 
   const handleClickClassic = () => {
@@ -49,7 +48,7 @@ const Home = () => {
       >
         <Button 
           id="button-infinite-game" 
-          onClick={handleClickInfinity} 
+          onClick={handleClickClassic} 
           margin="2em" 
           colorScheme='blue' variant='solid'
           >

@@ -23,6 +23,7 @@ import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente
 import { Ranking } from './components/ranking/Ranking';
 import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
 import BasicGame from './components/game/BasicGame';
+import DiaroGameMode from './components/game/gameModes/DiarioGameMode';
 
 
 const App = () => {
@@ -83,6 +84,11 @@ const App = () => {
           <Route path="/gameInfinity" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode} gameMode={infinityMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameDiario" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><DiaroGameMode darkMode={darkMode} gameMode={infinityMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

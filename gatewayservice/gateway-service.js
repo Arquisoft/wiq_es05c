@@ -213,7 +213,7 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(200).send("Pregunta generada y guardada correctamente.");
   } catch (error) {
     //Modifico el error
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error});
   }
 });
 

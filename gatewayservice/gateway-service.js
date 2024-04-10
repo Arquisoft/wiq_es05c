@@ -55,6 +55,11 @@ app.post('/adduser', async (req, res) => {
 app.get('/getQuestion', async (req, res) => {
   try {
     const idioma = req.query.idioma;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     // llamamos al servicio de preguntas
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestion?idioma=${idioma}`, req.body);
     
@@ -69,6 +74,10 @@ app.get('/getQuestionDiaria', async (req, res) => {
   try {
     const idioma = req.query.idioma;
     const fecha = req.query.fecha;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
 
     // llamamos al servicio de preguntas
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}?fecha=${fecha}`, req.body);
@@ -86,6 +95,11 @@ app.get('/getQuestionModoBasico', async (req, res) => {
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
     console.log("entro en getQuestionModoBasico " + idioma);
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoBasico?idioma=${idioma}`, req.body);
     

@@ -76,6 +76,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        REACT_APP_SOCKET_URI: http://${{ secrets.DEPLOY_HOST }}:8005
       with:
           name: arquisoft/wiq_es05c/webapp
           username: ${{ github.actor }}

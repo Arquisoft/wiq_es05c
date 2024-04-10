@@ -32,14 +32,13 @@ const CreateRoomForm = () => {
       <Box p={5} shadow="md" borderWidth="1px">
         <VStack spacing={5}>
           <Center>
-            <Text fontSize="xl" textAlign="center">Crear Sala</Text>
+            <Text fontSize="xl" textAlign="center">{t('roomCreateButton')}</Text>
           </Center>
           <Text fontSize="md" textAlign="center" data-testid="info-text">
-              Al hacer clic en "Crear Sala", se creará una nueva sala con un ID único. 
-              Deberás compartir este ID con las personas que quieras que se unan a tu sala.
+              {t('createRoomInfo')}
           </Text>
           <Button onClick={handleCreateRoom} isLoading={isLoading} colorScheme="teal" variant="outline" id="createRoom" data-testid="createRoom">
-            {isLoading ? 'Creando...' : 'Crear Sala'}
+            {isLoading ? t('roomWaitCreateMessage') : t('roomCreateButton')}
           </Button>
         </VStack>
       </Box>

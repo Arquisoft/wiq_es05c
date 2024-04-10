@@ -85,5 +85,16 @@
     "cancelar": "Cancel",
     "jugar": "Play",
     
-    "close": "Close"
+    "close": "Close",
+
+    "roomGameWaitPlayersStart": "Waiting for other players",
+    "roomGameWaitPlayersEnd": "Waiting for other players to finish the game",
+
+    "basicGameEnd": "Game over, your results are as follows:",
+    "correctAnswers": "Correct Answers: ",
+    "wrongAnswers": "Wrong Answers: ",
+    "timePlayed": "Total Time Played: ",
+    
+    "createRoomInfo": "By clicking 'Create Room', a new room with a unique ID will be created. You'll need to share this ID with the people you want to join your room."
+
 }

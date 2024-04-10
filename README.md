@@ -1,6 +1,8 @@
 # wiq_es05c
 Visit our app : http://20.39.212.61:3000/
 
+Project Badges:  :chart_with_upwards_trend::computer::medal_military:
+
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
@@ -14,14 +16,17 @@ This is a base repo for the [Software Architecture course](http://arquisoft.gith
 This repo is a basic application composed of several components.
 
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **User service**. Express service that handles the insertion of new users in the system.
-- **Auth service**. Express service that handles the authentication of users.
-- **QuestionsService**. Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.
+- **User service**. Express service that handles the insertion of new users in the system. :mens:
+- **Auth service**. Express service that handles the authentication of users. :no_pedestrians:
+- **QuestionsService**. Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database. :question:
+- **HistoryService**. Express service that handles the game results of the logged-in player :bar_chart:
+- **RoomService** . Express service that is responsible for managing the multiplayer functionality of the game. :door: :couple:
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+
 
 Both the user, auth service and questions service share a Mongo database that is accessed with mongoose.
 
-## Members of the group
+## Members of the group :people_holding_hands:
 
 |         Nombre              | Identificador |
 |-----------------------------|---------------|

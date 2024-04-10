@@ -79,6 +79,16 @@ app.post('/updateHistory', async (req, res) => {
       res.status(400).json({ error: error.message }); 
   }});
 
+app.get('/getRankingDiarias', async (req, res) => {
+  console.log("Entra en sacar ranking diarias arr");
+  try {
+    console.log("Entra en sacar ranking diarias");
+    const ranking = await historial.obtenerPreguntasDiariasAcertadas();    
+    res.json(ranking);
+  } catch (error) {
+      res.status(400).json({ error: error.message }); 
+  }});
+
 // Start the server
 const server = app.listen(port, () => {
   console.log(`Generate Service listening at http://localhost:${port}`);

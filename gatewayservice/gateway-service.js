@@ -99,6 +99,40 @@ app.get('/getQuestionModoBasico', async (req, res) => {
   }
 });
 
+
+app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
+  try {    
+    // Obtener el idioma en el que esta la app
+    const idioma = req.query.idioma;
+    const categoria = req.query.categoria;
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+app.get('/getQuestionModoCustom', async (req, res) => {
+  try {    
+    // Obtener el idioma en el que esta la app
+    const idioma = req.query.idioma;
+    const numPreguntas = req.query.numPreguntas;
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
 app.get('/generateQuestion', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
@@ -109,6 +143,9 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});
   }
 });
+
+
+
 
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 
@@ -188,6 +225,31 @@ app.get('/startgame/:id/:username',async(req,res)=> {
   } catch (error) {
     console.error(error); 
     res.status(500).json({ error: 'Error al crear la sala' });
+  }
+});
+app.post('/updateHistory', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
+app.get('/getRankingDiarias', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    console.log("empiezo ranking diarias");
+    const historyResponse = await axios.get(historyServiceUrl+'/getRankingDiarias');
+    console.log("paso por el ranking diarias");
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.log("error ranking diarias");
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
   }
 });
 

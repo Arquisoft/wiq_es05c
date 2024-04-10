@@ -4,8 +4,11 @@ import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
 import { AuthProvider } from './components/authcontext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StartButton from './components/startbutton/StartButton';
 import Game from './components/game/Game';
+import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
+import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
+import CustomGameMode from './components/game/gameModes/CustomGameMode';
+import {CustomWindow} from './components/game/gameModes/CustomWindow';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -24,6 +27,9 @@ import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que l
 const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
+  // Para el custom mode
+  const [timeToAnswer, setTime] = useState(20);
+  const [nQuestions, setNQuestions] = useState(20);
 
   useEffect(() => {
     if (darkMode) {
@@ -34,6 +40,9 @@ const App = () => {
       document.documentElement.classList.remove('dark-mode');
     }
   }, [darkMode]);
+
+  const sameCatMode = new SameCategoryMode();
+  const infinityMode = new InfinityGameMode();
 
   return (
     <AuthProvider>
@@ -53,6 +62,26 @@ const App = () => {
           <Route path="/game" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameSameCat" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={sameCatMode}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameCustom" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={new CustomGameMode(timeToAnswer,nQuestions)}/>  </ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/customWindow" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><CustomWindow darkMode={darkMode} setTime={setTime} setNQuestions={setNQuestions}/></ChakraProvider>
+            </AuthenticatedLayout>
+          } />
+          <Route path="/gameInfinity" element={
+            <AuthenticatedLayout>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={infinityMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

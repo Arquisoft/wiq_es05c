@@ -126,6 +126,45 @@ app.post('/adduser', async (req, res) => {
         res.status(400).json({ error: error.message }); 
     }});
 
+    //Para marcar usuario que jugo partida diaria
+    app.get('/grabarJugadoDiario', async(req,res)=> {
+      try{      
+        const userName = req.query.userName;
+        const dia = new Date();
+        const formattedDate = dia.toISOString().split('T')[0];
+        console.log("Juega pregunta diaria el dia"+formattedDate);
+        console.log("Jugador llamado:"+userName);
+
+        //Guardamos la fecha en el usuario
+
+        const user = await User.findOne({ userName: userName });
+        user.lastPreguntaDiaria = formattedDate;
+        await user.save();
+
+        res.json(user);
+      } catch(error) {
+        res.status(500).json({ error: error.message }); 
+      }
+    }); 
+    
+    //Para marcar usuario que jugo partida diaria
+    app.get('/getUltimoJugadaDiaria', async(req,res)=> {
+      try{      
+        const userName = req.query.userName;
+
+        const user = await User.findOne({ userName: userName });
+        if (user.lastPreguntaDiaria) {
+          res.json(user.lastPreguntaDiaria);
+        } else {
+          let fechaAyer = new Date(fechaHoy.setDate(fechaHoy.getDate() - 1)).toISOString().split('T')[0];          
+          res.json("");
+        }
+
+      } catch(error) {
+        res.status(500).json({ error: error.message }); 
+      }
+    }); 
+
 const server = app.listen(port, () => {
   console.log(`User Service listening at http://localhost:${port}`);
 });

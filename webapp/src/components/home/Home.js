@@ -25,10 +25,21 @@ const Home = () => {
     navigate("/customWindow");
   };
   const handleClickDiario = () => {
-    navigate("/gameDiario");
+    if(checkDiario()){
+      navigate("/gameDiario");
+    }else{
+      alert("Ya has jugado el modo diario de hoy, vuelve mañana para jugarlo de nuevo.");
+    }
   };
 
-
+  function checkDiario(){
+    let userName = localStorage.getItem('username');
+    if(userName===undefined || userName===null){
+      throw new Error('No se ha encontrado el usuario');
+    }
+    const record = fetch(`http://localhost:3001/grabarJugadoDiario?userName=${userName}`);
+    return record;
+  }
  
   return (
     <ChakraProvider>

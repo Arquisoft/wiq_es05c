@@ -206,6 +206,31 @@ app.get('/getQuestionModoCustom', async (req, res) => {
   }
 });
 
+//Para marcar usuario que jugo partida diaria
+app.get('/grabarJugadoDiario', async(req,res)=> {
+  try{      
+    // Forward the add user request to the user service
+    const userName = req.query.userName;
+    const userResponse = await axios.get(userServiceUrl+`/grabarJugadoDiario?userName=${userName}`);
+    res.json(userResponse.data);
+  } catch(error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+}); 
+
+ //Para marcar usuario que jugo partida diaria
+ app.get('/getUltimoJugadaDiaria', async(req,res)=> {
+  try{      
+    const userName = req.query.userName;
+
+    const userResponse = await axios.get(userServiceUrl+`/getUltimoJugadaDiaria?userName=${userName}`);
+    res.json(userResponse.data);
+
+  } catch(error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+}); 
+
 app.get('/generateQuestion', async (req, res) => {
   try {
     // llamamos al servicio de preguntas

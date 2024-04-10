@@ -88,7 +88,7 @@ const App = () => {
           } />
           <Route path="/gameDiario" element={
             <AuthenticatedLayout>
-              <ChakraProvider><DiaroGameMode darkMode={darkMode} gameMode={infinityMode}/>  </ChakraProvider>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={new DiaroGameMode()}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

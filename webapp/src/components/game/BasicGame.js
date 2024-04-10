@@ -52,6 +52,8 @@ class BasicGame extends GameMode {
     this.questionIndex=0;
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
+      //redireccionar al usuario a /home con la prop dinamica que le pasas 
+      this.navigate('/home');
   }
 
   /*

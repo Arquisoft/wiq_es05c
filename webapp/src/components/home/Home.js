@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image, useDisclosure, Text, Button } from '@chakra-ui/react';
+import { Box, Image, useDisclosure, Button,ChakraProvider } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,8 +32,8 @@ const Home = () => {
 
  
   return (
+    <ChakraProvider>
     <Box 
-      boxSize='sm' 
       display="flex" 
       justifyContent="center" 
       alignItems="center" 
@@ -48,20 +48,18 @@ const Home = () => {
         alignItems="center"
       >
         <Button 
-          id="button-classic-game" 
-          onClick={handleClickClassic} 
-          margin="5em" 
-          bg="transparent" 
-          _hover={{ bg: "gray.600" }}
-        >
+          id="button-infinite-game" 
+          onClick={handleClickInfinity} 
+          margin="2em" 
+          colorScheme='blue' variant='solid'
+          >
           {t('modoClasico')}
         </Button>
         <Button 
           id="button-samecat-game" 
           onClick={handleClickSameCat} 
-          margin="5em" 
-          bg="transparent" 
-          _hover={{ bg: "gray.600" }}
+          margin="2em" 
+          colorScheme='green' variant='solid'
         >
           {t('modoMismaCategoria')}
         </Button>
@@ -79,8 +77,7 @@ const Home = () => {
           id="button-diario-game" 
           onClick={handleClickDiario} 
           disabled="true" 
-          bg="transparent" 
-          _hover={{ bg: "gray.600" }}
+
         >
           {t('modoDiario')}
         </Button>
@@ -97,23 +94,23 @@ const Home = () => {
         <Button 
           id="button-infinite-game" 
           onClick={handleClickInfinity} 
-          margin="5em" 
-          bg="transparent" 
-          _hover={{ bg: "gray.600" }}
+          margin="2em" 
+
         >
           {t('modoInfinito')}
         </Button>
         <Button 
           id="button-custom-game" 
           onClick={handleClickCustom} 
-          margin="5em" 
-          bg="transparent" 
-          _hover={{ bg: "gray.600" }}
+          margin="2em" 
+          colorScheme='teal' variant='solid'
+
         >
           {t('modoCustom')}
         </Button>
       </Box>
     </Box>
+    </ChakraProvider>
   );
 };
 

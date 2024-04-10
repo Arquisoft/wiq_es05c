@@ -19,9 +19,10 @@ class ObtenerPreguntas{
             if(preguntas.length != numeroPreguntas){
                 throw new Error("No se han devuelto el numero de preguntas necesario");
             }
-
+            console.log('despues del if de obtener pregunta');
             for(var i = 0; i < preguntas.length; i++){   
-                try{                   
+                try{   
+                    console.log('Pregunta: ' + preguntas[i]._id);                
                     var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
 
                     var respuestas;
@@ -31,6 +32,7 @@ class ObtenerPreguntas{
                             { $match: { tipos: {$in : [tipo._id]}, textoRespuesta_es: { $ne: [preguntas[i].respuestaCorrecta_es, "Ninguna de las anteriores" ]} } },
                             { $sample: { size: 3 } }
                         ]);
+
                     }
                     else{
                         respuestas = await Respuesta.aggregate([
@@ -38,7 +40,7 @@ class ObtenerPreguntas{
                             { $sample: { size: 3 } }
                         ]);
                     }
-
+                    console.log('Respuestas: ' + respuestas);
                     //comprobamos si hay respuestas
                     if(respuestas.length < 3){
                         throw new Error("No hay suficientes respuestas en la base de datos");
@@ -63,6 +65,7 @@ class ObtenerPreguntas{
                             respuestasIncorrecta3:  respuestas[2].textoRespuesta_en
                         };
                     }
+                    console.log('Resultado: ' + resultado);
 
                     objetoExterno["resultado" + (i+1)] = resultado;
             }

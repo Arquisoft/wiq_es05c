@@ -63,6 +63,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: roomservice
+        buildargs: REACT_APP_API_URI
         
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
@@ -84,7 +85,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           workdir: webapp
-          buildargs: REACT_APP_API_URI
+          buildargs: REACT_APP_API_URI,REACT_APP_SOCKET_URI
 
   docker-push-questionservice:
             name: Push question service Docker Image to GitHub Packages

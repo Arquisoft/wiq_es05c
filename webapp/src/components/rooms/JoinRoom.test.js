@@ -10,6 +10,20 @@ jest.mock('./socket', () => ({
   off: jest.fn(),
 }));
 
+jest.mock('i18next', () => ({
+  use: () => {},
+  init: () => {},
+}));
+
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => ({
+      'roomJoinButton': 'Unirse a Sala',
+    })[key],
+  }),
+}));
+
 test('renders popup if dont exists a room ', async () => {
   const spy = jest.spyOn(socket, 'on');
 

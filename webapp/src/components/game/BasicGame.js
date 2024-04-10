@@ -6,8 +6,9 @@ heredas y sobreescribes  y list */
 
 import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
-
+import { Redirect } from 'react-router-dom';
 class BasicGame extends GameMode {
+
   constructor() {
     super();
        // Vincular nextQuestion al contexto correcto
@@ -15,12 +16,19 @@ class BasicGame extends GameMode {
        this.correctas=0;
        this.incorrectas=0;
        this.tiempoTotal=null;
+
        this.timeToAnswer = 20000;//Tiempo de responder por defecto (20sec)
+
+       this.idioma = null;
+    
+
   }
 
   async fetchQuestions() {
+    if(this.idioma == null)
+      this.idioma = 'en';
     try {
-      const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
+      const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
       const data = await response.json();
   
       this.questions = Object.values(data);
@@ -40,13 +48,24 @@ class BasicGame extends GameMode {
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
   }
+
   async endGame() {
     console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
+
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
+
+     // Imprimir la función navigate para verificar que se ha pasado correctamente
+    console.log('Función navigate:', this.navigate);
+  
+    
+    //redireccionar al usuario a /home con la prop dinamica que le pasas 
+    this.navigate('/home');
+
   }
+
   /*
   recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 
   */
@@ -96,6 +115,7 @@ class BasicGame extends GameMode {
       });
     }
   }
+
   nextQuestion() {
     if(this.questions.length === 0){
       console.log("no se tiene seguiente preungta , el array es vaicio");
@@ -144,9 +164,11 @@ class BasicGame extends GameMode {
   incrementCorrectas(){
     this.correctas++;
   }
+
   incrementIncorrectas(){
     this.incorrectas++;
   }
+
   setTiempoTotal(time){
     this.tiempoTotal=time;
   }

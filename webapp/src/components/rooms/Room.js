@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 import RoomGame from '../game/gameModes/RoomGame';
 function Room({ darkMode }) {
-  const nagivate = useNavigate();
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
   const isHost = location.state?.isHost;
@@ -23,17 +23,16 @@ function Room({ darkMode }) {
   const [winner, setWinner] = useState(null);
 
   //para la internacionalización
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [roomGame, setRoomGame] = useState(null);
   
-
 
   //para el mensaje del ganador 
   const [isOpen, setIsOpen] = useState(false);
   const cancelRef = useRef();
   const onClose = () =>{
     setIsOpen(false);
-    nagivate('/home');
+    navigate('/home');
   };
  
   useEffect(() => {
@@ -57,23 +56,17 @@ function Room({ darkMode }) {
         },
         endGame:endGame,
       }
-      setRoomGame(new RoomGame(room, nagivate));
+      setRoomGame(new RoomGame(room, navigate));
 
       setGameStarted(true);
     });
-    socket.on('gameEnded', ( data ) => {
-      console.log('Juego terminado, ganador: correctas y tiempo', data.winner,data.correctas,data.tiempoTotal);
-      setWinner(data.winner);
-
-      //imrpmir popup del ganador 
-      Swal.fire({
-        title: 'El ganador es ',
-        text: data.winner,
-        confirmButtonText: 'Cerrar'
-      });
+    socket.on('gameEnded', (ranking) => {
+      console.log('Juego terminado, ranking:', ranking);
+  
+    
+      // Redirigir a los jugadores a la página de ranking
+      navigate('/rankingroom/'+roomId,{ state: { ranking: ranking } });
     });
-    //limpiar el evento 
-    return () => socket.off('gameEnded');
     
 
   }, [roomId]);
@@ -91,7 +84,7 @@ function Room({ darkMode }) {
   function startGame  (){
       if(!gameStarted && isHost ){
         setGameStarted(true);
-        socket.emit('startGame', { id: roomId });
+        socket.emit('startGame', { id: roomId , idioma: i18n.language});
         console.log("se ha iniciado el juego");
       }
     

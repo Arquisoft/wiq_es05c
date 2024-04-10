@@ -17,7 +17,7 @@ defineFeature(feature, test => {
     setDefaultOptions({ timeout: 10000 })
 
     await page
-      .goto("http://localhost:3000", {
+      .goto("http://localhost:3000/login", {
         waitUntil: "networkidle0",
       })
       .catch(() => {});
@@ -25,23 +25,30 @@ defineFeature(feature, test => {
 
   test('The user is not registered in the site', ({given,when,then}) => {
     
+    let email;
     let username;
     let password;
+    let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      username = "pablo"
-      password = "pabloasw"
-      await expect(page).toClick("button", { text: "Don't have an account? Register here." });
+      email = "userTest@email.com"
+      username = "userTest"
+      password = "Contraseña_1?"
+      passwordConfirmation = "Contraseña_1?"
+      await expect(page).toClick("#register");
     });
 
     when('I fill the data in the form and press submit', async () => {
+      await expect(page).toFill('input[name="email"]', email);
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
-      await expect(page).toClick('button', { text: 'Add User' })
+      await expect(page).toFill('input[name="passwordConfirm"]', passwordConfirmation);
+      
+      await expect(page).toClick('#addRegister')
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-        await expect(page).toMatchElement("div", { text: "User added successfully" });
+        await expect(page).toMatchElement("#addMessage", { text: "Usuario añadido correctamente" });
     });
   })
 

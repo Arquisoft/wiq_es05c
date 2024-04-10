@@ -15,10 +15,9 @@ app.use(cors());
 const server = http.createServer(app);
 
 // Crear una instancia de Socket.IO
-// Crear una instancia de Socket.IO
 const io = socketIO(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: [process.env.REACT_APP_API_URI || "http://localhost:3000"],
     methods: ["GET", "POST"]
   }
 });

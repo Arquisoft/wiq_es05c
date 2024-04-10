@@ -40,6 +40,8 @@ jobs:
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e
+    env :
+      CI : ""
 
   
   docker-push-roomservice:
@@ -53,7 +55,8 @@ jobs:
     - uses: actions/checkout@v4
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
-      
+    env:
+        REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
       with:
         name: arquisoft/wiq_es05c/roomservice
         username: ${{ github.actor }}
@@ -74,6 +77,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        REACT_APP_SOCKET_URI: http://${{ secrets.DEPLOY_HOST }}:8005
       with:
           name: arquisoft/wiq_es05c/webapp
           username: ${{ github.actor }}

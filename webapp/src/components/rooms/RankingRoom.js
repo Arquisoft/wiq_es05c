@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, Heading, Text, VStack, HStack, Badge } from "@chakra-ui/react";
+import { Heading, Text, VStack, HStack, Badge } from "@chakra-ui/react";
 import { ChakraProvider } from '@chakra-ui/react';
 
 function RankingRoom({darkMode}) {

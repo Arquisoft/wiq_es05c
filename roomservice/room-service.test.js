@@ -133,12 +133,16 @@ it('should show the users once the page is loaded', (done) => {
           });
 
         //End game 
+        const ranking = { 'username1': 10, 'username2': 20 };
+
         socket.emit('endGame', { id: roomId, results: { user: 'username1', correctas: 5, incorrectas: 0, tiempoTotal: 60 } });
         socket2.emit('endGame', { id: roomId, results: { user: 'username2', correctas: 4, incorrectas: 1, tiempoTotal: 60 } });
-        socket.on('gameEnded', (winner) => {
-          expect(winner).toBeDefined();
+        socket.on('gameEnded', (ranking) => {
+          expect(ranking).toEqual(ranking);
           done();
         });
+
+        
       });
     });
   

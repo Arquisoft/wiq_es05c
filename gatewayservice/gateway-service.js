@@ -82,14 +82,49 @@ app.get('/getQuestionDiaria', async (req, res) => {
 
 
 app.get('/getQuestionModoBasico', async (req, res) => {
+  console.log("entra gatewayGetModoBasico");
   try {    
     // Obtener el idioma en el que esta la app
     const idioma = req.query.idioma;
     console.log("entro en getQuestionModoBasico " + idioma);
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoBasico?idioma=${idioma}`, req.body);
-    
+  
     console.log("getQuestionModoBasico response: ", questionResponse.data);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.error(error); // Imprime el error
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+
+app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
+  try {    
+    // Obtener el idioma en el que esta la app
+    const idioma = req.query.idioma;
+    const categoria = req.query.categoria;
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+app.get('/getQuestionModoCustom', async (req, res) => {
+  try {    
+    // Obtener el idioma en el que esta la app
+    const idioma = req.query.idioma;
+    const numPreguntas = req.query.numPreguntas;
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 

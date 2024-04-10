@@ -53,32 +53,78 @@ const NavBar = ({ setDarkMode, darkMode}) => {
   };
   
   const handleClickLanguage = (event) => {
-    setAnchorLanguage(event.currentTarget);
+    const tradToBlock = document.getElementById('change-language-button');
+    if (tradToBlock && tradToBlock.getAttribute('inGame') === 'true') {
+      console.log('En juego no puedes cambiar de idioma');
+    } else {
+      setAnchorLanguage(event.currentTarget);
+    }
   };
 
   const handleCloseLanguage = () => {
     setAnchorLanguage(null);
   };
 
+  const handleMenuClick = () => {
+    handleClose();
+    blockComponent(0,'dark-mode-switch', false);
+    blockComponent(1,'change-language-button', false);
+  };
+
+  const handleNavPagesClick = () => {
+    blockComponent(0,'dark-mode-switch', false);
+    blockComponent(1,'change-language-button', false);
+  };
+
+
+  //Paso el id y un booleano true si queremos que quede bloqueado o false para desbloquear (disabled solo funciona para inputs creo)
+  //El tipo es porque necesito diferente comportamiento entre el switch que es input y el button
+  const blockComponent = (typeComponent,componentId, putBlocked)=>{
+    switch(typeComponent){
+      case 0://Switch oscuro claro
+        // Esto para desbloquear el darkMode
+        const switchToBlock = document.getElementById('dark-mode-switch');
+        //Si existe el componente lo deshabilita
+        if (switchToBlock) {
+          switchToBlock.disabled = putBlocked;
+        }
+        break;
+      case 1://Traductor
+        const tradToBlock = document.getElementById('change-language-button');
+        if (tradToBlock) {
+          tradToBlock.setAttribute('inGame', putBlocked);
+        }
+        break;
+      default:
+        console.log('No se ha pasado un tipo de componente correcto');
+        break;
+      }
+    };
 
   console.log('isLoggedIn', isLoggedIn);
   return (
     <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} data-testid="navbar" >
       <Toolbar>
-        <Button color="inherit" component={Link} to="/home">
+        <Button color="inherit" component={Link} to="/home"
+        onClick={()=>handleNavPagesClick()}
+        >
           {t('home')}
         </Button>
            
-        <Button color="inherit" component={Link} to="/joinroom">
+        <Button color="inherit" component={Link} to="/joinroom"
+        onClick={()=>handleNavPagesClick()}
+        >
           {t('roomJoinButton')}
         </Button>
-        <Button color="inherit" component={Link} to="/createroom">
+        <Button color="inherit" component={Link} to="/createroom"
+        onClick={()=>handleNavPagesClick()}
+        >
           {t('roomCreateButton')}
         </Button>
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
-        <IconButton onClick={handleClickLanguage}>
+        <IconButton id='change-language-button' onClick={handleClickLanguage}>
           <LanguageIcon />
           <Typography>{i18n.language.toUpperCase()}</Typography>
         </IconButton>
@@ -99,7 +145,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
             {t('english')}</MenuItem>
         </Menu>
 
-        <CustomSwitch onChange={handleToggle} />
+        <CustomSwitch id='dark-mode-switch' onChange={handleToggle} />
         {isLoggedIn() ? (
          <>
          <IconButton onClick={handleClick}>
@@ -114,14 +160,14 @@ const NavBar = ({ setDarkMode, darkMode}) => {
              <Typography fontWeight="bold">{username}</Typography>
            </ListItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleClose} component={Link} to="/history">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/history">
              {t('history')}
            </MenuItem>
-           <MenuItem onClick={handleClose} component={Link} to="/ranking">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking">
              {t('ranking')}
            </MenuItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleClose} component={Link} to="/logout">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/logout">
             {t('logout')}
            </MenuItem>
        

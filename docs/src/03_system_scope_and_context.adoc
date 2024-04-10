@@ -10,7 +10,7 @@ image::BusinessContext.jpg["Business Context Diagram"]
 [options="header",cols="1,2"]
 |===
 |Element |Description
-|User |The user will be able to utilize the functionalities of login, register, and the game to answer the questions.   :mens:
+|User |The user will be able to utilize the functionalities of login, register, and the game to answer the questions. 
 |Application | The application will communicate with the WikiData to retrieve game questions and answers, and it will store them in a database. 
 Additionally, when prompted by the system, it will retrieve a question along with the four answer options from the database.
 |===
@@ -27,10 +27,10 @@ image::TechnicalContext.jpg["Business Context Diagram"]
 [options="header",cols="1,2"]
 |===
 |Element |Description
-| **User service**| Express service that handles the insertion of new users in the system. :mens:
-| **QuestionsService**| Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database. :question:
-| **HistoryService**| Express service that handles the game results of the logged-in player :bar_chart:
-| **RoomService**| Express service that is responsible for managing the multiplayer functionality of the game. :door: :couple:
+| **User service**| Express service that handles the insertion of new users in the system.
+| **QuestionsService**| Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.
+| **HistoryService**| Express service that handles the game results of the logged-in player
+| **RoomService**| Express service that is responsible for managing the multiplayer functionality of the game.
 | **Webapp**| React web application that uses the gateway service to allow basic login and new user features.
 | **WikiData**|API used by the system to obtain questions and answers.
 | **MongoDB**|A MongoDB database to store questions and answers, as well as user information such as usernames and passwords.

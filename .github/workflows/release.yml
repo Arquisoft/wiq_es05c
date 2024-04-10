@@ -45,25 +45,25 @@ jobs:
 
   
   docker-push-roomservice:
-  name: Push room service Docker Image to GitHub Packages
-  runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    packages: write
-  needs: [e2e-tests]
-  steps:
-  - uses: actions/checkout@v4
-  - name: Publish to Registry
-    uses: elgohr/Publish-Docker-Github-Action@v5
-    with:
-      name: arquisoft/wiq_es05c/roomservice
-      username: ${{ github.actor }}
-      password: ${{ secrets.GITHUB_TOKEN }}
-      registry: ghcr.io
-      workdir: roomservice
-      buildargs: REACT_APP_API_URI
-    env:  # Esta línea estaba mal indentada
-      REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
+    name: Push room service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es05c/roomservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: roomservice
+        buildargs: REACT_APP_API_URI
+      env:  # Esta línea estaba mal indentada
+        REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
         
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages

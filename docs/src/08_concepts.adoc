@@ -31,4 +31,4 @@ In development...
 === Development concepts
 
     * Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
-    Testing has been carried out on the gateway-service microservice and the Game webapp component.
+    Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.

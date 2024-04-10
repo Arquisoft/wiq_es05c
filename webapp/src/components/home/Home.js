@@ -30,29 +30,88 @@ const Home = () => {
   };
 
 
+ 
   return (
-    <Box boxSize='sm' display="flex">
-      <Box id="seccion-juegos-left" flex="1" flexDirection="column"  display="flex" justifyContent="center">
-        <button id="button-classic-game" onClick={handleClickClassic} margin="5em">
+    <Box 
+      boxSize='sm' 
+      display="flex" 
+      justifyContent="center" 
+      alignItems="center" 
+      height="100vh"
+    >
+      <Box 
+        id="seccion-juegos-left" 
+        flex="1" 
+        flexDirection="column"  
+        display="flex" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button 
+          id="button-classic-game" 
+          onClick={handleClickClassic} 
+          margin="5em" 
+          bg="transparent" 
+          _hover={{ bg: "gray.600" }}
+        >
           {t('modoClasico')}
-        </button>
-        <button id="button-samecat-game" onClick={handleClickSameCat} margin="5em">
+        </Button>
+        <Button 
+          id="button-samecat-game" 
+          onClick={handleClickSameCat} 
+          margin="5em" 
+          bg="transparent" 
+          _hover={{ bg: "gray.600" }}
+        >
           {t('modoMismaCategoria')}
-        </button>
+        </Button>
       </Box>
-      <Box id="seccion-icono" flex="1" flexDirection="column" alignItems="center" display="flex">
+  
+      <Box 
+        id="seccion-icono" 
+        flex="1" 
+        flexDirection="column" 
+        alignItems="center" 
+        display="flex"
+      >
         <Image src='/wiq3.jpg' alt='Icono WIQ05' borderRadius='50em' boxSize="20em" margin="1em"/>
-        <button id="button-diario-game" onClick={handleClickDiario} disabled="true">
+        <Button 
+          id="button-diario-game" 
+          onClick={handleClickDiario} 
+          disabled="true" 
+          bg="transparent" 
+          _hover={{ bg: "gray.600" }}
+        >
           {t('modoDiario')}
-        </button>
-        </Box>
-      <Box id="seccion-juegos-right" flex="1" flexDirection="column"  display="flex" justifyContent="center">
-        <button id="button-infinite-game" onClick={handleClickInfinity}>
+        </Button>
+      </Box>
+  
+      <Box 
+        id="seccion-juegos-right" 
+        flex="1" 
+        flexDirection="column"  
+        display="flex" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button 
+          id="button-infinite-game" 
+          onClick={handleClickInfinity} 
+          margin="5em" 
+          bg="transparent" 
+          _hover={{ bg: "gray.600" }}
+        >
           {t('modoInfinito')}
-        </button>
-        <button id="button-custom-game" onClick={handleClickCustom}>
+        </Button>
+        <Button 
+          id="button-custom-game" 
+          onClick={handleClickCustom} 
+          margin="5em" 
+          bg="transparent" 
+          _hover={{ bg: "gray.600" }}
+        >
           {t('modoCustom')}
-        </button>
+        </Button>
       </Box>
     </Box>
   );

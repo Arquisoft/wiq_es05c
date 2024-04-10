@@ -40,6 +40,10 @@
     "questionsPercentage": " %",
 
     "ranking": "Ranking",
+    "rankingTitle": "UJsers ranking",
+    "rankingPos": "Position",
+    "rankingUserName": "Player",
+    "rankingAcertadasDiarias": "Daily questions correct",
 
     "loginWelcomeMessage": "Welcome ",
     "loginDate": "Your account was created on ",
@@ -68,6 +72,18 @@
     "roomStartGameButton": "Start Game",
     "roomEndGame": "Game over",
     "roomWinner": "The winner is ",
+
+    "modoCustom" : "Custom Mode",
+    "modoMismaCategoria" : "Same Category Mode",
+    "modoInfinito": "Infinite  Mode",
+    "modoClasico": "Clasic Mode",  
+    "modoDiario": "Daily Challenge",
+
+    "modoCustomTitle": "Custom Game Mode",
+    "customModeNumPreguntas":"Select the number of questions you want in the game",
+    "customModeNumTiempo":"Select the time you want in the game. ",
+    "cancelar": "Cancel",
+    "jugar": "Play",
     
     "close": "Close"
 }

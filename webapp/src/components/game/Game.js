@@ -18,7 +18,6 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const gameModeRef = useRef(gameMode);
-
   //para pasarle el idioma
   const { i18n } = useTranslation();
 
@@ -36,6 +35,11 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
+      //en caso de que la gateway devuelva un error , sacamos un alert y le decimos que cargue la pagina d enuevo 
+      if(gameModeRef.current.questions.length<=1){
+        alert("Error al cargar las preguntas, por favor recargue la página");
+        navigate('/home');
+      }
     };
   
     startGameAsync();

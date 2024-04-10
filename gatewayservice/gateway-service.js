@@ -54,7 +54,12 @@ app.post('/adduser', async (req, res) => {
 
 app.get('/getQuestion', async (req, res) => {
   try {
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     // llamamos al servicio de preguntas
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestion?idioma=${idioma}`, req.body);
     
@@ -67,11 +72,19 @@ app.get('/getQuestion', async (req, res) => {
 
 app.get('/getQuestionDiaria', async (req, res) => {
   try {
-    const idioma = req.query.idioma;
-    const fecha = req.query.fecha;
+    let idioma = req.query.idioma;
+    let fecha = req.query.fecha;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
+    if(fecha === undefined)
+      fecha = new Date().toISOString().slice(0, 10);
+    console.log("fecha: " + fecha); 
 
     // llamamos al servicio de preguntas
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}?fecha=${fecha}`, req.body);
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}&fecha=${fecha}`, req.body);
     
     res.json(questionResponse.data);
   } catch (error) {
@@ -82,14 +95,108 @@ app.get('/getQuestionDiaria', async (req, res) => {
 
 
 app.get('/getQuestionModoBasico', async (req, res) => {
+  console.log("entra gatewayGetModoBasico");
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
     console.log("entro en getQuestionModoBasico " + idioma);
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoBasico?idioma=${idioma}`, req.body);
-    
+  
     console.log("getQuestionModoBasico response: ", questionResponse.data);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.error(error); // Imprime el error
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+
+app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
+  try {    
+    // Obtener el idioma en el que esta la app
+    let idioma = req.query.idioma;
+    const categoria = req.query.categoria;
+
+  //si no se le paso bien el idioma, por defecto es en
+  if(idioma === undefined) 
+  idioma = "en";
+
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+app.get('/getQuestionModoCustom', async (req, res) => {
+  try {    
+    // Obtener el idioma en el que esta la app
+    let idioma = req.query.idioma;
+    const numPreguntas = req.query.numPreguntas;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+    idioma = "en";
+
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+
+app.get('/getQuestionModoMismaCategoria', async (req, res) => {
+  console.log("entro en getQuestionModoMismaCategoria");
+  try {    
+    // Obtener el idioma en el que esta la app
+    let idioma = req.query.idioma;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
+    const categoria = req.query.categoria;
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
+    res.json(questionResponse.data);
+  } catch (error) {
+    //Modifico el error 
+
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+
+  }
+});
+
+app.get('/getQuestionModoCustom', async (req, res) => {
+  try {    
+    // Obtener el idioma en el que esta la app
+    let idioma = req.query.idioma;
+    const numPreguntas = req.query.numPreguntas;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
+    // llamamos al servicio de preguntas    
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
@@ -109,6 +216,9 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});
   }
 });
+
+
+
 
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
 
@@ -188,6 +298,31 @@ app.get('/startgame/:id/:username',async(req,res)=> {
   } catch (error) {
     console.error(error); 
     res.status(500).json({ error: 'Error al crear la sala' });
+  }
+});
+app.post('/updateHistory', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
+app.get('/getRankingDiarias', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    console.log("empiezo ranking diarias");
+    const historyResponse = await axios.get(historyServiceUrl+'/getRankingDiarias');
+    console.log("paso por el ranking diarias");
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    console.log("error ranking diarias");
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
   }
 });
 

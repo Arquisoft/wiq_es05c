@@ -1,7 +1,7 @@
 # wiq_es05c
 Visit our app : http://20.68.253.187:3000/
 
-![Logo de la aplicación](.\webapp\public\wiq2.ico)
+![Logo de la aplicación](wiq2.png)
 Project Badges:  :chart_with_upwards_trend::computer:
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)

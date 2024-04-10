@@ -54,7 +54,7 @@ app.post('/adduser', async (req, res) => {
 
 app.get('/getQuestion', async (req, res) => {
   try {
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
 
     //si no se le paso bien el idioma, por defecto es en
     if(idioma === undefined) 
@@ -72,15 +72,19 @@ app.get('/getQuestion', async (req, res) => {
 
 app.get('/getQuestionDiaria', async (req, res) => {
   try {
-    const idioma = req.query.idioma;
-    const fecha = req.query.fecha;
+    let idioma = req.query.idioma;
+    let fecha = req.query.fecha;
 
     //si no se le paso bien el idioma, por defecto es en
     if(idioma === undefined) 
       idioma = "en";
 
+    if(fecha === undefined)
+      fecha = new Date().toISOString().slice(0, 10);
+    console.log("fecha: " + fecha); 
+
     // llamamos al servicio de preguntas
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}?fecha=${fecha}`, req.body);
+    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionDiaria?idioma=${idioma}&fecha=${fecha}`, req.body);
     
     res.json(questionResponse.data);
   } catch (error) {
@@ -94,7 +98,7 @@ app.get('/getQuestionModoBasico', async (req, res) => {
   console.log("entra gatewayGetModoBasico");
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
     console.log("entro en getQuestionModoBasico " + idioma);
 
     //si no se le paso bien el idioma, por defecto es en
@@ -119,8 +123,13 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   console.log("entro en getQuestionModoMismaCategoria");
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
     const categoria = req.query.categoria;
+
+  //si no se le paso bien el idioma, por defecto es en
+  if(idioma === undefined) 
+  idioma = "en";
+
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
     res.json(questionResponse.data);
@@ -135,8 +144,13 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
 app.get('/getQuestionModoCustom', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
     const numPreguntas = req.query.numPreguntas;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+    idioma = "en";
+
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
     res.json(questionResponse.data);
@@ -153,7 +167,12 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   console.log("entro en getQuestionModoMismaCategoria");
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     const categoria = req.query.categoria;
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
@@ -169,8 +188,13 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
 app.get('/getQuestionModoCustom', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
-    const idioma = req.query.idioma;
+    let idioma = req.query.idioma;
     const numPreguntas = req.query.numPreguntas;
+
+    //si no se le paso bien el idioma, por defecto es en
+    if(idioma === undefined) 
+      idioma = "en";
+
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
     res.json(questionResponse.data);

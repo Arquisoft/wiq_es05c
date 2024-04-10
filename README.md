@@ -1,6 +1,7 @@
 # wiq_es05c
 Visit our app : http://20.68.253.187:3000/
 
+![Logo de la aplicación](.\webapp\public\wiq2.ico)
 Project Badges:  :chart_with_upwards_trend::computer:
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
@@ -16,9 +17,9 @@ This is a base repo for the [Software Architecture course](http://arquisoft.gith
 This repo is a basic application composed of several components.
 
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
-- **User service**. Express service that handles the insertion of new users in the system.
-- **Auth service**. Express service that handles the authentication of users.
-- **QuestionsService**. Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.
+- **User service**. Express service that handles the insertion of new users in the system. :mens:
+- **Auth service**. Express service that handles the authentication of users. :no_pedestrians:
+- **QuestionsService**. Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database. :question:
 - **HistoryService**. Express service that handles the game results of the logged-in player :bar_chart:
 - **RoomService** . Express service that is responsible for managing the multiplayer functionality of the game. :door: :couple:
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.

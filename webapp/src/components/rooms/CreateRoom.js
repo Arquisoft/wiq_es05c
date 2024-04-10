@@ -2,10 +2,13 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Text, Button, VStack, Center } from "@chakra-ui/react";
 
+import { useTranslation } from 'react-i18next';
 import socket from './socket';
 
 const CreateRoomForm = () => {
     const navigate = useNavigate();
+
+    const {t} = useTranslation();
 
     const [isLoading, setIsLoading] = useState(false);
     const username = localStorage.getItem('username');

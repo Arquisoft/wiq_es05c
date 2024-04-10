@@ -6,12 +6,9 @@
 
 The following technologies are used in the development of our application:
 
-* *_React_*: JavaScript library required for building user interfaces for the web.
-
-* *_JavaScript_*: Chosen language for application development.
-
-* *_MongoDB_*: Default choice for non-relational database selected for the task.
-
+* *_React_*: We chose React as our JavaScript library for building user interfaces due to its efficiency, flexibility, and the ability to create reusable UI components. React is also a popular framework that we had not previously worked with and were interested in learning. This choice aligns with our goal of maintaining a consistent and efficient codebase while expanding our technical skills.
+* *_JavaScript_*: JavaScript was chosen as the language for application development due to its versatility, wide support across various platforms, and its status as the standard language for web development. Additionally, using JavaScript both on the client and server sides allows for a more streamlined and efficient development process.
+* *_MongoDB_*: MongoDB was selected as our database due to its scalability and flexibility in handling data. This non-relational database aligns with our needs for a fluid and intuitive data handling process. While MySQL, a relational database, offers structured query language and consistency, we opted for MongoDB because it provides more flexibility in terms of data storage and retrieval, which is more suitable for our application's needs.
 === Top-level Decomposition
 ==== IDE
 We have chosen Visual Studio Code as our platform since we have experience with it and it is the platform we will work best with.
@@ -19,8 +16,15 @@ We have chosen Visual Studio Code as our platform since we have experience with 
 ==== Diagram design tools
 We will use PlantUML as the tool for creating diagrams since it is the recommended one for the course.
 
-=== Key quality goals
--- In progress --
+=== Key Quality Goals
+
+* *_Usability_*: The application should be easy to use, intuitive, and self-explanatory, providing a good user experience.
+* *_Performance_*: As a quiz game, the application should respond quickly to user interactions to avoid wait times during gameplay. This ensures a smooth and engaging user experience.
+* *_Security_*: The application should protect user data and prevent unauthorized access.
+* *_Maintainability_*: The code should be easy to understand, modify, and extend, allowing for easy updates and improvements.
+* *_Scalability_*: The application should be able to handle an increasing number of users and data without performance issues.
+* *_Availability_*: The application should be available for use at all times and across different devices, ensuring that users can play the game whenever and wherever they want.
+* *_Adaptability_*: The application should be adaptable to different devices, including desktops, tablets, and mobile phones. This ensures that the game can reach a wider audience and provide a good user experience regardless of the device used.
 
 === Organizational decisions
 Here are the organization decisions made:

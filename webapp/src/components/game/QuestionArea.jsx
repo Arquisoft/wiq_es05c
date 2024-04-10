@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Box } from "@chakra-ui/react";
 import { AnswersBlock } from './AnswersBlock.jsx';
 import { EnunciadoBlock } from './EnunciadoBlock.jsx';
@@ -9,8 +9,7 @@ export function QuestionArea({darkMode, question, isFinished, setTotalTime, time
 
   // Eliminar los estados correctAnswers e incorrectAnswers
 
-  const [time, setTime] = useState(0);
-  const [isGameEnded, setIsGameEnded] = useState(false);
+  const [isGameEnded] = useState(false);
   const resetTimer = useRef(null);
 
   const fetchQuestionData = () => {

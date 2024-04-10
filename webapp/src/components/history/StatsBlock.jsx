@@ -9,7 +9,7 @@ export function StatsBlock({ darkMode,playerStats }){
 
     let hasHistory = true;//Por defecto lo pongo a true
 
-    if (!playerStats || !playerStats.nombreUsuario || playerStats.tiempoMedio == 0) {
+    if (!playerStats || !playerStats.nombreUsuario || playerStats.tiempoMedio === 0) {
         hasHistory = false;
     }
 

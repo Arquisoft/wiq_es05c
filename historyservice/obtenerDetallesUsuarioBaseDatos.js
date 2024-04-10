@@ -66,6 +66,15 @@ class History{
         console.log(resultado);
         return resultado;
     }
+
+    async obtenerPreguntasDiariasAcertadas(){    
+        console.log("entra en obtenerPreguntasDiariasAcertadas");
+        //Ranking de usuarios ordenado por número de preguntas diarias acertadas
+        var rankingUsuarios = await Historial.find({}, "user diariasAcertadas").sort({diariasAcertadas: -1});
+        console.log(rankingUsuarios);
+        //Y lo devolvemos
+        return rankingUsuarios;
+    }
 }
 
 module.exports = History;

@@ -3,17 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Text, Button, VStack, Center } from "@chakra-ui/react";
 
 import socket from './socket';
-import { useTranslation } from 'react-i18next';
 
 const CreateRoomForm = () => {
     const navigate = useNavigate();
 
-    const [roomId, setRoomId] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const username = localStorage.getItem('username');
-
-    //para la internacionalización
-    const {t} = useTranslation();
   
     useEffect(() => {
       // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito

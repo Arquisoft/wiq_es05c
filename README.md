@@ -1,5 +1,5 @@
 # wiq_es05c
-Visit our app : http://20.68.253.187:3000/
+Visit our app : http://20.39.212.61:3000/
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)

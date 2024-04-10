@@ -71,6 +71,8 @@ class RoomGame extends BasicGame {
         text: i18n.t('roomGameWaitPlayersEnd'),
         confirmButtonText: i18n.t('close')
       });
+
+     
     }
 
     finishGame(){

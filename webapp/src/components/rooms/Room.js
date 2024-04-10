@@ -1,41 +1,41 @@
 import React, { useState,useEffect,useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import socket from './socket';
 import Game  from '../game/Game';
 import { useTranslation } from 'react-i18next';
 
 import RoomGame from '../game/gameModes/RoomGame';
 function Room({ darkMode }) {
-  const nagivate = useNavigate();
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const location = useLocation();
   const isHost = location.state?.isHost;
 
   const [users, setUsers] = useState({});
-  const [questions, setQuestions] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
 
 
-  const [winner, setWinner] = useState(null);
+  const [winner] = useState(null);
 
   //para la internacionalización
   const {t, i18n} = useTranslation();
   const [roomGame, setRoomGame] = useState(null);
   
-
-
   //para el mensaje del ganador 
-  const [isOpen, setIsOpen] = useState(false);
-  const cancelRef = useRef();
-  const onClose = () =>{
-    setIsOpen(false);
-    nagivate('/home');
-  };
- 
+  const [setIsOpen] = useState(false);
+
+  const endGameRef = useRef(endGame);
+  const navigateRef = useRef(navigate);
+  const winnerRef = useRef(winner);
+  //para evitar error despligue 
+    useEffect(() => {
+      endGameRef.current = endGame;
+      navigateRef.current = navigate;
+      winnerRef.current = winner;
+  }, [endGame, navigate, winner]);
+
   useEffect(() => {
 
     socket.on('currentUsers', (users) => {
@@ -44,36 +44,30 @@ function Room({ darkMode }) {
     });
     socket.emit('ready', { id: roomId });
 
-    console.log("eres el host "+isHost);
+    //console.log("eres el host "+isHost);
 
 
     socket.on('gameStarted', (questionsServer) => {
       console.log('Juego iniciado, preguntas recibidas : ', questionsServer);
-     
+      
       let room={
-        getQuestions:questionsServer,
-        winner:function (){
-          return winner;
-        },
-        endGame:endGame,
+          getQuestions:questionsServer,
+          winner:function (){
+              return winnerRef.current;
+          },
+          endGame:endGameRef.current,
       }
-      setRoomGame(new RoomGame(room, nagivate));
+      setRoomGame(new RoomGame(room, navigateRef.current));
 
       setGameStarted(true);
     });
-    socket.on('gameEnded', ( data ) => {
-      console.log('Juego terminado, ganador: correctas y tiempo', data.winner,data.correctas,data.tiempoTotal);
-      setWinner(data.winner);
-
-      //imrpmir popup del ganador 
-      Swal.fire({
-        title: 'El ganador es ',
-        text: data.winner,
-        confirmButtonText: 'Cerrar'
-      });
+    socket.on('gameEnded', (ranking) => {
+      console.log('Juego terminado, ranking:', ranking);
+  
+    
+      // Redirigir a los jugadores a la página de ranking
+      navigate('/rankingroom/'+roomId,{ state: { ranking: ranking } });
     });
-    //limpiar el evento 
-    return () => socket.off('gameEnded');
     
 
   }, [roomId]);

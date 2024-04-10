@@ -6,11 +6,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Business Context
 
-image::Business Context.jpg["Business Context Diagram"] 
+image::BusinessContext.jpg["Business Context Diagram"] 
 [options="header",cols="1,2"]
 |===
 |Element |Description
-|User |The user will be able to utilize the functionalities of login, register, and the game to answer the questions. 
+|User |The user will be able to utilize the functionalities of login, register, and the game to answer the questions.   :mens:
 |Application | The application will communicate with the WikiData to retrieve game questions and answers, and it will store them in a database. 
 Additionally, when prompted by the system, it will retrieve a question along with the four answer options from the database.
 |===

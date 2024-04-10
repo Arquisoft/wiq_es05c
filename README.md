@@ -1,8 +1,7 @@
 # wiq_es05c
 Visit our app : http://20.68.253.187:3000/
 
-![Logo de la aplicación](wiq2.png)
-Project Badges:  :chart_with_upwards_trend::computer:
+Project Badges:  :chart_with_upwards_trend::computer::medal_military:
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es05c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es05c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es05c)
@@ -27,7 +26,7 @@ This repo is a basic application composed of several components.
 
 Both the user, auth service and questions service share a Mongo database that is accessed with mongoose.
 
-## Members of the group
+## Members of the group :people_holding_hands:
 
 |         Nombre              | Identificador |
 |-----------------------------|---------------|

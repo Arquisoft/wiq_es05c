@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
-<meta name="author" content="image:: wiq2.jpg["Web App Logo"]">
+<meta name="generator" content="Asciidoctor 2.0.22">
 <title>Documentación WIQ-ES05C</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -141,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -437,14 +437,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article">
 <div id="header">
 <h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Documentación WIQ-ES05C</h1>
-<div class="details">
-<span id="author" class="author">image:: wiq2.jpg["Web App Logo"]</span><br>
-<span id="revnumber">version 8.2 EN,</span>
-<span id="revdate">January 2023</span>
-<br><span id="revremark">(based upon AsciiDoc version)</span>
-</div>
 <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">table of contents</div>
 <ul class="sectlevel1">
 <li><a href="#section-introduction-and-goals">1. Introduction and Goals (wiq_es05c)</a>
 <ul class="sectlevel2">
@@ -463,8 +457,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-solution-strategy">4. Solution Strategy</a>
 <ul class="sectlevel2">
 <li><a href="#_technology_decisions">4.1. Technology Decisions</a></li>
-<li><a href="#_key_quality_goals">4.2. Key Quality Goals</a></li>
-<li><a href="#_organizational_decisions">4.3. Organizational decisions</a></li>
+<li><a href="#_top_level_decomposition">4.2. Top-level Decomposition</a></li>
+<li><a href="#_key_quality_goals">4.3. Key quality goals</a></li>
+<li><a href="#_organizational_decisions">4.4. Organizational decisions</a></li>
 </ul>
 </li>
 <li><a href="#section-building-block-view">5. Building Block View (In progress)</a>
@@ -473,38 +468,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_level_2">5.2. Level 2</a></li>
 </ul>
 </li>
-<li><a href="#section-runtime-view">6. Runtime View</a>
-<ul class="sectlevel2">
-<li><a href="#_register_user">6.1. Register user</a></li>
-<li><a href="#_login">6.2. Login</a></li>
-<li><a href="#_generate_a_question">6.3. Generate a question</a></li>
-<li><a href="#_request_a_question">6.4. Request a question</a></li>
-</ul>
-</li>
-<li><a href="#section-deployment-view">7. Deployment View</a></li>
-<li><a href="#section-concepts">8. Cross-cutting Concepts</a>
-<ul class="sectlevel2">
-<li><a href="#_domain_concepts">8.1. Domain concepts</a></li>
-<li><a href="#_user_experience">8.2. User Experience</a></li>
-<li><a href="#_security_safety">8.3. Security &amp; Safety</a></li>
-<li><a href="#_architecture_and_design_patterns">8.4. Architecture and design patterns</a></li>
-<li><a href="#_development_concepts">8.5. Development concepts</a></li>
-</ul>
-</li>
-<li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
-<li><a href="#section-quality-scenarios">10. Quality Requirements</a>
-<ul class="sectlevel2">
-<li><a href="#_quality_tree">10.1. Quality Tree</a></li>
-<li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
-</ul>
-</li>
-<li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
-<ul class="sectlevel2">
-<li><a href="#_risks">11.1. Risks</a></li>
-<li><a href="#_technical_debt">11.2. Technical Debt</a></li>
-</ul>
-</li>
-<li><a href="#section-glossary">12. Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -602,7 +565,20 @@ If requirements documents exist this overview should refer to these documents.</
 </div>
 </div>
 <div class="paragraph">
-<p>The main requirements to be met by our application will be <a href="requirements.adoc">found here</a>.</p>
+<p>The main requirements to be met by our application will be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A registration/access system in which users will be able to consult their participation history.</p>
+</li>
+<li>
+<p>A random question generator to avoid repeating questions.</p>
+</li>
+<li>
+<p>A base game mode, in which there will be a time limit to answer each question.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -652,12 +628,12 @@ If you as an architect do not know how the quality of your work will be judged&#
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user must be able to use the system in a simple and intuitive way, so that a good experience is provided.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accessibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be designed to be accessible to all users, including those with visual, auditory, motor, or cognitive disabilities. It should provide necessary accommodations to ensure seamless navigation and usage of the program.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accesibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system should provide the necessary help to the user to be able to navigate through the program without any doubt.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system must ensure the privacy of users. In addition, they will not see the data of other users.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system must ensure the privacy of users. In addition, they will not see the history of other users.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
@@ -719,7 +695,7 @@ These stakeholders determine the extent and the level of detail of your work and
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HappySw</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Committed to delivering a high-quality application that meets user needs and client expectations, while also driving business success and growth.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interested in making the application work as well as possible to please users and their contractors.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Developer Team</p></td>
@@ -727,11 +703,11 @@ These stakeholders determine the extent and the level of detail of your work and
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RTVE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interested in the social and financial success of the application. Seeks to increase audience through the popularity of the program.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interested in the social and financial success of the application.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interested in the application being entertaining and simple. Contributes to the popularity of the program through usage and word-of-mouth.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interested in the application being entertaining and simple.</p></td>
 </tr>
 </tbody>
 </table>
@@ -986,56 +962,40 @@ You can create workflows that build and test every pull request to your reposito
 <div class="ulist">
 <ul>
 <li>
-<p><strong><em>React</em></strong>: We chose React as our JavaScript library for building user interfaces due to its efficiency, flexibility, and the ability to create reusable UI components. React is also a popular framework that we had not previously worked with and were interested in learning. This choice aligns with our goal of maintaining a consistent and efficient codebase while expanding our technical skills.</p>
+<p><strong><em>React</em></strong>: JavaScript library required for building user interfaces for the web.</p>
 </li>
 <li>
-<p><strong><em>JavaScript</em></strong>: JavaScript was chosen as the language for application development due to its versatility, wide support across various platforms, and its status as the standard language for web development. Additionally, using JavaScript both on the client and server sides allows for a more streamlined and efficient development process.</p>
+<p><strong><em>JavaScript</em></strong>: Chosen language for application development.</p>
 </li>
 <li>
-<p><strong><em>MongoDB</em></strong>: MongoDB was selected as our database due to its scalability and flexibility in handling data. This non-relational database aligns with our needs for a fluid and intuitive data handling process. While MySQL, a relational database, offers structured query language and consistency, we opted for MongoDB because it provides more flexibility in terms of data storage and retrieval, which is more suitable for our application&#8217;s needs.
-=== Top-level Decomposition
-==== IDE
-We have chosen Visual Studio Code as our platform since we have experience with it and it is the platform we will work best with.</p>
+<p><strong><em>MongoDB</em></strong>: Default choice for non-relational database selected for the task.</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_top_level_decomposition">4.2. Top-level Decomposition</h3>
 <div class="sect3">
-<h4 id="_diagram_design_tools">4.1.1. Diagram design tools</h4>
+<h4 id="_ide">4.2.1. IDE</h4>
+<div class="paragraph">
+<p>We have chosen Visual Studio Code as our platform since we have experience with it and it is the platform we will work best with.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagram_design_tools">4.2.2. Diagram design tools</h4>
 <div class="paragraph">
 <p>We will use PlantUML as the tool for creating diagrams since it is the recommended one for the course.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_key_quality_goals">4.2. Key Quality Goals</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><em>Usability</em></strong>: The application should be easy to use, intuitive, and self-explanatory, providing a good user experience.</p>
-</li>
-<li>
-<p><strong><em>Performance</em></strong>: As a quiz game, the application should respond quickly to user interactions to avoid wait times during gameplay. This ensures a smooth and engaging user experience.</p>
-</li>
-<li>
-<p><strong><em>Security</em></strong>: The application should protect user data and prevent unauthorized access.</p>
-</li>
-<li>
-<p><strong><em>Maintainability</em></strong>: The code should be easy to understand, modify, and extend, allowing for easy updates and improvements.</p>
-</li>
-<li>
-<p><strong><em>Scalability</em></strong>: The application should be able to handle an increasing number of users and data without performance issues.</p>
-</li>
-<li>
-<p><strong><em>Availability</em></strong>: The application should be available for use at all times and across different devices, ensuring that users can play the game whenever and wherever they want.</p>
-</li>
-<li>
-<p><strong><em>Adaptability</em></strong>: The application should be adaptable to different devices, including desktops, tablets, and mobile phones. This ensures that the game can reach a wider audience and provide a good user experience regardless of the device used.</p>
-</li>
-</ul>
+<h3 id="_key_quality_goals">4.3. Key quality goals</h3>
+<div class="paragraph">
+<p>&#8201;&#8212;&#8201;In progress&#8201;&#8212;&#8201;</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_organizational_decisions">4.3. Organizational decisions</h3>
+<h3 id="_organizational_decisions">4.4. Organizational decisions</h3>
 <div class="paragraph">
 <p>Here are the organization decisions made:
 * <strong><em>Language</em></strong>: We will use English as the primary language for both documentation and code.
@@ -1209,582 +1169,278 @@ By breaking the system down into its basic components, we aim to establish a com
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">historydb</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The historydb stores user data and maintains a record of each normal game played. For every game, it saves essential details including the game number, the number of correct questions, the number of failed questions, the time taken to complete the game, and the date on which it was played.</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-runtime-view">6. Runtime View</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_register_user">6.1. Register user</h3>
-<div class="imageblock">
-<div class="content">
-<img src="./images/06-registerSecuencia.png" alt="Register secuence diagram image">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The user wants to register in the sistem</p>
-</li>
-<li>
-<p>The app redirects the register request to the RegisterService</p>
-</li>
-<li>
-<p>The register service sends to the database the data to get information about it</p>
-</li>
-<li>
-<p>A response is sent by the database with information about that user in process of registration</p>
-</li>
-<li>
-<p>The RegisterService validates if the user is correct with that info recieved</p>
-</li>
-<li>
-<p>If the check was afirmative then the RegisterService registre the user</p>
-</li>
-<li>
-<p>The RegisterService inform with the result the app</p>
-</li>
-<li>
-<p>Finally the app carries that result to the user</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_login">6.2. Login</h3>
-<div class="imageblock">
-<div class="content">
-<img src="./images/06-loginSecuencia.png" alt="Login secuence diagram image">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The user wants to login his account</p>
-</li>
-<li>
-<p>The app redirects the login request to the LoginService</p>
-</li>
-<li>
-<p>The LoginService request information about that login data recieved</p>
-</li>
-<li>
-<p>A response is sent by the database with the requested data</p>
-</li>
-<li>
-<p>After checking if it&#8217;s a valid login the LoginService sends a response to the app</p>
-</li>
-<li>
-<p>Finally the app inform the user about his login process</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_generate_a_question">6.3. Generate a question</h3>
-<div class="imageblock">
-<div class="content">
-<img src="./images/06-generateQuestion.png" alt="GenerateQuestion secuence diagram image">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The QuestionService wants to generate a question</p>
-</li>
-<li>
-<p>It requests all the necesary info to build a question to WikiData</p>
-</li>
-<li>
-<p>WikiData responds with the requested data</p>
-</li>
-<li>
-<p>The QuestionService builds the question with the data recieved</p>
-</li>
-<li>
-<p>Finally the QuestionService writes the new question in the QuestionsDB</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_request_a_question">6.4. Request a question</h3>
-<div class="imageblock">
-<div class="content">
-<img src="./images/06-requestQuestion.png" alt="RequestQuestion secuence diagram image">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The App needs a new question to show to the user so uses Rest to comunicate with the QuestionService</p>
-</li>
-<li>
-<p>The QuestionService requests that random question to our MongoDB of questions</p>
-</li>
-<li>
-<p>The DB sends that question to the QuestionService</p>
-</li>
-<li>
-<p>The QuestionService send again that question to the app so the user can continue with his experience</p>
-</li>
-</ol>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-deployment-view">7. Deployment View</h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="./images/07-diagramaDespliegue.png" alt="Building Block general diagram">
-</div>
-</div>
-<div class="paragraph">
-<p>Basically when a user wants to use the application, using his web browser
+<td class="tableblock halign-left valign-top"><p class="tableblock">The historydb stores user data and maintains a record of each normal game played. For every game, it saves essential details including the game number, the number of correct questions, the number of failed questions, the time taken to complete the game, and the date on which it was played.</p>
+<p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-runtime-view"></a>
+== Runtime View</p>
+<p class="tableblock">=== Register user</p>
+<p class="tableblock">image::06-registerSecuencia.png["Register secuence diagram image"]</p>
+<p class="tableblock">1. The user wants to register in the sistem
+2. The app redirects the register request to the RegisterService
+3. The register service sends to the database the data to get information about it
+4. A response is sent by the database with information about that user in process of registration
+5. The RegisterService validates if the user is correct with that info recieved
+6. If the check was afirmative then the RegisterService registre the user
+7. The RegisterService inform with the result the app
+8. Finally the app carries that result to the user</p>
+<p class="tableblock">=== Login</p>
+<p class="tableblock">image::06-loginSecuencia.png["Login secuence diagram image"]</p>
+<p class="tableblock">1. The user wants to login his account
+2. The app redirects the login request to the LoginService
+3. The LoginService request information about that login data recieved
+4. A response is sent by the database with the requested data
+5. After checking if it&#8217;s a valid login the LoginService sends a response to the app
+6. Finally the app inform the user about his login process</p>
+<p class="tableblock">=== Generate a question</p>
+<p class="tableblock">image::06-generateQuestion.png["GenerateQuestion secuence diagram image"]</p>
+<p class="tableblock">1. The QuestionService wants to generate a question
+2. It requests all the necesary info to build a question to WikiData
+3. WikiData responds with the requested data
+4. The QuestionService builds the question with the data recieved
+5. Finally the QuestionService writes the new question in the QuestionsDB</p>
+<p class="tableblock">=== Request a question</p>
+<p class="tableblock">image::06-requestQuestion.png["RequestQuestion secuence diagram image"]</p>
+<p class="tableblock">1. The App needs a new question to show to the user so uses Rest to comunicate with the QuestionService
+2. The QuestionService requests that random question to our MongoDB of questions
+3. The DB sends that question to the QuestionService
+4. The QuestionService send again that question to the app so the user can continue with his experience</p>
+<p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-deployment-view"></a></p>
+<p class="tableblock">== Deployment View</p>
+<p class="tableblock">image::07-diagramaDespliegue.png["Building Block general diagram"]</p>
+<p class="tableblock">Basically when a user wants to use the application, using his web browser
 he can connect to the application server that is a VM in hosted in Azure
 orientated to microservices. That means that all the modules inside it
 are dockerized in a container alse we can find 2 MongoDB databases in this
 virtual machine one for users and another to store generated questions.
 The QuestionGenerator interacts with WikiData throught their API.</p>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-concepts">8. Cross-cutting Concepts</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_domain_concepts">8.1. Domain concepts</h3>
-<div class="paragraph">
-<p>Visit <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Domain-Model" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Domain-Model</a> to consult our Domain model.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_user_experience">8.2. User Experience</h3>
-<div class="paragraph">
-<p>The user interface is the part of our application with which users interact directly.
+<p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-concepts"></a>
+== Cross-cutting Concepts</p>
+<p class="tableblock">=== Domain concepts
+Visit <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Domain-Model" class="bare">https://github.com/Arquisoft/wiq_es05c/wiki/Domain-Model</a> to consult our Domain model.</p>
+<p class="tableblock">=== User Experience</p>
+<p class="tableblock">The user interface is the part of our application with which users interact directly.
 It&#8217;s designed to be intuitive and easy to use, providing a smooth and pleasant experience for users as they navigate through the various functions and features of the application.</p>
-</div>
-<div class="paragraph">
-<p>The user will either register in the application or log in if they have already registered before.
+<p class="tableblock">The user will either register in the application or log in if they have already registered before.
 If they have played before, they will be able to view different metrics regarding those games.
 Additionally, they can start a new game at any time and, upon completion, view the statistics of their results.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_security_safety">8.3. Security &amp; Safety</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Privacy: The data introduced will be private and not visible to other users.</p>
-</li>
-<li>
-<p>The password will be stored encrypted.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_architecture_and_design_patterns">8.4. Architecture and design patterns</h3>
-<div class="paragraph">
-<p>In development&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_development_concepts">8.5. Development concepts</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
-Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.</p>
-</li>
-</ul>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-design-decisions">9. Architecture Decisions</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1">Architecture Decision 1-Language Selection for documentation</a></p>
-</li>
-<li>
-<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-2">Architecture Decision 2-Programming Languages</a></p>
-</li>
-<li>
-<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-3">Architecture Decision 3-Database Platform</a></p>
-</li>
-<li>
-<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-4">Architecture Decision 4-Version Control System</a></p>
-</li>
-<li>
-<p><a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-5">Architecture Decision 5-Data Collection Method</a></p>
-</li>
-</ul>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-quality-scenarios">10. Quality Requirements</h2>
-<div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
-</div>
-<div class="paragraph">
-<p>Here you can also capture quality requirements with lesser priority,
+<p class="tableblock">=== Security &amp; Safety
+     - Privacy: The data introduced will be private and not visible to other users.
+     - The password will be stored encrypted.</p>
+<p class="tableblock">=== Architecture and design patterns
+In development&#8230;&#8203;</p>
+<p class="tableblock">=== Development concepts</p>
+<p class="tableblock">    * Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
+    Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.</p>
+<p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-design-decisions"></a>
+== Architecture Decisions</p>
+<p class="tableblock">* <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1">Architecture Decision 1-Language Selection for documentation</a>
+* <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-2">Architecture Decision 2-Programming Languages</a>
+* <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-3">Architecture Decision 3-Database Platform</a>
+* <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-4">Architecture Decision 4-Version Control System</a>
+* <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-5">Architecture Decision 5-Data Collection Method</a></p>
+<p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-quality-scenarios"></a>
+== Quality Requirements</p>
+<p class="tableblock">[role="arc42help"]
+<strong><strong>*</p>
+<p class="tableblock">.Content
+This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
+<p class="tableblock">Here you can also capture quality requirements with lesser priority,
 which will not create high risks when they are not fully achieved.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Since quality requirements will have a lot of influence on architectural
+<p class="tableblock">.Motivation
+Since quality requirements will have a lot of influence on architectural
 decisions you should know for every stakeholder what is really important to them,
 concrete and measurable.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-10/">Quality Requirements</a> in the arc42 documentation.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_quality_tree">10.1. Quality Tree</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The quality tree is a high-level overview of the quality goals and requirements:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root</p>
-</li>
-<li>
-<p>a mind map with quality categories as main branches</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In any case the tree should include links to the scenarios of the following section.</p>
-</div>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/QualityTree.PNG" alt="Quality Tree">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.</p>
-</div>
-<div class="paragraph">
-<p>These scenarios describe what should happen when a stimulus arrives at the system.</p>
-</div>
-<div class="paragraph">
-<p>For architects, two kinds of scenarios are important:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.</p>
-</li>
-<li>
-<p>Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Scenarios make quality requirements concrete and allow to
+<p class="tableblock">.Further Information</p>
+<p class="tableblock">See <a href="https://docs.arc42.org/section-10/">Quality Requirements</a> in the arc42 documentation.</p>
+<p class="tableblock"></strong><strong></p>
+<p class="tableblock">=== Quality Tree</p>
+<p class="tableblock">[role="arc42help"]
+</strong><strong>
+.Content
+The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
+<p class="tableblock">.Motivation
+The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
+<p class="tableblock">.Form
+The quality tree is a high-level overview of the quality goals and requirements:</p>
+<p class="tableblock">* tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root
+* a mind map with quality categories as main branches</p>
+<p class="tableblock">In any case the tree should include links to the scenarios of the following section.</p>
+<p class="tableblock"></strong><strong></p>
+<p class="tableblock">image::QualityTree.PNG["Quality Tree"]</p>
+<p class="tableblock">=== Quality Scenarios</p>
+<p class="tableblock">[role="arc42help"]
+</strong><strong>
+.Contents
+Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.</p>
+<p class="tableblock">These scenarios describe what should happen when a stimulus arrives at the system.</p>
+<p class="tableblock">For architects, two kinds of scenarios are important:</p>
+<p class="tableblock">* Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.
+* Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.</p>
+<p class="tableblock">.Motivation
+Scenarios make quality requirements concrete and allow to
 more easily measure or decide whether they are fulfilled.</p>
-</div>
-<div class="paragraph">
-<p>Especially when you want to assess your architecture using methods like
+<p class="tableblock">Especially when you want to assess your architecture using methods like
 ATAM you need to describe your quality goals (from section 1.2)
 more precisely down to a level of scenarios that can be discussed and evaluated.</p>
+<p class="tableblock">.Form
+Tabular or free form text.
+</strong></strong>*</p>
+<p class="tableblock">[options="header",cols="1,2,2"]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>|Quality Goal | Scenario | Description
+| Usability | A new user registers on the WIQ platform | The registration process should be intuitive and straightforward. The user should be able to easily navigate through the registration form and submit the required information without encountering any confusion or errors.
+| Accesibility | A user with vision problems accesses the application | The platform must have the necessary font size and sufficient contrast with the background so that all the text is completely legible.
+| Privacy | A user views their participation history on the WIQ platform. | The platform should only display the participation history of the authenticated user and should not allow access to the history of other users. User data should be securely stored and protected from unauthorized access.
+| Performance | Multiple users simultaneously play a game on the WIQ platform. | The platform should maintain fast response times even under heavy load, ensuring that users can answer questions within the specified time limit without experiencing delays or interruptions.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-technical-risks"></a>
+== Risks and Technical Debts</p>
+<p class="tableblock">=== Risks</p>
+<p class="tableblock">==== Internal Risks
+Risks that we can have under control and it´s our responsability to fight against them:
+[options="header" frame=all]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>|Internal |More detail |How to fight it</p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>Tabular or free form text.</p>
+<p>|A member fire out the project
+|It&#8217;s possible that due to reasons like having a lot of pressure or being overwhelmed by the project members of the group quit the project or the subject
+|Try to communicate with each other and having a sensible rhythm advancing with the project. Also helping each other when we can</p>
 </div>
-</div>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Quality Goal</th>
-<th class="tableblock halign-left valign-top">Scenario</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A new user registers on the WIQ platform</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The registration process should be intuitive and straightforward. The user should be able to easily navigate through the registration form and submit the required information without encountering any confusion or errors.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accesibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user with vision problems accesses the application</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The platform must have the necessary font size and sufficient contrast with the background so that all the text is completely legible.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user views their participation history on the WIQ platform.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The platform should only display the participation history of the authenticated user and should not allow access to the history of other users. User data should be securely stored and protected from unauthorized access.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiple users simultaneously play a game on the WIQ platform.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The platform should maintain fast response times even under heavy load, ensuring that users can answer questions within the specified time limit without experiencing delays or interruptions.</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_risks">11.1. Risks</h3>
-<div class="sect3">
-<h4 id="_internal_risks">11.1.1. Internal Risks</h4>
 <div class="paragraph">
-<p>Risks that we can have under control and it´s our responsability to fight against them:</p>
+<p>|First time delivering a full stack app
+|We could have a lack of experience with a project as big as this that have a bit of every field.
+|Searching and learning the new things we could need during the project and talking with the other members if we know more of a determined field trying to help them</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Internal</th>
-<th class="tableblock halign-left valign-top">More detail</th>
-<th class="tableblock halign-left valign-top">How to fight it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A member fire out the project</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s possible that due to reasons like having a lot of pressure or being overwhelmed by the project members of the group quit the project or the subject</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Try to communicate with each other and having a sensible rhythm advancing with the project. Also helping each other when we can</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">First time delivering a full stack app</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We could have a lack of experience with a project as big as this that have a bit of every field.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Searching and learning the new things we could need during the project and talking with the other members if we know more of a determined field trying to help them</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lack of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We can have some though weeks because we have other subjects to study and other projects and exams that can consumpt our time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Attemp to be responsible with our time and tasks and try to organize ourselves as good as we can</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">New technologies</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Some technologies that we will use in the projects are new for us such as React or managing a database due to our lack of experience</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Learning the new things that we don&#8217;t know and not being unwilling to confront new things such as technologies or languages that we have lack of experience on them</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not accomplish deadlines</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It can happen that we don&#8217;t archieve what it&#8217;s requested into the project in time and end up sending an uncompleted final product or during the middle deadlines</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">To avoid this we have to keep a good rhythm advancing and planing good and adequated tasks in the weekly meetings done in the labs so we don&#8217;t run out of time not done</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_external_risks">11.1.2. External Risks</h4>
 <div class="paragraph">
-<p>Risks that we can try to prevent but at the end doesn&#8217;t depend on us:</p>
+<p>|Lack of time
+|We can have some though weeks because we have other subjects to study and other projects and exams that can consumpt our time
+|Attemp to be responsible with our time and tasks and try to organize ourselves as good as we can</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">External risk</th>
-<th class="tableblock halign-left valign-top">More detail</th>
-<th class="tableblock halign-left valign-top">How to fight it</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Depending on extern technologies</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It&#8217;s possible that due to depend on external libraries such as react or external services like Azure we can find ourselves with the poject not working derivated from failures on that external technologies</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Try to investigate and use reliable services and libraries that are not likely to end up deprecated or with bugs and failures on their releases</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accidents in the presentation day</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accidents can happen and if something like a train or bus not working or some unexpected problem that we can experience the presentation day (2nd May) it´s possible that someone can be absent in that final presentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">To avoid this we should try to be cautious and arrive with a big margin time and having alternatives</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_technical_debt">11.2. Technical Debt</h3>
 <div class="paragraph">
-<p>TO-DO</p>
+<p>|New technologies
+|Some technologies that we will use in the projects are new for us such as React or managing a database due to our lack of experience
+|Learning the new things that we don&#8217;t know and not being unwilling to confront new things such as technologies or languages that we have lack of experience on them</p>
+</div>
+<div class="paragraph">
+<p>|Not accomplish deadlines
+|It can happen that we don&#8217;t archieve what it&#8217;s requested into the project in time and end up sending an uncompleted final product or during the middle deadlines
+|To avoid this we have to keep a good rhythm advancing and planing good and adequated tasks in the weekly meetings done in the labs so we don&#8217;t run out of time not done</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 100%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Technical Debt</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 1.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 1.2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 2.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 2.2</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 3.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 3.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">==== External Risks
+Risks that we can try to prevent but at the end doesn&#8217;t depend on us:
+[options="header" frame=all]</p></td>
 </tr>
 </tbody>
 </table>
-<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>|External risk |More detail |How to fight it</p>
 </div>
+<div class="paragraph">
+<p>|Depending on extern technologies
+|It&#8217;s possible that due to depend on external libraries such as react or external services like Azure we can find ourselves with the poject not working derivated from failures on that external technologies
+|Try to investigate and use reliable services and libraries that are not likely to end up deprecated or with bugs and failures on their releases</p>
 </div>
+<div class="paragraph">
+<p>|Accidents in the presentation day
+|Accidents can happen and if something like a train or bus not working or some unexpected problem that we can experience the presentation day (2nd May) it´s possible that someone can be absent in that final presentation
+|To avoid this we should try to be cautious and arrive with a big margin time and having alternatives</p>
 </div>
-<div class="sect1">
-<h2 id="section-glossary">12. Glossary</h2>
-<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
+<col style="width: 100%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Term</th>
-<th class="tableblock halign-left valign-top">Definition</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Accessibility</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Accessibility is the practice of designing products, devices, services, or environments to be usable by people with disabilities. It aims to ensure that everyone, regardless of their physical or cognitive abilities, can perceive, understand, navigate, and interact with digital or physical environments effectively and without barriers.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>An API (Application Programming Interface) is a set of rules, protocols, and tools that enables different software applications to communicate and interact with each other. It defines the methods and data formats that applications can use to request and exchange information, allowing for seamless integration and interoperability between systems, services, and platforms.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Back end</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The back end is the part of a web application that operates behind the scenes and is responsible for managing and processing data, as well as handling requests from the front end. It includes the server, application logic, and database.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Database</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Database is a structured collection of data that is organized in a way that allows for efficient storage, retrieval, manipulation, and management. They facilitate data organization, retrieval, and analysis, enabling businesses to make informed decisions, support transactional operations, and deliver valuable services to users.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker is a platform that simplifies the process of developing, deploying, and running applications by utilizing containerization technology.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Front end</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Front end is the part of a web application that users interact with directly. It encompasses everything that users see, touch, and interact with in their web browsers. This includes the user interface (UI), design elements, layouts, content, and interactive features.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>GitHub</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>GitHub is a web-based platform and version control system that facilitates collaboration and software development workflows.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>JavaScript</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>JavaScript is a programming language primarily employed for web development. It enables developers to add interactivity, dynamic behavior, and client-side scripting to web pages.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>JSON</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stands for JavaScript Object Notation. It&#8217;s a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>MongoDB</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>MongoDB is a NoSQL database that stores data in a flexible, document-oriented format called BSON (Binary JSON). It is designed for scalability, high performance, and ease of development.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Node.js</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Node.js is a server-side runtime environment that allows developers to run JavaScript code outside of a web browser.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Performance</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Performance refers to the responsiveness, speed, and efficiency of a system or application in executing tasks and handling user interactions. It encompasses factors such as response time, throughput, resource consumption, and scalability, all of which contribute to a satisfactory user experience.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>React</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>React is a JavaScript library for building interactive and dynamic user interfaces.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usability</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usability refers to the extent to which a product or system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction. It focuses on enhancing the user experience by ensuring that interfaces are intuitive, tasks are easy to accomplish, and interactions are pleasant.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata is an open knowledge base. It serves as a centralized repository for structured data.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">=== Technical Debt</p>
+<p class="tableblock">TO-DO</p>
+<p class="tableblock">[options="header" frame=all]</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>|Technical Debt |Description</p>
+</div>
+<div class="paragraph">
+<p>|Space 1.1
+|Space 1.2</p>
+</div>
+<div class="paragraph">
+<p>|Space 2.1
+|Space 2.2</p>
+</div>
+<div class="paragraph">
+<p>|Space 3.1
+|Space 3.2</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&lt;&lt;</p>
+<p class="tableblock"><a id="section-glossary"></a>
+== Glossary</p>
+<p class="tableblock">[role="arc42help"]</p>
+<p class="tableblock">[cols="e,2e" options="header"]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>|Term |Definition</p>
+</div>
+<div class="paragraph">
+<p>|Accessibility|Accessibility is the practice of designing products, devices, services, or environments to be usable by people with disabilities. It aims to ensure that everyone, regardless of their physical or cognitive abilities, can perceive, understand, navigate, and interact with digital or physical environments effectively and without barriers.
+|API|An API (Application Programming Interface) is a set of rules, protocols, and tools that enables different software applications to communicate and interact with each other. It defines the methods and data formats that applications can use to request and exchange information, allowing for seamless integration and interoperability between systems, services, and platforms.
+|Back end|The back end is the part of a web application that operates behind the scenes and is responsible for managing and processing data, as well as handling requests from the front end. It includes the server, application logic, and database.
+|Database|Database is a structured collection of data that is organized in a way that allows for efficient storage, retrieval, manipulation, and management. They facilitate data organization, retrieval, and analysis, enabling businesses to make informed decisions, support transactional operations, and deliver valuable services to users.
+|Docker|Docker is a platform that simplifies the process of developing, deploying, and running applications by utilizing containerization technology.
+|Front end|Front end is the part of a web application that users interact with directly. It encompasses everything that users see, touch, and interact with in their web browsers. This includes the user interface (UI), design elements, layouts, content, and interactive features.
+|GitHub|GitHub is a web-based platform and version control system that facilitates collaboration and software development workflows.
+|JavaScript|JavaScript is a programming language primarily employed for web development. It enables developers to add interactivity, dynamic behavior, and client-side scripting to web pages.
+|JSON|Stands for JavaScript Object Notation. It&#8217;s a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.
+|MongoDB|MongoDB is a NoSQL database that stores data in a flexible, document-oriented format called BSON (Binary JSON). It is designed for scalability, high performance, and ease of development.
+|Node.js|Node.js is a server-side runtime environment that allows developers to run JavaScript code outside of a web browser.
+|Performance|Performance refers to the responsiveness, speed, and efficiency of a system or application in executing tasks and handling user interactions. It encompasses factors such as response time, throughput, resource consumption, and scalability, all of which contribute to a satisfactory user experience.
+|React|React is a JavaScript library for building interactive and dynamic user interfaces.
+|Usability|Usability refers to the extent to which a product or system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction. It focuses on enhancing the user experience by ensuring that interfaces are intuitive, tasks are easy to accomplish, and interactions are pleasant.
+|Wikidata|Wikidata is an open knowledge base. It serves as a centralized repository for structured data.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-10 16:42:52 +0200
+Last updated 2024-04-12 09:49:23 +0200
 </div>
 </div>
 </body>

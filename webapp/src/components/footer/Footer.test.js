@@ -32,6 +32,7 @@ describe('Footer Component', () => {
     expect(githubLink).toHaveAttribute('href', 'https://github.com/Arquisoft/wiq_es05c');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
+    
 
     // Verificar que el enlace a la Escuela de Ingeniería Informática esté presente con el atributo target="_blank"
     const schoolLink = screen.getByRole('link', { name: /Escuela de Ingeniería Informática/i });

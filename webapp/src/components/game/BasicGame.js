@@ -6,7 +6,9 @@ heredas y sobreescribes  y list */
 
 import GameMode from './gameModes/GameMode';
 import Swal from 'sweetalert2';
-import { Redirect } from 'react-router-dom';
+
+import i18n from 'i18next'; // Importa i18n
+
 class BasicGame extends GameMode {
 
   constructor() {
@@ -24,9 +26,11 @@ class BasicGame extends GameMode {
 
   }
 
+
   async fetchQuestions() {
-    if(this.idioma == null)
+    if(this.idioma === null || this.idioma === undefined)
       this.idioma = 'en';
+    console.log("entra en fetchQuestions valor idioma "+this.idioma);
     try {
       const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
       const data = await response.json();
@@ -53,23 +57,17 @@ class BasicGame extends GameMode {
     console.log('endGameeeeeeeeee');
     this.isGameEnded = true;
     this.questionIndex=0;
-
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
-
-     // Imprimir la función navigate para verificar que se ha pasado correctamente
-    console.log('Función navigate:', this.navigate);
-  
-    
-    //redireccionar al usuario a /home con la prop dinamica que le pasas 
-    this.navigate('/home');
-
+      //redireccionar al usuario a /home con la prop dinamica que le pasas 
+      this.navigate('/home');
   }
 
   /*
   recibe el objeto que representa los datos asi si quieres no guardar un dato no se lo pasas 
   */
   async sendHistory(historyData) {
+
     if (localStorage.getItem('username') != null) {
       if (!('correctas' in historyData) || !('incorrectas' in historyData) || !('tiempoTotal' in historyData)) {
         throw new Error('historyData must have correctas, incorrectas, and tiempoTotal properties');
@@ -83,13 +81,13 @@ class BasicGame extends GameMode {
       };
 
       Swal.fire({
-        title: 'Juego terminado, tus resultados son los siguientes:',
+        title: i18n.t('basicGameEnd'),
         html: `
-          <p>Correctas: ${this.correctas}</p>
-          <p>Incorrectas: ${this.incorrectas}</p>
-          <p>Tiempo total: ${this.tiempoTotal}</p>
+          <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
+          <p>${i18n.t('wrongAnswers')} ${this.incorrectas}</p>
+          <p>${i18n.t('timePlayed')} ${this.tiempoTotal}</p>
         `,
-        confirmButtonText: 'Cerrar'
+        confirmButtonText: i18n.t('close')
       });
   
       console.log("Se envian los siguientes datos al historial", data);

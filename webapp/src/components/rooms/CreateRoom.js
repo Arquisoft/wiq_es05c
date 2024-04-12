@@ -2,18 +2,16 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Text, Button, VStack, Center } from "@chakra-ui/react";
 
-import socket from './socket';
 import { useTranslation } from 'react-i18next';
+import socket from './socket';
 
 const CreateRoomForm = () => {
     const navigate = useNavigate();
 
-    const [roomId, setRoomId] = useState('');
+    const {t} = useTranslation();
+
     const [isLoading, setIsLoading] = useState(false);
     const username = localStorage.getItem('username');
-
-    //para la internacionalización
-    const {t} = useTranslation();
   
     useEffect(() => {
       // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
@@ -37,14 +35,13 @@ const CreateRoomForm = () => {
       <Box p={5} shadow="md" borderWidth="1px">
         <VStack spacing={5}>
           <Center>
-            <Text fontSize="xl" textAlign="center">Crear Sala</Text>
+            <Text fontSize="xl" textAlign="center">{t('roomCreateButton')}</Text>
           </Center>
           <Text fontSize="md" textAlign="center" data-testid="info-text">
-              Al hacer clic en "Crear Sala", se creará una nueva sala con un ID único. 
-              Deberás compartir este ID con las personas que quieras que se unan a tu sala.
+              {t('createRoomInfo')}
           </Text>
           <Button onClick={handleCreateRoom} isLoading={isLoading} colorScheme="teal" variant="outline" id="createRoom" data-testid="createRoom">
-            {isLoading ? 'Creando...' : 'Crear Sala'}
+            {isLoading ? t('roomWaitCreateMessage') : t('roomCreateButton')}
           </Button>
         </VStack>
       </Box>

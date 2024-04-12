@@ -22,6 +22,7 @@ import CreateRoomForm from './components/rooms/CreateRoom'; // Importa el compon
 import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente para unirse a sala
 import { Ranking } from './components/ranking/Ranking';
 import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
+import BasicGame from './components/game/BasicGame';
 
 
 const App = () => {
@@ -61,7 +62,7 @@ const App = () => {
           } />
           <Route path="/game" element={
             <AuthenticatedLayout>
-              <ChakraProvider><Game darkMode={darkMode}/>  </ChakraProvider>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={new BasicGame()}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
           <Route path="/gameSameCat" element={

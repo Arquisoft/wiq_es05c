@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
-import { Box, Input, Button, Text, Tooltip, Icon, Center, VStack, HStack } from "@chakra-ui/react"; 
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { Box, Input, Button, Text, Center, VStack } from "@chakra-ui/react"; 
 import { useToast } from "@chakra-ui/react";
 import socket from './socket';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +10,6 @@ const JoinRoomForm = () => {
 
   const [roomId, setRoomId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
   const username = localStorage.getItem('username');
 
   const toast = useToast();
@@ -49,7 +47,7 @@ const JoinRoomForm = () => {
       socket.off('roomJoined');
       socket.off('roomErrorJoining');
     };
-   }, []);
+   }, [navigate, toast]);
 
   const handleJoinRoom = async () => {
     

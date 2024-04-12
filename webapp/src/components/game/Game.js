@@ -1,14 +1,12 @@
 import { QuestionArea } from './QuestionArea';
 import { useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import { Spinner, Box, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button,Center } from "@chakra-ui/react";
+import { Spinner, Box} from "@chakra-ui/react";
 import BasicGame from './BasicGame';
 import { useTranslation } from 'react-i18next';
 
-const apiEndpoint = process.env.REACT_APP_API_URI ||'http://localhost:8000';
 
 function Game({darkMode,gameMode=new BasicGame()}) {
-  const [isOpen, setIsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [totalTime, setTotalTime] = useState(0);
@@ -20,7 +18,6 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
   const gameModeRef = useRef(gameMode);
-
   //para pasarle el idioma
   const { i18n } = useTranslation();
 
@@ -38,10 +35,15 @@ function Game({darkMode,gameMode=new BasicGame()}) {
   
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
+      //en caso de que la gateway devuelva un error , sacamos un alert y le decimos que cargue la pagina d enuevo 
+      if(gameModeRef.current.questions.length<=1){
+        alert("Error al cargar las preguntas, por favor recargue la página");
+        navigate('/home');
+      }
     };
   
     startGameAsync();
-  }, []);
+  }, [i18n.language, navigate]);//<-cambiar el array de depencias error despliegue 
 
  
 
@@ -56,7 +58,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
 
     console.log('comprobar si se pone a true el finished:preguntas tamaño,correctas e incorrecas ',gameModeRef.current.questions.length)
     
-    if(correctAnswers+incorrectAnswers==gameModeRef.current.questions.length-1)
+    if(correctAnswers+incorrectAnswers === gameModeRef.current.questions.length-1)
     setIsFinished(true);
     setTotalTime(totalTime);
   };
@@ -79,14 +81,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
      }
       
     
-  }, [correctAnswers, incorrectAnswers]);
-
-
-
-  const onClose=()=>{
-    setIsOpen(false);
-    navigate('/home');
-  }
+  }, [correctAnswers, incorrectAnswers,totalTime, isFinished]);//<-cambiar el array de depencias error despliegue 
 
   const handleTimeout = () => {
     handleAnswerSelect(false);

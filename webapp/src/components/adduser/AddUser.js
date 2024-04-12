@@ -22,7 +22,9 @@ const AddUser = (darkMode) => {
 
       
       //navegar hacia el loggin si fue correcto 
-      navigate('/login');
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -124,11 +126,11 @@ const AddUser = (darkMode) => {
         onChange={(e) => setPasswordConfirm(e.target.value)}
         helperText={t('passwordRepeatHelper')}
       />
-      <Button variant="contained" color="primary" onClick={addUser}
+      <Button id="addRegister" variant="contained" color="primary" onClick={addUser}
       style={{ backgroundColor: buttonColor, color: text }}>
         {t('addUser')}
       </Button>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
+      <Snackbar id="addMessage" open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}

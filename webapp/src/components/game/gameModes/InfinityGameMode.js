@@ -1,10 +1,8 @@
 const { default: BasicGame } = require("../BasicGame");
-const { default: GameMode } = require("./GameMode");
+//const { default: GameMode } = require("./GameMode");
 
 class InfinityGameMode extends BasicGame{
-    constructor(){
-        super();
-    }
+
    
     async fetchQuestions() {
         try {

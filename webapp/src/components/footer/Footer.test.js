@@ -29,9 +29,10 @@ describe('Footer Component', () => {
     // Verificar que el enlace al Github del Proyecto esté presente con el atributo target="_blank"
     const githubLink = screen.getByRole('link', { name:  /Github del Proyecto/i });
     expect(githubLink).toBeInTheDocument();
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/Arquisoft/wiq_es04c');
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/Arquisoft/wiq_es05c');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
+    
 
     // Verificar que el enlace a la Escuela de Ingeniería Informática esté presente con el atributo target="_blank"
     const schoolLink = screen.getByRole('link', { name: /Escuela de Ingeniería Informática/i });

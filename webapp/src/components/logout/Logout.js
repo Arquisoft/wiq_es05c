@@ -12,7 +12,7 @@ const Logout = () => {
     
   useEffect(() => {
     logout();
-  }, []);
+  }, [logout]);
     // Llamar a handleLogout cuando se monta el componente
 
       return (

@@ -286,6 +286,7 @@ class ObtenerPreguntaWikiData {
       return new Promise((resolve, reject) => {
         var respuestasIncorrectas = [];
         var num = 0;
+
         //añadimos el resto de respuestas en español
         for(var i = 0; i < this.answers.length; i++){
           if(this.answers[i].result_es !== respuestaCorrecta_es){
@@ -293,6 +294,7 @@ class ObtenerPreguntaWikiData {
             num++;
           }
         }
+
         //añadimos el resto de respuestas en inglés
         for(var i = 0; i < this.answers.length; i++){
           if(this.answers[i].result_en !== respuestaCorrecta_en){
@@ -301,29 +303,52 @@ class ObtenerPreguntaWikiData {
           }
         }
 
-        //guardamos la pregunta para añadirla a la base de datos
-        this.finalQuestion = {
-          //para español
-          question_es: consulta_es.trim().replace(/\r?\n|\r/g, ''),
-          correct_es: respuestaCorrecta_es,
-          incorrect1_es: respuestasIncorrectas[0],
-          incorrect2_es: respuestasIncorrectas[1],
-          incorrect3_es: respuestasIncorrectas[2],
-          
-          //para ingles
-          question_en: consulta_en.trim().replace(/\r?\n|\r/g, ''),
-          correct_en: respuestaCorrecta_en,
-          incorrect1_en: respuestasIncorrectas[3],
-          incorrect2_en: respuestasIncorrectas[4],
-          incorrect3_en: respuestasIncorrectas[5],
+        //comprobar si hay alguno con undefined
+        var hayUndefined = this.comprobarUndefined(respuestasIncorrectas);
 
-          category: this.category,
-          type: this.type
-        }         
+        if(!hayUndefined){
+          //guardamos la pregunta para añadirla a la base de datos
+          this.finalQuestion = {
+            //para español
+            question_es: consulta_es.trim().replace(/\r?\n|\r/g, ''),
+            correct_es: respuestaCorrecta_es,
+            incorrect1_es: respuestasIncorrectas[0],
+            incorrect2_es: respuestasIncorrectas[1],
+            incorrect3_es: respuestasIncorrectas[2],
+            
+            //para ingles
+            question_en: consulta_en.trim().replace(/\r?\n|\r/g, ''),
+            correct_en: respuestaCorrecta_en,
+            incorrect1_en: respuestasIncorrectas[3],
+            incorrect2_en: respuestasIncorrectas[4],
+            incorrect3_en: respuestasIncorrectas[5],
 
-        resolve();
+            category: this.category,
+            type: this.type
+          }         
+
+          resolve();
+        }
+        else{
+          reject(new Error('Hay respuestas incorrectas con valor undefined'));
+        }
+
       });
     }   
+
+    /*
+      comprobamos si hay algún undefined en las respuestas incorrectas
+      añadido porque a veces las respuestas eran undefined y tiraba el question service
+    */
+    comprobarUndefined(respuestasIncorrectas){
+      var hayUndefined = false;
+      for(var i = 0; i < respuestasIncorrectas.length; i++){
+        if(respuestasIncorrectas[i] === undefined){
+          hayUndefined = true;
+        }
+      }
+      return hayUndefined;
+    }
 
     /*
       obtenemos la pregunta que hemos generado

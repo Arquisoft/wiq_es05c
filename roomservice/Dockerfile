@@ -9,7 +9,9 @@ COPY package*.json ./
 
 # Install app dependencies
 RUN npm install
-
+#OBTENER LA RAVILE PAR QUE SOCKET PERMITA CONEX
+ARG REACT_APP_API_URI
+ENV REACT_APP_API_URI=$REACT_APP_API_URI
 # Copy the app source code to the working directory
 COPY . .
 

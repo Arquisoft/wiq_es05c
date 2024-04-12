@@ -34,7 +34,7 @@ export function History({darkMode}){
       .catch(error => {
         //console.error('Error cargando el historial de todas las partidas del usuario:', error);
       });
-  }, []);
+  }, [gamesEndpoint]);//<-cambiar el array de depencias error despliegue
 
   useEffect(() => {
     fetch(statisticsEndpoint)
@@ -48,7 +48,7 @@ export function History({darkMode}){
       .catch(error => {
         //console.error('Error cargando las estadísticas del usuario:', error);
       });
-  }, []);
+  }, [statisticsEndpoint]);//<- cambiar el array de depencias error despliegue
 
 
 

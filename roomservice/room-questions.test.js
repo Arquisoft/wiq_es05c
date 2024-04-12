@@ -76,7 +76,7 @@ describe('RoomQuestions', () => {
 
         axios.get.mockResolvedValue({ data: 'questions' });
 
-        await roomQuestions.startGame(id, socket1);
+        await roomQuestions.startGame(id, null,socket1);
         expect(socket1.emit).toHaveBeenCalledWith('gameStarted', 'questions');
     });
 
@@ -85,7 +85,7 @@ describe('RoomQuestions', () => {
       const id = await roomQuestions.createRoom(username, socket1);
   
       // Try to start game with only one user
-      await roomQuestions.startGame(id, socket1);
+      await roomQuestions.startGame(id, null,socket1);
   
       // Check that the game did not start
       expect(socket1.emit).not.toHaveBeenCalledWith('gameStarted', expect.anything());
@@ -103,7 +103,7 @@ describe('RoomQuestions', () => {
       expect(roomUsers.length).toBe(2);
 
       // Start game for both users
-      await roomQuestions.startGame(id, socket1);
+      await roomQuestions.startGame(id,null ,socket1);
 
       // Check that the game started
       expect(socket1.emit).toHaveBeenCalledWith('gameStarted', expect.anything());
@@ -115,9 +115,9 @@ describe('RoomQuestions', () => {
         await roomQuestions.endGame(id, { user: anotherUser, correctas: 1, incorrectas: 4, tiempoTotal: 20 }, socket2);
 
         // Check that the user 2 recived the game ended event
-        expect(socket2.emit).toHaveBeenCalledWith('gameEnded', 'testUser');
+        expect(socket2.emit).toHaveBeenCalledWith('gameEnded',  [{"correctas": 5, "tiempoTotal": 10, "username": "testUser"}, {"correctas": 1, "tiempoTotal": 20, "username": "anotherUser"}]);
         // Check that the user 1 recived the game ended event
-        expect(socket1.emit).toHaveBeenCalledWith('gameEnded', 'testUser');
+        expect(socket1.emit).toHaveBeenCalledWith('gameEnded', [{"correctas": 5, "tiempoTotal": 10, "username": "testUser"}, {"correctas": 1, "tiempoTotal": 20, "username": "anotherUser"}]);
 
   });
 });

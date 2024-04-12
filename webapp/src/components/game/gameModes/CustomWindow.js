@@ -21,7 +21,7 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
     const {t} = useTranslation();
     const navigate = useNavigate();
 
-    let backgroundColor = darkMode ? '#3F3F3F' : '#D3B1C2';
+    //let backgroundColor = darkMode ? '#3F3F3F' : '#D3B1C2';
     let text = darkMode ? '#FCFAF0' : '#08313A';
     let titles = darkMode ? '#90ADC6' : '#00325E';
 

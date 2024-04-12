@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Image, useDisclosure, Text, Button } from '@chakra-ui/react';
+import { Box, Image, Button,ChakraProvider } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,7 @@ const Home = () => {
   const {t} = useTranslation();
   const navigate = useNavigate();
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  
 
 
   const handleClickClassic = () => {
@@ -30,31 +29,87 @@ const Home = () => {
   };
 
 
+ 
   return (
-    <Box boxSize='sm' display="flex">
-      <Box id="seccion-juegos-left" flex="1" flexDirection="column"  display="flex" justifyContent="center">
-        <button id="button-classic-game" onClick={handleClickClassic} margin="5em">
+    <ChakraProvider>
+    <Box 
+      display="flex" 
+      justifyContent="center" 
+      alignItems="center" 
+      height="100vh"
+    >
+      <Box 
+        id="seccion-juegos-left" 
+        flex="1" 
+        flexDirection="column"  
+        display="flex" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button 
+          id="button-infinite-game" 
+          onClick={handleClickClassic} 
+          margin="2em" 
+          colorScheme='blue' variant='solid'
+          >
           {t('modoClasico')}
-        </button>
-        <button id="button-samecat-game" onClick={handleClickSameCat} margin="5em">
+        </Button>
+        <Button 
+          id="button-samecat-game" 
+          onClick={handleClickSameCat} 
+          margin="2em" 
+          colorScheme='green' variant='solid'
+        >
           {t('modoMismaCategoria')}
-        </button>
+        </Button>
       </Box>
-      <Box id="seccion-icono" flex="1" flexDirection="column" alignItems="center" display="flex">
+  
+      <Box 
+        id="seccion-icono" 
+        flex="1" 
+        flexDirection="column" 
+        alignItems="center" 
+        display="flex"
+      >
         <Image src='/wiq3.jpg' alt='Icono WIQ05' borderRadius='50em' boxSize="20em" margin="1em"/>
-        <button id="button-diario-game" onClick={handleClickDiario} disabled="true">
+        <Button 
+          id="button-diario-game" 
+          onClick={handleClickDiario} 
+          disabled="true" 
+
+        >
           {t('modoDiario')}
-        </button>
-        </Box>
-      <Box id="seccion-juegos-right" flex="1" flexDirection="column"  display="flex" justifyContent="center">
-        <button id="button-infinite-game" onClick={handleClickInfinity}>
+        </Button>
+      </Box>
+  
+      <Box 
+        id="seccion-juegos-right" 
+        flex="1" 
+        flexDirection="column"  
+        display="flex" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button 
+          id="button-infinite-game" 
+          onClick={handleClickInfinity} 
+          margin="2em" 
+
+        >
           {t('modoInfinito')}
-        </button>
-        <button id="button-custom-game" onClick={handleClickCustom}>
+        </Button>
+        <Button 
+          id="button-custom-game" 
+          onClick={handleClickCustom} 
+          margin="2em" 
+          colorScheme='teal' variant='solid'
+
+        >
           {t('modoCustom')}
-        </button>
+        </Button>
       </Box>
     </Box>
+    </ChakraProvider>
   );
 };
 

@@ -7,7 +7,9 @@
 include::src/config.adoc[]
 
 = image:arc42-logo.png[arc42] Documentación WIQ-ES05C
+
 image:: images/wiq2.jpg["Web App Logo"] 
+
 :revnumber: 8.2 EN
 :revdate: January 2023
 :revremark: (based upon AsciiDoc version)

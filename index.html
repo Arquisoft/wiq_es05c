@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<meta name="author" content="image:: images/wiq2.jpg["Web App Logo"]">
 <title>Documentación WIQ-ES05C</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -438,14 +437,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article">
 <div id="header">
 <h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Documentación WIQ-ES05C</h1>
-<div class="details">
-<span id="author" class="author">image:: images/wiq2.jpg["Web App Logo"]</span><br>
-<span id="revnumber">version 8.2 EN,</span>
-<span id="revdate">January 2023</span>
-<br><span id="revremark">(based upon AsciiDoc version)</span>
-</div>
 <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">table of contents</div>
 <ul class="sectlevel1">
 <li><a href="#section-introduction-and-goals">1. Introduction and Goals (wiq_es05c)</a>
 <ul class="sectlevel2">
@@ -512,6 +505,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">image</dt>
+<dd>
+<p>images/wiq2.jpg["Web App Logo"]</p>
+</dd>
+</dl>
+</div>
 <style>
 .arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0; padding: 2px 0 3px 2px;}
 .arc42help::before {content: "?";}
@@ -850,6 +851,11 @@ should do for the next meeting will be established, and the work done to date wi
 <img src="./images/BusinessContext.jpg" alt="Business Context Diagram">
 </div>
 </div>
+<div class="paragraph">
+<p>Users authenticate themselves within the system using their personal information. The application offers a question-based game similar to "Saber y Ganar" .
+Additionally, users can check the ranking of all players.
+Furthermore, users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question .</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -873,19 +879,6 @@ Additionally, when prompted by the system, it will retrieve a question along wit
 </tr>
 </tbody>
 </table>
-<div class="ulist">
-<ul>
-<li>
-<p>Users authenticate themselves within the system using their personal information.</p>
-</li>
-<li>
-<p>The application offers a question-based game similar to "Saber y Ganar" .</p>
-</li>
-<li>
-<p>Users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question.</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_technical_context">3.2. Technical Context</h3>
@@ -912,7 +905,7 @@ Additionally, when prompted by the system, it will retrieve a question along wit
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>QuestionsService</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Express Service for managing questions and answers. This service handles searching for questions and answers, as well as their insertion into and retrieval from the database.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>HistoryService</strong></p></td>
@@ -924,7 +917,7 @@ Additionally, when prompted by the system, it will retrieve a question along wit
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Webapp</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React web application that uses the gateway service to allow basic login and new user features.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frontend of the application that uses the gateway service to allow basic login and new user features.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WikiData</strong></p></td>
@@ -962,13 +955,17 @@ Additionally, when prompted by the system, it will retrieve a question along wit
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A container platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contenerization platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight,
 portable containers, making it easy to deploy across different development and production environments.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Actions</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
 You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Express</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Express.js is a fast and minimalist web framework for Node.js. It is used to create scalable and efficient web applications. With Express.js, developers can quickly and easily build robust and customizable web servers.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1785,7 +1782,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-12 10:35:42 +0200
+Last updated 2024-04-12 16:12:36 +0200
 </div>
 </div>
 </body>

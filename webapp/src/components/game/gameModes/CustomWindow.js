@@ -73,10 +73,28 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
         </Slider>
       </Box>
       <Box id='buttons-section-custom' display="flex" flexDirection="row" justifyContent="flex-end">
-        <button id="button-custom-cancelar" onClick={handleClickCancelar} margin="2em">
+        <button id="button-custom-cancelar" onClick={handleClickCancelar} margin="2em" 
+        style={{
+          width: '6em',
+          height: '3em',
+          padding: '0.5em',
+          margin: '2em',
+          border: '2px solid #000', // añade un borde de 2px de color negro
+          color: '#000', // establece el color del texto a negro
+          backgroundColor: '#fff', // establece el color de fondo a blanco
+        }}>
           {t('cancelar')}
         </button>
-        <button id="button-custom-jugar" onClick={handleClickJugar} margin="2em">
+        <button id="button-custom-jugar" onClick={handleClickJugar} margin="2em"
+        style={{
+          width: '6em',
+          height: '3em',
+          padding: '0.5em',
+          margin: '2em',
+          border: '2px solid #000', // añade un borde de 2px de color negro
+          color: '#000', // establece el color del texto a negro
+          backgroundColor: '#fff', // establece el color de fondo a blanco
+        }}>
           {t('jugar')}
         </button>
         </Box>  

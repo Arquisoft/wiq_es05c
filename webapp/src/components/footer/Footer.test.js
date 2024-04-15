@@ -52,6 +52,8 @@ describe('Footer Component', () => {
     expect(githubLogo).toHaveAttribute('src', '/logoGitHub.png'); 
 });
 
+
+
   test('should always pass', () => {
     expect(true).toBe(true);
   }); 

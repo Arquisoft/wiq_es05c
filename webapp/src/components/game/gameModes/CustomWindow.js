@@ -42,7 +42,7 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
             <Heading margin="2em" textAlign="center" color={titles}>{t('modoCustomTitle')}</Heading>
         <Box id="box-for-preguntas" margin="4em">
             <Heading margin="2em" textAlign="left" size="md" color={text}>{t('customModeNumPreguntas')}</Heading>
-        <Slider
+        <Slider data-testid='slider-custom-preguntas'
             flex='1'
             focusThumbOnChange={false}
             value={valueQuestionNum}
@@ -58,7 +58,7 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
       </Box>
         <Box id="box-for-time" margin="4em">
             <Heading margin="2em" textAlign="left" size="md" color={text}>{t('customModeNumTiempo')}</Heading>
-        <Slider
+        <Slider data-testid='slider-custom-time'
             flex='1'
             focusThumbOnChange={false}
             value={valueTime}

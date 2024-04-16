@@ -66,7 +66,7 @@ app.get('/getQuestion', async (req, res) => {
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> ' + error.message});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta'});
   }
 });
 
@@ -136,7 +136,7 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   } catch (error) {
     //Modifico el error 
 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo misma categoria' });
 
   }
 });
@@ -163,49 +163,6 @@ app.get('/getQuestionModoCustom', async (req, res) => {
 });
 
 
-app.get('/getQuestionModoMismaCategoria', async (req, res) => {
-  console.log("entro en getQuestionModoMismaCategoria");
-  try {    
-    // Obtener el idioma en el que esta la app
-    let idioma = req.query.idioma;
-
-    //si no se le paso bien el idioma, por defecto es en
-    if(idioma === undefined) 
-      idioma = "en";
-
-    const categoria = req.query.categoria;
-    // llamamos al servicio de preguntas    
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoMismaCategoria?idioma=${idioma}&categoria=${categoria}`, req.body);
-    res.json(questionResponse.data);
-  } catch (error) {
-    //Modifico el error 
-
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
-
-  }
-});
-
-app.get('/getQuestionModoCustom', async (req, res) => {
-  try {    
-    // Obtener el idioma en el que esta la app
-    let idioma = req.query.idioma;
-    const numPreguntas = req.query.numPreguntas;
-
-    //si no se le paso bien el idioma, por defecto es en
-    if(idioma === undefined) 
-      idioma = "en";
-
-    // llamamos al servicio de preguntas    
-    const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
-    res.json(questionResponse.data);
-  } catch (error) {
-    //Modifico el error 
-
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
-
-  }
-});
-
 app.get('/generateQuestion', async (req, res) => {
   try {
     // llamamos al servicio de preguntas
@@ -213,7 +170,7 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(200).send("Pregunta generada y guardada correctamente.");
   } catch (error) {
     //Modifico el error
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas' });
   }
 });
 

@@ -13,12 +13,13 @@ jest.mock('react-i18next', () => ({
     })[key],
     i18n: {
       language: 'es',
+      changeLanguage: jest.fn(),
     },
   }),
 }));
 
 describe('Navbar Component', () => {
-  test('renders login and register buttons when user is not logged in', () => {
+  test('renders buttons when user is not logged in', () => {
     const mockIsLoggedIn = jest.fn().mockReturnValue(false);
     render(
       <AuthContext.Provider value={{ isLoggedIn: mockIsLoggedIn }}>
@@ -64,6 +65,34 @@ describe('Navbar Component', () => {
     expect(singupButton).toBeInTheDocument();
 
   });
+    
+  test('calls changeLanguage with "en" when English menu item is clicked', () => {
+    const mockIsLoggedIn = jest.fn().mockReturnValue(false);
+    render(
+    <AuthContext.Provider value={{ isLoggedIn: mockIsLoggedIn }}>
+      <Router>
+        <NavBar setDarkMode={() => {}} darkMode={false}/>
+      </Router>
+    </AuthContext.Provider>);
 
+     // Verifica que el menú de idiomas esté presente
+     const languageMenu = screen.getByRole('button', { id: 'change-language-button' });
+     expect(languageMenu).toBeInTheDocument();
   
+     // Abre el menú de idiomas
+     fireEvent.click(languageMenu);
+
+    // Encuentra el elemento del menú de idioma inglés
+    const spanishMenuItem = screen.getByTestId('spanish-menu-item');
+    expect(spanishMenuItem).toBeInTheDocument();    
+
+    // Simula hacer clic en el elemento del menú de idioma inglés
+    fireEvent.click(spanishMenuItem);
+
+    const languageTypography = screen.getByTestId('idioma');
+
+    // Verifica si el contenido del Typography coincide con el idioma actual en mayúsculas
+    expect(languageTypography.textContent).toBe("ES");
+  });
+
 });

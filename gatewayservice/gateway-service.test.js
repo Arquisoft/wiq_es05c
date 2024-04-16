@@ -453,6 +453,45 @@ it('should return an error when the history update service request fails', async
 
 
   
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
+  it('should handle error when fetching ranking diarias', async () => {
+    const historyServiceUrl = 'http://localhost:8004/getRankingDiarias';
+    const errorMessage = 'Network Error';
+    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+      });
+
+//Caso positivo para el endpoint /getRankingDiarias
+it('should perform the getRankingDiarias request', async () => {
+  const response = await request(app).get('/getRankingDiarias').send();
+  expect(response.statusCode).toBe(200);
+  const data = {
+    usuario: 'testuser',
+    preguntas: [
+      {
+        pregunta: '¿Cuál es la capital de Francia?',
+        respuesta: 'Paris',
+        correcta: true,
+      },
+    ],
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+});
+
+//Caso negativo para el endpoint /getRankingDiarias
+it('should return an error when the ranking diarias service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+  Promise.reject(new Error('Error al realizar la solicitud al servicio de historial'))
+  );
+  const response = await request(app)
+                                .get('/getRankingDiarias')
+                                .send({ id: 'mockedRankingId' });
+        
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
+  });
+
 //***************************************************endpoints de las salas */
 
 

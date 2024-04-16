@@ -257,17 +257,7 @@ app.get('/startgame/:id/:username',async(req,res)=> {
     res.status(500).json({ error: 'Error al crear la sala' });
   }
 });
-app.post('/updateHistory', async (req, res) => {
-  try {
-    // llamamos al servicio de preguntas
-    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
-    
-    res.json(historyResponse.data);
-  } catch (error) {
-    //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
-  }
-});
+
 
 app.get('/getRankingDiarias', async (req, res) => {
   try {

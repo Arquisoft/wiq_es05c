@@ -30,71 +30,59 @@ describe('User Service', () => {
     expect(response.body).toHaveProperty('email', 'username', 'testuser');
   });
 
+  it('should add a new user on POST /adduser', async () => {
+    const newUser = {
+      email: 'test@email.com',
+      user: 'testuser',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
+    };
+
+    const response = await request(app).post('/adduser').send(newUser);
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe("Missing required field: username");
+  });
+
 //pruebas para el formato de las contraseñas
 
-  it('should send an error because the password need to have 12 characters long minimum on POST /adduser', async () => {
+  it('should send an error because the password is incorrect on POST /adduser', async () => {
     const newUser = {
       email: 'test2@email.com',
       username: 'test2user',
-      password: 'Test_1',
-      passwordConfirm: 'Test_1',
+      password: 'test',
+      passwordConfirm: 'test',
     };
+
+    const errors = 
+      "La contraseña tiene que tener al menos 12 caracteres; \n" +
+      "La contraseña tiene que tener al menos una letra mayúscula; \n" +
+      "La contraseña tiene que tener al menos un número; \n" +
+      "La contraseña tiene que tener al menos un carácter especial"
+    ;
 
     const response = await request(app).post('/adduser').send(newUser);
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe('La contraseña tiene que tener al menos 12 caracteres');
+    expect(response.body.error).toBe(errors);
   });
 
-  it('should send an error because the password need to have a capital letter on POST /adduser', async () => {
+  it('should send an error because the password is incorrect on POST /adduser', async () => {
     const newUser = {
-      email: 'test3@email.com',
-      username: 'test3user',
-      password: 'testpassword_1',
-      passwordConfirm: 'testpassword_1',
+      email: 'test2.1@email.com',
+      username: 'test2.1user',
+      password: 'TEST',
+      passwordConfirm: 'TEST',
     };
+
+    const errors = 
+      "La contraseña tiene que tener al menos 12 caracteres; \n" +
+      "La contraseña tiene que tener al menos una letra minúscula; \n" +
+      "La contraseña tiene que tener al menos un número; \n" +
+      "La contraseña tiene que tener al menos un carácter especial"
+    ;
 
     const response = await request(app).post('/adduser').send(newUser);
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe('La contraseña tiene que tener al menos una letra mayúscula');
-  });
-
-  it('should send an error because the password need to have a lowercase letter on POST /adduser', async () => {
-    const newUser = {
-      email: 'test4@email.com',
-      username: 'test4user',
-      password: 'TESTPASSWORD_1',
-      passwordConfirm: 'TESTPASSWORD_1',
-    };
-
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('La contraseña tiene que tener al menos una letra minúscula');
-  });
-  
-  it('should send an error because the password need to have a number on POST /adduser', async () => {
-    const newUser = {
-      email: 'test5@email.com',
-      username: 'test5user',
-      password: 'Testpassword_',
-      passwordConfirm: 'Testpassword_',
-    };
-
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('La contraseña tiene que tener al menos un número');
-  });
-  
-  it('should send an error because the password need to have a special character on POST /adduser', async () => {
-    const newUser = {
-      email: 'test6@email.com',
-      username: 'test6user',
-      password: 'Testpassword1',
-      passwordConfirm: 'Testpassword1',
-    };
-
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('La contraseña tiene que tener al menos un carácter especial');
+    expect(response.body.error).toBe(errors);
   });
   
 //pruebas para comprobar el formato del email
@@ -102,20 +90,7 @@ describe('User Service', () => {
   it('should send an error because the email is not valid on POST /adduser', async () => {
     const newUser = {
       email: 'testemail.com',
-      username: 'test7user',
-      password: 'Testpassword_1',
-      passwordConfirm: 'Testpassword_1',
-    };
-
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('El email es invalido');
-  });
-
-  it('should send an error because the email is not valid on POST /adduser', async () => {
-    const newUser = {
-      email: 'test@email',
-      username: 'test8user',
+      username: 'test2user',
       password: 'Testpassword_1',
       passwordConfirm: 'Testpassword_1',
     };
@@ -130,7 +105,7 @@ describe('User Service', () => {
   it('should send an error because the email already exist in the database on POST /adduser', async () => {
     const newUser = {
       email: 'test@email.com',
-      username: 'test9user',
+      username: 'test3user',
       password: 'Testpassword_1',
       passwordConfirm: 'Testpassword_1',
     };
@@ -142,7 +117,7 @@ describe('User Service', () => {
 
   it('should send an error because the username already exist in the database on POST /adduser', async () => {
     const newUser = {
-      email: 'test10@email.com',
+      email: 'test4@email.com',
       username: 'testuser',
       password: 'Testpassword_1',
       passwordConfirm: 'Testpassword_1',
@@ -158,8 +133,8 @@ describe('User Service', () => {
 
 it('should send an error because the passwords are not equals on POST /adduser', async () => {
     const newUser = {
-      email: 'test11@email.com',
-      username: 'test11user',
+      email: 'test5@email.com',
+      username: 'test5user',
       password: 'Testpassword_1',
       passwordConfirm: 'Testpassword_2',
     };

@@ -20,7 +20,6 @@ const AddUser = (darkMode) => {
       await axios.post(`${apiEndpoint}/adduser`, { email, username, password , passwordConfirm});
       setOpenSnackbar(true);
 
-      
       //navegar hacia el loggin si fue correcto 
       setTimeout(() => {
         navigate('/login');
@@ -120,7 +119,7 @@ const AddUser = (darkMode) => {
         name="passwordConfirm"
         margin="normal"
         fullWidth
-        label={t('passwordRepeat')}
+        label={t('passRepeat')}
         type="password"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -130,9 +129,9 @@ const AddUser = (darkMode) => {
       style={{ backgroundColor: buttonColor, color: text }}>
         {t('addUser')}
       </Button>
-      <Snackbar id="addMessage" open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
+      <Snackbar id="addMessage" data-testid="addMessage" open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
       {error && (
-        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        <Snackbar data-testid="errorMessage" open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
     </Container>
   );

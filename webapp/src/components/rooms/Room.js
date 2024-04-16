@@ -115,7 +115,7 @@ function Room({ darkMode }) {
             <li key={index}>{username}</li>
           ))}
       </ul>
-      {isHost && <button onClick={startGame} disabled={gameStarted}>{t('roomStartGameButton')}</button>}
+      {isHost && <button onClick={startGame} disabled={gameStarted} data-test="startButton">{t('roomStartGameButton')}</button>}
       {gameStarted && roomGame!=null && <Game darkMode={darkMode} gameMode={roomGame} />}
     </div>
   );

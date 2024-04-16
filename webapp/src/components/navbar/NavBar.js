@@ -148,7 +148,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <CustomSwitch id='dark-mode-switch' onChange={handleToggle} />
         {isLoggedIn() ? (
          <>
-         <IconButton onClick={handleClick}>
+         <IconButton onClick={handleClick} data-testid="iconoUsuario">
            <Avatar alt="User Avatar" src="/icon.jpg" />
          </IconButton>
          <Menu
@@ -160,14 +160,14 @@ const NavBar = ({ setDarkMode, darkMode}) => {
              <Typography fontWeight="bold">{username}</Typography>
            </ListItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/history">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/history" data-testid="historyButton">
              {t('history')}
            </MenuItem>
-           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" data-testid="rankingButton">
              {t('ranking')}
            </MenuItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/logout">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/logout" data-testid="logoutButton">
             {t('logout')}
            </MenuItem>
        

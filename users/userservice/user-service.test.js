@@ -30,7 +30,7 @@ describe('User Service', () => {
     expect(response.body).toHaveProperty('email', 'username', 'testuser');
   });
 
-  it('should add a new user on POST /adduser', async () => {
+  it('should not add a new user on POST /adduser', async () => {
     const newUser = {
       email: 'test@email.com',
       user: 'testuser',

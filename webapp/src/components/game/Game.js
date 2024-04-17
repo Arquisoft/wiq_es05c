@@ -23,6 +23,11 @@ function Game({darkMode,gameMode=new BasicGame()}) {
 
   useEffect(() => {
     const startGameAsync = async () => {
+        // Restablece el estado del juego
+        setCorrectAnswers(0);
+        setIncorrectAnswers(0);
+        setIsFinished(false);
+
       setIsLoading(true);
       gameModeRef.current.idioma = i18n.language;
       gameModeRef.current.navigate = navigate;//le das la prop dinamicamente al obj 
@@ -38,7 +43,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       //en caso de que la gateway devuelva un error , sacamos un alert y le decimos que cargue la pagina d enuevo 
       if(gameModeRef.current.questions.length<=1){
         alert("Error al cargar las preguntas, por favor recargue la página");
-        navigate('/home');
+       // navigate('/home');
       }
     };
   
@@ -59,7 +64,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     console.log('comprobar si se pone a true el finished:preguntas tamaño,correctas e incorrecas ',gameModeRef.current.questions.length)
     
     if(correctAnswers+incorrectAnswers === gameModeRef.current.questions.length-1)
-    setIsFinished(true);
+    //setIsFinished(true);
     setTotalTime(totalTime);
   };
 

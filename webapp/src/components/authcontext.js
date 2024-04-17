@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = (jwtToken,username) => { // Modifica handleLogin para aceptar un token
     setToken(jwtToken); // Guarda el token en el estado
+    setUsername(username); //almacena el username
     localStorage.setItem('token', jwtToken); // Guarda el token en el localStorage
     localStorage.setItem('username',username);
   };

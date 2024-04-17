@@ -3,8 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-glossary]]
 == Glossary
 
-[role="arc42help"]
-
 [cols="e,2e" options="header"]
 |===
 |Term |Definition

@@ -141,6 +141,7 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   }
 });
 
+
 app.get('/getQuestionModoCustom', async (req, res) => {
   try {    
     // Obtener el idioma en el que esta la app
@@ -149,7 +150,7 @@ app.get('/getQuestionModoCustom', async (req, res) => {
 
     //si no se le paso bien el idioma, por defecto es en
     if(idioma === undefined) 
-    idioma = "en";
+     idioma = "en";
 
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
@@ -161,7 +162,6 @@ app.get('/getQuestionModoCustom', async (req, res) => {
 
   }
 });
-
 
 app.get('/generateQuestion', async (req, res) => {
   try {

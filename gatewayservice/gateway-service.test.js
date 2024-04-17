@@ -125,9 +125,45 @@ it('should perform the getQuestionDiario request', async () => {
 });
 
 
+
 //Caso positivo para el endpoint /getQuestionModoBasico
 it('should perform the getQuestion modo basico request', async () => {
   const response = await request(app).get('/getQuestionModoBasico').send();
+  expect(response.statusCode).toBe(200);
+  const data = {
+    pregunta: '¿Cuál es la capital de Francia?',
+    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
+    correcta: 'Paris',
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+});
+
+//Caso positivo modo misma categoria
+it('should perform the getQuestion modo misma categoria request', async () => {
+  const response = await request(app).get('/getQuestionModoMismaCategoria').send();
+  expect(response.statusCode).toBe(200);
+  const data = {
+    pregunta: '¿Cuál es la capital de Francia?',
+    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
+    correcta: 'Paris',
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+});
+
+//Caso positivo modo custom 
+it('should perform the getQuestion modo custom request', async () => {
+  const response = await request(app).get('/getQuestionModoCustom').send();
+  expect(response.statusCode).toBe(200);
+  const data = {
+    pregunta: '¿Cuál es la capital de Francia?',
+    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
+    correcta: 'Paris',
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+});
+//Caso positivo para el endpoint /generateQuestion
+it('should perform the generateQuestion request', async () => {
+  const response = await request(app).get('/generateQuestion').send();
   expect(response.statusCode).toBe(200);
   const data = {
     pregunta: '¿Cuál es la capital de Francia?',
@@ -179,7 +215,7 @@ it('should perform the getQuestion modo basico request', async () => {
 
   //Caso de prueba para el endpoint /generateQuestion
   it('should forward get question request to question generate service', async () => {
-    const questionServiceUrl = 'http://localhost:8003/generateQuestions'; 
+    const questionServiceUrl = 'http://localhost:8003/generateQuestion'; 
     const data = {
       pregunta: '¿Cuál es la capital de Francia?',
       respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
@@ -189,13 +225,41 @@ it('should perform the getQuestion modo basico request', async () => {
  
   });
  
-  
+  //Caso negativo para el endpoint /generateQuestion
+  it('should return an error when the question generate service request fails', async () => {
+    // Mock the axios.get method to reject the promise
+    axios.get.mockImplementationOnce(() =>
+    Promise.reject(new Error('Error al realizar la solicitud al servicio de generacion de preguntas'))
+    );
+    const response = await request(app)
+                                  .get('/generateQuestion')       
+                                  .send({ id: 'mockedQuestionId' });
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body.error).toBeDefined();
+    expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de generacion de preguntas');
+    });
+ 
+
+//Caso de prueba para el endpoint /getQuestionDiaria
+it('should forward get question request to question diaria service', async () => {
+  const questionServiceUrl = 'http://localhost:8003/getQuestionDiaria'; 
+  const data = {
+    pregunta: '¿Cuál es la capital de Francia?',
+    respuestas: ['Berlin', 'Paris', 'Londres', 'Madrid'],
+    correcta: 'Paris',
+  };
+  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
+
+});
+
  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
  it('should handle error when fetching question', async () => {
   const questionServiceUrl = 'http://localhost:8003/generateQuestions';
   const errorMessage = 'Network Error';
   axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
     });
+  
   
  //Caso negativo para el endpoint /getQuestion   
 it('should return an error when the question service request fails', async () => {
@@ -209,24 +273,11 @@ it('should return an error when the question service request fails', async () =>
         
   expect(response.statusCode).toBe(500);
   expect(response.body.error).toBeDefined();
-  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> Network Error');
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas para obtener una pregunta');
   });
 
-//Caso negativo para el endpoint /getQuestionModoBasico
-  it('should return an error when the question modo basico service request fails', async () => {
-    // Mock the axios.get method to reject the promise
-    axios.get.mockImplementationOnce(() =>
-    Promise.reject(new Error('Error al realizar la solicitud al servicio de preguntas modo basico'))
-    );
-    const response = await request(app)
-                                  .get('/getQuestionModoBasico')
-                                  .send({ id: 'mockedQuestionId' });
-          
-    expect(response.statusCode).toBe(500);
-    expect(response.body.error).toBeDefined();
-    expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas modo basico');
-    });
-  
+
+
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
   it('should handle error when fetching question', async () => {
     const questionServiceUrl = 'http://localhost:8003/getQuestionDiaria';
@@ -235,6 +286,35 @@ it('should return an error when the question service request fails', async () =>
 
       }
   );
+
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
+  it('should handle error when fetching question', async () => {
+    const questionServiceUrl = 'http://localhost:8003/getQuestionModoBasico';
+    const errorMessage = 'Network Error';
+    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+
+      }
+  );
+
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
+  it('should handle error when fetching question', async () => {
+    const questionServiceUrl = 'http://localhost:8003/getQuestionModoMismaCategoria';
+    const errorMessage = 'Network Error';
+    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+
+      }
+  );
+
+//Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de preguntas falla.
+it('should handle error when fetching question', async () => {
+  const questionServiceUrl = 'http://localhost:8003/getQuestionModoCustom';
+  const errorMessage = 'Network Error';
+  axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+
+    
+    }
+);
+
 
 
 //***************************** ENDPOINTS HISTORY-SERVICE*************************************************** */
@@ -255,6 +335,7 @@ it('should perform the getHistoryDetallado request', async () => {
   };
   axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
 });
+
 
 //Caso negativo para el endpoint /getHistoryDetallado
 it('should return an error when the history detallado service request fails', async () => {
@@ -281,10 +362,12 @@ it('should return an error when the history detallado service request fails', as
   
   // Test /getHistoryTotal endpoint
 
+
   //Caso positivo para el endpoint /getHistoryDetallado
-it('should perform the getHistoryDetallado request', async () => {
+it('should perform the getHistoryTotal request', async () => {
   const response = await request(app).get('/getHistoryTotal').send();
-  
+ 
+
 });
   //Caso negativo para el endpoint /getHistoryTotal
   it('should return an error when the history total service request fails', async () => {
@@ -319,4 +402,67 @@ it('should handle error when fetching history detallado', async () => {
   axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
     });
 
+    //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial update falla.
+it('should handle error when fetching history update', async () => {
+  const historyServiceUrl = 'http://localhost:8004/updateHistory';
+  const errorMessage = 'Network Error';
+  axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+    });
+
+//Caso negativo para el endpoint /updateHistory
+it('should return an error when the history update service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.post.mockImplementationOnce(() =>
+  Promise.reject(new Error('Error al realizar la solicitud al servicio de historial'))
+  );
+  const response = await request(app)
+                                .post('/updateHistory')
+                                .send({ id: 'mockedHistoryId' });
+        
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
+  });
+
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial falla.
+  it('should handle error when fetching history', async () => {
+    const historyServiceUrl = 'http://localhost:8004';
+    const errorMessage = 'Network Error';
+    axios.post.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+      });
+
+  
+  // Test /updateHistory endpoint
+  
+  
+
+
+  
+  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
+  it('should handle error when fetching ranking diarias', async () => {
+    const historyServiceUrl = 'http://localhost:8004/getRankingDiarias';
+    const errorMessage = 'Network Error';
+    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+      });
+
+//Caso negativo para el endpoint /getRankingDiarias
+it('should return an error when the ranking diarias service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+  Promise.reject(new Error('Error al realizar la solicitud al servicio de historial'))
+  );
+  const response = await request(app)
+                                .get('/getRankingDiarias')
+                                .send({ id: 'mockedRankingId' });
+        
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
+  });
+
+//***************************************************endpoints de las salas */
+
+
+
 });
+

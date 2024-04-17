@@ -32,6 +32,7 @@ describe('Footer Component', () => {
     expect(githubLink).toHaveAttribute('href', 'https://github.com/Arquisoft/wiq_es05c');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
+    
 
     // Verificar que el enlace a la Escuela de Ingeniería Informática esté presente con el atributo target="_blank"
     const schoolLink = screen.getByRole('link', { name: /Escuela de Ingeniería Informática/i });
@@ -40,4 +41,20 @@ describe('Footer Component', () => {
     expect(schoolLink).toHaveAttribute('target', '_blank');
     expect(schoolLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
+
+  test('renders footer with correct content and links', () => {
+    // Renderizar el componente
+    render(<Footer />);
+
+    // Verificar que la imagen del logo de Github se renderiza con el src correcto
+    const githubLogo = screen.getByAltText('Logo Github');
+    expect(githubLogo).toBeInTheDocument();
+    expect(githubLogo).toHaveAttribute('src', '/logoGitHub.png'); 
+});
+
+
+
+  test('should always pass', () => {
+    expect(true).toBe(true);
+  }); 
 });

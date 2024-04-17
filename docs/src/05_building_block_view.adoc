@@ -66,5 +66,5 @@ image::level2-History.png["Level 2 Historyservice"]
 | **Name** | **Responsibility**
 | historyservice | The historyservice is responsible for storing data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.
 | historydb | The historydb stores user data and maintains a record of each normal game played. For every game, it saves essential details including the game number, the number of correct questions, the number of failed questions, the time taken to complete the game, and the date on which it was played.
-
+|===
 

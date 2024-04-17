@@ -100,7 +100,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     bgGradient={`linear(to-t, ${backgroundColorFirst}, ${backgroundColorSecond})`}
     display="flex" justifyContent="center" alignItems="center">
     {isLoading ? (
-       <Spinner
+       <Spinner data-testid="loading-spinner"
        thickness='0.3em'
        speed='0.65s'
        emptyColor='gray.200'

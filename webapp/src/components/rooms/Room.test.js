@@ -3,6 +3,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import Room from './Room';
 import socket from './socket';
+import { fireEvent } from '@testing-library/react';
+
+// Add this at the top of your test file
+const navigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -29,9 +33,12 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key) => ({
       'room': 'Sala: ',
+      'roomStartGameButton': 'Start Game',
     })[key],
+    i18n: { language: 'en' },
   }),
 }));
+
 
 test('renders Room component', () => {
   render(
@@ -91,4 +98,58 @@ test('renders Room component with users', () => {
   
     expect(screen.getByText('user1')).toBeInTheDocument();
     expect(screen.getByText('user2')).toBeInTheDocument();
+  });
+
+  test('starts the game when the "Start Game" button is clicked by the host', () => {
+    const room = { isHost: true }; // Define room
+  
+    render(
+      <Router>
+        <ChakraProvider>
+          <Room darkMode={false} />
+        </ChakraProvider>
+      </Router>
+    );
+  
+    fireEvent.click(screen.getByText('Start Game'));
+    expect(socket.emit).toHaveBeenCalledWith('startGame', expect.anything());
+  });
+  
+  
+  test('ends the game correctly', () => {
+    socket.on.mockImplementation((event, callback) => {
+      if (event === 'gameEnded') {
+        callback({ ranking: ['user1', 'user2'] });
+      }
+    });
+  
+    render(
+      <Router>
+        <ChakraProvider>
+          <Room darkMode={false} />
+        </ChakraProvider>
+      </Router>
+    );
+  
+    // Add a delay to ensure the game ends before navigate is called
+    setTimeout(() => {
+      expect(navigate).toHaveBeenCalledWith('/rankingroom/1234', expect.anything());
+    }, 1000);
+  });
+  test('does not render the "Start Game" button for non-host users', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useLocation: () => ({ state: { room: { isHost: false } } }),
+    }));
+  
+    render(
+      <Router>
+        <ChakraProvider>
+          <Room darkMode={false} />
+        </ChakraProvider>
+      </Router>
+    );
+  
+    const startGameButton = screen.queryByTestId('startButton');
+    expect(startGameButton).toBeNull();
   });

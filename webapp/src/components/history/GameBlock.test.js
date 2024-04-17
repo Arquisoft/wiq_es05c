@@ -18,7 +18,7 @@ describe('GameBlock', () => {
         <GameBlock darkMode={false} gameInfo={gameInfo} />
       </I18nextProvider>
     );
-
+ 
     expect(screen.getByText('Nº')).toBeInTheDocument();
     expect(screen.getByText(gameInfo.numeroJuego.toString())).toBeInTheDocument();
     expect(screen.getByText(`${gameInfo.preguntas_acertadas}/${gameInfo.preguntas_acertadas + gameInfo.preguntas_falladas}`)).toBeInTheDocument();

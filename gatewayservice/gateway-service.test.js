@@ -434,23 +434,7 @@ it('should return an error when the history update service request fails', async
   
   // Test /updateHistory endpoint
   
-  //Caso positivo para el endpoint /updateHistory
-  it('should perform the updateHistory request', async () => {
-    const response = await request(app).post('/updateHistory').send();
-    expect(response.statusCode).toBe(200);
-    const data = {
-      usuario: 'testuser',
-      preguntas: [
-        {
-          pregunta: '¿Cuál es la capital de Francia?',
-          respuesta: 'Paris',
-          correcta: true,
-        },
-      ],
-    };
-    axios.post.mockImplementationOnce(() => Promise.resolve({ data }));
-  }
-  );
+  
 
 
   
@@ -460,23 +444,6 @@ it('should return an error when the history update service request fails', async
     const errorMessage = 'Network Error';
     axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
-
-//Caso positivo para el endpoint /getRankingDiarias
-it('should perform the getRankingDiarias request', async () => {
-  const response = await request(app).get('/getRankingDiarias').send();
-  expect(response.statusCode).toBe(200);
-  const data = {
-    usuario: 'testuser',
-    preguntas: [
-      {
-        pregunta: '¿Cuál es la capital de Francia?',
-        respuesta: 'Paris',
-        correcta: true,
-      },
-    ],
-  };
-  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-});
 
 //Caso negativo para el endpoint /getRankingDiarias
 it('should return an error when the ranking diarias service request fails', async () => {

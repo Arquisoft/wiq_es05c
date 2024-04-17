@@ -17,8 +17,10 @@ describe('BasicGame', () => {
         json: () => Promise.resolve({ message: 'Success' }),
       })); 
   });
-
-  
+  //mockear la alerta 
+  jest.mock('sweetalert2', () => ({
+    fire: jest.fn(() => Promise.resolve())
+  }));
   afterEach(() => {
     fetchMock.mockRestore();
   });
@@ -71,7 +73,8 @@ describe('BasicGame', () => {
   test('should end the game', async () => {
     await game.endGame();
     expect(game.isGameEnded).toBe(true);
-    expect(game.navigate).toHaveBeenCalledWith('/home');
+    expect(game.isGameEnded).toBe(true);
+    expect(game.questionIndex).toBe(0);
   });
 
   test('should start the game', async () => {

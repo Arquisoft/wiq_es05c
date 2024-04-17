@@ -131,7 +131,7 @@ const AddUser = (darkMode) => {
       </Button>
       <Snackbar id="addMessage" data-testid="addMessage" open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('addUserMessage')} />
       {error && (
-        <Snackbar data-testid="errorMessage" open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        <Snackbar id="errorMessage" data-testid="errorMessage" open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
     </Container>
   );

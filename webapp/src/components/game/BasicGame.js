@@ -59,8 +59,7 @@ class BasicGame extends GameMode {
     this.questionIndex=0;
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
-      //redireccionar al usuario a /home con la prop dinamica que le pasas 
-      this.navigate('/home');
+
   }
 
   /*
@@ -88,6 +87,10 @@ class BasicGame extends GameMode {
           <p>${i18n.t('timePlayed')} ${this.tiempoTotal}</p>
         `,
         confirmButtonText: i18n.t('close')
+      }).then(()=>{
+
+          this.navigate('/home');
+        
       });
   
       console.log("Se envian los siguientes datos al historial", data);

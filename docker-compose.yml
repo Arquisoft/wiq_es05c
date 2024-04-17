@@ -2,6 +2,7 @@ version: '3'
 services:
   mongodb:
     container_name: mongodb-${teamname:-wiq_es05c}
+    restart: unless-stopped
     image: mongo
     profiles: ["dev", "prod"]
     volumes:
@@ -13,6 +14,7 @@ services:
 
   authservice:
     container_name: authservice-${teamname:-wiq_es05c}
+    restart: unless-stopped
     image: ghcr.io/arquisoft/wiq_es05c/authservice:latest
     profiles: ["dev", "prod"]
     build: ./users/authservice
@@ -27,6 +29,7 @@ services:
 
   userservice:
     container_name: userservice-${teamname:-wiq_es05c}
+    restart: unless-stopped
     image: ghcr.io/arquisoft/wiq_es05c/userservice:latest
     profiles: ["dev", "prod"]
     build: ./users/userservice
@@ -41,6 +44,7 @@ services:
 
   roomservice:
     container_name: roomservice-${teamname:-wiq_es05c}
+    restart: unless-stopped    
     image: ghcr.io/arquisoft/wiq_es05c/roomservice:latest
     profiles: ["dev", "prod"]
     build: ./roomservice
@@ -56,6 +60,7 @@ services:
   questionservice:
     container_name: questionservice-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/questionservice:latest
+    restart: unless-stopped    
     profiles: ["dev", "prod"]
     build: ./questionservice
     depends_on:
@@ -70,6 +75,7 @@ services:
   historyservice:
     container_name: historyservice-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/historyservice:latest
+    restart: unless-stopped        
     profiles: ["dev", "prod"]
     build: ./historyservice
     depends_on:
@@ -84,6 +90,7 @@ services:
   gatewayservice:
     container_name: gatewayservice-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/gatewayservice:latest
+    restart: unless-stopped    
     profiles: ["dev", "prod"]
     build: ./gatewayservice
     depends_on:
@@ -105,6 +112,8 @@ services:
   webapp:
     container_name: webapp-${teamname:-wiq_es05c}
     image: ghcr.io/arquisoft/wiq_es05c/webapp:latest
+    restart: unless-stopped    
+
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
@@ -115,6 +124,8 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus-${teamname:-wiq_es05c}
+    restart: unless-stopped    
+
     profiles: ["dev"]
     networks:
       - mynetwork
@@ -129,6 +140,8 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana-${teamname:-wiq_es05c}
+    restart: unless-stopped    
+
     profiles: ["dev"]
     networks:
       - mynetwork

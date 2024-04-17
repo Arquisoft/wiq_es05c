@@ -73,7 +73,7 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
         </Slider>
       </Box>
       <Box id='buttons-section-custom' display="flex" flexDirection="row" justifyContent="flex-end">
-        <button id="button-custom-cancelar" onClick={handleClickCancelar} margin="2em" 
+        <button data-testid="button-custom-cancelar" onClick={handleClickCancelar} margin="2em" 
         style={{
           width: '6em',
           height: '3em',
@@ -85,7 +85,7 @@ export function CustomWindow({darkMode, setTime, setNQuestions}){
         }}>
           {t('cancelar')}
         </button>
-        <button id="button-custom-jugar" onClick={handleClickJugar} margin="2em"
+        <button data-testid="button-custom-jugar" onClick={handleClickJugar} margin="2em"
         style={{
           width: '6em',
           height: '3em',

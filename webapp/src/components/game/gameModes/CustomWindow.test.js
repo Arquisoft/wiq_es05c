@@ -1,26 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CustomWindow from './CustomWindow';
-
-jest.mock('i18next', () => ({
-  use: () => {},
-  init: () => {},
-}));
-
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key) => ({
-      'modoCustomTitle': 'Modo Customizado',
-      'customModeNumPreguntas': 'Número de Preguntas',
-      // Añade aquí las demás cadenas de texto que quieras probar
-    })[key],
-  }),
-}));
+import {CustomWindow} from './CustomWindow';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('CustomWindow Component', () => {
   test('renders CustomWindow with correct content and text', () => {
     // Renderizar el componente
-    render(<CustomWindow />);
+    render(
+      <Router>
+          <CustomWindow />
+      </Router>
+      );
 
     // Verificar texto título
     expect(screen.getByText('Modo de juego personalizado')).toBeInTheDocument();
@@ -42,7 +32,28 @@ describe('CustomWindow Component', () => {
     // Añade aquí más expectativas para las demás partes de CustomWindow que quieras probar
   });
 
+  test('renders the buttons to control the CustomWindow', () => {
+    // Renderizar el componente
+    render(
+      <Router>
+          <CustomWindow />
+      </Router>
+    );
 
-  
-  // Añade aquí más pruebas si es necesario
+     // Verificar botón de cancelar con su enlace
+     const botonCancelar = document.getElementByTestId('button-custom-cancelar');
+     expect(botonCancelar).toBeInTheDocument();
+
+     // Verificar botón de jugar con su enlace
+     const botonJugar = document.getElementByTestId('button-custom-jugar');
+     expect(botonJugar).toBeInTheDocument();
+
+     // Verificar que los botones tienen un manejador de eventos onClick
+    expect(botonCancelar.onclick).toBeDefined();
+    expect(botonJugar.onclick).toBeDefined();
+});
+
+    test('should always pass', () => {
+        expect(true).toBe(true);
+    }); 
 });

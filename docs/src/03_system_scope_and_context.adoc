@@ -7,6 +7,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Business Context
 
 image::BusinessContext.jpg["Business Context Diagram"] 
+
+
+Users authenticate themselves within the system using their personal information. The application offers a question-based game similar to "Saber y Ganar" .
+Additionally, users can check the ranking of all players.
+Furthermore, users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question .
+
+
 [options="header",cols="1,2"]
 |===
 |Element |Description
@@ -15,12 +22,6 @@ image::BusinessContext.jpg["Business Context Diagram"]
 Additionally, when prompted by the system, it will retrieve a question along with the four answer options from the database.
 |===
 
-
-* Users authenticate themselves within the system using their personal information.
-* The application offers a question-based game similar to "Saber y Ganar" .
-* Users have access to various metrics regarding their participation, including the number of games played, correct and incorrect answers, and time spent on each question.
-
-
 === Technical Context
 image::TechnicalContext.jpg["Business Context Diagram"] 
 
@@ -28,10 +29,10 @@ image::TechnicalContext.jpg["Business Context Diagram"]
 |===
 |Element |Description
 | **User service**| Express service that handles the insertion of new users in the system.
-| **QuestionsService**| Express service that manages the search for questions and answers, their insertion into the database and their obtaining from the database.
+| **QuestionsService**| Express Service for managing questions and answers. This service handles searching for questions and answers, as well as their insertion into and retrieval from the database. 
 | **HistoryService**| Express service that handles the game results of the logged-in player
 | **RoomService**| Express service that is responsible for managing the multiplayer functionality of the game.
-| **Webapp**| React web application that uses the gateway service to allow basic login and new user features.
+| **Webapp**| Frontend of the application that uses the gateway service to allow basic login and new user features.
 | **WikiData**|API used by the system to obtain questions and answers.
 | **MongoDB**|A MongoDB database to store questions and answers, as well as user information such as usernames and passwords.
 |===
@@ -42,8 +43,9 @@ image::TechnicalContext.jpg["Business Context Diagram"]
 | JavaScript | A fundamental programming language for web development. It's used to create logic and interactivity in web and mobile applications.
 | React | A JavaScript framework used to build interactive and dynamic user interfaces. It's especially popular for developing single-page applications (SPAs).
 | MongoDB |  A NoSQL database that uses JSON documents to store data. It's widely used in web and mobile applications, especially those requiring flexible and fast scalability.
-| Docker | A container platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight, 
+| Docker | Contenerization platform that simplifies the deployment and management of applications. It allows packaging an application and all its dependencies into lightweight, 
 portable containers, making it easy to deploy across different development and production environments.
-|GitHub Actions | GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. 
+| GitHub Actions | GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. 
 You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
+| Express | Express.js is a fast and minimalist web framework for Node.js. It is used to create scalable and efficient web applications. With Express.js, developers can quickly and easily build robust and customizable web servers.
 |===

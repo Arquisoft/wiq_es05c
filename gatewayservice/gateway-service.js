@@ -66,7 +66,7 @@ app.get('/getQuestion', async (req, res) => {
     res.json(questionResponse.data);
   } catch (error) {
     //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta -> ' + error.message});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas para obtener una pregunta'});
   }
 });
 
@@ -136,7 +136,7 @@ app.get('/getQuestionModoMismaCategoria', async (req, res) => {
   } catch (error) {
     //Modifico el error 
 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo misma categoria' });
 
   }
 });
@@ -150,7 +150,7 @@ app.get('/getQuestionModoCustom', async (req, res) => {
 
     //si no se le paso bien el idioma, por defecto es en
     if(idioma === undefined) 
-      idioma = "en";
+     idioma = "en";
 
     // llamamos al servicio de preguntas    
     const questionResponse = await axios.get(`${questionServiceUrl}/getQuestionModoCustom?idioma=${idioma}&numPreguntas=${numPreguntas}`, req.body);
@@ -170,7 +170,7 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(200).send("Pregunta generada y guardada correctamente.");
   } catch (error) {
     //Modifico el error
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas -> ' + error.response.data.error});
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas' });
   }
 });
 
@@ -257,17 +257,7 @@ app.get('/startgame/:id/:username',async(req,res)=> {
     res.status(500).json({ error: 'Error al crear la sala' });
   }
 });
-app.post('/updateHistory', async (req, res) => {
-  try {
-    // llamamos al servicio de preguntas
-    const historyResponse = await axios.post(historyServiceUrl+'/updateHistory', req.body);
-    
-    res.json(historyResponse.data);
-  } catch (error) {
-    //Modifico el error 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
-  }
-});
+
 
 app.get('/getRankingDiarias', async (req, res) => {
   try {

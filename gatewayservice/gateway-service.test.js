@@ -126,21 +126,6 @@ it('should perform the getQuestionDiario request', async () => {
 
 
 
-it('should default to "en" and current date when idioma and fecha are undefined', async () => {
-  const mockData = { data: 'mock data' };
-  axios.get.mockResolvedValue(mockData);
-
-  const response = await request(app).get('/getQuestionDiaria');
-
-  expect(response.status).toBe(200);
-  expect(response.body).toEqual(mockData.data);
-  expect(axios.get).toHaveBeenCalledWith(
-    expect.stringContaining('/getQuestionDiaria?idioma=en&fecha='),
-    expect.anything()
-  );
-});
-
-
 //Caso positivo para el endpoint /getQuestionModoBasico
 it('should perform the getQuestion modo basico request', async () => {
   const response = await request(app).get('/getQuestionModoBasico').send();

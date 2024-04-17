@@ -1,20 +1,37 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AuthContext } from '../authContext';
+import { AuthContext } from '../authcontext'; 
+import { useTranslation } from 'react-i18next';
 import Logout from './Logout';
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: jest.fn().mockReturnValue('Logout Message'),
-  }),
+  useTranslation: () => ({ t: key => key })
 }));
 
-test('renders Logout component with correct logout message', () => {
-  render(
-    <AuthContext.Provider value={{ logout: jest.fn() }}>
-      <Logout />
-    </AuthContext.Provider>
-  );
+describe('Logout', () => {
+  test('should call logout function from AuthContext', () => {
+    const logoutMock = jest.fn();
+    const authContextValue = { logout: logoutMock };
 
-  const logoutMessage = screen.getByText('Logout Message');
-  expect(logoutMessage).toBeInTheDocument();
+    render(
+      <AuthContext.Provider value={authContextValue}>
+        <Logout />
+      </AuthContext.Provider>
+    );
+
+    expect(logoutMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('should render logout message', () => {
+    const logoutMock = jest.fn();
+    const authContextValue = { logout: logoutMock };
+
+    render(
+      <AuthContext.Provider value={authContextValue}>
+        <Logout />
+      </AuthContext.Provider>
+    );
+
+    expect(screen.getByText('logoutMessage')).toBeInTheDocument();
+  });
 });

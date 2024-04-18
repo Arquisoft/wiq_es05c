@@ -24,6 +24,8 @@ defineFeature(feature, test => {
   });
 
   afterEach(async () => {
+    await page.waitForTimeout(1000);
+
     await page.goto("http://localhost:3000/login", {
       waitUntil: "networkidle0",
     });
@@ -37,8 +39,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest@email.com"
-      username = "userTest"
+      email = "userTestRegister@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -66,8 +68,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An registered user with the same email in the database', async () => {
-      email = "userTest@email.com"
-      username = "userTest"
+      email = "userTestRegister@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -95,8 +97,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An registered user with the same username in the database', async () => {
-      email = "userTest1@email.com"
-      username = "userTest"
+      email = "userTest1Register@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -124,8 +126,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest1@email.com"
-      username = "userTest1"
+      email = "userTest1Register@email.com"
+      username = "userTest1Register"
       password = "Contraseña_?"
       passwordConfirmation = "Contraseña_?"
       await expect(page).toClick("#register");
@@ -154,8 +156,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest1@email.com"
-      username = "userTest1"
+      email = "userTest1Register@email.com"
+      username = "userTest1Register"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_2?"
       await expect(page).toClick("#register");

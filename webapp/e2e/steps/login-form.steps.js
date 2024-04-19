@@ -22,30 +22,10 @@ defineFeature(feature, test => {
       })
       .catch(() => {});
 
-      //añadimos un usuario
-      email = "userTestLogin@email.com"
-      username = "userTestLogin"
-      password = "Contraseña_1?"
-      passwordConfirmation = "Contraseña_1?"
-      await expect(page).toClick("#register");
-
-      //rellenamos el form
-      await expect(page).toFill('input[name="email"]', email);
-      await expect(page).toFill('input[name="username"]', username);
-      await expect(page).toFill('input[name="password"]', password);
-      await expect(page).toFill('input[name="passwordConfirm"]', passwordConfirmation);
-      
-      await expect(page).toClick('#addRegister');
-
-      await page
-      .goto("http://localhost:3000/login", {
-        waitUntil: "networkidle0",
-      })
-      .catch(() => {});
   });
 
-  afterEach(async () => {
-    await page.waitForTimeout(2000); 
+  afterEach(async () => {    
+    await page.waitForTimeout(1000);
 
     await page.goto("http://localhost:3000/login", {
       waitUntil: "networkidle0",
@@ -54,23 +34,45 @@ defineFeature(feature, test => {
 
   test('The user is registered in the site', ({given,when,then}) => {
     
+    let email;
     let username;
-    let password;
+    let password; 
+    let passwordConfirmation;    
 
-    given('An registered user', async () => {
+    given('An registered user', async () => {      
+      email = "userTestLogin@email.com"
       username = "userTestLogin"
       password = "Contraseña_1?"
+      passwordConfirmation = "Contraseña_1?"
     });
 
-    when('I fill the data in the form and press submit', async () => {
+    when('I fill the data in the form and press submit', async () => {      
+      //creamos un usuario para poder hacer login
+      await expect(page).toClick("#register");
+      
+      await expect(page).toFill('input[name="email"]', email);
+      await expect(page).toFill('input[name="username"]', username);
+      await expect(page).toFill('input[name="password"]', password);
+      await expect(page).toFill('input[name="passwordConfirm"]', passwordConfirmation);
+      
+      await expect(page).toClick('#addRegister');
+      
+      await page.waitForTimeout(2000);
+
+      //nos logeamos con ese usuario
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
       
-      await expect(page).toClick('#login')
+      await expect(page).toClick('#login');
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-        await expect(page).toMatchElement("#loginMessage", { text: "Inicio de sesión correcto" });
+        //await expect(page).toMatchElement("#loginMessage", { text: "Inicio de sesión correcto" });
+      await expect(page).toMatchElement("#iconoUsuario");
+
+      //cerramos la sesion    
+      await expect(page).toClick("#iconoUsuario");
+      await expect(page).toClick("#logoutButton");
     });
   })
 

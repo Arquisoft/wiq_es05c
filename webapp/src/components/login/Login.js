@@ -128,7 +128,7 @@ const Login = (darkMode) => {
           style={{ backgroundColor: buttonColor, color: text }}>
             {t('loginMessage')}
           </Button>
-          <Snackbar id="loginMessage" open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')} />
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')} />
           {error && (
             <Snackbar id="errorMessage" open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}

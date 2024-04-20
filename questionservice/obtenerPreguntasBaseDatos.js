@@ -169,6 +169,7 @@ class ObtenerPreguntas{
         try{
             var pregunta = await Pregunta.findOne({ diaria: fecha });
             var resultado;
+            var objetoExterno= {};
 
             if(pregunta != null){
                 try{            
@@ -213,6 +214,9 @@ class ObtenerPreguntas{
                             respuestasIncorrecta3:  respuestas[2].textoRespuesta_en
                         };
                     }
+
+                    objetoExterno["resultado1"] = resultado;
+
             }
             catch(error){
                 throw new Error("Error al obtener el tipo o las respuestas de la base de datos");
@@ -222,7 +226,7 @@ class ObtenerPreguntas{
             throw new Error("No se ha encontrado ninguna pregunta diaria en la base de datos");
         }
         
-        return resultado;
+        return objetoExterno;
 
         } catch (error) {
             throw new Error("Error al obtener la pregunta diaria en la base de datos: " + error.message);

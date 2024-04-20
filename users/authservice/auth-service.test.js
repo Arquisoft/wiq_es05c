@@ -42,4 +42,27 @@ describe('Auth Service', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username', 'testuser');
   });
+
+  it('Should perform a login operation /login', async () => {
+    const userFail = {
+      username: 'testuser',
+      password: 'testpass',
+    };
+    const response = await request(app).post('/login').send(userFail);
+    expect(response.status).toBe(401);
+    expect(response.body.error).toBe("Credenciales erroneas");
+  });
+
+  it('Should not perform a login operation /login', async () => {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+
+    const newUser = new User({
+      user: user.username,
+      password: hashedPassword,
+    }); 
+
+    const response = await request(app).post('/login').send(newUser);
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe("Missing required field: username");
+  });
 });

@@ -19,10 +19,19 @@ class DailyGameMode extends BasicGame{
       }
 
       async sendHistory(historyData) {
-        //No se guarda la partida si no es clásica
+        
       }
 
-     
+      nextQuestion() {
+        
+        this.isLoading = true;
+        if (this.questionIndex >=1) {
+          console.log("fin juego");
+          this.finishGame();
+          //devuelve las ultima pregunta
+          return currentQuestion; // devolver la pregunta actual
+        }
+      }
       getCurrentQuestion() {
         // Comprobar si this.questions[this.questionIndex] es undefined
         if (this.questions[this.questionIndex] === undefined) {

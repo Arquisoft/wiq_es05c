@@ -17,9 +17,9 @@ app.use(cors());
 app.use(express.json());
 //libraries required for OpenAPI-Swagger
 //libraries required for OpenAPI-Swagger
-const swaggerUi = require('swagger-ui-express'); 
+/* const swaggerUi = require('swagger-ui-express'); 
 const fs = require("fs");
-const YAML = require('yaml');
+const YAML = require('yaml'); */
 
 //Prometheus configuration
 const metricsMiddleware = promBundle({includeMethod: true});
@@ -290,7 +290,7 @@ app.get('/getRankingDiarias', async (req, res) => {
   }
 });
 
-// Read the OpenAPI YAML file synchronously
+/* // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'
 if (fs.existsSync(openapiPath)) {
   const file = fs.readFileSync(openapiPath, 'utf8');
@@ -304,7 +304,7 @@ if (fs.existsSync(openapiPath)) {
   app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 } else {
   console.log("Not configuring OpenAPI. Configuration file not present.")
-}
+} */
 
 // Start the gateway service
 const server = app.listen(port, () => {

@@ -423,6 +423,14 @@ it('should handle error when fetching history update', async () => {
   axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
     });
 
+       //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial update falla.
+it('should handle error when fetching history diaria update', async () => {
+  const historyServiceUrl = 'http://localhost:8004/updateHistoryDiaria';
+  const errorMessage = 'Network Error';
+  axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+    });
+
+
 //Caso negativo para el endpoint /updateHistory
 it('should return an error when the history update service request fails', async () => {
   // Mock the axios.get method to reject the promise

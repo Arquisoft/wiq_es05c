@@ -7,5 +7,13 @@ describe('Ranking Component', () => {
       render(<Ranking darkMode={false} />);
     });
   
+    it('renders correctly', () => {
+      const { getByText } = render(<Ranking darkMode={false} />);
+  
+      expect(getByText('Ranking')).toBeInTheDocument();
+      expect(getByText('Posición')).toBeInTheDocument();
+      expect(getByText('Usuario')).toBeInTheDocument();
+      expect(getByText('Puntuación')).toBeInTheDocument();
+    });
     
 });

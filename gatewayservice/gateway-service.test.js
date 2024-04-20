@@ -337,6 +337,25 @@ it('should perform the getHistoryDetallado request', async () => {
 });
 
 
+  //Caso positivo para el endpoint /updateHistory
+  
+  it('should perform the updateHistory request', async () => {
+    const response = await request(app).post('/updateHistory').send();
+    expect(response.statusCode).toBe(200);
+    const data = {
+      usuario: 'testuser',
+      preguntas: [
+        {
+          pregunta: '¿Cuál es la capital de España?',
+          respuesta: 'Madrid',
+          correcta: true,
+        },
+      ],
+    };
+    axios.post.mockImplementationOnce(() => Promise.resolve({ data }));
+  });
+
+
 //Caso negativo para el endpoint /getHistoryDetallado
 it('should return an error when the history detallado service request fails', async () => {
   // Mock the axios.get method to reject the promise
@@ -360,14 +379,9 @@ it('should return an error when the history detallado service request fails', as
       });
 
   
-  // Test /getHistoryTotal endpoint
-
-
   //Caso positivo para el endpoint /getHistoryDetallado
 it('should perform the getHistoryTotal request', async () => {
   const response = await request(app).get('/getHistoryTotal').send();
- 
-
 });
   //Caso negativo para el endpoint /getHistoryTotal
   it('should return an error when the history total service request fails', async () => {
@@ -447,6 +461,7 @@ it('should return an error when the history diaria update service request fails'
     const errorMessage = 'Network Error';
     axios.post.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
+
 
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
   it('should handle error when fetching ranking diarias', async () => {

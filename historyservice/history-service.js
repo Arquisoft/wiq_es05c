@@ -79,6 +79,15 @@ app.post('/updateHistory', async (req, res) => {
       res.status(400).json({ error: error.message }); 
   }});
 
+  app.post('/updateHistoryDiaria', async (req, res) => {
+    try {
+      console.log("Entra en guardar partida diaria");
+      await updateHistory.guardarPartidaDiaria(req.body);   
+      
+    } catch (error) {
+        res.status(400).json({ error: error.message }); 
+    }});
+  
 app.get('/getRankingDiarias', async (req, res) => {
   console.log("Entra en sacar ranking diarias arr");
   try {

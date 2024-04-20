@@ -118,6 +118,36 @@ defineFeature(feature, test => {
     });
   })
 
+  
+  test('The user enters a email with incorrect format', ({given,when,then}) => {
+    
+    let email;
+    let username;
+    let password;
+    let passwordConfirmation;
+
+    given('An unregistered user', async () => {
+      email = "userTestemail.com"
+      username = "userTest1Register"
+      password = "Contraseña_1?"
+      passwordConfirmation = "Contraseña_1?"
+      await expect(page).toClick("#register");
+    });
+
+    when('I fill the form with a email that does not meet the required format and press submit', async () => {
+      await expect(page).toFill('input[name="email"]', email);
+      await expect(page).toFill('input[name="username"]', username);
+      await expect(page).toFill('input[name="password"]', password);
+      await expect(page).toFill('input[name="passwordConfirm"]', passwordConfirmation);
+      
+      await expect(page).toClick('#addRegister')
+    });
+
+    then('An error message should be shown on the screen indicating that the email format is incorrect', async () => {
+        await expect(page).toMatchElement("#errorMessage", { text: "Error: El email es invalido" });
+    });
+  })
+
   test('The user enters a password with incorrect format', ({given,when,then}) => {
     
     let email;

@@ -3,6 +3,10 @@ const { default: BasicGame } = require("../BasicGame");
 
 class DailyGameMode extends BasicGame{
 
+    constructor() {
+      super();
+      this.enviarHistorialPorQueHasAcetado=false;
+    }
    
     async fetchQuestions() {
         try {
@@ -19,9 +23,28 @@ class DailyGameMode extends BasicGame{
       }
 
       async sendHistory(historyData) {
-        //No se guarda la partida si no es clásica
+        //sacar del localStorage el usuario
+        historyData.user = localStorage.getItem('username');
+        if(this.enviarHistorialPorQueHasAcetado){
+          try {
+            const response = await fetch(`${this.apiEndpoint}/updateHistoryDiaria`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(historyData)
+            });
+            const data = await response.json();
+            console.log('Historial enviado:', data);
+          } catch (error) {
+            console.error('Error enviando historial:', error);
+          }
+        }
       }
 
+      nextQuestion() {
+       this.getCurrentQuestion();
+      }
      
       getCurrentQuestion() {
         // Comprobar si this.questions[this.questionIndex] es undefined
@@ -47,6 +70,12 @@ class DailyGameMode extends BasicGame{
       incrementIncorrectas(){
         console.log("incrementa incorrectas");
         this.incorrectas++;
+        this.finishGame();
+      }
+
+      incrementCorrectas(){
+        this.enviarHistorialPorQueHasAcetado=true;
+        this.correctas++;
         this.finishGame();
       }
     

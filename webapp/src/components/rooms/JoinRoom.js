@@ -32,8 +32,12 @@ const JoinRoomForm = () => {
     socket.on('roomErrorJoining', () => {
       console.log("escuchando evento error al unirse a sala");
       toast({
-        title: "Error al unirse a la sala.",
-        description: `No te has podido unir a la sala.`,
+        render: () => (
+          <Box id="error-toast">
+            <Text>Error al unirse a la sala.</Text>
+            <Text>No te has podido unir a la sala.</Text>
+          </Box>
+        ),
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -78,6 +82,7 @@ const JoinRoomForm = () => {
           onChange={(e) => setRoomId(e.target.value)}
           placeholder={t('roomCreatePlaceholder')}
           size="lg"
+          data-testid="room-id-input"
         />
         <Button onClick={handleJoinRoom} isLoading={isLoading} colorScheme="teal" variant="outline">
           {t('roomJoinButton')}

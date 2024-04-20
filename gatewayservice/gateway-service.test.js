@@ -438,6 +438,23 @@ it('should return an error when the history update service request fails', async
   expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
   });
 
+
+  //Caso negativo para el endpoint /updateHistoryDiaria
+it('should return an error when the history diaria update service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.post.mockImplementationOnce(() =>
+  Promise.reject(new Error('Error al realizar la solicitud al servicio de historial diaria'))
+  );
+  const response = await request(app)
+                                .post('/updateHistoryDiaria')
+                                .send({ id: 'mockedHistoryId' });
+        
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial diaria');
+  });
+
+
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial falla.
   it('should handle error when fetching history', async () => {
     const historyServiceUrl = 'http://localhost:8004';
@@ -445,11 +462,7 @@ it('should return an error when the history update service request fails', async
     axios.post.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
       });
 
-  
-  
 
-
-  
   //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
   it('should handle error when fetching ranking diarias', async () => {
     const historyServiceUrl = 'http://localhost:8004/getRankingDiarias';

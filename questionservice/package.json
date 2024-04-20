@@ -24,6 +24,7 @@
         "node-cron": "^3.0.0",
         "socket.io": "^4.7.5",
         "xml2js": "^0.4.23"
+        
     },
     "devDependencies": {
         "chai": "^5.1.0",

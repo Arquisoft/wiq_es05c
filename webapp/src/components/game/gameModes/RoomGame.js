@@ -43,7 +43,7 @@ class RoomGame extends BasicGame {
       });
     }
     async fetchQuestions() {
-      this.questions = this.room.getQuestions();
+      this.questions = this.room.getQuestions;
     }
 
   

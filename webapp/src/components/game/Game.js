@@ -41,7 +41,7 @@ function Game({darkMode,gameMode=new BasicGame()}) {
       setCurrentQuestion(currentQuestion);
       setIsLoading(false);
       //en caso de que la gateway devuelva un error , sacamos un alert y le decimos que cargue la pagina d enuevo 
-      if(gameModeRef.current.questions.length<=1){
+      if(gameModeRef.current.questions.length===0){
         alert("Error al cargar las preguntas, por favor recargue la página");
        // navigate('/home');
       }

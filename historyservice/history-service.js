@@ -81,10 +81,9 @@ app.post('/updateHistory', async (req, res) => {
 
   app.post('/updateHistoryDiaria', async (req, res) => {
     try {
-      if(req.body.diariaCorrecta === true){
-        console.log("Entra en guardar partida diaria");
-        await updateHistory.guardarPartidaDiaria(req.body);   
-      }
+      console.log("Entra en guardar partida diaria");
+      await updateHistory.guardarPartidaDiaria(req.body);   
+      
     } catch (error) {
         res.status(400).json({ error: error.message }); 
     }});

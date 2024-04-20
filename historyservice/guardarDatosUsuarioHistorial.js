@@ -5,7 +5,7 @@ const Historial = mongoose.model('historial');
 class GuardarDatosUsuarioHistorial{
     
     async guardarPartida(datos){  
-        console.log("Datoas de la partida ",datos);
+        console.log("Datos de la partida ",datos);
        //comprueba si hay datos almacenados para ese usuario
        await Historial.findOne({ user: datos.user });
 

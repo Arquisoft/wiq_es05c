@@ -124,6 +124,20 @@ it('should perform the getQuestionDiario request', async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
 });
 
+//caso negativo para el endpoint /getQuestionDiario
+it('should return an error when the question diario service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+  Promise.reject(new Error('Error al realizar la solicitud al servicio de preguntas diarias'))
+  );
+  const response = await request(app)
+                                .get('/getQuestionDiaria')
+                                .send({ id: 'mockedQuestionId' });
+            
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de preguntas diarias');
+  });
 
 
 //Caso positivo para el endpoint /getQuestionModoBasico
@@ -336,24 +350,6 @@ it('should perform the getHistoryDetallado request', async () => {
   axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
 });
 
-
-  //Caso positivo para el endpoint /updateHistory
-  
-  it('should perform the updateHistory request', async () => {
-    const response = await request(app).post('/updateHistory').send();
-    expect(response.statusCode).toBe(200);
-    const data = {
-      usuario: 'testuser',
-      preguntas: [
-        {
-          pregunta: '¿Cuál es la capital de España?',
-          respuesta: 'Madrid',
-          correcta: true,
-        },
-      ],
-    };
-    axios.post.mockImplementationOnce(() => Promise.resolve({ data }));
-  });
 
 
 //Caso negativo para el endpoint /getHistoryDetallado

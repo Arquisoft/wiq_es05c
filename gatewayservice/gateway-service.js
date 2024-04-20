@@ -225,6 +225,18 @@ app.post('/updateHistory', async (req, res) => {
   }
 });
 
+app.post('/updateHistoryDiaria', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.post(historyServiceUrl+'/updateHistoryDiaria', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial diaria' });
+  }
+});
+
 //***************************************************endpoints de las salas */
 app.get('/joinroom/:id/:username',async(req,res)=> {
   try {

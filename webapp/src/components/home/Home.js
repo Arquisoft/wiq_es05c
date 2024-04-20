@@ -26,7 +26,7 @@ const Home = () => {
     navigate("/customWindow");
   };
   const handleClickDiario = () => {
-     let diaria = JSON.parse(localStorage.getItem('diaria'));
+     let diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
 
   // Comprobar si la variable ha caducado
   if (diaria !== null && diaria.expiry > Date.now()) {

@@ -38,6 +38,8 @@ const Login = (darkMode) => {
 
       handleLogin(response.data.token,response.data.username);//pasasr el token que nos da el servidor 
 
+      //meter en localstorage el ultimo partida 
+      localStorage.setItem('lastDailyGame', response.data.lastDailyGame);
       setCreatedAt(userCreatedAt);
       setLoginSuccess(true);    
 

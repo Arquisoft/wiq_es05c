@@ -23,7 +23,7 @@ import JoinRoomForm from './components/rooms/JoinRoom'; // Importa el componente
 import { Ranking } from './components/ranking/Ranking';
 import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
 import BasicGame from './components/game/BasicGame';
-import DailyMode from './components/game/gameModes/DailyMode';
+import DailyGameMode from './components/game/gameModes/DailyGameMode';
 
 const App = () => {
 
@@ -44,7 +44,7 @@ const App = () => {
 
   const sameCatMode = new SameCategoryMode();
   const infinityMode = new InfinityGameMode();
-  const daylyMode = new DaylyMode();
+  const dailyGameMode = new DailyGameMode();
   return (
     <AuthProvider>
       <Router>
@@ -87,7 +87,7 @@ const App = () => {
           } />
            <Route path="/gameDiaria" element={
             <AuthenticatedLayout>
-              <ChakraProvider><Game darkMode={darkMode} gameMode={dailyMode}/>  </ChakraProvider>
+              <ChakraProvider><Game darkMode={darkMode} gameMode={dailyGameMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
            <Route path="/history" element={

@@ -158,7 +158,7 @@ app.get('/getQuestionModoCustom', async (req, res) => {
   } catch (error) {
     //Modifico el error 
 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo custom' });
 
   }
 });
@@ -173,6 +173,7 @@ app.get('/generateQuestion', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de generacion de preguntas' });
   }
 });
+
 
 
 
@@ -217,6 +218,18 @@ app.post('/updateHistory', async (req, res) => {
   } catch (error) {
     //Modifico el error 
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
+  }
+});
+
+app.post('/updateHistoryDiaria', async (req, res) => {
+  try {
+    // llamamos al servicio de preguntas
+    const historyResponse = await axios.post(historyServiceUrl+'/updateHistoryDiaria', req.body);
+    
+    res.json(historyResponse.data);
+  } catch (error) {
+    //Modifico el error 
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial diaria' });
   }
 });
 
@@ -272,6 +285,7 @@ app.get('/getRankingDiarias', async (req, res) => {
     res.status(500).json({ error: 'Error al realizar la solicitud al servicio de historial' });
   }
 });
+
 
 // Start the gateway service
 const server = app.listen(port, () => {

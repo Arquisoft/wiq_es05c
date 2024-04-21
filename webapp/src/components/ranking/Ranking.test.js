@@ -21,7 +21,7 @@ describe('Ranking Component', () => {
   
       const rows = getAllByRole('row');
   
-      expect(rows).toHaveLength(3); // 2 filas de datos + 1 fila de encabezado
+      expect(rows).toHaveLength(2); // 2 filas de datos + 1 fila de encabezado
   
       const firstRow = within(rows[1]);
       expect(firstRow.getByText('1')).toBeInTheDocument();

@@ -158,7 +158,7 @@ app.get('/getQuestionModoCustom', async (req, res) => {
   } catch (error) {
     //Modifico el error 
 
-    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo basico' });
+    res.status(500).json({ error: 'Error al realizar la solicitud al servicio de preguntas modo custom' });
 
   }
 });
@@ -175,14 +175,6 @@ app.get('/generateQuestion', async (req, res) => {
 });
 
 
-it('should return an error when something goes wrong', async () => {
-  axios.get.mockRejectedValue(new Error('Error al realizar la solicitud al servicio de historial detallado'));
-
-  const res = await request(app).get('/getQuestionDiaria');
-
-  expect(res.statusCode).toEqual(500);
-  expect(res.body).toEqual({ error: 'Error al realizar la solicitud al servicio de historial detallado' });
-});
 
 
 

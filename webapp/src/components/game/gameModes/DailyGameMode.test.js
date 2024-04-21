@@ -2,10 +2,10 @@
 const DailyGameMode = require('./DailyGameMode');
 
 describe('DailyGameMode', () => {
-  let DailyGameMode;
+  let dailyGameMode;
 
   beforeEach(() => {  
-    DailyGameMode = new DailyGameMode();
+    dailyGameMode = new DailyGameMode();
   });
 
   test('fetchQuestions should fetch questions', async () => {

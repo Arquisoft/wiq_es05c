@@ -23,6 +23,10 @@ describe('Gateway Service', () => {
       return Promise.resolve({ data: { pregunta: 'mockedQuestion' } });
     } else if (url.endsWith('/getQuestionModoCustom')) {
       return Promise.resolve({ data: { pregunta: 'mockedQuestion' } });
+    }else if (url.endsWith('/updateHistory')) {
+      return Promise.resolve({ data: { pregunta: 'mockedHistory' } });
+    }else if (url.endsWith('/updateHistoryDiaria')) {
+      return Promise.resolve({ data: { pregunta: 'mockedHistory' } });
     }
   });
   
@@ -492,6 +496,7 @@ it('should return an error when the ranking diarias service request fails', asyn
   expect(response.body.error).toBeDefined();
   expect(response.body.error).toEqual('Error al realizar la solicitud al servicio de historial');
   });
+
 
 //***************************************************endpoints de las salas */
 

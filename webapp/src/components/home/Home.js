@@ -25,7 +25,7 @@ const Home = () => {
     navigate("/customWindow");
   };
   const handleClickDiario = () => {
-    navigate("/game");
+    navigate("/gameDiaria");
   };
 
 

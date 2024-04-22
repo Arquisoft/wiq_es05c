@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent,waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 import Login from './Login';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { act } from '@testing-library/react';
 
 import axios from 'axios';
 

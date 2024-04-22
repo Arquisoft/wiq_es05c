@@ -19,13 +19,23 @@ const Home = () => {
     navigate("/gameSameCat");
   };
   const handleClickInfinity = () => {
+
     navigate("/gameInfinity");
   };
   const handleClickCustom = () => {
     navigate("/customWindow");
   };
   const handleClickDiario = () => {
+     let diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
+
+  // Comprobar si la variable ha caducado
+  if (diaria !== null && diaria.expiry > Date.now()) {
+    // La variable no ha caducado, mostrar una alerta
+    alert('Ya has jugado hoy. Por favor, vuelve maÃ±ana.');
+  } else {
+    // La variable ha caducado o no existe, navegar a /gameDiaria
     navigate("/gameDiaria");
+  }
   };
 
 

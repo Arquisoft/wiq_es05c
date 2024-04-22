@@ -22,11 +22,16 @@ class DailyGameMode extends BasicGame{
         return this.questions;
       }
 
-      async sendHistory(historyData) {
+      async sendHistorial() {
+        const historyData = {
+          user: null,
+        };
+        console.log("enviar historial gameMode daily ");
         //sacar del localStorage el usuario
         historyData.user = localStorage.getItem('username');
         if(this.enviarHistorialPorQueHasAcetado){
           try {
+            console.log("enviar historial trycatch");
             const response = await fetch(`${this.apiEndpoint}/updateHistoryDiaria`, {
               method: 'POST',
               headers: {
@@ -36,16 +41,18 @@ class DailyGameMode extends BasicGame{
             });
             const data = await response.json();
             console.log('Historial enviado:', data);
+            window.location.href = '/home';
+
           } catch (error) {
             console.error('Error enviando historial:', error);
           }
         }
       }
 
-      nextQuestion() {
-       this.getCurrentQuestion();
-      }
      
+      nextQuestion() {
+        this.getCurrentQuestion();
+      }
       getCurrentQuestion() {
         // Comprobar si this.questions[this.questionIndex] es undefined
         if (this.questions[this.questionIndex] === undefined) {
@@ -67,16 +74,35 @@ class DailyGameMode extends BasicGame{
         return questionData;
       }
 
+      //nectquestion con indice 10 termina el juego 
+
       incrementIncorrectas(){
         console.log("incrementa incorrectas");
         this.incorrectas++;
-        this.finishGame();
+        super.finishGame();
+        //this.questionIndex=10;
+        this.volverAJugarCoockie();
       }
-
+      //next question con indice 10 termina el juego 
       incrementCorrectas(){
         this.enviarHistorialPorQueHasAcetado=true;
         this.correctas++;
-        this.finishGame();
+        //this.questionIndex=10;
+        super.finishGame();
+        //this.sendHistorial();
+        this.volverAJugarCoockie();
+      }
+
+      volverAJugarCoockie(){
+         // Obtener la fecha actual y establecer la hora a las 12 de la noche
+        let expiryDate = new Date();
+        expiryDate.setHours(24, 0, 0, 0);
+
+        // Almacenar la variable en localStorage con la fecha de caducidad
+        localStorage.setItem('diaria', JSON.stringify({
+          value: 'valor que quieras almacenar',
+          expiry: expiryDate.getTime(),
+        }));
       }
     
    

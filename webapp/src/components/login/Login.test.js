@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../authcontext';
 import Login from './Login';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 

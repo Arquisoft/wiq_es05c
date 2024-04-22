@@ -1,0 +1,487 @@
+openapi: 3.0.0
+info:
+  title: Gatewayservice API
+  description: Gateway OpenAPI specification.
+  version: 0.2.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: http://SOMEIP:8000
+    description: Production server
+paths:
+  /adduser:
+    post:
+      summary: Add a new user to the database.
+      operationId: addUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: User ID.
+                  example: student
+                password:
+                  type: string
+                  description: User password.
+                  example: pass
+      responses:
+        '200':
+          description: User added successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: User ID
+                  password:
+                    type: string
+                    description: Hashed password
+                    example: $2b$10$ZKdNYLWFQxzt5Rei/YTc/OsZNi12YiWz30JeUFHNdAt7MyfmkTuvC
+                  _id:
+                    type: string
+                    description: Identification
+                    example: 65f756db3fa22d227a4b7c7d
+                  createdAt:
+                    type: string
+                    description: Creation date.
+                    example: '2024-03-17T20:47:23.935Z'
+                  ___v:
+                    type: integer
+                    example: '0'                                        
+        '400':
+          description: Failed to add user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: getaddrinfo EAI_AGAIN mongodb
+  /health:
+    get:
+      summary: Check the health status of the service.
+      operationId: checkHealth
+      responses:
+        '200':
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Health status.
+                    example: OK
+  /login:
+    post:
+      summary: Log in to the system.
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: User ID.
+                  example: student
+                password:
+                  type: string
+                  description: User password.
+                  example: pass
+      responses:
+        '200':
+          description: Login successful. Returns user token, username, and creation date.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: User token.
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY3NTZkYjNmYTIyZDIyN2E0YjdjN2QiLCJpYXQiOjE3MTA3MDg3NDUsImV4cCI6MTcxMDcxMjM0NX0.VMG_5DOyQ4GYlJQRcu1I6ICG1IGzuo2Xuei093ONHxw
+                  username:
+                    type: string
+                    description: Username.
+                    example: student
+                  createdAt:
+                    type: string
+                    description: Creation date.
+                    example: '2024-03-17T20:47:23.935Z'
+        '401':
+          description: Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Shows the error info..
+                    example: Invalid credentials
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+
+  /getQuestion:
+
+    get:
+      summary: Get a question.
+      operationId: getQuestion
+      parameters:
+        - name: idioma
+          in: query
+          description: Language of the question.
+          required: false
+          schema:
+            type: string
+            default: "en"
+      responses:
+        '200':
+          description: Question retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pregunta:
+                    type: string
+                    description: The text of the question in English or spanish .
+                  correcta:
+                    type: string
+                    description: The correct answer to the question in English  or spanish.
+                  respuestasIncorrecta1:
+                    type: string
+                    description: The first incorrect answer to the question in English  or spanish.
+                  respuestasIncorrecta2:
+                    type: string
+                    description: The second incorrect answer to the question in English  or spanish.
+                  respuestasIncorrecta3:
+                    type: string
+                    description: The third incorrect answer to the question in English  or spanish.
+        '500':
+          description: Error retrieving the question.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+
+
+
+  /getQuestionModoBasico:
+    get:
+      summary: Get a set of 10 questions for basic mode.
+      operationId: getQuestionModoBasico
+      parameters:
+        - name: idioma
+          in: query
+          description: Language of the questions.
+          required: false
+          schema:
+            type: string
+            default: "en"
+      responses:
+        '200':
+          description: An array of 10 questions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pregunta:
+                      type: string
+                      description: The text of the question in English.
+                    correcta:
+                      type: string
+                      description: The correct answer to the question in English.
+                    respuestasIncorrecta1:
+                      type: string
+                      description: The first incorrect answer to the question in English.
+                    respuestasIncorrecta2:
+                      type: string
+                      description: The second incorrect answer to the question in English.
+                    respuestasIncorrecta3:
+                      type: string
+                      description: The third incorrect answer to the question in English.
+        '500':
+          description: Error retrieving the questions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+
+
+
+  
+  /getHistoryDetallado:
+    get:
+      summary: Get detailed history for a user.
+      operationId: getHistoryDetallado
+      parameters:
+        - name: usuario
+          in: query
+          description: User for which to retrieve the detailed history.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed history retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numeroJuego:
+                    type: integer
+                    description: The game number.
+                  preguntas_falladas:
+                    type: integer
+                    description: The number of failed questions.
+                  preguntas_acertadas:
+                    type: integer
+                    description: The number of correct questions.
+                  tiempo:
+                    type: string
+                    description: The time taken.
+                  fecha:
+                    type: string
+                    description: The date of the game.
+        '500':
+          description: Error retrieving the detailed history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+
+  /getHistoryTotal:
+    get:
+      summary: Get total history for a user.
+      operationId: getHistoryTotal
+      parameters:
+        - name: usuario
+          in: query
+          description: User for which to retrieve the total history.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total history retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nombreUsuario:
+                    type: string
+                    description: The username.
+                  numeroJuegos:
+                    type: integer
+                    description: The number of games played.
+                  preguntas_falladas:
+                    type: number
+                    format: float
+                    description: The percentage of failed questions.
+                  preguntas_acertadas:
+                    type: number
+                    format: float
+                    description: The percentage of correct questions.
+                  tiempoTotal:
+                    type: string
+                    description: The total time taken.
+                  tiempoMedio:
+                    type: string
+                    description: The average time taken per game.
+        '500':
+          description: Error retrieving the total history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+
+  /updateHistory:
+    post:
+      summary: Update the history for a user.
+      operationId: updateHistory
+      requestBody:
+        description: The game data to update the user's history.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: The username.
+                incorrectas:
+                  type: integer
+                  description: The number of incorrect answers.
+                correctas:
+                  type: integer
+                  description: The number of correct answers.
+                tiempoTotal:
+                  type: string
+                  description: The total time taken.
+      responses:
+        '200':
+          description: History updated successfully.
+        '400':
+          description: Error updating the history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+  
+  /getQuestionModoCustom:
+    get:
+      summary: Get a custom set of questions.
+      operationId: getQuestionModoCustom
+      parameters:
+        - name: idioma
+          in: query
+          description: Language of the questions.
+          required: false
+          schema:
+            type: string
+            default: "en"
+        - name: numPreguntas
+          in: query
+          description: Number of questions to retrieve.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Questions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pregunta:
+                      type: string
+                      description: The text of the question in English.
+                    correcta:
+                      type: string
+                      description: The correct answer to the question in English.
+                    respuestasIncorrecta1:
+                      type: string
+                      description: The first incorrect answer to the question in English.
+                    respuestasIncorrecta2:
+                      type: string
+                      description: The second incorrect answer to the question in English.
+                    respuestasIncorrecta3:
+                      type: string
+                      description: The third incorrect answer to the question in English.
+        '500':
+          description: Error retrieving the questions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+
+
+  /getQuestionModoMismaCategoria:
+    get:
+      summary: Get a set of questions from the same category.
+      operationId: getQuestionModoMismaCategoria
+      parameters:
+        - name: idioma
+          in: query
+          description: Language of the questions.
+          required: false
+          schema:
+            type: string
+            default: "en"
+        - name: categoria
+          in: query
+          description: Category of the questions.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Questions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pregunta:
+                      type: string
+                      description: The text of the question in English.
+                    correcta:
+                      type: string
+                      description: The correct answer to the question in English.
+                    respuestasIncorrecta1:
+                      type: string
+                      description: The first incorrect answer to the question in English.
+                    respuestasIncorrecta2:
+                      type: string
+                      description: The second incorrect answer to the question in English.
+                    respuestasIncorrecta3:
+                      type: string
+                      description: The third incorrect answer to the question in English.
+        '500':
+          description: Error retrieving the questions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
+    

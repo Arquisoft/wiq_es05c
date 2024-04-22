@@ -20,6 +20,7 @@ const servidor = http.createServer(app);
 const io = socketIO(servidor);
 const roomQuestions = new RoomQuestions(question,io);
 
+
 const port = 8003; 
 
 // Middleware to parse JSON in request body
@@ -111,6 +112,8 @@ app.get('/getQuestionModoCustom', async(req,res)=> {
   }
 }); 
 
+
+
 // Endpoints para la generación de preguntas
 
 app.get('/generateQuestion', async(req,res)=> {
@@ -154,6 +157,7 @@ io.on('connection', (socket) => {
   });
   // Aquí puedes agregar el resto de tu lógica de Socket.io, como manejar eventos y emitir mensajes
 });
+
 
 
 module.exports = server

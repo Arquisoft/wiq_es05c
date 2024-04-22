@@ -72,10 +72,12 @@ const Login = (darkMode) => {
     }}>
       {loginSuccess ? (
         <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }} data-testid="welcome-message">
             {t('loginWelcomeMessage')} {username}
           </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
+          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}
+            data-testid="welcome-date"
+          >
             {t('loginDate')} {new Date(createdAt).toLocaleDateString()}.
           </Typography>
         
@@ -83,10 +85,10 @@ const Login = (darkMode) => {
         </div>
       ) : (
         <div>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" >
             {t('loginMessage')}
           </Typography>
-          <TextField
+          <TextField data-testid="username"
             InputProps={{
               style: { color: text }, // Cambia 'red' al color que quieras
             }}
@@ -103,6 +105,7 @@ const Login = (darkMode) => {
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
+          data-testid="password"
           InputProps={{
             style: { color: text }, // Cambia 'red' al color que quieras
           }}
@@ -124,13 +127,13 @@ const Login = (darkMode) => {
           <Link id="register" to="/adduser" style={{color: text}}>{t('loginToAddUser')}</Link>
 
             </Typography>
-          <Button variant="contained" color="primary" onClick={loginUser} 
+          <Button           data-testid="login-button" variant="contained" color="primary" onClick={loginUser} 
           style={{ backgroundColor: buttonColor, color: text }}>
             {t('loginMessage')}
           </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')} />
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')}  />
           {error && (
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`}  data-testid="error-snackbar"/>
           )}
        
         </div>

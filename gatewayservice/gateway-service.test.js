@@ -369,6 +369,7 @@ it('should perform the getHistoryTotal request', async () => {
 const handleErrorResponseHistory = async (serviceUrl, errorMessage) => {
   axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
 };
+
 // Verifica si el manejo de errores funciona correctamente para diferentes servicios
 it('should handle error when fetching history', async () => {
   await handleErrorResponseHistory('http://localhost:8004', 'Network Error');
@@ -380,7 +381,9 @@ it('should handle error when fetching history total', async () => {
 
 it('should handle error when fetching history detallado', async () => {
   await handleErrorResponseHistory('http://localhost:8004/getHistoryDetallado', 'Network Error');
+
 });
+ 
 
 it('should handle error when fetching history update', async () => {
   await handleErrorResponseHistory('http://localhost:8004/updateHistory', 'Network Error');
@@ -390,53 +393,36 @@ it('should handle error when fetching history diaria update', async () => {
   await handleErrorResponseHistory('http://localhost:8004/updateHistoryDiaria', 'Network Error');
 });
 
-
+ //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
+ it('should handle error when fetching ranking diarias', async () => {
+  await handleErrorResponseHistory('http://localhost:8004/getRankingDiarias', 'Network Error');
+    });
 //Caso negativo para el endpoint /updateHistory
 it('should return an error when the history update service request fails', async () => {
-  // Mock the axios.get method to reject the promise
-  axios.post.mockImplementationOnce(() =>
-  Promise.reject(new Error('Internal Server Error'))
-  );
-  const response = await request(app)
-                                .post('/updateHistory')
-                                .send({ id: 'mockedHistoryId' });
-        
-  expect(response.statusCode).toBe(500);
-  expect(response.body.error).toBeDefined();
-  expect(response.body.error).toEqual('Internal Server Error');
+  // Ejemplo de uso:
+// Caso negativo para el endpoint /updateHistory
+   handleErrorResponsePost('/updateHistory', 'Internal Server Error');
+
   });
 
 
   //Caso negativo para el endpoint /updateHistoryDiaria
 it('should return an error when the history diaria update service request fails', async () => {
-  // Mock the axios.get method to reject the promise
-  axios.post.mockImplementationOnce(() =>
-  Promise.reject(new Error('Internal Server Error'))
-  );
-  const response = await request(app)
-                                .post('/updateHistoryDiaria')
-                                .send({ id: 'mockedHistoryId' });
-        
-  expect(response.statusCode).toBe(500);
-  expect(response.body.error).toBeDefined();
-  expect(response.body.error).toEqual('Internal Server Error');
+  
+// Caso negativo para el endpoint /updateHistoryDiaria
+handleErrorResponsePost('/updateHistoryDiaria', 'Internal Server Error');
   });
 
+const handleErrorResponsePost = async (route, errorMessage) => {
+  const error = new Error(errorMessage);
+  axios.post.mockImplementationOnce(() => Promise.reject(error));
 
-  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial falla.
-  it('should handle error when fetching history', async () => {
-    const historyServiceUrl = 'http://localhost:8004';
-    const errorMessage = 'Network Error';
-    axios.post.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
-      });
+  const response = await request(app).post(route).send({ id: 'mockedHistoryId' });
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBe(errorMessage);
+};
 
 
-  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de ranking diarias falla. 
-  it('should handle error when fetching ranking diarias', async () => {
-    const historyServiceUrl = 'http://localhost:8004/getRankingDiarias';
-    const errorMessage = 'Network Error';
-    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
-      });
 
 //Caso negativo para el endpoint /getRankingDiarias
 it('should return an error when the ranking diarias service request fails', async () => {

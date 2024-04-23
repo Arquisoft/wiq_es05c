@@ -98,6 +98,7 @@ const Login = (darkMode) => {
             FormHelperTextProps={{
               style: { color: text }, // Cambia el color del texto de ayuda
             }}
+            name="username"
             margin="normal"
             fullWidth
             label={t('loginUsername')}
@@ -115,6 +116,7 @@ const Login = (darkMode) => {
           FormHelperTextProps={{
             style: { color: text }, // Cambia el color del texto de ayuda
           }}
+            name="password"
             margin="normal"
             fullWidth
             label={t('loginPassword')}
@@ -127,13 +129,14 @@ const Login = (darkMode) => {
           <Link id="register" to="/adduser" style={{color: text}}>{t('loginToAddUser')}</Link>
 
             </Typography>
-          <Button           data-testid="login-button" variant="contained" color="primary" onClick={loginUser} 
+          <Button id="login" data-testid="login-button" variant="contained" color="primary" onClick={loginUser} 
           style={{ backgroundColor: buttonColor, color: text }}>
             {t('loginMessage')}
           </Button>
           <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('loginSuccess')}  />
           {error && (
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`}  data-testid="error-snackbar"/>
+            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`}  data-testid="error-snackbar" id="errorMessage"/>
+
           )}
        
         </div>

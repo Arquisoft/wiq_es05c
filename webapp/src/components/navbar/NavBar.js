@@ -106,18 +106,18 @@ const NavBar = ({ setDarkMode, darkMode}) => {
     <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} data-testid="navbar" >
       <Toolbar>
         <Button color="inherit" component={Link} to="/home"
-        onClick={()=>handleNavPagesClick()}
+        onClick={()=>handleNavPagesClick()} data-testid="homeButton"
         >
           {t('home')}
         </Button>
            
         <Button color="inherit" component={Link} to="/joinroom"
-        onClick={()=>handleNavPagesClick()}
+        onClick={()=>handleNavPagesClick()} data-testid="roomJoinButton"
         >
           {t('roomJoinButton')}
         </Button>
         <Button color="inherit" component={Link} to="/createroom"
-        onClick={()=>handleNavPagesClick()}
+        onClick={()=>handleNavPagesClick()} data-testid="roomCreateButton"
         >
           {t('roomCreateButton')}
         </Button>
@@ -126,20 +126,20 @@ const NavBar = ({ setDarkMode, darkMode}) => {
 
         <IconButton id='change-language-button' onClick={handleClickLanguage}>
           <LanguageIcon />
-          <Typography>{i18n.language.toUpperCase()}</Typography>
+          <Typography data-testid="idioma" >{i18n.language.toUpperCase()}</Typography>
         </IconButton>
         <Menu
           anchorEl={anchorLanguage}
           open={Boolean(anchorLanguage)}
           onClose={handleCloseLanguage}
         >
-          <MenuItem onClick={() => changeLanguage('es')}>
-            <ListItemIcon>
+          <MenuItem onClick={() => changeLanguage('es')} data-testid="spanish-menu-item">
+            <ListItemIcon data-testid="spanish-flag">
               <img src="/spain_flag.png" alt={t('spanishFlag')} />
             </ListItemIcon> 
             {t('spanish')}</MenuItem>
-          <MenuItem onClick={() => changeLanguage('en')} >
-          <ListItemIcon>
+          <MenuItem onClick={() => changeLanguage('en')} data-testid="english-menu-item" >
+          <ListItemIcon data-testid="english-flag">
             <img src="/uk_flag.png" alt={t('englishFlag')} />
           </ListItemIcon>            
             {t('english')}</MenuItem>
@@ -148,7 +148,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <CustomSwitch id='dark-mode-switch' onChange={handleToggle} />
         {isLoggedIn() ? (
          <>
-         <IconButton onClick={handleClick}>
+         <IconButton onClick={handleClick} data-testid="iconoUsuario">
            <Avatar alt="User Avatar" src="/icon.jpg" />
          </IconButton>
          <Menu
@@ -160,14 +160,14 @@ const NavBar = ({ setDarkMode, darkMode}) => {
              <Typography fontWeight="bold">{username}</Typography>
            </ListItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/history">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/history" data-testid="historyButton">
              {t('history')}
            </MenuItem>
-           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" data-testid="rankingButton">
              {t('ranking')}
            </MenuItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/logout">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/logout" data-testid="logoutButton">
             {t('logout')}
            </MenuItem>
        
@@ -175,10 +175,10 @@ const NavBar = ({ setDarkMode, darkMode}) => {
        </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/login">
+            <Button color="inherit" component={Link} to="/login" data-testid="loginButton">
               {t('signIn')}
             </Button>
-            <Button color="inherit" component={Link} to="/adduser">
+            <Button color="inherit" component={Link} to="/adduser" data-testid="addButton">
               {t('signUp')}
             </Button>
           </>

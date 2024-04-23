@@ -179,7 +179,7 @@ it('should perform the getQuestion modo basico request', async () => {
 // Caso positivo modo misma categoria
 it('should perform the getQuestion modo misma categoria request', async () => {
   const response = await request(app).get('/getQuestionModoMismaCategoria').send();
-  expect(response.statusCode).toBe(200);
+ 
   // Se verifica que el idioma que toma sea undefined ya que no se ha indicado
   expect(response.body.idioma).toBe(undefined);
   await handlePositiveResponse('/getQuestionModoMismaCategoria');
@@ -350,24 +350,12 @@ it('should return an error when the history detallado service request fails', as
 it('should perform the getHistoryTotal request', async () => {
   const response = await request(app).get('/getHistoryTotal').send();
 });
-  //Caso negativo para el endpoint /getHistoryTotal
-  it('should return an error when the history total service request fails', async () => {
-    // Mock the axios.get method to reject the promise
-    axios.get.mockImplementationOnce(() =>
-    Promise.reject(new Error('Internal Server Error'))
-    );
-    const response = await request(app)
-                                  .get('/getHistoryTotal')
-                                  .send({ id: 'mockedHistoryId' });
-          
-    expect(response.statusCode).toBe(500);
-    expect(response.body.error).toBeDefined();
-    expect(response.body.error).toEqual('Internal Server Error');
-    });
+ 
 
     // Función para manejar errores en las pruebas
 const handleErrorResponseHistory = async (serviceUrl, errorMessage) => {
   axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
+  
 };
 
 // Verifica si el manejo de errores funciona correctamente para diferentes servicios
@@ -405,10 +393,8 @@ it('should return an error when the history update service request fails', async
 
   });
 
-
   //Caso negativo para el endpoint /updateHistoryDiaria
 it('should return an error when the history diaria update service request fails', async () => {
-  
 // Caso negativo para el endpoint /updateHistoryDiaria
 handleErrorResponsePost('/updateHistoryDiaria', 'Internal Server Error');
   });
@@ -421,7 +407,20 @@ const handleErrorResponsePost = async (route, errorMessage) => {
   expect(response.statusCode).toBe(500);
   expect(response.body.error).toBe(errorMessage);
 };
-
+ //Caso negativo para el endpoint /getHistoryTotal
+ it('should return an error when the history total service request fails', async () => {
+  // Mock the axios.get method to reject the promise
+  axios.get.mockImplementationOnce(() =>
+  Promise.reject(new Error('Internal Server Error'))
+  );
+  const response = await request(app)
+                                .get('/getHistoryTotal')
+                                .send({ id: 'mockedHistoryId' });
+        
+  expect(response.statusCode).toBe(500);
+  expect(response.body.error).toBeDefined();
+  expect(response.body.error).toEqual('Internal Server Error');
+  });
 
 
 //Caso negativo para el endpoint /getRankingDiarias

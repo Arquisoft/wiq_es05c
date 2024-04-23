@@ -28,16 +28,23 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
+    
+    let redColor = "#BA0F30";
+    let orangeColor = "#E66912"; 
+    let greenColor = "#1D741B";
+
     //Esta funcion devuelve el color en vista de los aciertos/fallos
     function getBackgroundColor(aciertos, total) {
-        let porcentaje = aciertos / total;
-    
-        let hue = porcentaje * 120; // Interpola entre rojo (0) y verde (120) en el espacio de color HSL
-    
         if(darkMode){
-            return `hsl(${hue}, 50%, 20%)`; // Devuelve un color en formato HSL más oscuro
-        }else{
-            return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+            let porcentaje = aciertos / total;
+        
+            if (porcentaje < 0.33) {
+                return redColor;
+            } else if (porcentaje < 0.66) {
+                return orangeColor;
+            } else {    
+                return greenColor;
+            }
         }
     }
 
@@ -59,11 +66,11 @@ export function GameBlock( {darkMode, gameInfo} ){
             <Box id='accuarcy-partida' flex="4" display="flex" flexDirection="column" borderRight={"1px solid"+text}>
                 <Box id='num-aciertos' display="flex" flexDirection="column" margin="1em">
                     <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
-                    <Text fontSize='1.5em' color="#32CD30" textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
+                    <Text fontSize='1.5em' color={text} textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
                 </Box>
                 <Box id='num-fallos' display="flex" flexDirection="column" margin="1em"  alignItems="center"> 
                     <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
-                    <Text fontSize='1.5em' color="#970C10" textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
+                    <Text fontSize='1.5em' color={text} textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
                 </Box>
             </Box>
             <Box id='duracion-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly">

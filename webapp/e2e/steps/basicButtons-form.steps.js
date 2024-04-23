@@ -100,4 +100,40 @@ defineFeature(feature, test => {
     });
   })
 
+  test('User switches to dark mode', ({given,when,then}) => {
+
+    when('I toggle the dark mode switch', async () => {      
+      //creamos un usuario para poder hacer login
+      await expect(page).toClick("#dark-mode-switch");
+    });
+
+    then('The interface should switch to dark mode', async () => {
+      await page.waitForSelector('#navbar');
+
+      // obtenemos el estilo 
+      const backgroundColor = await page.$eval('#navbar', el => getComputedStyle(el).backgroundColor);
+
+      // Verifica que el color de fondo coincida con el oscuro
+      expect(backgroundColor).toBe('#001c17');
+    });
+  })
+
+  test('User switches to light mode', ({given,when,then}) => {
+
+    when('I toggle the light mode switch', async () => {      
+      //creamos un usuario para poder hacer login
+      await expect(page).toClick("#dark-mode-switch");
+    });
+
+    then('The interface should switch to light mode', async () => {
+      await page.waitForSelector('#navbar');
+
+      // obtenemos el estilo 
+      const backgroundColor = await page.$eval('#navbar', el => getComputedStyle(el).backgroundColor);
+
+      // Verifica que el color de fondo coincide con el claro
+      expect(backgroundColor).toBe('#fef5c6');
+    });
+  })
+
 });

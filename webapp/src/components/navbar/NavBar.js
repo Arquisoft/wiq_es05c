@@ -103,7 +103,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
 
   console.log('isLoggedIn', isLoggedIn);
   return (
-    <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} data-testid="navbar" >
+    <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} id="navbar" data-testid="navbar" >
       <Toolbar>
         <Button color="inherit" component={Link} to="/home"
         onClick={()=>handleNavPagesClick()} data-testid="homeButton"

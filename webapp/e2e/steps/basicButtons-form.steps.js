@@ -74,9 +74,6 @@ defineFeature(feature, test => {
 
   test('User checks game play history', ({given,when,then}) => {
 
-    given('A logged user', async () => {      
-    });
-
     when('I navigate to user section and press the history', async () => {      
       //creamos un usuario para poder hacer login
       await expect(page).toClick("#iconoUsuario");
@@ -86,6 +83,20 @@ defineFeature(feature, test => {
 
     then('I should see a list of past games played', async () => {
       await expect(page).toMatchElement("#main-history");
+    });
+  })
+  
+  test('User checks ranking history', ({given,when,then}) => {
+
+    when('I navigate to the user section and press the ranking section', async () => {      
+      //creamos un usuario para poder hacer login
+      await expect(page).toClick("#iconoUsuario");
+      
+      await expect(page).toClick('#rankingButton');
+    });
+
+    then('I should see a list of users ranked by their scores', async () => {
+      await expect(page).toMatchElement("#ranking");
     });
   })
 

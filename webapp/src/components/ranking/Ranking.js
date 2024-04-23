@@ -50,7 +50,7 @@ export function Ranking({darkMode}){
     let titles = darkMode ? '#90ADC6' : '#00325E';
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div id="ranking" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Heading size="lg" color={titles} marginTop="1em" marginBottom="1em">{t('rankingTitle')}</Heading>
             <Divider orientation='horizontal' marginBottom="1em"/>
             <TableContainer>

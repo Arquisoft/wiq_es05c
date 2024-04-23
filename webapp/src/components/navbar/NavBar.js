@@ -163,7 +163,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
            <MenuItem onClick={handleMenuClick} component={Link} to="/history" id="historyButton" data-testid="historyButton">
              {t('history')}
            </MenuItem>
-           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" data-testid="rankingButton">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" id="rankingButton" data-testid="rankingButton">
              {t('ranking')}
            </MenuItem>
            <Divider orientation="horizontal" flexItem />

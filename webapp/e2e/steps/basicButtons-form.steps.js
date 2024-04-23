@@ -166,4 +166,17 @@ defineFeature(feature, test => {
     });
   })
 
+  test('User logout', ({when,then}) => {
+
+    when('I navigate to the user section and press logout', async () => {   
+      await expect(page).toClick("#iconoUsuario");
+      
+      await expect(page).toClick('#logoutButton');
+    });
+
+    then('The user should logout', async () => {
+      await page.waitForSelector('#iconoUsuario', { state: 'hidden', timeout: 1000 });
+    });
+  })
+
 });

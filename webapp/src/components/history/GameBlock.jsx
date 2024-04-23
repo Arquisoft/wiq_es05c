@@ -51,7 +51,7 @@ export function GameBlock( {darkMode, gameInfo} ){
     let backgroundColor = getBackgroundColor(aciertos, totalPreguntas);
 
     return (
-        <Box border="1px" borderRadius="10em" p={4} display="flex" flexDirection="row" backgroundColor={backgroundColor} margin="0.5em">
+        <Box data-testid="test-color" border="1px" borderRadius="10em" p={4} display="flex" flexDirection="row" backgroundColor={backgroundColor} margin="0.5em">
             <Box id='num-partida' flex="1" display="flex" flexDirection="row" justifyContent="space-evenly" alignItems="center" borderRight={"2px solid"+text}>
                 <Heading fontSize='1.5em' color={text} textAlign="center">Nº</Heading>
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{numeroJuego}</Text>

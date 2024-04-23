@@ -24,4 +24,15 @@ describe('GameBlock', () => {
     expect(screen.getByText(`${gameInfo.preguntas_acertadas}/${gameInfo.preguntas_acertadas + gameInfo.preguntas_falladas}`)).toBeInTheDocument();
     expect(screen.getByText(`${gameInfo.preguntas_falladas}/${gameInfo.preguntas_acertadas + gameInfo.preguntas_falladas}`)).toBeInTheDocument();
   });
+
+  test('colours test', () => {
+    render(
+      <I18nextProvider i18n={i18n}>
+        <GameBlock darkMode={false} gameInfo={gameInfo} />
+      </I18nextProvider>
+    );
+ 
+    const blockElement = screen.getByTestId('test-color');
+    expect(blockElement).toHaveStyle('background-color: rgb(255, 176, 103)');
+  });
 });

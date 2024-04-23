@@ -29,10 +29,10 @@ class ObtenerPreguntaWikiData {
     leerYSacarConsultas() {   
       return new Promise((resolve, reject) => {
         // Leer el archivo XML
-        fs.readFile('preguntas.xml', 'utf-8', (err, data) => {
+        fs.readFile('./preguntas.xml', 'utf-8', (err, data) => {
           
           if (err) {
-            reject(new Error('Error al leer el archivo:', err));
+            reject(new Error('Error al leer el archivo de preguntas:', err));
             return;
           }
           

@@ -86,7 +86,10 @@ class BasicGame extends GameMode {
           <p>${i18n.t('wrongAnswers')} ${this.incorrectas}</p>
           <p>${i18n.t('timePlayed')} ${this.tiempoTotal}</p>
         `,
-        confirmButtonText: i18n.t('close')
+        confirmButtonText: i18n.t('close'),
+        customClass: {         
+          popup: 'finDelJuego'
+        }
       }).then(()=>{
 
           this.navigate('/home');

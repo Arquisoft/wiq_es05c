@@ -1,11 +1,11 @@
 import {Button} from '@chakra-ui/react'
 
-export function AnswerButton({darkMode,text, colorFondo, onClick}){
+export function AnswerButton({darkMode, key, text, colorFondo, onClick}){
 
     let textColor = darkMode.darkMode? "#FCFAF0" : "#08313A";
 
     return(
-        <Button 
+        <Button  id={"buttonAnswer" + key}
         bg={colorFondo}
         color={textColor}
         display="flex"

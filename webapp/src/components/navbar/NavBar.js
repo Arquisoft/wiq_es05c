@@ -175,7 +175,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
        </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/login" data-testid="loginButton">
+            <Button color="inherit" component={Link} to="/login" id="loginButton" data-testid="loginButton">
               {t('signIn')}
             </Button>
             <Button color="inherit" component={Link} to="/adduser" data-testid="addButton">

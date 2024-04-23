@@ -48,8 +48,6 @@ defineFeature(feature, test => {
     });
 
     when('I fill the data in the form and press submit', async () => {      
-      //creamos un usuario para poder hacer login
-      await expect(page).toClick("#register");
       
       await expect(page).toFill('input[name="email"]', email);
       await expect(page).toFill('input[name="username"]', username);
@@ -58,7 +56,7 @@ defineFeature(feature, test => {
       
       await expect(page).toClick('#addRegister');
       
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(3000);
 
       //nos logeamos con ese usuario
       await expect(page).toFill('input[name="username"]', username);
@@ -96,7 +94,7 @@ defineFeature(feature, test => {
     });
 
     then('I should see a list of users ranked by their scores', async () => {
-      await expect(page).toMatchElement("#ranking");
+      await expect(page).toMatchElement("#rankingDiv");
     });
   })
 
@@ -113,13 +111,16 @@ defineFeature(feature, test => {
       const backgroundColor = await page.$eval('#navbar', el => getComputedStyle(el).backgroundColor);
 
       // Verifica que el color de fondo coincida con el oscuro
-      expect(backgroundColor).toBe('#001c17');
+      expect(backgroundColor).toBe('rgb(0, 28, 23)');
     });
   })
 
   test('User switches to light mode', ({when,then}) => {
 
     when('I toggle the light mode switch', async () => {      
+      //para cambiar a modo oscuro 
+      await expect(page).toClick("#dark-mode-switch");
+      //volvemos a cambiar a modo claro
       await expect(page).toClick("#dark-mode-switch");
     });
 
@@ -130,7 +131,7 @@ defineFeature(feature, test => {
       const backgroundColor = await page.$eval('#navbar', el => getComputedStyle(el).backgroundColor);
 
       // Verifica que el color de fondo coincide con el claro
-      expect(backgroundColor).toBe('#fef5c6');
+      expect(backgroundColor).toBe('rgb(254, 245, 198)');
     });
   })
 
@@ -153,7 +154,11 @@ defineFeature(feature, test => {
   test('User switches to spanish', ({when,then}) => {
 
     when('I navigate to the settings section and press spanish from the language dropdown', async () => {      
-      //pulsamos en los idiomas y cambiamos al ingles
+      //pulsamos en los idiomas y cambiamos al ingles para poder comprobar que se cambia otra vez a español
+      await expect(page).toClick("#change-language-button");
+      await expect(page).toClick("#english-menu-item");
+
+      //pulsamos en los idiomas y cambiamos al español
       await expect(page).toClick("#change-language-button");
       await expect(page).toClick("#spanish-menu-item");
     });
@@ -175,7 +180,8 @@ defineFeature(feature, test => {
     });
 
     then('The user should logout', async () => {
-      await page.waitForSelector('#iconoUsuario', { state: 'hidden', timeout: 1000 });
+      //si no esta logeado ve este boton
+      await expect(page).toMatchElement("#loginButton");
     });
   })
 

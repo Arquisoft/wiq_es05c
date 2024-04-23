@@ -7,19 +7,7 @@ afterAll(async () => {
   });
 
 jest.mock('axios');
-// Helper function to handle GET requests with error handling
-const getRequestWithErrorHandling = async (url, data) => {
-  // Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio falla.
-  const errorMessage = 'Network Error';
-  axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
 
-  axios.get.mockImplementationOnce(() => Promise.resolve({ data }));
-
-  const response = await request(app).get(url).send(data);
-
-  expect(response.statusCode).toBe(200);
-  expect(response.body).toEqual(data);
-};
 describe('Gateway Service', () => {
   // Mock responses from external services
   axios.post.mockImplementation((url, data) => {
@@ -111,8 +99,6 @@ it('should return 404 for nonexistent endpoint', async()=>{
 
 //*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */
 
-
-
 // Test para verificar manejo de errores en /getQuestionDiaria
 it('should handle error when getting daily question', async () => {
   const errorMessage = 'Internal Server Error';
@@ -123,7 +109,6 @@ it('should handle error when getting daily question', async () => {
   expect(response.statusCode).toBe(500);
   expect(response.body.error).toBe(errorMessage);
 });
-
 
 // Test para verificar manejo de errores en /getQuestionModoBasico
 it('should handle error when getting basic question', async () => {

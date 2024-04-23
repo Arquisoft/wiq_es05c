@@ -126,19 +126,19 @@ const NavBar = ({ setDarkMode, darkMode}) => {
 
         <IconButton id='change-language-button' onClick={handleClickLanguage}>
           <LanguageIcon />
-          <Typography data-testid="idioma" >{i18n.language.toUpperCase()}</Typography>
+          <Typography id="idioma" data-testid="idioma" >{i18n.language.toUpperCase()}</Typography>
         </IconButton>
         <Menu
           anchorEl={anchorLanguage}
           open={Boolean(anchorLanguage)}
           onClose={handleCloseLanguage}
         >
-          <MenuItem onClick={() => changeLanguage('es')} data-testid="spanish-menu-item">
+          <MenuItem onClick={() => changeLanguage('es')} id="spanish-menu-item" data-testid="spanish-menu-item">
             <ListItemIcon data-testid="spanish-flag">
               <img src="/spain_flag.png" alt={t('spanishFlag')} />
             </ListItemIcon> 
             {t('spanish')}</MenuItem>
-          <MenuItem onClick={() => changeLanguage('en')} data-testid="english-menu-item" >
+          <MenuItem onClick={() => changeLanguage('en')} id="english-menu-item" data-testid="english-menu-item" >
           <ListItemIcon data-testid="english-flag">
             <img src="/uk_flag.png" alt={t('englishFlag')} />
           </ListItemIcon>            

@@ -72,10 +72,10 @@ defineFeature(feature, test => {
     });
   })
 
-  test('User checks game play history', ({given,when,then}) => {
+  test('User checks game play history', ({when,then}) => {
 
-    when('I navigate to user section and press the history', async () => {      
-      //creamos un usuario para poder hacer login
+    when('I navigate to user section and press the history', async () => {     
+      //vamos a las opciones del usuario 
       await expect(page).toClick("#iconoUsuario");
       
       await expect(page).toClick('#historyButton');
@@ -86,10 +86,10 @@ defineFeature(feature, test => {
     });
   })
   
-  test('User checks ranking history', ({given,when,then}) => {
+  test('User checks ranking history', ({when,then}) => {
 
     when('I navigate to the user section and press the ranking section', async () => {      
-      //creamos un usuario para poder hacer login
+      //vamos a las opciones del usuario 
       await expect(page).toClick("#iconoUsuario");
       
       await expect(page).toClick('#rankingButton');
@@ -100,10 +100,9 @@ defineFeature(feature, test => {
     });
   })
 
-  test('User switches to dark mode', ({given,when,then}) => {
+  test('User switches to dark mode', ({when,then}) => {
 
     when('I toggle the dark mode switch', async () => {      
-      //creamos un usuario para poder hacer login
       await expect(page).toClick("#dark-mode-switch");
     });
 
@@ -118,10 +117,9 @@ defineFeature(feature, test => {
     });
   })
 
-  test('User switches to light mode', ({given,when,then}) => {
+  test('User switches to light mode', ({when,then}) => {
 
     when('I toggle the light mode switch', async () => {      
-      //creamos un usuario para poder hacer login
       await expect(page).toClick("#dark-mode-switch");
     });
 
@@ -133,6 +131,38 @@ defineFeature(feature, test => {
 
       // Verifica que el color de fondo coincide con el claro
       expect(backgroundColor).toBe('#fef5c6');
+    });
+  })
+
+  test('User switches to english', ({when,then}) => {
+
+    when('I navigate to the settings section and press english from the language dropdown', async () => {      
+      //pulsamos en los idiomas y cambiamos al ingles
+      await expect(page).toClick("#change-language-button");
+      await expect(page).toClick("#english-menu-item");
+    });
+
+    then('The interface should switch to english', async () => {
+      const idiomaText = await page.$eval('#idioma', el => el.textContent);
+
+      //verificamos que el texto del elemento sea "EN"
+      expect(idiomaText.trim()).toBe('EN');
+    });
+  })
+
+  test('User switches to spanish', ({when,then}) => {
+
+    when('I navigate to the settings section and press spanish from the language dropdown', async () => {      
+      //pulsamos en los idiomas y cambiamos al ingles
+      await expect(page).toClick("#change-language-button");
+      await expect(page).toClick("#spanish-menu-item");
+    });
+
+    then('The interface should switch to spanish', async () => {
+      const idiomaText = await page.$eval('#idioma', el => el.textContent);
+
+      //verificamos que el texto del elemento sea "EN"
+      expect(idiomaText.trim()).toBe('ES');
     });
   })
 

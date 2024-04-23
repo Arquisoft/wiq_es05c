@@ -28,14 +28,12 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
-    
-    let redColor = "#BA0F30";
-    let orangeColor = "#E66912"; 
-    let greenColor = "#1D741B";
+    let redColor = darkMode ? "#BA0F30" : "#F04854";
+    let orangeColor = darkMode ? "#E66912" : "#FFB067"; 
+    let greenColor = darkMode ? "#1D741B" : "#D2FBA4";
 
     //Esta funcion devuelve el color en vista de los aciertos/fallos
     function getBackgroundColor(aciertos, total) {
-        if(darkMode){
             let porcentaje = aciertos / total;
         
             if (porcentaje < 0.33) {
@@ -44,7 +42,6 @@ export function GameBlock( {darkMode, gameInfo} ){
                 return orangeColor;
             } else {    
                 return greenColor;
-            }
         }
     }
 

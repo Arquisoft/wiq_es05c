@@ -31,9 +31,9 @@ export function StatsBlock({ darkMode,playerStats }){
 
     let tiempoMedioFormateado = formatTime(playerStats.tiempoMedio);
 
-    let aciertosRedondeados = 1//parseFloat(playerStats.preguntas_acertadas.toFixed(2));
+    let aciertosRedondeados = parseFloat(playerStats.preguntas_acertadas.toFixed(2));
 
-    let fallosRedondeados = 1//parseFloat(playerStats.preguntas_falladas.toFixed(2));
+    let fallosRedondeados = parseFloat(playerStats.preguntas_falladas.toFixed(2));
 
     function formatTime(tiempo) {
         let hours = Math.floor(tiempo / 3600);

@@ -83,4 +83,4 @@ class InfinityGameMode extends BasicGame{
    
 }
 
-module.exports =  InfinityGameMode ;
+export default InfinityGameMode;

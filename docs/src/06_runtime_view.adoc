@@ -3,6 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-runtime-view]]
 == Runtime View
 
+The GatewayService is the micro-service that redirect all the ruequests to all the other micro-services such as AuthService or QuestionService but that is not directly pointed out in the diagrams. 
 
 === Register user
 
@@ -25,7 +26,7 @@ image::06-loginSecuencia.png["Login secuence diagram image"]
 1. The user wants to login his account
 2. The app redirects the login request to the LoginService
 3. The LoginService request information about that login data recieved
-4. A response is sent by the database with the requested data
+4. A answer is sent by the database with the requested data
 5. After checking if it's a valid login the LoginService sends a response to the app
 6. Finally the app inform the user about his login process
 

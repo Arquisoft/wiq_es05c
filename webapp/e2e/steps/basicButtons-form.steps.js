@@ -56,8 +56,10 @@ defineFeature(feature, test => {
       
       await expect(page).toClick('#addRegister');
       
-      await page.waitForTimeout(3000);
-
+      await page.goto("http://localhost:3000/login", {
+      waitUntil: "networkidle0",
+      });
+      
       //nos logeamos con ese usuario
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);

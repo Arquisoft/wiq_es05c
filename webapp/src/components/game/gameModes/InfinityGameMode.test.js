@@ -1,6 +1,5 @@
 const InfinityGameMode = require('./InfinityGameMode');
 const SameCategoryMode = require('./InfinityGameMode');
-
 describe('InfinityGameMode', () => {
   let infinityGameMode;
 

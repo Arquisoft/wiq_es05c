@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId} = require('mongodb');
 
 async function insertTestData() {
     const uri = process.env.MONGODB_URI; 
@@ -8,7 +8,7 @@ async function insertTestData() {
 
     try {
         await client.connect(); 
-        const database = client.db('questionsdb'); 
+        const database = client.db(); 
 
         // Colección de preguntas
         const questionsCollection = database.collection('preguntas');
@@ -19,47 +19,53 @@ async function insertTestData() {
         // insertamos las categorias
         await categoryCollection.insertMany([
             { 
-                _id: '6611a60d494c408df0d0c1d5',
+                _id: new ObjectId('6611a60d494c408df0d0c1d5'),
                 nombre: 'arte' }
         ]);
 
         // insertamos las respuestas
         await answersCollection.insertMany([
             { 
-                _id : '6611a60d494c408df0d0c1e4',
+                _id : new ObjectId('6611a60d494c408df0d0c1e4'),
                 textoRespuesta_es: '1 de enero de 2002', 
                 textoRespuesta_en: '1/1/2002', 
-                tipos: ['6611a60d494c408df0d0c1db'] 
+                tipos: [new ObjectId('6611a60d494c408df0d0c1db')] 
             },
             { 
-                _id : '6611a60d494c408df0d0c1e5',
+                _id : new ObjectId('6611a60d494c408df0d0c1e5'),
                 textoRespuesta_es: '1 de febrero de 2002', 
                 textoRespuesta_en: '1/2/2002', 
-                tipos: ['6611a60d494c408df0d0c1db'] 
+                tipos: [new ObjectId('6611a60d494c408df0d0c1db')] 
             },
             { 
-                _id : '6611a60d494c408df0d0c1e6',
+                _id : new ObjectId('6611a60d494c408df0d0c1e6'),
                 textoRespuesta_es: '1 de marzo de 2002', 
                 textoRespuesta_en: '1/3/2002', 
-                tipos: ['6611a60d494c408df0d0c1db'] 
+                tipos: [new ObjectId('6611a60d494c408df0d0c1db')] 
             },
             { 
-                _id : '6611a60d494c408df0d0c1e7',
+                _id : new ObjectId('6611a60d494c408df0d0c1e7'),
                 textoRespuesta_es: '1 de ablir de 2002', 
                 textoRespuesta_en: '1/4/2002', 
-                tipos: ['6611a60d494c408df0d0c1db'] 
+                tipos: [new ObjectId('6611a60d494c408df0d0c1db')] 
             }
         ]);
 
         // insertamos los tipos
         await typesCollection.insertMany([
             { 
-                _id: '6611a60d494c408df0d0c1db', 
+                _id: new ObjectId('6611a60d494c408df0d0c1db'), 
                 idPreguntas: 
-                    ['6611a60d494c408df0d0c1e4'
-                    , '6611a60d494c408df0d0c1e5'
-                    , '6611a60d494c408df0d0c1e6'
-                    , '6611a60d494c408df0d0c1e7'] }
+                    ['abcdefabcdefabcdefabcde1'
+                    , 'abcdefabcdefabcdefabcde2'
+                    , 'abcdefabcdefabcdefabcde3'
+                    , 'abcdefabcdefabcdefabcde4'
+                    , 'abcdefabcdefabcdefabcde5'
+                    , 'abcdefabcdefabcdefabcde6'
+                    , 'abcdefabcdefabcdefabcde7'
+                    , 'abcdefabcdefabcdefabcde8'
+                    , 'abcdefabcdefabcdefabcde9'
+                    , 'abcdefabcdefabcdefabcde0'] }
         ]);
 
         // para las preguntas
@@ -76,12 +82,12 @@ async function insertTestData() {
         // Crear un array con 10 preguntas de prueba
         const testQuestions = Array(10).fill().map((_, index) => {
             return {
-                _id: `question_${index + 1}`,
+                _id: new ObjectId(`abcdefabcdefabcdefabcde${index}`),
                 textoPregunta_es: '¿Cuál es la fecha de nacimiento del chef español Yayo Daporta?', 
                 respuestaCorrecta_es: '1 de enero de 2002', 
                 textoPregunta_en: 'What is the date of birth of the Spanish chef Yayo Daporta?', 
                 respuestaCorrecta_en: '1/1/2002', 
-                categoria: '6611a60d494c408df0d0c1d5'
+                categoria: new ObjectId('6611a60d494c408df0d0c1d5')
             };
         });
 

@@ -4,7 +4,7 @@ import i18n from 'i18next'; // Importa i18n
 const { default: BasicGame } = require("../BasicGame");
 //const { default: GameMode } = require("./GameMode");
 
-export default class InfinityGameMode extends BasicGame{
+class InfinityGameMode extends BasicGame{
 
 
 
@@ -83,3 +83,4 @@ export default class InfinityGameMode extends BasicGame{
    
 }
 
+module.exports =  InfinityGameMode ;

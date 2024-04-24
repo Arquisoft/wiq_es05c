@@ -57,7 +57,9 @@ defineFeature(feature, test => {
       
       await expect(page).toClick('#addRegister');
       
-      await page.waitForTimeout(2000);
+      await page.goto("http://localhost:3000/login", {
+      waitUntil: "networkidle0",
+      });
 
       //nos logeamos con ese usuario
       await expect(page).toFill('input[name="username"]', username);
@@ -67,7 +69,6 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-        //await expect(page).toMatchElement("#loginMessage", { text: "Inicio de sesión correcto" });
       await expect(page).toMatchElement("#iconoUsuario");
 
       //cerramos la sesion    

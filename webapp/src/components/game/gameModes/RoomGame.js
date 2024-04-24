@@ -69,7 +69,10 @@ class RoomGame extends BasicGame {
       Swal.fire({
         title: i18n.t('roomGameWaitPlayersStart'),
         text: i18n.t('roomGameWaitPlayersEnd'),
-        confirmButtonText: i18n.t('close')
+        confirmButtonText: i18n.t('close'),
+        customClass: {         
+          popup: 'esperandoJugadoresMultiplayer'
+        }
       });
 
      

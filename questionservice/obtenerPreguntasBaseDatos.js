@@ -19,13 +19,15 @@ class ObtenerPreguntas{
             if(preguntas.length != numeroPreguntas){
                 throw new Error("No se han devuelto el numero de preguntas necesario");
             }
-            console.log('despues del if de obtener pregunta');
+
             for(var i = 0; i < preguntas.length; i++){   
                 try{   
                     console.log('Pregunta: ' + preguntas[i]._id);                
                     var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
 
                     var respuestas;
+
+                    console.log('Tipo: ' + tipo._id);
                     
                     if(idioma == "es"){
                         respuestas = await Respuesta.aggregate([

@@ -107,15 +107,15 @@ function Room({ darkMode }) {
 
 
   return (
-    <div>
-      <h1>{t('room')}{roomId}</h1>
+    <div id="room">
+      <h1 id="idSala">{t('room')}{roomId}</h1>
       <h2>{t('roomUsers')}</h2>
       <ul>
         {Object.keys(users).map((username, index) => (
             <li key={index}>{username}</li>
           ))}
       </ul>
-      {isHost && <button onClick={startGame} disabled={gameStarted} data-test="startButton">{t('roomStartGameButton')}</button>}
+      {isHost && <button onClick={startGame} disabled={gameStarted} id="startButton" data-test="startButton">{t('roomStartGameButton')}</button>}
       {gameStarted && roomGame!=null && <Game darkMode={darkMode} gameMode={roomGame} />}
     </div>
   );

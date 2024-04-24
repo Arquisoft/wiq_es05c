@@ -48,6 +48,9 @@ Risks that we can try to prevent but at the end doesn't depend on us:
 |Accidents can happen and if something like a train or bus not working or some unexpected problem that we can experience the presentation day (2nd May) it´s possible that someone can be absent in that final presentation
 |To avoid this we should try to be cautious and arrive with a big margin time and having alternatives
 
+|Malicious people
+|Maybe people who spends all day looking for machines or url's that are vulnerable finds our machine and tries to break into it or obtain information (maybe already happened)
+|We should implement what we are learning and already have learned about security and mantaining our systems save and sound.
 |===
 
 === Technical Debt

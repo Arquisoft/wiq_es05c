@@ -8,9 +8,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::07-diagramaDespliegue.png["Building Block general diagram"] 
 
-Basically when a user wants to use the application, using his web browser
-he can connect to the application server that is a VM in hosted in Azure
-orientated to microservices. That means that all the modules inside it
-are dockerized in a container alse we can find 2 MongoDB databases in this 
-virtual machine one for users and another to store generated questions.
-The QuestionGenerator interacts with WikiData throught their API.
+The application is hosted in a virtual machine type Linux ubuntu 20.04 gen2 and
+has open the port 3000 and 8000 so that it's possible to connect via HTTP
+using a basic browser.
+
+All the application is deploid over docker. Each of the represented elements 
+are a docker container (also the databases) and they are based on microservices
+architecture so they can communicate between them with HTTP and BD connections.
+

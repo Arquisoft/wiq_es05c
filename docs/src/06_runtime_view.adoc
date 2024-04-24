@@ -3,6 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-runtime-view]]
 == Runtime View
 
+The GatewayService is the micro-service that redirect all the ruequests to all the other micro-services such as AuthService or QuestionService but that is not directly pointed out in the diagrams. 
 
 === Register user
 
@@ -25,7 +26,7 @@ image::06-loginSecuencia.png["Login secuence diagram image"]
 1. The user wants to login his account
 2. The app redirects the login request to the LoginService
 3. The LoginService request information about that login data recieved
-4. A response is sent by the database with the requested data
+4. A answer is sent by the database with the requested data
 5. After checking if it's a valid login the LoginService sends a response to the app
 6. Finally the app inform the user about his login process
 
@@ -48,3 +49,34 @@ image::06-requestQuestion.png["RequestQuestion secuence diagram image"]
 2. The QuestionService requests that random question to our MongoDB of questions
 3. The DB sends that question to the QuestionService
 4. The QuestionService send again that question to the app so the user can continue with his experience
+
+=== Request user's history
+
+image::06-getHistory.png["RequestHistory secuence diagram image"] 
+
+1. The user wants to see his history 
+2. The app requests that user's data and games to the HistoryService 
+3. The HistoryService gathers all the data needed from the History data base
+4. The history service sends back that data to the Application where is processed
+5. All the games and statistics are shown to the user
+
+=== Request ranking
+
+image::06-getRanking.png["GetRanking secuence diagram image"] 
+
+1. The user wants to see the ranking of all players
+2. The app requests to the HistoryService that ranking
+3. The HistoryService gets the ranking from the History data base
+5. Finally the ranking is shown to the user
+
+=== Multiplayer game
+
+image::06-multiplayer.png["Multiplayer game secuence diagram image"] 
+
+1. Two users want to join a room and play a multiplayer game
+2. The application sends a request to the RoomsService
+3. This RoomsService where a room was created moments ago create a socket for each player 
+5. The RoomsService gets from the app the game details, questions and logic.
+6. All the game is managed by the RoomsService
+7. When the game is finished the RoomsService sends a response to the application
+8. Then the application sends all the results to the players

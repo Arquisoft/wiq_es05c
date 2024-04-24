@@ -1,7 +1,7 @@
 const { Server } = require("socket.io");
 const axios = require('axios');
 
-const questionServiceUrl = 'http://gatewayservice:8000';
+const questionServiceUrl = process.env.QUESTION_SERVICE_URL_ROOM || 'http://gatewayservice:8000';
 
 class RoomQuestions{
     constructor(io){

@@ -24,7 +24,7 @@ function RankingRoom({darkMode}) {
   return (
     <ChakraProvider>
     <VStack spacing={8}>
-      <Heading>Ranking</Heading>
+      <Heading id="rankingMultiplayer">Ranking</Heading>
 
       {/* Podio */}
       <HStack spacing={8}>

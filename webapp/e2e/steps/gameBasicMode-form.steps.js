@@ -65,15 +65,8 @@ defineFeature(feature, test => {
       await expect(page).toClick('#login');
     });
 
-    then('The user is logged and I generated questions', async () => {
+    then('The user is logged', async () => {
       await expect(page).toMatchElement("#iconoUsuario");
-
-      //generamos 10 preguntas
-      for(let i = 0; i < 10; i++){
-        await page.goto("http://localhost:8000/generateQuestion", {
-            waitUntil: "networkidle0",
-        });
-      }
     });
   })
 

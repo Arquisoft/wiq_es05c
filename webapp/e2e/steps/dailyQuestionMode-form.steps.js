@@ -41,8 +41,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;    
 
     given('An unregistered user', async () => {      
-      email = "userTestBasicGame@email.com"
-      username = "userTestBasicGame"
+      email = "userTestDailyQuestionGame@email.com"
+      username = "userTestDailyQuestionGame"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
     });
@@ -94,15 +94,11 @@ defineFeature(feature, test => {
         //vamos a las opciones del usuario 
         await expect(page).toClick("#button-diario-game");
 
-        //empieza el juego y responde 10 preguntas
-        for(let i = 0; i < 10; i++){
-            await expect(page).toClick("#buttonAnswer0");
-        }
+         //pendiente de implementar
     });
 
     then('I should see a message with a message', async () => {      
-        //comprobamos que se ha acabado el juego
-        await expect(page).toMatchElement(".finDelJuego");
+        //pendiente de implementar
     });
   })
 

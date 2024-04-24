@@ -112,12 +112,12 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         </Button>
            
         <Button color="inherit" component={Link} to="/joinroom"
-        onClick={()=>handleNavPagesClick()} data-testid="roomJoinButton"
+        onClick={()=>handleNavPagesClick()} id="roomJoinButton" data-testid="roomJoinButton"
         >
           {t('roomJoinButton')}
         </Button>
         <Button color="inherit" component={Link} to="/createroom"
-        onClick={()=>handleNavPagesClick()} data-testid="roomCreateButton"
+        onClick={()=>handleNavPagesClick()} id="roomCreateButton" data-testid="roomCreateButton"
         >
           {t('roomCreateButton')}
         </Button>

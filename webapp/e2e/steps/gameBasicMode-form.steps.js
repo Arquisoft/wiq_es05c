@@ -75,7 +75,6 @@ defineFeature(feature, test => {
   test('User play a game', ({when,then}) => {
 
     when('I play a game in basic mode', async () => {     
-        //vamos a las opciones del usuario 
         await expect(page).toClick("#button-basic-game");
 
         //empieza el juego y responde 10 preguntas

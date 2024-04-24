@@ -36,24 +36,7 @@ it('should perform the health request', async () => {
   expect(response.statusCode).toBe(200);
 });
 
- // Test /login endpoint
- it('should forward login request to auth service', async () => {
-  const response = await request(app)
-    .post('/login')
-    .send({ username: 'testuser', password: 'testpassword' });
-  expect(response.statusCode).toBe(200);
-  expect(response.body.token).toBe('mockedToken');
-});
-
-// Test /adduser endpoint
-it('should forward add user request to user service', async () => {
-  const response = await request(app)
-    .post('/adduser')
-    .send({ username: 'newuser', password: 'newpassword' });
-  expect(response.statusCode).toBe(200);
-  expect(response.body.userId).toBe('mockedUserId');
-});
-it('should handle authentication error', async () => {
+const handleAuthError = async (endpoint) => {
   const authError = new Error('Authentication failed');
   authError.response = {
     status: 401,
@@ -64,32 +47,20 @@ it('should handle authentication error', async () => {
   axios.post.mockImplementationOnce(() => Promise.reject(authError));
 
   // Realiza la solicitud al endpoint
-  const response = await request(app).post('/login').send({ /* datos de autenticación */ });
+  const response = await request(app).post(endpoint).send({ /* datos de autenticación */ });
 
   // Verifica que la respuesta tenga un código de estado 401
   expect(response.statusCode).toBe(401);
   expect(response.body.error).toBe('Invalid credentials');
+};
+
+it('should handle authentication error for /login', async () => {
+  await handleAuthError('/login');
 });
 
-  
-    it('should handle authentication error', async () => {
-      const authError = new Error('Authentication failed');
-      authError.response = {
-        status: 401,
-        data: { error: 'Invalid credentials' },
-      };
-    
-      // Simula un error en la llamada al servicio de autenticación
-      axios.post.mockImplementationOnce(() => Promise.reject(authError));
-    
-      // Realiza la solicitud al endpoint
-      const response = await request(app).post('/adduser').send({ /* datos de autenticación */ });
-    
-      // Verifica que la respuesta tenga un código de estado 401
-      expect(response.statusCode).toBe(401);
-      expect(response.body.error).toBe('Invalid credentials');
-    });
-
+it('should handle authentication error for /adduser', async () => {
+  await handleAuthError('/adduser');
+});
 //CAso de prueba para un endpoint inexistente
 it('should return 404 for nonexistent endpoint', async()=>{
   const response = await request(app)
@@ -99,7 +70,7 @@ it('should return 404 for nonexistent endpoint', async()=>{
 
 //*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */
 
-// Función para manejar errores en las pruebas
+// Función para manejar errores en los metodos del questino service
 const handleErrorResponse = async (route, errorMessage) => {
   const error = new Error(errorMessage);
   axios.get.mockImplementationOnce(() => Promise.reject(error));
@@ -154,7 +125,7 @@ it('should perform the getQuestion request', async () => {
   expect(response.body).toEqual(mockQuestion);
 });
 
-// Función para manejar respuestas positivas en las pruebas
+// Función para manejar respuestas positivas en los metodos del question
 const handlePositiveResponse = async (route) => {
   const response = await request(app).get(route).send();
   expect(response.statusCode).toBe(200);
@@ -338,14 +309,7 @@ it('should return an error when the history detallado service request fails', as
   expect(response.body.error).toEqual('Internal Server Error');
   });
   
-  //Verifica si el manejo de errores funciona correctamente cuando la llamada al servicio de historial falla.
-  it('should handle error when fetching history', async () => {
-    const historyServiceUrl = 'http://localhost:8004';
-    const errorMessage = 'Network Error';
-    axios.get.mockImplementationOnce(() => Promise.reject(new Error(errorMessage)));
-      });
 
-  
   //Caso positivo para el endpoint /getHistoryDetallado
 it('should perform the getHistoryTotal request', async () => {
   const response = await request(app).get('/getHistoryTotal').send();

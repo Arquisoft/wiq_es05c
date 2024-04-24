@@ -83,8 +83,9 @@ const JoinRoomForm = () => {
           placeholder={t('roomCreatePlaceholder')}
           size="lg"
           data-testid="room-id-input"
+          id="room-id-input"
         />
-        <Button onClick={handleJoinRoom} isLoading={isLoading} colorScheme="teal" variant="outline">
+        <Button onClick={handleJoinRoom} isLoading={isLoading} colorScheme="teal" variant="outline" id="roomJoin-button">
           {t('roomJoinButton')}
         </Button>
       </VStack>

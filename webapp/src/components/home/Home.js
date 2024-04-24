@@ -57,7 +57,7 @@ const Home = () => {
         alignItems="center"
       >
         <Button 
-          id="button-infinite-game" 
+          id="button-basic-game" 
           onClick={handleClickClassic} 
           margin="2em" 
           colorScheme='blue' variant='solid'

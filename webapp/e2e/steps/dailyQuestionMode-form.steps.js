@@ -40,7 +40,7 @@ defineFeature(feature, test => {
     let password; 
     let passwordConfirmation;    
 
-    given('An registered user', async () => {      
+    given('An unregistered user', async () => {      
       email = "userTestBasicGame@email.com"
       username = "userTestBasicGame"
       password = "Contraseña_1?"

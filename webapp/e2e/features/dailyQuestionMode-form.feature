@@ -1,7 +1,7 @@
-Feature: Game Basic Mode
+Feature: Daily Question Mode
 
 Scenario: The user is not registered in the site
-  Given An registered user
+  Given An unregistered user
   When I fill the data in the form and press submit
   Then The user is logged
 

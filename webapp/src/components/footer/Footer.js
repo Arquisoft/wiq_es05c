@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 
 const Footer = ({darkMode}) => {
+  const apiUri = process.env.REACT_APP_API_URI ||'http://localhost:8000'; 
 
   
   const {t} = useTranslation();
@@ -23,6 +24,10 @@ const Footer = ({darkMode}) => {
       <div className="sec-footer">
       <img src="/logoEii.png" alt="Logo EII" style={{ width: '20px', marginRight: '5px' }} />
       <a href="https://ingenieriainformatica.uniovi.es" target="_blank"rel="noopener noreferrer">{t('university')}</a>
+    </div>
+    <div className="sec-footer">
+
+    <a href={`${apiUri}:8000/api-doc`} target="_blank" rel="noopener noreferrer">{t('APIDOCS')}</a>
     </div>
   </footer>
   );

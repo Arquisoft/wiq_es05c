@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2';
+
+import i18n from 'i18next'; // Importa i18n
 const { default: BasicGame } = require("../BasicGame");
 //const { default: GameMode } = require("./GameMode");
 
@@ -61,11 +64,23 @@ class InfinityGameMode extends BasicGame{
       incrementIncorrectas(){
         console.log("incrementa incorrectas");
         this.incorrectas++;
-        super.finishGame();//-<arreglar que el juego sea infinito 
+        super.endGame();//-<arreglar que el juego sea infinito 
+        
+         Swal.fire({
+          title: i18n.t('basicGameEnd'),
+          html: `
+            <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
+          `,
+          confirmButtonText: i18n.t('close')
+        }).then(()=>{
+  
+          window.location.href = '/home';
+          
+        });
 
       }
     
    
 }
 
-module.exports =  InfinityGameMode ;
+export default InfinityGameMode ;

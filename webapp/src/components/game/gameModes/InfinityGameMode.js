@@ -3,7 +3,8 @@ const { default: BasicGame } = require("../BasicGame");
 
 class InfinityGameMode extends BasicGame{
 
-   
+
+
     async fetchQuestions() {
         try {
           const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
@@ -57,11 +58,11 @@ class InfinityGameMode extends BasicGame{
       
         return questionData;
       }
-
       incrementIncorrectas(){
         console.log("incrementa incorrectas");
         this.incorrectas++;
-        this.finishGame();
+        super.finishGame();//-<arreglar que el juego sea infinito 
+
       }
     
    

@@ -65,10 +65,15 @@ const App = () => {
               <ChakraProvider><Game darkMode={darkMode} gameMode={new BasicGame()}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
-          <Route path="/gameSameCat" element={
+          <Route path="/gameSameCat/:category" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode} gameMode={sameCatMode}/>  </ChakraProvider>
             </AuthenticatedLayout>
+          } />
+          <Route path="/sameCategoryWindow" element={
+            <AuthenticatedLayout>
+            <CategoriesWindow />
+          </AuthenticatedLayout>
           } />
           <Route path="/gameCustom" element={
             <AuthenticatedLayout>

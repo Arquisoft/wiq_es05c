@@ -14,7 +14,7 @@ const Home = () => {
     navigate("/game");
   };
   const handleClickSameCat = () => {
-    navigate("/gameSameCat");
+    navigate("/sameCategoryWindow");
   };
   const handleClickInfinity = () => {
 

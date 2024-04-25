@@ -1,13 +1,17 @@
+
 const { default: BasicGame } = require("../BasicGame");
-import { useParams } from 'react-router-dom';
 
 class SameCategoryMode extends BasicGame{
 
+  constructor(category){
+    super();
+    this.category = category;
+  }
+
     async fetchQuestions() {
-      let { category } = useParams();
         try {
         //getQuestionModoMismaCategoria?idioma=${idioma}?=categoria=${categoria}
-          const response = await fetch(`${this.apiEndpoint}/getQuestionModoMismaCategoria?idioma=${this.language}?categoria=${category}`);
+          const response = await fetch(`${this.apiEndpoint}/getQuestionModoMismaCategoria?idioma=${this.language}?categoria=${this.category}`);
           const data = await response.json();
       
           this.questions = Object.values(data);

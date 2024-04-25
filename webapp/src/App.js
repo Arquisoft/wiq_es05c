@@ -3,7 +3,7 @@ import Navbar from './components/navbar/NavBar';
 import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
 import { AuthProvider } from './components/authcontext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import Game from './components/game/Game';
 import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
 import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
@@ -24,6 +24,7 @@ import { Ranking } from './components/ranking/Ranking';
 import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
 import BasicGame from './components/game/BasicGame';
 import DailyGameMode from './components/game/gameModes/DailyGameMode';
+import CategoriesWindow from './components/categories/Categories';
 
 const App = () => {
 
@@ -31,6 +32,8 @@ const App = () => {
   // Para el custom mode
   const [timeToAnswer, setTime] = useState(20);
   const [nQuestions, setNQuestions] = useState(20);
+
+  const { category } = useParams();
 
   useEffect(() => {
     if (darkMode) {
@@ -42,7 +45,7 @@ const App = () => {
     }
   }, [darkMode]);
 
-  const sameCatMode = new SameCategoryMode();
+  const sameCatMode = new SameCategoryMode({category});
   const infinityMode = new InfinityGameMode();
   const dailyGameMode = new DailyGameMode();
   return (

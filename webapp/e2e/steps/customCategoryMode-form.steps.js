@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
-const feature = loadFeature('./features/dailyQuestionMode-form.feature');
+const feature = loadFeature('./features/customCategoryMode-form.feature');
 
 let page;
 let browser;
@@ -72,13 +72,17 @@ defineFeature(feature, test => {
     });
   })
 
-  test('User play the daily question', ({when,then}) => {
+  test('User play the custom category game', ({when,then}) => {
 
-    when('I play the daily question', async () => {     
-        await expect(page).toClick("#button-diario-game");
+    when('I play the game', async () => {  
+      //como en la bd tenemos preguntas de arte vamos a elegir esa categoria   
+        await expect(page).toClick("#button-samecat-game");
+        await expect(page).toClick("#button-category-art");
 
-        //empieza el juego y respoonde la pregunta
-        await expect(page).toClick("#buttonAnswer0");        
+        //empieza el juego y responde 10 preguntas
+        for(let i = 0; i < 10; i++){
+          await expect(page).toClick("#buttonAnswer0");
+      }     
     });
 
     then('I should see a message with my game results', async () => {      
@@ -87,15 +91,4 @@ defineFeature(feature, test => {
     });
   })
   
-  test('User wants to play the daily question but he/she/they already played it', ({when,then}) => {
-
-    when('I try to play the daily question', async () => {     
-        await expect(page).toClick("#button-diario-game");
-    });
-
-    then('I should see a message', async () => {      
-        await expect(page).toMatchElement(".yaJugoDiaria");
-    });
-  })
-
 });

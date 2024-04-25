@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 
-const Home = () => {
+const CategoriesWindow = () => {
 
   const {t} = useTranslation();
   const navigate = useNavigate();

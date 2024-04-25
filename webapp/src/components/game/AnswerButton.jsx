@@ -13,6 +13,9 @@ export function AnswerButton({darkMode, indexx, text, colorFondo, onClick}){
         borderRadius="15px"
         transition="0.3s"
         minHeight="4em"
+        whiteSpace="normal" // Agregada para el overflow
+        wordWrap="break-word" // Agregada para el overflow 
+  
         _hover={{
             transform:"scale(1.05)",
         }}

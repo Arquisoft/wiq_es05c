@@ -27,8 +27,8 @@ const Footer = ({darkMode}) => {
     </div>
     <div className="sec-footer">
 
-    <a href={`${apiUri}:8000/api-doc`} target="_blank" rel="noopener noreferrer">{t('APIDOCS')}</a>
-    </div>
+    <a href={`${apiUri}/api-doc/`} rel="noopener noreferrer">{t('APIDOCS')}</a>   
+     </div>
   </footer>
   );
 };

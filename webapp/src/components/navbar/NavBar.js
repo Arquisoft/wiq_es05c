@@ -125,8 +125,8 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
         <IconButton id='change-language-button' onClick={handleClickLanguage}>
-          <LanguageIcon />
-          <Typography id="idioma" data-testid="idioma" >{i18n.language.toUpperCase()}</Typography>
+          <LanguageIcon color={darkMode ? "primary" : "action"} />
+          <Typography id="idioma" data-testid="idioma" color={darkMode ? "primary" : "action"} >{i18n.language.toUpperCase()} </Typography>
         </IconButton>
         <Menu
           anchorEl={anchorLanguage}

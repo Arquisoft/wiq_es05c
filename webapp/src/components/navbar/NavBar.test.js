@@ -92,8 +92,8 @@ describe('Navbar Component', () => {
     const languageTypography = screen.getByTestId('idioma');
 
     // Verifica si el contenido del Typography coincide con el idioma actual en mayúsculas
-    expect(languageTypography.textContent).toBe("ES");
-  });
+    expect(languageTypography.textContent.trim()).toBe("ES");
+    });
 
   test('calls changeLanguage with "en" when English menu item is clicked', () => {
     const mockIsLoggedIn = jest.fn().mockReturnValue(false);

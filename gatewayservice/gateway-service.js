@@ -64,9 +64,6 @@ app.get('/createroom/:username', async (req, res) => handleServiceRequest(req, r
 app.get('/startgame/:id/:username', async (req, res) => handleServiceRequest(req, res, serviceUrls.room, { params: req.params }));
 
 app.get('/getRankingDiarias', async (req, res) => handleServiceRequest(req, res, serviceUrls.history));// Start the gateway service
-const server = app.listen(port, () => {
-  console.log(`Gateway Service listening at http://localhost:${port}`);
-});
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'
@@ -83,5 +80,11 @@ if (fs.existsSync(openapiPath)) {
 } else {
   console.log("Not configuring OpenAPI. Configuration file not present.")
 }
+
+const server = app.listen(port, () => {
+  console.log(`Gateway Service listening at http://localhost:${port}`);
+});
+
+
 
 module.exports = server;

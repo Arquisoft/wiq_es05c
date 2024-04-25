@@ -123,8 +123,7 @@ class DailyGameMode extends BasicGame{
           console.error('Error enviando los datos de diaria del usuario:', error);
         }
 
-        console.log("sigue apra el localstorage");
-         // Obtener la fecha actual y establecer la hora a las 12 de la noche
+        // Obtener la fecha actual y establecer la hora a las 12 de la noche
         let expiryDate = new Date();
         expiryDate.setHours(24, 0, 0, 0);
 

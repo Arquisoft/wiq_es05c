@@ -28,7 +28,7 @@ const Home = () => {
   const handleClickDiario = () => {
     let diaria = null;
     console.log("localll" + localStorage.getItem('lastDailyGame'));
-    if(localStorage.getItem('lastDailyGame') === undefined){
+    if(localStorage.getItem('lastDailyGame') !== undefined){
       diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
     }
 

@@ -51,16 +51,15 @@ app.post('/login', async (req, res) => {
       const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
       let ultimaDiaria;
-
-      //comprobamos lo de diaria
+      
       if(user.diaria === getFecha()){
         let expiryDate = new Date();
         expiryDate.setHours(24, 0, 0, 0);
         //si no hay ese token lo creamos
-        ultimaDiaria = {
+        ultimaDiaria = JSON.stringify({
           value: 'valor que quieras almacenar',
-          expiry: expiryDate.getTime()
-        };
+          expiry: expiryDate.getTime(),
+        });
       }
 
       // Respond with the token and user information
@@ -83,7 +82,7 @@ app.post('/updateUserDaily', async (req, res) => {
         { new: true, upsert: true, strict: false } // Para devolver el documento actualizado y permitir campos no definidos en el esquema
     );
     }
-
+    res.json({ user: user});
   } catch (error) {
     res.status(400).json({ error: error.message }); 
   }

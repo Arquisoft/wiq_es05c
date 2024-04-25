@@ -90,7 +90,6 @@ function Room({ darkMode }) {
       }
     
   }
-
  
   //funcion que le pasas a game para gestionar el finaldel juego 
   function endGame(results) {
@@ -101,11 +100,6 @@ function Room({ darkMode }) {
   }
   //pasasrlelos datos al juego 
   
-  
-
-
-
-
   return (
     <div id="room">
       <h1 id="idSala">{t('room')}{roomId}</h1>

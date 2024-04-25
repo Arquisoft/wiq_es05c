@@ -40,6 +40,7 @@ const handleServiceRequest = async (req, res, serviceUrl) => {
 };
 
 app.post('/login', (req, res) => handleServiceRequest(req, res, serviceUrls.auth));
+app.post('/updateUserDaily', (req, res) => handleServiceRequest(req, res, serviceUrls.auth));
 app.post('/adduser', (req, res) => handleServiceRequest(req, res, serviceUrls.user));
 
 //*********************ENDPOINTS DEL QUESTION SERVICE********************************************* */

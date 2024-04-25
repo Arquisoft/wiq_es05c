@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
-const feature = loadFeature('./features/dailyQuestionMode-form.feature');
+const feature = loadFeature('./features/infinityMode-form.feature');
 
 let page;
 let browser;
@@ -41,8 +41,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;    
 
     given('An unregistered user', async () => {      
-      email = "userTestDailyQuestionGame@email.com"
-      username = "userTestDailyQuestionGame"
+      email = "userTestInfinityGame@email.com"
+      username = "userTestInfinityGame"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
     });
@@ -72,13 +72,17 @@ defineFeature(feature, test => {
     });
   })
 
-  test('User play the daily question', ({when,then}) => {
+  test('User play the infinity mode', ({when,then}) => {
 
-    when('I play the daily question', async () => {     
-        await expect(page).toClick("#button-diario-game");
+    when('I play the infinity mode', async () => {     
+        await expect(page).toClick("#button-infinite-game");
 
-        //empieza el juego y respoonde la pregunta
-        await expect(page).toClick("#buttonAnswer0");        
+        while (!(await page.$('.finDelJuego'))) {
+          // Responde a las preguntas
+          for (let i = 0; i < 10; i++) {
+              await expect(page).toClick("#buttonAnswer0");
+          }
+      }
     });
 
     then('I should see a message with my game results', async () => {      
@@ -86,18 +90,8 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement(".finDelJuego");
     });
   })
+
   
-  test('User wants to play the daily question but he/she/they already played it', ({when,then}) => {
-
-    when('I try to play the daily question', async () => {     
-        await expect(page).toClick("#button-diario-game");
-    });
-
-    then('I should see a message', async () => {      
-        await expect(page).toMatchElement(".yaJugoDiaria");
-    });
-  })
-
   afterAll(async ()=>{
     browser.close()
   })

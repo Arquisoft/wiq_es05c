@@ -23,6 +23,17 @@ function validateRequiredFields(req, requiredFields) {
     }
 }
 
+function getFecha() {
+  const fecha = new Date(); // Obtenemos la fecha actual
+  // como nos da tambien la hora y no queremos eso, la eliminamos
+  const año = fecha.getFullYear();
+  const mes = fecha.getMonth() + 1;
+  const dia = fecha.getDate();
+  // Formateamos la fecha para que sea compatible con la base de datos
+  const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+  return fechaSinHora;
+}
+
 // Route for user login
 app.post('/login', async (req, res) => {
   try {
@@ -38,11 +49,40 @@ app.post('/login', async (req, res) => {
     if (user && await bcrypt.compare(password, user.password)) {
       // Generate a JWT token
       const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
+      let ultimaDiaria;
+      
+      if(user.diaria === getFecha()){
+        let expiryDate = new Date();
+        expiryDate.setHours(24, 0, 0, 0);
+        //si no hay ese token lo creamos
+        ultimaDiaria = JSON.stringify({
+          value: 'valor que quieras almacenar',
+          expiry: expiryDate.getTime(),
+        });
+      }
+
       // Respond with the token and user information
-      res.json({ token: token, username: username, createdAt: user.createdAt , lastDailyGame: user.lastDailyGame});
+      res.json({ token: token, username: username, createdAt: user.createdAt , lastDailyGame: ultimaDiaria});
     } else {
       res.status(401).json({ error: 'Credenciales erroneas' });
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message }); 
+  }
+});
+
+app.post('/updateUserDaily', async (req, res) => {
+  try {
+    console.log("Entra en el auth service del update")
+    if((req.body.user != null && req.body.fecha != null) || (req.body.user != undefined && req.body.fecha != undefined)){
+      var user = await User.findOneAndUpdate(
+        { username:req.body.user, $or: [{ diaria: null }, { diaria: { $exists: true } }] }, 
+        { $set: { diaria: req.body.fecha } }, // Establecer el valor de 'diaria' a la fecha proporcionada
+        { new: true, upsert: true, strict: false } // Para devolver el documento actualizado y permitir campos no definidos en el esquema
+    );
+    }
+    res.json({ user: user});
   } catch (error) {
     res.status(400).json({ error: error.message }); 
   }

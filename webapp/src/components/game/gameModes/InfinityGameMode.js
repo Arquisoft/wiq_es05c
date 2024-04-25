@@ -1,44 +1,22 @@
 import Swal from 'sweetalert2';
 
 import i18n from 'i18next'; // Importa i18n
-const { default: BasicGame } = require("../BasicGame");
+import BasicGame from "../BasicGame";
 //const { default: GameMode } = require("./GameMode");
 
 class InfinityGameMode extends BasicGame{
-
-
-
-    async fetchQuestions() {
-        try {
-          const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
-          const data = await response.json();
-      
-          this.questions = Object.values(data);
-          this.isLoading = false;
-      
-        } catch (error) {
-          console.error('Error fetching question data:', error);
-        }
-        return this.questions;
-      }
 
       async sendHistory(historyData) {
         //No se guarda la partida si no es clásica
       }
 
+      //patron template method
       async nextQuestion() {
-        // Incrementar el índice de la pregunta actual
-        this.questionIndex++;
-      
-        // Comprobar si hemos llegado al final de las preguntas
-        if (this.questionIndex >= this.questions.length) {
-          //Relleno si se acabaron
+        //comprobamos si necesitamos mas preguntas sino llamamos a la implemntacion del padre
+        if(this.questionIndex >= this.questions.length){
           await this.fetchQuestions();
         }
-        // Obtener la siguiente pregunta
-        const nextQuestion = this.getCurrentQuestion();
-      
-        return nextQuestion;
+        return super.nextQuestion();
       }
 
       getCurrentQuestion() {

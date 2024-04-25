@@ -88,7 +88,10 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement(".finDelJuego");
     });
   })
-  
 
+  
+  afterAll(async ()=>{
+    browser.close()
+  })
 
 });

@@ -33,8 +33,6 @@ const App = () => {
   const [timeToAnswer, setTime] = useState(20);
   const [nQuestions, setNQuestions] = useState(20);
 
-  const { category } = useParams();
-
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add('dark-mode');
@@ -45,9 +43,21 @@ const App = () => {
     }
   }, [darkMode]);
 
-  const sameCatMode = new SameCategoryMode({category});
   const infinityMode = new InfinityGameMode();
   const dailyGameMode = new DailyGameMode();
+
+  const SameCategoryGame = () => {
+    const { category } = useParams();
+    const sameCatMode = new SameCategoryMode(category);
+  
+    return <AuthenticatedLayout>
+      <ChakraProvider>
+        <Game darkMode={darkMode} gameMode={sameCatMode} />  
+        </ChakraProvider>
+    </AuthenticatedLayout>   
+    ;
+  };
+
   return (
     <AuthProvider>
       <Router>
@@ -69,9 +79,7 @@ const App = () => {
             </AuthenticatedLayout>
           } />
           <Route path="/gameSameCat/:category" element={
-            <AuthenticatedLayout>
-              <ChakraProvider><Game darkMode={darkMode} gameMode={sameCatMode}/>  </ChakraProvider>
-            </AuthenticatedLayout>
+            <SameCategoryGame />
           } />
           <Route path="/sameCategoryWindow" element={
             <AuthenticatedLayout>
@@ -119,6 +127,8 @@ const App = () => {
       </AuthProvider>
 
   );
+
+  
 };
 
 export default App;

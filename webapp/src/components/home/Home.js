@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Box, Image, Button,ChakraProvider } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +9,6 @@ const Home = () => {
 
   const {t} = useTranslation();
   const navigate = useNavigate();
-
-  
-
 
   const handleClickClassic = () => {
     navigate("/game");
@@ -38,7 +36,7 @@ const Home = () => {
     Swal.fire({
       title: t('diaryGameTitle'),
       text: t('diaryGameText'),
-      confirmButtonText: i18n.t('close'),
+      confirmButtonText: t('close'),
       customClass: {         
         popup: 'yaJugoDiaria'
       }
@@ -48,8 +46,6 @@ const Home = () => {
     navigate("/gameDiaria");
   }
   };
-
-
  
   return (
     <ChakraProvider>

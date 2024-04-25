@@ -93,12 +93,10 @@ defineFeature(feature, test => {
     when('I try to play the daily question', async () => {     
         //vamos a las opciones del usuario 
         await expect(page).toClick("#button-diario-game");
-
-         //pendiente de implementar
     });
 
-    then('I should see a message with a message', async () => {      
-        //pendiente de implementar
+    then('I should see a message', async () => {      
+        await expect(page).toMatchElement(".yaJugoDiaria");
     });
   })
 

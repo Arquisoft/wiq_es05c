@@ -11,4 +11,4 @@ Scenario: User play the daily question
 
   Scenario: User wants to play the daily question but he/she/they already played it
   When I try to play the daily question
-  Then I should see a message with a message
+  Then I should see a message

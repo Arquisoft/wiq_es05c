@@ -109,7 +109,7 @@ class DailyGameMode extends BasicGame{
         expiryDate.setHours(24, 0, 0, 0);
 
         // Almacenar la variable en localStorage con la fecha de caducidad
-        localStorage.setItem('diaria', JSON.stringify({
+        localStorage.setItem('lastDailyGame', JSON.stringify({
           value: 'valor que quieras almacenar',
           expiry: expiryDate.getTime(),
         }));

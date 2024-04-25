@@ -6,11 +6,21 @@ class DailyGameMode extends BasicGame{
     constructor() {
       super();
       this.enviarHistorialPorQueHasAcetado=false;
+      console.log("entra en dailygamemode");
     }
    
     async fetchQuestions() {
         try {
-          const response = await fetch(`${this.apiEndpoint}/getQuestionDiaria`);
+          
+          const fecha = new Date(); // Obtenemos la fecha actual
+          // como nos da tambien la hora y no queremos eso, la eliminamos
+          const año = fecha.getFullYear();
+          const mes = fecha.getMonth() + 1;
+          const dia = fecha.getDate();
+          // Formateamos la fecha para que sea compatible con la base de datos
+          const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+
+          const response = await fetch(`${this.apiEndpoint}/getQuestionDiaria?idioma=${this.idioma}&fecha=${fechaSinHora}`);
           const data = await response.json();
       
           this.questions = Object.values(data);

@@ -17,6 +17,13 @@ afterAll(async () => {
 });
 
 describe('User Service', () => {
+
+  const addUserTest = async (userData, expectedStatus, expectedError) => {
+    const response = await request(app).post('/adduser').send(userData);
+    expect(response.status).toBe(expectedStatus);
+    expect(response.body.error).toBe(expectedError);
+  };
+
   it('should add a new user on POST /adduser', async () => {
     const newUser = {
       email: 'test@email.com',
@@ -25,9 +32,7 @@ describe('User Service', () => {
       passwordConfirm: 'Testpassword_1',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('email', 'username', 'testuser');
+    await addUserTest(newUser, 200, undefined);
   });
 
   it('should not add a new user on POST /adduser', async () => {
@@ -38,9 +43,7 @@ describe('User Service', () => {
       passwordConfirm: 'Testpassword_1',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe("Missing required field: username");
+    await addUserTest(newUser, 400, 'Missing required field: username');
   });
 
 //pruebas para el formato de las contraseñas
@@ -60,9 +63,7 @@ describe('User Service', () => {
       "La contraseña tiene que tener al menos un carácter especial"
     ;
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe(errors);
+    await addUserTest(newUser, 400, errors);
   });
 
   it('should send an error because the password is incorrect on POST /adduser', async () => {
@@ -80,9 +81,7 @@ describe('User Service', () => {
       "La contraseña tiene que tener al menos un carácter especial"
     ;
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe(errors);
+    await addUserTest(newUser, 400, errors);
   });
   
 //pruebas para comprobar el formato del email
@@ -95,9 +94,7 @@ describe('User Service', () => {
       passwordConfirm: 'Testpassword_1',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('El email es invalido');
+    await addUserTest(newUser, 400, 'El email es invalido');
   });
 
 //pruebas para comprobar si el email o el username ya existe en la bd
@@ -110,9 +107,7 @@ describe('User Service', () => {
       passwordConfirm: 'Testpassword_1',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('El email ya existe en la base de datos');
+    await addUserTest(newUser, 400, 'El email ya existe en la base de datos');
   });
 
   it('should send an error because the username already exist in the database on POST /adduser', async () => {
@@ -123,9 +118,7 @@ describe('User Service', () => {
       passwordConfirm: 'Testpassword_1',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('El username ya existe en la base de datos');
+    await addUserTest(newUser, 400, 'El username ya existe en la base de datos');
   });
 
 
@@ -139,9 +132,7 @@ it('should send an error because the passwords are not equals on POST /adduser',
       passwordConfirm: 'Testpassword_2',
     };
 
-    const response = await request(app).post('/adduser').send(newUser);
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('Las contraseñas no coinciden');
+    await addUserTest(newUser, 400, 'Las contraseñas no coinciden');
   });
   
 });

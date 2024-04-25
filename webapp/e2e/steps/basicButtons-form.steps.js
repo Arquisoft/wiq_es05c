@@ -186,5 +186,9 @@ defineFeature(feature, test => {
       await expect(page).toMatchElement("#loginButton");
     });
   })
+  
+  afterAll(async ()=>{
+    browser.close()
+  })
 
 });

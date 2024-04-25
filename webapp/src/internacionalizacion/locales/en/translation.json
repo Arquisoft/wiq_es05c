@@ -22,7 +22,7 @@
     "userName": "Username",
     "password": "Password",
     "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
-    "passwordRepeat": "Repeat Password",
+    "passRepeat": "Repeat Password",
     "passwordRepeatHelper": "Passwords must match",
 
     "historyMessage": "History of ",
@@ -95,6 +95,17 @@
     "wrongAnswers": "Wrong Answers: ",
     "timePlayed": "Total Time Played: ",
     
-    "createRoomInfo": "By clicking 'Create Room', a new room with a unique ID will be created. You'll need to share this ID with the people you want to join your room."
+    "createRoomInfo": "By clicking 'Create Room', a new room with a unique ID will be created. You'll need to share this ID with the people you want to join your room.",
+
+    "diaryGameTitle": "Daily Challenge",
+    "diaryGameText": "You have already played today's daily challenge, come back tomorrow to play again.",
+
+    "categoryGeography": "Geography",
+    "categoryHistory": "History",
+    "categoryScience": "Science",
+    "categoryArt": "Art",
+    "categorySports": "Sports",
+    "categoryEntertainment": "Entertainment",
+    "categoryMusic": "Music"   
 
 }

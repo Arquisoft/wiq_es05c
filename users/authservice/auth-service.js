@@ -79,7 +79,9 @@ app.post('/updateUserDaily', async (req, res) => {
   try {
     console.log("Entra en el auth service del update")
     if((req.body.user != null && req.body.fecha != null) || (req.body.user != undefined && req.body.fecha != undefined)){
-      var user = await actualizarUser.updateUserDaily(req.body.user, req.body.fecha);
+      let datos = {userData : user, fecha: fecha};
+      
+      var user = await actualizarUser.updateUserDaily(datos);
     }
     res.json({ user: user});
   } catch (error) {

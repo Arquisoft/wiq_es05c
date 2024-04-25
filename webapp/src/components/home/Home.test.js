@@ -23,7 +23,7 @@ test('navigates when buttons are clicked', () => {
   expect(navigate).toHaveBeenCalledWith('/game');
 
   fireEvent.click(getByText('modoMismaCategoria'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat');
+  expect(navigate).toHaveBeenCalledWith('/sameCategoryWindow');
 
   fireEvent.click(getByText('modoInfinito'));
   expect(navigate).toHaveBeenCalledWith('/gameInfinity');

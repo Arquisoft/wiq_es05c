@@ -37,6 +37,16 @@ function getFecha() {
   return fechaSinHora;
 }
 
+function validarFormatoFecha(fecha) {
+  //comprobar que la fecha no es vacia o null
+  if (!fecha) {
+    return false;
+  }
+  //comprobar que la fecha tiene el formato correcto
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  return regex.test(fecha);
+}
+
 // Route for user login
 app.post('/login', async (req, res) => {
   try {
@@ -78,9 +88,10 @@ app.post('/login', async (req, res) => {
 app.post('/updateUserDaily', async (req, res) => {
   try {
     console.log("Entra en el auth service del update")
-    if((req.body.user != null && req.body.fecha != null) || (req.body.user != undefined && req.body.fecha != undefined)){
+    if(validarFormatoFecha(req.body.fecha) && user === localStorage.getItem('username')){
       let datos = {userData : user, fecha: fecha};
-      
+      //comprobamos si la fecha tiene el formato correcto
+
       var user = await actualizarUser.updateUserDaily(datos);
     }
     res.json({ user: user});

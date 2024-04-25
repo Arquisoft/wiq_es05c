@@ -98,6 +98,14 @@
     "createRoomInfo": "By clicking 'Create Room', a new room with a unique ID will be created. You'll need to share this ID with the people you want to join your room.",
 
     "diaryGameTitle": "Daily Challenge",
-    "diaryGameText": "You have already played today's daily challenge, come back tomorrow to play again."
+    "diaryGameText": "You have already played today's daily challenge, come back tomorrow to play again.",
+
+    "categoryGeography": "Geography",
+    "categoryHistory": "History",
+    "categoryScience": "Science",
+    "categoryArt": "Art",
+    "categorySports": "Sports",
+    "categoryEntertainment": "Entertainment",
+    "categoryMusic": "Music"   
 
 }

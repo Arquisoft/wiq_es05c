@@ -99,7 +99,20 @@ class DailyGameMode extends BasicGame{
         this.volverAJugarCoockie();
       }
 
-      async volverAJugarCoockie(){
+      async volverAJugarCoockie(){       
+
+        // Obtener la fecha actual y establecer la hora a las 12 de la noche
+        let expiryDate = new Date();
+        expiryDate.setHours(24, 0, 0, 0);
+
+        // Almacenar la variable en localStorage con la fecha de caducidad
+        localStorage.setItem('lastDailyGame', JSON.stringify({
+          value: 'valor que quieras almacenar',
+          expiry: expiryDate.getTime(),
+        }));
+
+        console.log("localStorage" + localStorage.getItem('lastDailyGame'));
+
         try {
           console.log("entra en el try");
           const volverJugarData = {
@@ -122,18 +135,6 @@ class DailyGameMode extends BasicGame{
         } catch (error) {
           console.error('Error enviando los datos de diaria del usuario:', error);
         }
-
-        // Obtener la fecha actual y establecer la hora a las 12 de la noche
-        let expiryDate = new Date();
-        expiryDate.setHours(24, 0, 0, 0);
-
-        // Almacenar la variable en localStorage con la fecha de caducidad
-        localStorage.setItem('lastDailyGame', JSON.stringify({
-          value: 'valor que quieras almacenar',
-          expiry: expiryDate.getTime(),
-        }));
-
-        console.log("localStorage" + localStorage.getItem('lastDailyGame'));
       }
     
     fechaActual(){ 

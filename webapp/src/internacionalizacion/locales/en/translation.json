@@ -22,7 +22,7 @@
     "userName": "Username",
     "password": "Password",
     "passwordHelper": "Password must be at least 12 characters long, include one uppercase letter, one lowercase letter, one number, and one special character",
-    "passwordRepeat": "Repeat Password",
+    "passRepeat": "Repeat Password",
     "passwordRepeatHelper": "Passwords must match",
 
     "historyMessage": "History of ",

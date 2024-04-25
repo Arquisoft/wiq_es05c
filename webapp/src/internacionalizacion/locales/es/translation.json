@@ -22,7 +22,7 @@
     "userName": "Nombre de Usuario",
     "password": "Contraseña",
     "passwordHelper": "La contraseña tiene que tener al menos 12 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
-    "passwordRepeat": "Repetir Contraseña",
+    "passRepeat": "Repetir Contraseña",
     "passwordRepeatHelper": "Las contraseñas tienen que coincidir",
 
     "historyMessage": "Historial de ",

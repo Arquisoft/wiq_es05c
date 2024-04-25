@@ -96,5 +96,7 @@
     "customModeNumPreguntas":"Seleccione el número de preguntas que desea en la partida: ",
     "customModeNumTiempo":"Seleccione el tiempo que desea de la partida: ",
     "cancelar": "Cancelar",
-    "jugar": "Jugar"
+    "jugar": "Jugar",
+    "diaryGameTitle" : "Desafio diario",
+    "diaryGameText" : "Ya has jugado el desafio diario de hoy, vuelve mañana para jugar de nuevo"
 }

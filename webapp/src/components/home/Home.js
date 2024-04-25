@@ -35,7 +35,14 @@ const Home = () => {
   // Comprobar si la variable ha caducado
   if (diaria !== null && diaria.expiry > Date.now()) {
     // La variable no ha caducado, mostrar una alerta
-    alert('Ya has jugado hoy. Por favor, vuelve maÃ±ana.');
+    Swal.fire({
+      title: t('diaryGameTitle'),
+      text: t('diaryGameText'),
+      confirmButtonText: i18n.t('close'),
+      customClass: {         
+        popup: 'yaJugoDiaria'
+      }
+    });
   } else {
     // La variable ha caducado o no existe, navegar a /gameDiaria
     navigate("/gameDiaria");

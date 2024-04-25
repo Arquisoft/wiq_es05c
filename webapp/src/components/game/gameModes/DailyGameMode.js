@@ -7,20 +7,15 @@ class DailyGameMode extends BasicGame{
       super();
       this.enviarHistorialPorQueHasAcetado=false;
       console.log("entra en dailygamemode");
+      this.fechaAct = this.fechaActual();
     }
    
     async fetchQuestions() {
         try {
           
-          const fecha = new Date(); // Obtenemos la fecha actual
-          // como nos da tambien la hora y no queremos eso, la eliminamos
-          const año = fecha.getFullYear();
-          const mes = fecha.getMonth() + 1;
-          const dia = fecha.getDate();
-          // Formateamos la fecha para que sea compatible con la base de datos
-          const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+          
 
-          const response = await fetch(`${this.apiEndpoint}/getQuestionDiaria?idioma=${this.idioma}&fecha=${fechaSinHora}`);
+          const response = await fetch(`${this.apiEndpoint}/getQuestionDiaria?idioma=${this.idioma}&fecha=${this.fechaAct}`);
           const data = await response.json();
       
           this.questions = Object.values(data);
@@ -93,6 +88,7 @@ class DailyGameMode extends BasicGame{
         //this.questionIndex=10;
         this.volverAJugarCoockie();
       }
+      
       //next question con indice 10 termina el juego 
       incrementCorrectas(){
         this.enviarHistorialPorQueHasAcetado=true;
@@ -103,7 +99,31 @@ class DailyGameMode extends BasicGame{
         this.volverAJugarCoockie();
       }
 
-      volverAJugarCoockie(){
+      async volverAJugarCoockie(){
+        try {
+          console.log("entra en el try");
+          const volverJugarData = {
+            user: null,
+            fecha : this.fechaAct
+          };
+          //sacar del localStorage el usuario
+          volverJugarData.user = localStorage.getItem('username');
+
+          const response = await fetch(`${this.apiEndpoint}/updateUserDaily`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(volverJugarData)
+          });
+          const data = await response.json();
+          console.log('Datos enviados:', data);
+
+        } catch (error) {
+          console.error('Error enviando los datos de diaria del usuario:', error);
+        }
+
+        console.log("sigue apra el localstorage");
          // Obtener la fecha actual y establecer la hora a las 12 de la noche
         let expiryDate = new Date();
         expiryDate.setHours(24, 0, 0, 0);
@@ -113,9 +133,20 @@ class DailyGameMode extends BasicGame{
           value: 'valor que quieras almacenar',
           expiry: expiryDate.getTime(),
         }));
+
+        console.log("localStorage" + localStorage.getItem('lastDailyGame'));
       }
     
-   
+    fechaActual(){ 
+        const fecha = new Date(); // Obtenemos la fecha actual
+        // como nos da tambien la hora y no queremos eso, la eliminamos
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1;
+        const dia = fecha.getDate();
+        // Formateamos la fecha para que sea compatible con la base de datos
+        const fechaSinHora = `${año}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+        return fechaSinHora;
+    }
 }
 
 module.exports =  DailyGameMode ;

@@ -69,7 +69,6 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-        //await expect(page).toMatchElement("#loginMessage", { text: "Inicio de sesión correcto" });
       await expect(page).toMatchElement("#iconoUsuario");
 
       //cerramos la sesion    

@@ -60,6 +60,7 @@ class BasicGame extends GameMode {
     this.blockComponent(0,'dark-mode-switch', true);
     this.blockComponent(1,'change-language-button', true);
 
+    
   }
 
   /*
@@ -126,7 +127,7 @@ class BasicGame extends GameMode {
       return; // Salir del método si no hay preguntas
     }
     this.isLoading = true;
-    if (this.questionIndex >=9) {
+    if (this.questionIndex >= this.questions.length-1) {
       console.log("fin juego");
       this.finishGame();
       //devuelve las ultima pregunta
@@ -199,6 +200,7 @@ class BasicGame extends GameMode {
         break;
       }
     }
+
 
 }
 

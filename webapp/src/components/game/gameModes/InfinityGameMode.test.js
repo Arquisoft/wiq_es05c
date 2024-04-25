@@ -1,6 +1,5 @@
-const InfinityGameMode = require('./InfinityGameMode');
-const SameCategoryMode = require('./InfinityGameMode');
-
+import InfinityGameMode from './InfinityGameMode';
+import SameCategoryMode from './InfinityGameMode';
 describe('InfinityGameMode', () => {
   let infinityGameMode;
 

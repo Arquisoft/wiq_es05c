@@ -37,6 +37,9 @@ jobs:
     - run: npm --prefix users/authservice install
     - run: npm --prefix users/userservice install
     - run: npm --prefix gatewayservice install
+    - run: npm --prefix historyservice install
+    - run: npm --prefix questionservice install
+    - run: npm --prefix roomservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e

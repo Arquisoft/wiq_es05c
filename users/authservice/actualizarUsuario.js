@@ -4,7 +4,10 @@ const User = mongoose.model('User');
 
 class ActualizarUsuario{
 
-    async updateUserDaily(user, fecha){    
+    async updateUserDaily(user, fecha){   
+        if(!user || !fecha){
+            throw new Error('Missing required fields');
+        } 
         return await User.findOneAndUpdate(
             { username:user, $or: [{ diaria: null }, { diaria: { $exists: true } }] }, 
             { $set: { diaria: fecha } }, // Establecer el valor de 'diaria' a la fecha proporcionada

@@ -10,11 +10,12 @@ class InfinityGameMode extends BasicGame{
         //No se guarda la partida si no es clásica
       }
 
+
       //patron template method
-      async nextQuestion() {
+      nextQuestion() {
         //comprobamos si necesitamos mas preguntas sino llamamos a la implemntacion del padre
         if(this.questionIndex >= this.questions.length){
-          await this.fetchQuestions();
+         // await this.fetchQuestions();
         }
         return super.nextQuestion();
       }
@@ -40,22 +41,34 @@ class InfinityGameMode extends BasicGame{
         return questionData;
       }
       incrementIncorrectas(){
-        console.log("incrementa incorrectas");
-        this.incorrectas++;
-        super.endGame();//-<arreglar que el juego sea infinito 
+        console.log("test");
+        //llamar al incrementar incorrectas del padre la uncia diff es que terminaste el juego
+        this.finishGame();//-<arreglar que el juego sea infinito 
         
-         Swal.fire({
+         
+
+      }
+
+      finishGame(){
+        //lammar al finish game del padre 
+
+        super.finishGame();
+        //redirijir a home y mostrar el popup 
+       
+        Swal.fire({
           title: i18n.t('basicGameEnd'),
           html: `
             <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
           `,
-          confirmButtonText: i18n.t('close')
+          confirmButtonText: i18n.t('close'),
+          customClass: {         
+            popup: 'finDelJuego'
+          }
         }).then(()=>{
-  
-          window.location.href = '/home';
+            
+            this.navigate('/home');
           
         });
-
       }
     
    

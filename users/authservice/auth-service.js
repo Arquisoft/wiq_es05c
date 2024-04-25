@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./auth-model')
 
+const ActualizarUser = require("./actualizarUsuario");
+const actualizarUser = new ActualizarUser();
+
 const app = express();
 const port = 8002; 
 
@@ -76,11 +79,9 @@ app.post('/updateUserDaily', async (req, res) => {
   try {
     console.log("Entra en el auth service del update")
     if((req.body.user != null && req.body.fecha != null) || (req.body.user != undefined && req.body.fecha != undefined)){
-      var user = await User.findOneAndUpdate(
-        { username:req.body.user, $or: [{ diaria: null }, { diaria: { $exists: true } }] }, 
-        { $set: { diaria: req.body.fecha } }, // Establecer el valor de 'diaria' a la fecha proporcionada
-        { new: true, upsert: true, strict: false } // Para devolver el documento actualizado y permitir campos no definidos en el esquema
-    );
+      let datos = {userData : user, fecha: fecha};
+      
+      var user = await actualizarUser.updateUserDaily(datos);
     }
     res.json({ user: user});
   } catch (error) {

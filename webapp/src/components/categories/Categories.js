@@ -10,25 +10,25 @@ const CategoriesWindow = () => {
   const navigate = useNavigate();
 
   const handleClickGeography = () => {
-    navigate("/gameSameCat?category=geografia");
+    navigate("/gameSameCat/geografia");
   };
   const handleClickArt = () => {
-    navigate("/gameSameCat?category=arte");
+    navigate("/gameSameCat/arte");
   };
   const handleClickEntertainment = () => {
-    navigate("/gameSameCat?category=entretenimiento");
+    navigate("/gameSameCat/entretenimiento");
   };
   const handleClickSports = () => {
-    navigate("/gameSameCat?category=deportes");
+    navigate("/gameSameCat/deportes");
   };
   const handleClickHistory = () => {
-    navigate("/gameSameCat?category=historia");
+    navigate("/gameSameCat/historia");
   };
   const handleClickScience = () => {
-    navigate("/gameSameCat?category=ciencia");
+    navigate("/gameSameCat/ciencia");
   };
   const handleClickMusic = () => {
-    navigate("/gameSameCat?category=musica");
+    navigate("/gameSameCat/musica");
   };
  
   return (

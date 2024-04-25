@@ -9,15 +9,33 @@ class InfinityGameMode extends BasicGame{
       async sendHistory(historyData) {
         //No se guarda la partida si no es clásica
       }
-
-
+      //el unico cambio con le padre es que agrega mas preguntas al arary 
+      async fetchQuestions() {
+        if(this.idioma === null || this.idioma === undefined)
+          this.idioma = 'en';
+        console.log("entra en fetchQuestions valor idioma "+this.idioma);
+        try {
+          const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
+          const data = await response.json();
+      
+          this.questions = this.questions.concat(Object.values(data));
+          this.isLoading = false; // Mover esta línea aquí
+      
+        } catch (error) {
+          console.error('Error fetching question data:', error);
+        }
+        return this.questions;
+      }
       //patron template method
       nextQuestion() {
         //comprobamos si necesitamos mas preguntas sino llamamos a la implemntacion del padre
         if(this.questionIndex >= this.questions.length){
-         // await this.fetchQuestions();
+          this.fetchQuestions().then(() => {
+            return super.nextQuestion();
+          });
+        } else {
+          return super.nextQuestion();
         }
-        return super.nextQuestion();
       }
 
       getCurrentQuestion() {

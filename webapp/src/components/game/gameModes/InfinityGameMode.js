@@ -1,44 +1,41 @@
 import Swal from 'sweetalert2';
 
 import i18n from 'i18next'; // Importa i18n
-const { default: BasicGame } = require("../BasicGame");
+import BasicGame from "../BasicGame";
 //const { default: GameMode } = require("./GameMode");
 
 class InfinityGameMode extends BasicGame{
 
-
-
-    async fetchQuestions() {
+      async sendHistory(historyData) {
+        //No se guarda la partida si no es clásica
+      }
+      //el unico cambio con le padre es que agrega mas preguntas al arary 
+      async fetchQuestions() {
+        if(this.idioma === null || this.idioma === undefined)
+          this.idioma = 'en';
+        console.log("entra en fetchQuestions valor idioma "+this.idioma);
         try {
-          const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico`);
+          const response = await fetch(`${this.apiEndpoint}/getQuestionModoBasico?idioma=${this.idioma}`);
           const data = await response.json();
       
-          this.questions = Object.values(data);
-          this.isLoading = false;
+          this.questions = this.questions.concat(Object.values(data));
+          this.isLoading = false; // Mover esta línea aquí
       
         } catch (error) {
           console.error('Error fetching question data:', error);
         }
         return this.questions;
       }
-
-      async sendHistory(historyData) {
-        //No se guarda la partida si no es clásica
-      }
-
-      async nextQuestion() {
-        // Incrementar el índice de la pregunta actual
-        this.questionIndex++;
-      
-        // Comprobar si hemos llegado al final de las preguntas
-        if (this.questionIndex >= this.questions.length) {
-          //Relleno si se acabaron
-          await this.fetchQuestions();
+      //patron template method
+      nextQuestion() {
+        //comprobamos si necesitamos mas preguntas sino llamamos a la implemntacion del padre
+        if(this.questionIndex >= this.questions.length){
+          this.fetchQuestions().then(() => {
+            return super.nextQuestion();
+          });
+        } else {
+          return super.nextQuestion();
         }
-        // Obtener la siguiente pregunta
-        const nextQuestion = this.getCurrentQuestion();
-      
-        return nextQuestion;
       }
 
       getCurrentQuestion() {
@@ -62,25 +59,37 @@ class InfinityGameMode extends BasicGame{
         return questionData;
       }
       incrementIncorrectas(){
-        console.log("incrementa incorrectas");
-        this.incorrectas++;
-        super.endGame();//-<arreglar que el juego sea infinito 
+        console.log("test");
+        //llamar al incrementar incorrectas del padre la uncia diff es que terminaste el juego
+        this.finishGame();//-<arreglar que el juego sea infinito 
         
-         Swal.fire({
+         
+
+      }
+
+      finishGame(){
+        //lammar al finish game del padre 
+
+        super.finishGame();
+        //redirijir a home y mostrar el popup 
+       
+        Swal.fire({
           title: i18n.t('basicGameEnd'),
           html: `
             <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
           `,
-          confirmButtonText: i18n.t('close')
+          confirmButtonText: i18n.t('close'),
+          customClass: {         
+            popup: 'finDelJuego'
+          }
         }).then(()=>{
-  
-          window.location.href = '/home';
+            
+            this.navigate('/home');
           
         });
-
       }
     
    
 }
 
-module.exports =  InfinityGameMode ;
+export default InfinityGameMode;

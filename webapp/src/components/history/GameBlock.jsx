@@ -28,16 +28,20 @@ export function GameBlock( {darkMode, gameInfo} ){
     let totalPreguntas = aciertos + fallos;
     let tiempo = gameInfo.tiempo;
 
+    let redColor = darkMode ? "#BA0F30" : "#F04854";
+    let orangeColor = darkMode ? "#E66912" : "#FFB067"; 
+    let greenColor = darkMode ? "#1D741B" : "#D2FBA4";
+
     //Esta funcion devuelve el color en vista de los aciertos/fallos
     function getBackgroundColor(aciertos, total) {
-        let porcentaje = aciertos / total;
-    
-        let hue = porcentaje * 120; // Interpola entre rojo (0) y verde (120) en el espacio de color HSL
-    
-        if(darkMode){
-            return `hsl(${hue}, 50%, 20%)`; // Devuelve un color en formato HSL más oscuro
-        }else{
-            return `hsl(${hue}, 50%, 70%)`; // Devuelve un color en formato HSL
+            let porcentaje = aciertos / total;
+        
+            if (porcentaje < 0.33) {
+                return redColor;
+            } else if (porcentaje < 0.66) {
+                return orangeColor;
+            } else {    
+                return greenColor;
         }
     }
 
@@ -47,7 +51,7 @@ export function GameBlock( {darkMode, gameInfo} ){
     let backgroundColor = getBackgroundColor(aciertos, totalPreguntas);
 
     return (
-        <Box border="1px" borderRadius="10em" p={4} display="flex" flexDirection="row" backgroundColor={backgroundColor} margin="0.5em">
+        <Box data-testid="test-color" border="1px" borderRadius="10em" p={4} display="flex" flexDirection="row" backgroundColor={backgroundColor} margin="0.5em">
             <Box id='num-partida' flex="1" display="flex" flexDirection="row" justifyContent="space-evenly" alignItems="center" borderRight={"2px solid"+text}>
                 <Heading fontSize='1.5em' color={text} textAlign="center">Nº</Heading>
                 <Text fontSize='1.5em' color={titles} textAlign="center" fontWeight="bold">{numeroJuego}</Text>
@@ -59,11 +63,11 @@ export function GameBlock( {darkMode, gameInfo} ){
             <Box id='accuarcy-partida' flex="4" display="flex" flexDirection="column" borderRight={"1px solid"+text}>
                 <Box id='num-aciertos' display="flex" flexDirection="column" margin="1em">
                     <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsCorrect')}</Heading>
-                    <Text fontSize='1.5em' color="#32CD30" textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
+                    <Text fontSize='1.5em' color={text} textAlign="center" fontWeight="bold">{aciertos}/{totalPreguntas}</Text>                
                 </Box>
                 <Box id='num-fallos' display="flex" flexDirection="column" margin="1em"  alignItems="center"> 
                     <Heading fontSize='1.5em' color={text} textAlign="center" flex="1">{t('questionsFailed')}</Heading>
-                    <Text fontSize='1.5em' color="#970C10" textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
+                    <Text fontSize='1.5em' color={text} textAlign="center" fontWeight="bold">{fallos}/{totalPreguntas}</Text>                
                 </Box>
             </Box>
             <Box id='duracion-partida' flex="4" display="flex" flexDirection="column" justifyContent="space-evenly">

@@ -1,0 +1,175 @@
+Plant UML 
+
+>>>>>>>>>>>>>>>>>>>RuntimeView 6<<<<<<<<<<<<<<<<<<<<
+
+-------------------Registrarse:
+
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User
+participant Application as app
+participant AuthService as reg
+database UsersDB as db
+
+User -[#red]> app : register(data)
+app -[#red]> reg : register(data) : HTTP <POST>
+reg -[#red]> db : register(data) : BD connection 
+db -[#blue]-> reg : registerInfo() : BD connection 
+reg -[#red]> reg : validate(user)
+
+reg -[#red]> db : register(user) : BD connection 
+note left: Register if the validation \n was correct
+
+reg --[#blue]> app : informResult() : HTTP response
+
+app --[#blue]> User : informResult()
+
+@enduml
+
+-------------------Iniciar Sesión:
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User
+participant Application as app
+participant AuthService as log
+database UsersDB as db
+
+User -[#red]> app : login(data)
+app -[#red]> log : login(data) : HTTP <POST>
+
+log -[#red]> db : login(data) : BD connection 
+db -[#blue]-> log : loginInfo() : BD connection 
+log -[#red]> log : validateLogin()
+
+log -[#blue]-> app : loginResponse(user) : HTTP response
+
+app -[#blue]-> User : informResult()
+
+@enduml
+-------------------Generar pregunta:
+@startuml
+
+skin rose
+!theme vibrant
+
+participant QuestionService as question
+database WikiData as wiki
+database QuestionsDB as db
+
+question -[#red]> question : generateQuestion()
+question -[#red]> wiki : getAllInfo() : axios HTTP <GET>
+wiki -[#blue]-> question : sendInfo() : HTTP response
+
+question -[#red]> question : buildQuestion()
+
+question -[#red]> db : saveQuestion() : BD connection 
+
+
+@enduml
+-------------------Pedir pregunta:
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User 
+participant Application as app
+participant QuestionService as question
+database QuestionsDB as db
+
+User -[#red]> app : nextQuestion()
+
+app -[#red]> question : nextQuestion() : HTTP <GET>
+question -[#red]> db : getQuestion() : BD connection 
+db -[#blue]-> question : sendQuestion() : BD connection 
+question -[#blue]-> app : sendQuestion() : HTTP response
+
+app -[#blue]-> User : renderQuestion()
+
+@enduml
+
+-------------------Historial:
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User 
+participant Application as app
+participant HistoryService as history
+database HistoryBD as db
+
+User -[#red]> app : requestHistory()
+
+app -[#red]> history : requestHistory(User) : HTTP <GET>
+history -[#red]> db : getHistoryData(User) : BD connection 
+db -[#blue]-> history : sendHistoryData() : BD connection 
+history -[#blue]-> app : sendHistoryData() : HTTP response
+
+app -[#red]> app : processHistoryData()
+app -[#blue]-> User : showHistory()
+
+@enduml
+-------------------Ranking:
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User 
+participant Application as app
+participant HistoryService as history
+database HistoryDB as db
+
+User -[#red]> app : requestRanking()
+
+app -[#red]> history : requestRanking() : HTTP <GET>
+history -[#red]> db : getRankingData() : BD connection 
+db -[#blue]-> history : sendRankingData() : BD connection 
+history -[#blue]-> app : sendRankingData() : HTTP response
+
+app -[#blue]-> User : showRanking()
+
+@enduml
+-------------------Multiplayer:
+@startuml
+
+skin rose
+!theme vibrant
+
+actor User1 
+actor User2
+participant Application as app
+participant RoomsService as room
+
+room -[#red]> room : createRoom()
+note right: When a player wants \n to create a room
+
+User1 -[#red]> app : joinRoom()
+User2 -[#red]> app : joinRoom()
+
+app -[#red]> room : joinRoom() : HTTP <GET>
+
+room -[#green]-> User1 : Socket stablished of player 1
+room -[#green]-> User2 : Socket stablished of player 2
+
+room -[#red]> app : requestGameData() : HTTP <GET>
+app -[#blue]-> room : getGameData() : HTTP response
+
+room -[#red]> room : manageGame()
+note right: The RoomsService coordinates \n the game between the users
+
+room -[#blue]-> app : endGame() : HTTP response
+
+
+app -[#blue]-> User1 : showResult()
+app -[#blue]-> User2 : showResult()
+
+
+@enduml

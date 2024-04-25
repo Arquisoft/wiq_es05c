@@ -100,11 +100,11 @@
     "diaryGameTitle" : "Desafio diario",
     "diaryGameText" : "Ya has jugado el desafio diario de hoy, vuelve mañana para jugar de nuevo",
 
-    "categoryGeography": "Geography",
-    "categoryHistory": "History",
-    "categoryScience": "Science",
-    "categoryArt": "Art",
-    "categorySports": "Sports",
-    "categoryEntertainment": "Entertainment",
-    "categoryMusic": "Music"
+    "categoryGeography": "Geografía",
+    "categoryHistory": "Historia",
+    "categoryScience": "Ciencia",
+    "categoryArt": "Arte",
+    "categorySports": "Deportes",
+    "categoryEntertainment": "Entretenimiento",
+    "categoryMusic": "Música"
 }

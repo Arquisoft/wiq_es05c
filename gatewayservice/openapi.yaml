@@ -240,8 +240,71 @@ paths:
                     type: string
                     description: Error message.
 
+  /getQuestionModoCustom:
+    get:
+      summary: Get a custom set of questions.
+      operationId: getQuestionModoCustom
+      parameters:
+        - name: idioma
+          in: query
+          description: Language of the questions.
+          required: false
+          schema:
+            type: string
+            default: "en"
+        - name: numPreguntas
+          in: query
+          description: Number of questions to retrieve.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Questions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pregunta:
+                      type: string
+                      description: The text of the question in English.
+                    correcta:
+                      type: string
+                      description: The correct answer to the question in English.
+                    respuestasIncorrecta1:
+                      type: string
+                      description: The first incorrect answer to the question in English.
+                    respuestasIncorrecta2:
+                      type: string
+                      description: The second incorrect answer to the question in English.
+                    respuestasIncorrecta3:
+                      type: string
+                      description: The third incorrect answer to the question in English.
+        '500':
+          description: Error retrieving the questions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message.
 
 
+  /getQuestionModoMismaCategoria:
+
+  /generateQuestion:
+    get:
+      summary: Genera una nueva pregunta
+      responses:
+        '200':
+          description: Pregunta generada y guardada correctamente
+        '500':
+          description: Error al realizar la solicitud al servicio de generacion de preguntas
   
   /getHistoryDetallado:
     get:
@@ -376,62 +439,7 @@ paths:
                     type: string
                     description: Error message.
   
-  /getQuestionModoCustom:
-    get:
-      summary: Get a custom set of questions.
-      operationId: getQuestionModoCustom
-      parameters:
-        - name: idioma
-          in: query
-          description: Language of the questions.
-          required: false
-          schema:
-            type: string
-            default: "en"
-        - name: numPreguntas
-          in: query
-          description: Number of questions to retrieve.
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Questions retrieved successfully.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    pregunta:
-                      type: string
-                      description: The text of the question in English.
-                    correcta:
-                      type: string
-                      description: The correct answer to the question in English.
-                    respuestasIncorrecta1:
-                      type: string
-                      description: The first incorrect answer to the question in English.
-                    respuestasIncorrecta2:
-                      type: string
-                      description: The second incorrect answer to the question in English.
-                    respuestasIncorrecta3:
-                      type: string
-                      description: The third incorrect answer to the question in English.
-        '500':
-          description: Error retrieving the questions.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    description: Error message.
 
-
-  /getQuestionModoMismaCategoria:
     get:
       summary: Get a set of questions from the same category.
       operationId: getQuestionModoMismaCategoria
@@ -484,4 +492,20 @@ paths:
                   error:
                     type: string
                     description: Error message.
-    
+
+  /updateHistoryDiaria:
+    post:
+      summary: Actualiza el historial diario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                # Define the properties of the request body here
+      responses:
+        '200':
+          description: Historial diario actualizado correctamente
+        '500':
+          description: Error al realizar la solicitud al servicio de historial diaria 

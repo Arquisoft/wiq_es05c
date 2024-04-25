@@ -103,7 +103,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
 
   console.log('isLoggedIn', isLoggedIn);
   return (
-    <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} data-testid="navbar" >
+    <AppBar position="static" style={{ backgroundColor: barBackgroundColor, color: textColor,  borderBottom: '0.1em solid' + textColor}} id="navbar" data-testid="navbar" >
       <Toolbar>
         <Button color="inherit" component={Link} to="/home"
         onClick={()=>handleNavPagesClick()} data-testid="homeButton"
@@ -112,12 +112,12 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         </Button>
            
         <Button color="inherit" component={Link} to="/joinroom"
-        onClick={()=>handleNavPagesClick()} data-testid="roomJoinButton"
+        onClick={()=>handleNavPagesClick()} id="roomJoinButton" data-testid="roomJoinButton"
         >
           {t('roomJoinButton')}
         </Button>
         <Button color="inherit" component={Link} to="/createroom"
-        onClick={()=>handleNavPagesClick()} data-testid="roomCreateButton"
+        onClick={()=>handleNavPagesClick()} id="roomCreateButton" data-testid="roomCreateButton"
         >
           {t('roomCreateButton')}
         </Button>
@@ -125,20 +125,20 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
         <IconButton id='change-language-button' onClick={handleClickLanguage}>
-          <LanguageIcon />
-          <Typography data-testid="idioma" >{i18n.language.toUpperCase()}</Typography>
+          <LanguageIcon color={darkMode ? "primary" : "action"} />
+          <Typography id="idioma" data-testid="idioma" color={darkMode ? "primary" : "action"} >{i18n.language.toUpperCase()} </Typography>
         </IconButton>
         <Menu
           anchorEl={anchorLanguage}
           open={Boolean(anchorLanguage)}
           onClose={handleCloseLanguage}
         >
-          <MenuItem onClick={() => changeLanguage('es')} data-testid="spanish-menu-item">
+          <MenuItem onClick={() => changeLanguage('es')} id="spanish-menu-item" data-testid="spanish-menu-item">
             <ListItemIcon data-testid="spanish-flag">
               <img src="/spain_flag.png" alt={t('spanishFlag')} />
             </ListItemIcon> 
             {t('spanish')}</MenuItem>
-          <MenuItem onClick={() => changeLanguage('en')} data-testid="english-menu-item" >
+          <MenuItem onClick={() => changeLanguage('en')} id="english-menu-item" data-testid="english-menu-item" >
           <ListItemIcon data-testid="english-flag">
             <img src="/uk_flag.png" alt={t('englishFlag')} />
           </ListItemIcon>            
@@ -148,7 +148,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <CustomSwitch id='dark-mode-switch' onChange={handleToggle} />
         {isLoggedIn() ? (
          <>
-         <IconButton onClick={handleClick} data-testid="iconoUsuario">
+         <IconButton onClick={handleClick} id="iconoUsuario" data-testid="iconoUsuario">
            <Avatar alt="User Avatar" src="/icon.jpg" />
          </IconButton>
          <Menu
@@ -160,14 +160,14 @@ const NavBar = ({ setDarkMode, darkMode}) => {
              <Typography fontWeight="bold">{username}</Typography>
            </ListItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/history" data-testid="historyButton">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/history" id="historyButton" data-testid="historyButton">
              {t('history')}
            </MenuItem>
-           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" data-testid="rankingButton">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/ranking" id="rankingButton" data-testid="rankingButton">
              {t('ranking')}
            </MenuItem>
            <Divider orientation="horizontal" flexItem />
-           <MenuItem onClick={handleMenuClick} component={Link} to="/logout" data-testid="logoutButton">
+           <MenuItem onClick={handleMenuClick} component={Link} to="/logout" id="logoutButton" data-testid="logoutButton">
             {t('logout')}
            </MenuItem>
        
@@ -175,7 +175,7 @@ const NavBar = ({ setDarkMode, darkMode}) => {
        </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/login" data-testid="loginButton">
+            <Button color="inherit" component={Link} to="/login" id="loginButton" data-testid="loginButton">
               {t('signIn')}
             </Button>
             <Button color="inherit" component={Link} to="/adduser" data-testid="addButton">

@@ -19,13 +19,15 @@ class ObtenerPreguntas{
             if(preguntas.length != numeroPreguntas){
                 throw new Error("No se han devuelto el numero de preguntas necesario");
             }
-            console.log('despues del if de obtener pregunta');
+
             for(var i = 0; i < preguntas.length; i++){   
                 try{   
                     console.log('Pregunta: ' + preguntas[i]._id);                
                     var tipo = await Tipos.findOne({ idPreguntas: { $in: preguntas[i]._id } });
 
                     var respuestas;
+
+                    console.log('Tipo: ' + tipo._id);
                     
                     if(idioma == "es"){
                         respuestas = await Respuesta.aggregate([
@@ -169,6 +171,7 @@ class ObtenerPreguntas{
         try{
             var pregunta = await Pregunta.findOne({ diaria: fecha });
             var resultado;
+            var objetoExterno= {};
 
             if(pregunta != null){
                 try{            
@@ -213,6 +216,9 @@ class ObtenerPreguntas{
                             respuestasIncorrecta3:  respuestas[2].textoRespuesta_en
                         };
                     }
+
+                    objetoExterno["resultado1"] = resultado;
+
             }
             catch(error){
                 throw new Error("Error al obtener el tipo o las respuestas de la base de datos");
@@ -222,7 +228,7 @@ class ObtenerPreguntas{
             throw new Error("No se ha encontrado ninguna pregunta diaria en la base de datos");
         }
         
-        return resultado;
+        return objetoExterno;
 
         } catch (error) {
             throw new Error("Error al obtener la pregunta diaria en la base de datos: " + error.message);

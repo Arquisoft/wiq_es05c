@@ -15,6 +15,11 @@ Scenario: The user is registered in the site with the same username
   When I fill the data in the form with the existing username and press submit
   Then An error message should be shown on the screen indicating that the username already exists
 
+Scenario: The user enters a email with incorrect format
+  Given An unregistered user
+  When I fill the form with a email that does not meet the required format and press submit
+  Then An error message should be shown on the screen indicating that the email format is incorrect
+
 Scenario: The user enters a password with incorrect format
   Given An unregistered user
   When I fill the form with a password that does not meet the required format and press submit

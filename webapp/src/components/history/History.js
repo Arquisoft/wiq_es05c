@@ -51,7 +51,6 @@ export function History({darkMode}){
   }, [statisticsEndpoint]);//<- cambiar el array de depencias error despliegue
 
 
-
   //console.log(darkMode);
   let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
   let text = darkMode ? '#FCFAF0' : '#08313A';

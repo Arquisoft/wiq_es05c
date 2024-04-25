@@ -24,6 +24,8 @@ defineFeature(feature, test => {
   });
 
   afterEach(async () => {
+    await page.waitForTimeout(1000);
+
     await page.goto("http://localhost:3000/login", {
       waitUntil: "networkidle0",
     });
@@ -37,8 +39,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest@email.com"
-      username = "userTest"
+      email = "userTestRegister@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -66,8 +68,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An registered user with the same email in the database', async () => {
-      email = "userTest@email.com"
-      username = "userTest"
+      email = "userTestRegister@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -95,8 +97,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An registered user with the same username in the database', async () => {
-      email = "userTest1@email.com"
-      username = "userTest"
+      email = "userTest1Register@email.com"
+      username = "userTestRegister"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
       await expect(page).toClick("#register");
@@ -116,6 +118,36 @@ defineFeature(feature, test => {
     });
   })
 
+  
+  test('The user enters a email with incorrect format', ({given,when,then}) => {
+    
+    let email;
+    let username;
+    let password;
+    let passwordConfirmation;
+
+    given('An unregistered user', async () => {
+      email = "userTestemail.com"
+      username = "userTest1Register"
+      password = "Contraseña_1?"
+      passwordConfirmation = "Contraseña_1?"
+      await expect(page).toClick("#register");
+    });
+
+    when('I fill the form with a email that does not meet the required format and press submit', async () => {
+      await expect(page).toFill('input[name="email"]', email);
+      await expect(page).toFill('input[name="username"]', username);
+      await expect(page).toFill('input[name="password"]', password);
+      await expect(page).toFill('input[name="passwordConfirm"]', passwordConfirmation);
+      
+      await expect(page).toClick('#addRegister')
+    });
+
+    then('An error message should be shown on the screen indicating that the email format is incorrect', async () => {
+        await expect(page).toMatchElement("#errorMessage", { text: "Error: El email es invalido" });
+    });
+  })
+
   test('The user enters a password with incorrect format', ({given,when,then}) => {
     
     let email;
@@ -124,8 +156,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest1@email.com"
-      username = "userTest1"
+      email = "userTest1Register@email.com"
+      username = "userTest1Register"
       password = "Contraseña_?"
       passwordConfirmation = "Contraseña_?"
       await expect(page).toClick("#register");
@@ -154,8 +186,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;
 
     given('An unregistered user', async () => {
-      email = "userTest1@email.com"
-      username = "userTest1"
+      email = "userTest1Register@email.com"
+      username = "userTest1Register"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_2?"
       await expect(page).toClick("#register");

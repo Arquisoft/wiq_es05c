@@ -43,7 +43,7 @@ export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded,
     return (
         <Box display="grid" flex="1" gridTemplateColumns="repeat(2,1fr)" gridColumnGap="2em" padding="4em" alignItems="center">
             {respuestasAleatorizadas.map((respuesta, index) => (
-                <AnswerButton darkMode={darkMode} key={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
+                <AnswerButton darkMode={darkMode} indexx={index} text={respuesta} colorFondo={colorsArray[index]} onClick={() => handleButtonClick(respuesta)} />
             ))}
         </Box>
     );

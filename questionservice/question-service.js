@@ -13,12 +13,9 @@ const newquestion = new NewQuestion();
 
 const Scheduler = require('./scheduler');
 const scheduler = new Scheduler();
-const RoomQuestions = require('./RoomQuestions');
 const app = express();
 app.use(cors());
-const servidor = http.createServer(app);
-const io = socketIO(servidor);
-const roomQuestions = new RoomQuestions(question,io);
+
 
 
 const port = 8003; 
@@ -140,23 +137,6 @@ server.on('close', () => {
 
 
 
-// Manejar conexiones de Socket.io
-io.on('connection', (socket) => {
-  console.log('Nuevo cliente conectado');
-
-  socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
-  });
-
-  socket.on('joinRoom', (roomId, username) => {
-    // Realizar las actualizaciones necesarias en la lista de salas, por ejemplo:
-    // - Agregar al usuario a la sala
-    // - Actualizar la lista de salas en la base de datos
-    // - Emitir un evento para notificar a todos los clientes sobre el cambio en la lista de salas
-    // - etc.
-  });
-  // Aquí puedes agregar el resto de tu lógica de Socket.io, como manejar eventos y emitir mensajes
-});
 
 
 

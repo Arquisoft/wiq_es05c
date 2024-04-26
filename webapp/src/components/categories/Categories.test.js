@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import Categories from './Categories';
 
 jest.mock('react-router-dom', () => ({
@@ -19,24 +18,18 @@ test('navigates when buttons are clicked', () => {
     </Router>
   );
 
-  fireEvent.click(getByText('categoryGeography'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/geografia');
-
-  fireEvent.click(getByText('categoryArt'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/arte');
+  const categories = [
+    { name: 'categoryGeography', path: '/gameSameCat/geografia' },
+    { name: 'categoryArt', path: '/gameSameCat/arte' },
+    { name: 'categoryEntertainment', path: '/gameSameCat/entretenimiento' },
+    { name: 'categorySports', path: '/gameSameCat/deportes' },
+    { name: 'categoryHistory', path: '/gameSameCat/historia' },
+    { name: 'categoryScience', path: '/gameSameCat/ciencia' },
+    { name: 'categoryMusic', path: '/gameSameCat/musica' }
+  ];
   
-  fireEvent.click(getByText('categoryEntertainment'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/entretenimiento');
-
-  fireEvent.click(getByText('categorySports'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/deportes');
-
-  fireEvent.click(getByText('categoryHistory'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/historia');
-
-  fireEvent.click(getByText('categoryScience'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/ciencia');
-
-  fireEvent.click(getByText('categoryMusic'));
-  expect(navigate).toHaveBeenCalledWith('/gameSameCat/musica');
+  categories.forEach(category => {
+    fireEvent.click(getByText(category.name));
+    expect(navigate).toHaveBeenCalledWith(category.path);
+  });
 });

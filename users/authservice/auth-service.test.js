@@ -9,14 +9,14 @@ let app;
 //test user
 const user = {
   username: 'testuser',
-  password: 'testpassword',
+  credential: 'testcredential',
 };
 
 async function addUser(user){
-  const hashedPassword = await bcrypt.hash(user.password, 10);
+  const hashedcredential = await bcrypt.hash(user.credential, 10);
   const newUser = new User({
     username: user.username,
-    password: hashedPassword,
+    credential: hashedcredential,
   });
 
   await newUser.save();
@@ -46,7 +46,7 @@ describe('Auth Service', () => {
   it('Should perform a login operation /login', async () => {
     const userFail = {
       username: 'testuser',
-      password: 'testpass',
+      credential: 'testpass',
     };
     const response = await request(app).post('/login').send(userFail);
     expect(response.status).toBe(401);
@@ -54,11 +54,11 @@ describe('Auth Service', () => {
   });
 
   it('Should not perform a login operation /login', async () => {
-    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const hashedcredential = await bcrypt.hash(user.credential, 10);
 
     const newUser = new User({
       user: user.username,
-      password: hashedPassword,
+      credential: hashedcredential,
     }); 
 
     const response = await request(app).post('/login').send(newUser);

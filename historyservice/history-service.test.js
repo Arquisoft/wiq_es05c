@@ -4,6 +4,10 @@ const app = require('./history-service');
 
 jest.mock('axios');
 
+afterAll(async () => {
+  app.close();
+});
+
 describe('GET /getHistoryDetallado', () => {
 
     // Mock responses from external services

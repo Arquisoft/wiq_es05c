@@ -21,6 +21,15 @@ app.use(express.json());
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/historydb';
 mongoose.connect(mongoUri);
 
+// Function to validate required fields in the request body
+function validateRequiredFields(req, requiredFields) {
+  for (const field of requiredFields) {
+    if (!(field in req.body)) {
+      throw new Error(`Missing required field: ${field}`);
+    }
+  }
+}
+
 app.get('/getHistoryDetallado', async(req,res)=> {
   try{  
     console.log("entra en gethistory detallado");
@@ -74,7 +83,13 @@ app.get('/getHistoryTotal', async(req,res)=> {
 app.post('/updateHistory', async (req, res) => {
   try {
     console.log("Entra en guardar usuario");
-    await updateHistory.guardarPartida(req.body);    
+    //validamos que se le pasa todo 
+    validateRequiredFields(req, ['user', 'incorrectas', 'correctas', 'tiempoTotal']);
+
+    //si se le pasa todo se guarda
+    await updateHistory.guardarPartida(req.body);   
+    res.status(200).json({ user: req.body.user }); 
+
   } catch (error) {
       res.status(400).json({ error: error.message }); 
   }});
@@ -82,14 +97,18 @@ app.post('/updateHistory', async (req, res) => {
   app.post('/updateHistoryDiaria', async (req, res) => {
     try {
       console.log("Entra en guardar partida diaria");
+      //validamos que se le pasa todo
+      validateRequiredFields(req, ['user']);
+
+      //si se le pasa todo se guarda
       await updateHistory.guardarPartidaDiaria(req.body);   
+      res.status(200).json({ user: req.body.user }); 
 
   } catch (error) {
         res.status(400).json({ error: error.message }); 
   }});
   
 app.get('/getRankingDiarias', async (req, res) => {
-  console.log("Entra en sacar ranking diarias arr");
   try {
     console.log("Entra en sacar ranking diarias");
     const ranking = await historial.obtenerPreguntasDiariasAcertadas();    

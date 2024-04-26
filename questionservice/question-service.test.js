@@ -28,6 +28,12 @@ describe('endpoints', () => {
     expect(res.statusCode).toEqual(200);
   });
 
+  it('GET /getQuestion -> should return a question', async () => {
+    const res = await request(app).get('/getQuestion').query({ });
+
+    expect(res.statusCode).toEqual(200);
+  });
+
 
   it('GET /getQuestionDiaria -> should return a daily question', async () => {
     //obtenemos la fecha de hoy 

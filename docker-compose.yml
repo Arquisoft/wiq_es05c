@@ -126,7 +126,7 @@ services:
     container_name: prometheus-${teamname:-wiq_es05c}
     restart: unless-stopped    
 
-    profiles: ["dev"]
+    profiles: ["dev","prod"]
     networks:
       - mynetwork
     volumes:
@@ -142,7 +142,7 @@ services:
     container_name: grafana-${teamname:-wiq_es05c}
     restart: unless-stopped    
 
-    profiles: ["dev"]
+    profiles: ["dev","prod"]
     networks:
       - mynetwork
     volumes:
@@ -150,9 +150,10 @@ services:
       - ./gatewayservice/monitoring/grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SERVER_HTTP_PORT=9091
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=false
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=test  
     ports:
       - "9091:9091"
     depends_on: 

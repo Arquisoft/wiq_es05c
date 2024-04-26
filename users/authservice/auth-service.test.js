@@ -65,4 +65,31 @@ describe('Auth Service', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe("Missing required field: username");
   });
+  
+  test('should respond and error if the username is not the same', async () => {
+  
+    // Make a POST request to /updateUserDaily
+    const response = await request(app)
+      .post('/updateUserDaily')
+      .send({ user: 'username', fecha: '2022-01-01' });
+  
+      expect(response.status).toBe(400);
+  });
+
+  
+test('should respond with user when fecha is valid and user equals username in localStorage', async () => {
+  // Mock localStorage.getItem
+  const localStorageMock = {
+    getItem: jest.fn().mockReturnValue('username'),
+  };
+  global.localStorage = localStorageMock;
+
+  // Make a POST request to /updateUserDaily
+  const response = await request(app)
+    .post('/updateUserDaily')
+    .send({ user: 'username', fecha: '2022-01-01' });
+
+  // Assert that the response includes the expected user
+  expect(response.status).toBe(200);
+  });
 });

@@ -68,10 +68,8 @@ class GuardarDatosUsuarioHistorial{
          }
 
          else{
-          //añade un nuevo juego
-          usuarioExistente.juegos.push({
-            numeroJuego: usuarioExistente.diariasAcertadas+1
-          });
+          
+          usuarioExistente.diariasAcertadas++;
           
           usuarioExistente.save();
           console.log("Guardado historial");

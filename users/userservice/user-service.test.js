@@ -28,8 +28,8 @@ describe('User Service', () => {
     const newUser = {
       email: 'test@email.com',
       username: 'testuser',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_1',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
     };
 
     await addUserTest(newUser, 200, undefined);
@@ -39,8 +39,8 @@ describe('User Service', () => {
     const newUser = {
       email: 'test@email.com',
       user: 'testuser',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_1',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
     };
 
     await addUserTest(newUser, 400, 'Missing required field: username');
@@ -48,12 +48,12 @@ describe('User Service', () => {
 
 //pruebas para el formato de las contraseñas
 
-  it('should send an error because the credential is incorrect on POST /adduser', async () => {
+  it('should send an error because the password is incorrect on POST /adduser', async () => {
     const newUser = {
       email: 'test2@email.com',
       username: 'test2user',
-      credential: 'test',
-      credentialConfirm: 'test',
+      password: 'test',
+      passwordConfirm: 'test',
     };
 
     const errors = 
@@ -66,12 +66,12 @@ describe('User Service', () => {
     await addUserTest(newUser, 400, errors);
   });
 
-  it('should send an error because the credential is incorrect on POST /adduser', async () => {
+  it('should send an error because the password is incorrect on POST /adduser', async () => {
     const newUser = {
       email: 'test2.1@email.com',
       username: 'test2.1user',
-      credential: 'TEST',
-      credentialConfirm: 'TEST',
+      password: 'TEST',
+      passwordConfirm: 'TEST',
     };
 
     const errors = 
@@ -90,8 +90,8 @@ describe('User Service', () => {
     const newUser = {
       email: 'testemail.com',
       username: 'test2user',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_1',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
     };
 
     await addUserTest(newUser, 400, 'El email es invalido');
@@ -103,8 +103,8 @@ describe('User Service', () => {
     const newUser = {
       email: 'test@email.com',
       username: 'test3user',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_1',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
     };
 
     await addUserTest(newUser, 400, 'El email ya existe en la base de datos');
@@ -114,8 +114,8 @@ describe('User Service', () => {
     const newUser = {
       email: 'test4@email.com',
       username: 'testuser',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_1',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_1',
     };
 
     await addUserTest(newUser, 400, 'El username ya existe en la base de datos');
@@ -124,12 +124,12 @@ describe('User Service', () => {
 
 //pruebas para comprobar si las contraseñas son iguales
 
-it('should send an error because the credentials are not equals on POST /adduser', async () => {
+it('should send an error because the passwords are not equals on POST /adduser', async () => {
     const newUser = {
       email: 'test5@email.com',
       username: 'test5user',
-      credential: 'Testcredential_1',
-      credentialConfirm: 'Testcredential_2',
+      password: 'Testpassword_1',
+      passwordConfirm: 'Testpassword_2',
     };
 
     await addUserTest(newUser, 400, 'Las contraseñas no coinciden');

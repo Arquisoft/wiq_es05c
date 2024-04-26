@@ -12,10 +12,8 @@ const newquestion = new NewQuestion();
 const Scheduler = require('./scheduler');
 const scheduler = new Scheduler();
 const app = express();
+
 app.use(cors());
-
-
-
 const port = 8003; 
 
 // Middleware to parse JSON in request body
@@ -127,6 +125,7 @@ const server = app.listen(port, () => {
 
 server.on('close', () => {
     // Close the Mongoose connection
+    scheduler.stop();
     mongoose.connection.close();
   });
 

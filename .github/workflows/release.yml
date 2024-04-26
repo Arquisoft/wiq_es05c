@@ -15,10 +15,16 @@ jobs:
     - run: npm --prefix users/authservice ci
     - run: npm --prefix users/userservice ci
     - run: npm --prefix gatewayservice ci
+    - run: npm --prefix questionservice ci
+    - run: npm --prefix historyservice ci
+    - run: npm --prefix roomservice ci
     - run: npm --prefix webapp ci
     - run: npm --prefix users/authservice test -- --coverage
     - run: npm --prefix users/userservice test -- --coverage
     - run: npm --prefix gatewayservice test -- --coverage
+    - run: npm --prefix questionservice test -- --coverage
+    - run: npm --prefix historyservice test -- --coverage
+    - run: npm --prefix roomservice test -- --coverage
     - run: npm --prefix webapp test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
@@ -179,6 +185,27 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
+  docker-push-grafana:
+    name: Push Grafana Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es05c/grafana
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: grafana
+        buildargs: GF_SECURITY_ADMIN_PASSWORD
+      env:
+        GF_SECURITY_ADMIN_PASSWORD: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD  }}
+
 
   deploy:
     name: Deploy over SSH

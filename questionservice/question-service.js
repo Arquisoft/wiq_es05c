@@ -1,8 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Model = require('./question-model');
-const socketIO = require('socket.io');
-const http = require('http'); 
 const cors = require('cors');
 
 const Question = require("./obtenerPreguntasBaseDatos");
@@ -14,10 +12,8 @@ const newquestion = new NewQuestion();
 const Scheduler = require('./scheduler');
 const scheduler = new Scheduler();
 const app = express();
+
 app.use(cors());
-
-
-
 const port = 8003; 
 
 // Middleware to parse JSON in request body
@@ -35,7 +31,7 @@ app.get('/getQuestion', async(req,res)=> {
     //coger pregunta bd
     const questions = await question.obtenerPregunta(1, idioma);
     //para devolver la pregunta
-    res.json(questions);
+    res.status(200).json(questions);
     
   } catch(error) {
     res.status(500).json({ error: error.message }); 
@@ -50,10 +46,10 @@ app.get('/getQuestionDiaria', async(req,res)=> {
     //coger pregunta bd
     const questions = await question.obtenerPreguntaDiaria(idioma, fecha);
     //para devolver la pregunta
-    res.json(questions);
-    
+    res.status(200).json(questions);
+
   } catch(error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(500).json({ error: error.message });
   }
     
 }); 
@@ -66,7 +62,7 @@ app.get('/getQuestionModoBasico', async(req,res)=> {
     const questions = await question.obtenerPregunta(10, idioma);
     //para devolver la pregunta
     console.log('preguntasModoBasico en el microservicio',questions);
-    res.json(questions);
+    res.status(200).json(questions);
     
   } catch(error) {
     res.status(500).json({ error: error.message }); 
@@ -83,7 +79,7 @@ app.get('/getQuestionModoMismaCategoria', async(req,res)=> {
     //coger pregunta bd
     const questions = await question.obtenerPreguntaMismaCategoria(10, idioma, categoria);
     //para devolver la pregunta
-    res.json(questions);
+    res.status(200).json(questions);
     
   } catch(error) {
     res.status(500).json({ error: error.message }); 
@@ -101,7 +97,7 @@ app.get('/getQuestionModoCustom', async(req,res)=> {
     //coger pregunta bd
     const questions = await question.obtenerPregunta(numPreguntas, idioma);
     //para devolver la pregunta
-    res.json(questions);
+    res.status(200).json(questions);
     
   } catch(error) {
     res.status(500).json({ error: error.message }); 
@@ -129,14 +125,8 @@ const server = app.listen(port, () => {
 
 server.on('close', () => {
     // Close the Mongoose connection
+    scheduler.stop();
     mongoose.connection.close();
   });
-
-
-
-
-
-
-
 
 module.exports = server

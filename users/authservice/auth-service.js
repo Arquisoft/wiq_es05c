@@ -94,7 +94,7 @@ app.post('/updateUserDaily', async (req, res) => {
 
       var user = await actualizarUser.updateUserDaily(datos);
     }
-    res.json({ user: user});
+    res.status(200).json({  user: user });
   } catch (error) {
     res.status(400).json({ error: error.message }); 
   }

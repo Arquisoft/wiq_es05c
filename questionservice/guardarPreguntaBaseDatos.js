@@ -65,11 +65,13 @@ class GuardarBaseDatos{
               idCategoria = categoriaExistente._id;
               resolve(idCategoria);
             }
-          });
-      }) .catch(error => {
-        reject(new Error('No se ha guardado la categoria en la base de datos ' + error.message));
+          }).catch(error => {
+             reject(new Error('No se ha guardado la categoria en la base de datos ' + error.message));
       });
-    }
+    
+    });
+  }
+  
 
     guardarPreguntaTipo(idCategoria){
       return new Promise((resolve, reject) => {

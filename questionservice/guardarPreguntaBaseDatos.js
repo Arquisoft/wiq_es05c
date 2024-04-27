@@ -20,9 +20,11 @@ class GuardarBaseDatos{
           return this.guardarPreguntaTipo(idCategoria);
           }).then(idTipo => {
             Promise.all([
-              this.guardarPrimeraIncorrecta(idTipo),
-              this.guardarSegundaIncorrecta(idTipo),
-              this.guardarTerceraIncorrecta(idTipo)
+              //unido en un metodo para evitar mas codigo 
+              this.guardarRespuestaIncorrecta(idTipo, this.finalQuestion.incorrect1_es, this.finalQuestion.incorrect1_en),
+              this.guardarRespuestaIncorrecta(idTipo, this.finalQuestion.incorrect2_es, this.finalQuestion.incorrect2_en),
+              this.guardarRespuestaIncorrecta(idTipo, this.finalQuestion.incorrect3_es, this.finalQuestion.incorrect3_en)
+            
             ]).then(() => {
               console.log("Pregunta guardada correctamente en la base de datos.");
               resolve(); //para que se resuelva cuando las tres respuestas incorrectas se hayan guardado
@@ -144,90 +146,29 @@ class GuardarBaseDatos{
       });
     }
 
-    guardarPrimeraIncorrecta(idTipo){
-         //comprobar si la primera respuesta existe ya en la base de datos
-         return Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect1_es })
-         .then(respuestaExistente => {
-           if (!respuestaExistente) {          
-             // Si no existe ya esa pregunta la crea
-             var nuevaRespuesta = new Respuesta({
-               textoRespuesta_es: this.finalQuestion.incorrect1_es,
-               textoRespuesta_en: this.finalQuestion.incorrect1_en,
-               tipos: [idTipo]
-             });    
-   
-             //Guardamos la nueva respuesta
-             nuevaRespuesta.save();
-           }
-           else{
-             //comprobamos si ya existe el tipo en esa respuesta
-             if (!respuestaExistente.tipos.includes(idTipo)) {
-               //agregamos el nuevo tipo
-               respuestaExistente.tipos.push(idTipo);
-   
-               respuestaExistente.save();
-             }
-           }
-         }).catch(error => {
-           throw new Error('Error al guardar la primera respuesta incorrecta en la base de datos: ' + error.message);
-         });
-    }
-
-    guardarSegundaIncorrecta(idTipo){    
-        //comprobar si la segunda respuesta existe ya en la base de datos
-        Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect2_es })
-        .then(respuestaExistente => {
-          if (!respuestaExistente) {          
-            // Si no existe ya esa pregunta la crea
-            var nuevaRespuesta = new Respuesta({
-              textoRespuesta_es: this.finalQuestion.incorrect2_es,
-              textoRespuesta_en: this.finalQuestion.incorrect2_en,
-              tipos: [idTipo]
-            });    
-  
-            //Guardamos la nueva respuesta
-            nuevaRespuesta.save();
-          }
-          else{
-            //comprobamos si ya existe el tipo en esa respuesta
-            if (!respuestaExistente.tipos.includes(idTipo)) {
-              //agregamos el nuevo tipo
-              respuestaExistente.tipos.push(idTipo);
-  
-              respuestaExistente.save();
+    guardarRespuestaIncorrecta(idTipo, incorrect_es, incorrect_en) {
+      return Respuesta.findOne({textoRespuesta_es: incorrect_es})
+        .then(respuesta => {
+          if (!respuesta) {
+            if (!incorrect_es || !incorrect_en || !idTipo || incorrect_es.length === 0 || incorrect_en.length === 0 || idTipo.length === 0) {
+              throw new Error('No existe la pregunta en la base de datos');
+            }else{
+                //solo se crea si existe la respuesta incorrecta
+              const nuevaRespuesta = new Respuesta({
+                textoRespuesta_es: incorrect_es,
+                textoRespuesta_en: incorrect_en,
+                idTipoPregunta: idTipo,
+                correcta: false
+              });
+              console.log('vales incorrect y demas', incorrect_es, incorrect_en, idTipo);
+              console.log('llamas al save', nuevaRespuesta);
+              return nuevaRespuesta.save();
             }
           }
+    
+          return respuesta;
         }).catch(error => {
-          throw new Error('Error al guardar la segunda respuesta incorrecta en la base de datos: ' + error.message);
-        });        
-    }
-
-    guardarTerceraIncorrecta(idTipo){
-        //comprobar si la tercera respuesta existe ya en la base de datos
-        Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect3_es })
-        .then(respuestaExistente => {
-            if (!respuestaExistente) {          
-             // Si no existe ya esa pregunta la crea
-             var nuevaRespuesta = new Respuesta({
-               textoRespuesta_es: this.finalQuestion.incorrect3_es,
-               textoRespuesta_en: this.finalQuestion.incorrect3_en,
-               tipos: [idTipo]
-             });    
-   
-             //Guardamos la nueva respuesta
-             nuevaRespuesta.save();
-           }
-           else{
-             //comprobamos si ya existe el tipo en esa respuesta
-             if (!respuestaExistente.tipos.includes(idTipo)) {
-               //agregamos el nuevo tipo
-               respuestaExistente.tipos.push(idTipo);
-   
-               respuestaExistente.save();
-             }
-           }
-        }).catch(error => { 
-          throw new Error('Error al guardar la tercera respuesta incorrecta en la base de datos: ' + error.message);
+          throw new Error('Error al guardar la respuesta incorrecta en la base de datos: ' + error.message);
         });
     }
 }

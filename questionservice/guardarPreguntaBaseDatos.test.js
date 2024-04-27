@@ -52,4 +52,20 @@ describe('guardarEnBaseDatos', () => {
       expect(idCategoria).toBe('existingId');
     });
   });
+
+  //test negativos del agregar categoria
+  it('should throw an error when findOne fails', () => {
+    instance.finalQuestion = {category: 'existingCategory'};
+    jest.spyOn(Categoria, 'findOne').mockImplementation(() => Promise.reject(new Error('findOne error')));
+  
+    return expect(instance.guardarCategoria()).rejects.toThrow('findOne error');
+  });
+  
+  it('should throw an error when save fails', () => {
+    instance.finalQuestion = {category: 'newCategory'};
+    jest.spyOn(Categoria, 'findOne').mockImplementation(() => Promise.resolve(null));
+    jest.spyOn(Categoria.prototype, 'save').mockImplementation(() => Promise.reject(new Error('save error')));
+  
+    return expect(instance.guardarCategoria()).rejects.toThrow('save error');
+  });
 });

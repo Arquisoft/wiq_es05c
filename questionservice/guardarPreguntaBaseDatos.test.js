@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Model = require('./question-model');
 const GuardarEnBaseDatos = require('./guardarPreguntaBaseDatos');
-const { Categoria } = require('./question-model');
+const { Categoria,Respuesta } = require('./question-model');
 
 
 
@@ -15,6 +15,7 @@ describe('guardarEnBaseDatos', () => {
     jest.spyOn(Categoria, 'findOne').mockImplementation(() => Promise.resolve({_id: 'existingId'}));
     jest.spyOn(Categoria.prototype, 'save').mockImplementation(() => Promise.resolve({_id: 'newId'}));
   
+
   });
 
 
@@ -68,4 +69,28 @@ describe('guardarEnBaseDatos', () => {
   
     return expect(instance.guardarCategoria()).rejects.toThrow('save error');
   });
+//test metodo primeraINcorrecta
+it('guardarPrimeraIncorrecta crea una nueva respuesta si no existe', () => {
+  instance.finalQuestion = {incorrect1_es: 'newResponse', incorrect1_en: 'newResponseEn'};
+  jest.spyOn(Respuesta, 'findOne').mockImplementation(() => Promise.resolve(null));
+  const saveSpy = jest.spyOn(Respuesta.prototype, 'save').mockImplementation(() => Promise.resolve());
+
+  return instance.guardarPrimeraIncorrecta('idTipo').then(() => {
+      expect(Respuesta.findOne).toHaveBeenCalledWith({textoRespuesta_es: 'newResponse'});
+      expect(saveSpy).toHaveBeenCalled();
+  });
+});
+  
+  //test negativo 
+  it('guardarPrimeraIncorrecta catch del error porque no existe la pregunta de la bd ', () => {
+    instance.finalQuestion = {incorrect1_es: 'newResponse'};
+    jest.spyOn(Respuesta, 'findOne').mockImplementation(() => Promise.resolve(null));
+    const saveSpy = jest.spyOn(Respuesta.prototype, 'save').mockImplementation(() => Promise.resolve());
+  
+    return instance.guardarPrimeraIncorrecta('idTipo').then(() => {
+      expect(Respuesta.findOne).toHaveBeenCalledWith({textoRespuesta_es: 'newResponse'});
+      expect(saveSpy).toHaveBeenCalled();
+    });
+  });
+  
 });

@@ -146,7 +146,7 @@ class GuardarBaseDatos{
 
     guardarPrimeraIncorrecta(idTipo){
          //comprobar si la primera respuesta existe ya en la base de datos
-         Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect1_es })
+         return Respuesta.findOne({ textoRespuesta_es: this.finalQuestion.incorrect1_es })
          .then(respuestaExistente => {
            if (!respuestaExistente) {          
              // Si no existe ya esa pregunta la crea

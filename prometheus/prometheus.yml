@@ -3,7 +3,7 @@ global:
 scrape_configs:
    - job_name: "WIQ5c"
     static_configs:
-      - targets: ["gateway:8006"] 
+      - targets: ["gateway:8000"] 
       
     
 

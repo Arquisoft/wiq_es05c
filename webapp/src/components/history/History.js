@@ -27,9 +27,11 @@ export function History({darkMode}){
       .then(partidas => {
         //console.log("Partidas: ");
         //console.log(partidas);
-        let gamesArray = Object.values(partidas);
-        setAllGames(gamesArray);
-        setIsLoadingGames(false);
+        act(() => {
+          let gamesArray = Object.values(partidas);
+          setAllGames(gamesArray);
+          setIsLoadingGames(false);
+        });
       })
       .catch(error => {
         //console.error('Error cargando el historial de todas las partidas del usuario:', error);
@@ -42,8 +44,10 @@ export function History({darkMode}){
       .then(estadisticas => {
         //console.log("Estadísticas: ");
         //console.log(estadisticas);
-        setStatistics(estadisticas);
-        setIsLoadingStats(false);
+        act(() => {
+          setStatistics(estadisticas);
+          setIsLoadingStats(false);
+        });
       })
       .catch(error => {
         //console.error('Error cargando las estadísticas del usuario:', error);
@@ -65,6 +69,7 @@ export function History({darkMode}){
       color='blue.500'
       size='xl'
       marginTop='5em'
+      data-testid="loading-spinner"
       />//Para mientras carga
     ) : (
       <Box id='main-history' backgroundColor={backgroundColor}>

@@ -3,7 +3,7 @@ import Navbar from './components/navbar/NavBar';
 import AddUser from './components/adduser/AddUser';
 import Login from './components/login/Login';
 import { AuthProvider } from './components/authcontext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import Game from './components/game/Game';
 import SameCategoryMode from './components/game/gameModes/SameCategoryMode';
 import InfinityGameMode from './components/game/gameModes/InfinityGameMode';
@@ -24,6 +24,7 @@ import { Ranking } from './components/ranking/Ranking';
 import RankingRoom from './components/rooms/RankingRoom'; // Asegúrate de que la ruta de importación es correcta
 import BasicGame from './components/game/BasicGame';
 import DailyGameMode from './components/game/gameModes/DailyGameMode';
+import CategoriesWindow from './components/categories/Categories';
 
 const App = () => {
 
@@ -42,9 +43,21 @@ const App = () => {
     }
   }, [darkMode]);
 
-  const sameCatMode = new SameCategoryMode();
   const infinityMode = new InfinityGameMode();
   const dailyGameMode = new DailyGameMode();
+
+  const SameCategoryGame = () => {
+    const { category } = useParams();
+    const sameCatMode = new SameCategoryMode(category);
+  
+    return <AuthenticatedLayout>
+      <ChakraProvider>
+        <Game darkMode={darkMode} gameMode={sameCatMode} />  
+        </ChakraProvider>
+    </AuthenticatedLayout>   
+    ;
+  };
+
   return (
     <AuthProvider>
       <Router>
@@ -65,10 +78,13 @@ const App = () => {
               <ChakraProvider><Game darkMode={darkMode} gameMode={new BasicGame()}/>  </ChakraProvider>
             </AuthenticatedLayout>
           } />
-          <Route path="/gameSameCat" element={
+          <Route path="/gameSameCat/:category" element={
+            <SameCategoryGame />
+          } />
+          <Route path="/sameCategoryWindow" element={
             <AuthenticatedLayout>
-              <ChakraProvider><Game darkMode={darkMode} gameMode={sameCatMode}/>  </ChakraProvider>
-            </AuthenticatedLayout>
+            <CategoriesWindow />
+          </AuthenticatedLayout>
           } />
           <Route path="/gameCustom" element={
             <AuthenticatedLayout>
@@ -111,6 +127,8 @@ const App = () => {
       </AuthProvider>
 
   );
+
+  
 };
 
 export default App;

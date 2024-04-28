@@ -11,6 +11,8 @@ const obtenerPreguntaDiaria = new ObtenerPreguntaDiaria();
 class Scheduler {
 
     constructor() {
+        this.job1 = null;
+        this.job2 = null;
         this.start();
     }
 
@@ -40,7 +42,7 @@ class Scheduler {
 
 
     start() {
-        cron.schedule('*/15 * * * *', async () => {
+        this.job1 = cron.schedule('*/15 * * * *', async () => {
             try {
                 await this.generarPregunta();
             }
@@ -51,7 +53,7 @@ class Scheduler {
 
         //para generar la pregunta diaria
         
-        cron.schedule('0 0 */1 * *', async () => {
+        this.job2 = cron.schedule('0 0 */1 * *', async () => {
             try {
                 await this.generarPreguntaDiaria();
             }
@@ -59,7 +61,15 @@ class Scheduler {
                 console.error('Fallo al generar la pregunta diaria:', error);
             }
         });
-        
+    }
+
+    stop() {
+        if (this.job1) {
+            this.job1.stop();
+        }
+        if (this.job2) {
+            this.job2.stop();
+        }
     }
 }
 

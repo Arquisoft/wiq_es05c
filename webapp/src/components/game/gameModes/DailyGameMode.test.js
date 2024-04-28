@@ -45,7 +45,7 @@ describe('DailyGameMode', () => {
 
     const questions = await dailyGameMode.fetchQuestions();
 
-    expect(global.fetch).toHaveBeenCalledWith(`${dailyGameMode.apiEndpoint}/getQuestionDiaria`);
+    expect(global.fetch).toHaveBeenCalledWith(`${dailyGameMode.apiEndpoint}/getQuestionDiaria?idioma=${dailyGameMode.idioma}&fecha=${dailyGameMode.fechaAct}`);
     expect(questions).toEqual(Object.values(mockData));
     expect(dailyGameMode.isLoading).toBe(false);
   });
@@ -58,7 +58,7 @@ describe('DailyGameMode', () => {
 
     const questions = await dailyGameMode.fetchQuestions();
 
-    expect(global.fetch).toHaveBeenCalledWith(`${dailyGameMode.apiEndpoint}/getQuestionDiaria`);
+    expect(global.fetch).toHaveBeenCalledWith(`${dailyGameMode.apiEndpoint}/getQuestionDiaria?idioma=${dailyGameMode.idioma}&fecha=${dailyGameMode.fechaAct}`);
     expect(questions).toEqual([]);
     expect(console.error).toHaveBeenCalledWith('Error fetching question data:', mockError);
   });
@@ -106,7 +106,7 @@ describe('DailyGameMode', () => {
     dailyGameMode.incrementIncorrectas();
   
     expect(dailyGameMode.incorrectas).toBe(1);
-    expect(localStorage.getItem('diaria')).toBeTruthy();
+    expect(localStorage.getItem('lastDailyGame')).toBeTruthy();
   });
   
   it('should increment correctas correctly', () => {
@@ -114,13 +114,13 @@ describe('DailyGameMode', () => {
   
     expect(dailyGameMode.correctas).toBe(1);
     expect(dailyGameMode.enviarHistorialPorQueHasAcetado).toBe(true);
-    expect(localStorage.getItem('diaria')).toBeTruthy();
+    expect(localStorage.getItem('lastDailyGame')).toBeTruthy();
   });
   
   it('should set volverAJugarCoockie correctly', () => {
     dailyGameMode.volverAJugarCoockie();
   
-    const diaria = JSON.parse(localStorage.getItem('diaria'));
+    const diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
   
     expect(diaria.value).toBe('valor que quieras almacenar');
     expect(diaria.expiry).toBeGreaterThan(Date.now());

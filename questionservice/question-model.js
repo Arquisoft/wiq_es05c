@@ -67,4 +67,9 @@ const tiposSchema = new mongoose.Schema({
 
 // Definir el modelo de respuesta
 const Tipos = mongoose.model('Tipos', tiposSchema);
-
+module.exports = {
+  Pregunta,
+  Categoria,
+  Respuesta,
+  Tipos
+};

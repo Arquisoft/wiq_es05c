@@ -1,4 +1,4 @@
-const SameCategoryMode = require('./SameCategoryMode');
+import SameCategoryMode from './SameCategoryMode';
 
 describe('SameCategoryMode', () => {
   
@@ -33,7 +33,7 @@ describe('SameCategoryMode', () => {
     });
     
     test('fetchQuestions should handle errors', async () => {
-        const sameCategoryMode = new SameCategoryMode();
+        const sameCategoryMode = new SameCategoryMode("arte");
         sameCategoryMode.apiEndpoint = 'https://example.com';
         sameCategoryMode.questions = [];
         sameCategoryMode.isLoading = true;
@@ -47,7 +47,7 @@ describe('SameCategoryMode', () => {
     });
     
     test('sendHistory should not save game history', async () => {
-        const sameCategoryMode = new SameCategoryMode();
+        const sameCategoryMode = new SameCategoryMode("arte");
         sameCategoryMode.sendHistory();
     });
     

@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Box, Image, Button,ChakraProvider } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -9,14 +10,11 @@ const Home = () => {
   const {t} = useTranslation();
   const navigate = useNavigate();
 
-  
-
-
   const handleClickClassic = () => {
     navigate("/game");
   };
   const handleClickSameCat = () => {
-    navigate("/gameSameCat");
+    navigate("/sameCategoryWindow");
   };
   const handleClickInfinity = () => {
 
@@ -26,19 +24,29 @@ const Home = () => {
     navigate("/customWindow");
   };
   const handleClickDiario = () => {
-     let diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
+    let diaria = null;
+    let daily = localStorage.getItem('lastDailyGame');
+    
+    if(daily !== undefined && daily !== "undefined"){
+      diaria = JSON.parse(localStorage.getItem('lastDailyGame'));
+    }
 
   // Comprobar si la variable ha caducado
   if (diaria !== null && diaria.expiry > Date.now()) {
     // La variable no ha caducado, mostrar una alerta
-    alert('Ya has jugado hoy. Por favor, vuelve maÃ±ana.');
+    Swal.fire({
+      title: t('diaryGameTitle'),
+      text: t('diaryGameText'),
+      confirmButtonText: t('close'),
+      customClass: {         
+        popup: 'yaJugoDiaria'
+      }
+    });
   } else {
     // La variable ha caducado o no existe, navegar a /gameDiaria
     navigate("/gameDiaria");
   }
   };
-
-
  
   return (
     <ChakraProvider>

@@ -1,21 +1,11 @@
 global:
   scrape_interval: 5s
 scrape_configs:
-   - job_name: "auth"
+   - job_name: "WIQ5c"
     static_configs:
-      - targets: ["auth:8002"] 
-   - job_name: "user"
-    static_configs:
-      - targets: ["user:8001"] 
-   - job_name: "question"
-    static_configs:
-      - targets: ["question:8003"] 
-   - job_name: "history"
-    static_configs:
-      - targets: ["history:8004"] 
-   - job_name: "room"
-    static_configs:
-      - targets: ["room:8005"] 
+      - targets: ["gateway:8006"] 
+      
+    
 
 
 

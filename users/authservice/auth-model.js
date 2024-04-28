@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     createdAt: Date,
-    lastDailyGame: Date,
+    diaria: String,
 });
 
 const User = mongoose.model('User', userSchema);

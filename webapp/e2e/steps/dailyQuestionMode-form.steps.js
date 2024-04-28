@@ -75,7 +75,6 @@ defineFeature(feature, test => {
   test('User play the daily question', ({when,then}) => {
 
     when('I play the daily question', async () => {     
-        //vamos a las opciones del usuario 
         await expect(page).toClick("#button-diario-game");
 
         //empieza el juego y respoonde la pregunta
@@ -91,15 +90,16 @@ defineFeature(feature, test => {
   test('User wants to play the daily question but he/she/they already played it', ({when,then}) => {
 
     when('I try to play the daily question', async () => {     
-        //vamos a las opciones del usuario 
         await expect(page).toClick("#button-diario-game");
-
-         //pendiente de implementar
     });
 
-    then('I should see a message with a message', async () => {      
-        //pendiente de implementar
+    then('I should see a message', async () => {      
+        await expect(page).toMatchElement(".yaJugoDiaria");
     });
+  })
+
+  afterAll(async ()=>{
+    browser.close()
   })
 
 });

@@ -3,8 +3,7 @@ import { useEffect, useState} from 'react';
 import { Box, Spinner} from "@chakra-ui/react";
 import { AllGamesBlock } from './AllGamesBlock';
 import { StatsBlock } from './StatsBlock';
-
-
+import { act } from 'react-dom/test-utils';
 
 export function History({darkMode}){
 

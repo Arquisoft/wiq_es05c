@@ -110,5 +110,23 @@
     "categoryEntertainment": "Entretenimiento",
     "categoryMusic": "Música",
 
-    "position": "Puesto "
+    "position": "Puesto ",
+
+    "help": "Ayuda",
+    "helpTitle": "Ayuda",
+
+    "helpCustomTitle": "Modo Personalizado:",
+    "helpCustom": " ¡Crea tu propio desafío! En este modo, puedes personalizar el tiempo para responder las preguntas y el número de preguntas que deseas responder.",
+    
+    "helpCategoryTitle": "Modo Maestro del Tema:",
+    "helpCategory": "Demuestra tu dominio en un tema específico. En este modo, todas las preguntas estarán relacionadas con una categoría seleccionada.",
+    
+    "helpDailyTest": "Desafío Diario:",
+    "helpDaily": "¡Mantén tu mente afilada! Cada día, encontrarás un nuevo desafío con preguntas frescas.",
+    
+    "helpSageTitle": "Modo Sabio:",
+    "helpSage": "Pon a prueba tus conocimientos sin límite de tiempo.",
+
+    "helpBasicTitle": "Modo Clásico:",
+    "helpBasic": "Demuestra tu habilidad para responder preguntas en un tiempo limitado. En este modo, tendrás 10 preguntas y 20 segundos para responder cada una. ¡Buena suerte!"
 }

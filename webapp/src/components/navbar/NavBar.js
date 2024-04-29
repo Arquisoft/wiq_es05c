@@ -144,6 +144,12 @@ const NavBar = ({ setDarkMode, darkMode}) => {
           </ListItemIcon>            
             {t('english')}</MenuItem>
         </Menu>
+        
+        <Button color="inherit" component={Link} to="/help"
+        onClick={()=>handleNavPagesClick()} data-testid="helpButton"
+        >
+          {t('help')}
+        </Button>
 
         <CustomSwitch id='dark-mode-switch' onChange={handleToggle} />
         {isLoggedIn() ? (

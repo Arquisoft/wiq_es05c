@@ -110,6 +110,24 @@
     "categoryEntertainment": "Entertainment",
     "categoryMusic": "Music",
     
-    "position": "Position "
+    "position": "Position ",
+
+    "help": "Help",
+    "helpTitle": "Welcome to Help",
+
+    "helpCustomTitle": "Custom Mode:",
+    "helpCustom": "Create your own challenge! In this mode, you can customize the time to answer the questions and the number of questions you want to answer.",
+
+    "helpCategoryTitle": "Master of the Topic Mode:",
+    "helpCategory": "Show your mastery in a specific topic. In this mode, all questions will be related to a selected category.",
+
+    "helpDailyTest": "Daily Challenge:",
+    "helpDaily": "Keep your mind sharp! Each day, you will find a new challenge with fresh questions.",
+
+    "helpSageTitle": "Sage Mode:",
+    "helpSage": "Test your knowledge without a time limit.",
+
+    "helpBasicTitle": "Classic Mode:",
+    "helpBasic": "Show your ability to answer questions in a limited time."
 
 }

@@ -12,7 +12,7 @@ export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded,
     //Colores de los botones para que tengan orden random
     //console.log("En asnblock "+darkMode.darkMode);
     
-    const colorsArray= darkMode.darkMode? ["#FFD743","#D773A2","#07BB9C","#A06AB4"] : ["#E3C7E0","#BAE5C0","#84C7F2","#E8F7FF"];
+    const colorsArray= darkMode.darkMode? ["#FFD743","#D773A2","#07BB9C","#A06AB4"] : ["#CCA1F3","#D19FC6","#C8F4F9","#B5EECB"];
     //Baraja con algoritmo de Fisher-Yates los colores
     for (let i = colorsArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

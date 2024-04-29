@@ -40,8 +40,8 @@ const NavBar = ({ setDarkMode, darkMode}) => {
   };
 
   console.log('darkMode naav', darkMode);
-  let barBackgroundColor = darkMode?"#001c17" : "#fef5c6";
-  let textColor = darkMode?"#FCFAF0" : "#08313A";
+  let barBackgroundColor = darkMode?"#001c17" : "#37BEB0";
+  let textColor = darkMode?"#FCFAF0" : "#071815";
 
   //para la internacionalización
   const { t, i18n } = useTranslation();
@@ -125,8 +125,8 @@ const NavBar = ({ setDarkMode, darkMode}) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
         <IconButton id='change-language-button' onClick={handleClickLanguage}>
-          <LanguageIcon color={darkMode ? "primary" : "action"} />
-          <Typography id="idioma" data-testid="idioma" color={darkMode ? "primary" : "action"} >{i18n.language.toUpperCase()} </Typography>
+          <LanguageIcon color={darkMode ? "#FCFAF0" : "#071815"} />
+          <Typography id="idioma" data-testid="idioma" color={darkMode ? "#FCFAF0" : "#071815"} >{i18n.language.toUpperCase()} </Typography>
         </IconButton>
         <Menu
           anchorEl={anchorLanguage}

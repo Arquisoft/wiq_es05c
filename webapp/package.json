@@ -33,7 +33,7 @@
     "prod": "serve -s build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
     "clearJestCache": "jest --clearCache",
-    "test:e2e": "npm run clearJestCache && start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8000/health prod 3000 \"cd e2e && jest\"",
+    "test:e2e": "docker-compose down && start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8000/health prod 3000 \"cd e2e && jest --runInBand\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

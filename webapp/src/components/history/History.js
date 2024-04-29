@@ -18,19 +18,26 @@ export function History({darkMode}){
   const [isLoadingGames, setIsLoadingGames] = useState(true);
   const [stats, setStatistics] = useState([]);//Para las estadisticas completas de todos los juegos
   const [isLoadingStats, setIsLoadingStats] = useState(true);
-
+  const [neverPlayer, setNeverPlayer] = useState(false);
 
   useEffect(() => {
     fetch(gamesEndpoint)
       .then(response => response.json())
       .then(partidas => {
-        //console.log("Partidas: ");
-        //console.log(partidas);
-        act(() => {
-          let gamesArray = Object.values(partidas);
-          setAllGames(gamesArray);
+        console.log("Partidas: ");
+        console.log(partidas);
+
+        if(partidas.error || partidas.length === 0 || Object.values(partidas)){
+          setNeverPlayer(true);
           setIsLoadingGames(false);
-        });
+        }
+        else{
+          act(() => {
+            let gamesArray = Object.values(partidas);
+            setAllGames(gamesArray);
+            setIsLoadingGames(false);
+          });
+       }
       })
       .catch(error => {
         //console.error('Error cargando el historial de todas las partidas del usuario:', error);
@@ -58,23 +65,24 @@ export function History({darkMode}){
   let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
   let text = darkMode ? '#FCFAF0' : '#08313A';
 
-  return (
+    return (
     <Box backgroundColor={backgroundColor} margin="1em" borderRadius="1em" flexGrow="1" border={"0.1em solid"+text}>
     {(isLoadingGames || isLoadingStats) ? (
       <Spinner
-      thickness='0.3em'
-      speed='0.65s'
-      emptyColor='gray.200'
-      color='blue.500'
-      size='xl'
-      marginTop='5em'
-      data-testid="loading-spinner"
+        thickness='0.3em'
+        speed='0.65s'
+        emptyColor='gray.200'
+        color='blue.500'
+        size='xl'
+        marginTop='5em'
+        data-testid="loading-spinner"
       />//Para mientras carga
+    ) :neverPlayer ? (
+      <p>No hay datos disponibles.</p>
     ) : (
       <Box id='main-history' backgroundColor={backgroundColor}>
-
-      <StatsBlock darkMode={darkMode} playerStats={stats} />
-      <AllGamesBlock games={allGames} darkMode={darkMode}/>
+        <StatsBlock darkMode={darkMode} playerStats={stats} />
+        <AllGamesBlock games={allGames} darkMode={darkMode}/>
       </Box>
     )}
   </Box>

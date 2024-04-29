@@ -22,8 +22,6 @@ defineFeature(feature, test => {
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 20 , defaultViewport: { width: 1200, height: 800 }});
       pageUser = await browserUser.newPage();
-    //Way of setting up the timeout
-    setDefaultOptions({ timeout: 10000 })
 
     await pageHost
       .goto("http://localhost:3000/addUser", {

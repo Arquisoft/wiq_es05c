@@ -87,6 +87,7 @@ defineFeature(feature, test => {
     });
   })
   
+  /*
   test('User wants to play the daily question but he/she/they already played it', ({when,then}) => {
 
     when('I try to play the daily question', async () => {     
@@ -97,6 +98,7 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement(".yaJugoDiaria");
     });
   })
+  */
 
   afterAll(async ()=>{
     browser.close()

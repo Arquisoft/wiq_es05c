@@ -78,10 +78,7 @@ defineFeature(feature, test => {
         await expect(page).toClick("#button-infinite-game");
 
         while (!(await page.$('.finDelJuego'))) {
-          // Responde a las preguntas
-          for (let i = 0; i < 10; i++) {
-              await expect(page).toClick("#buttonAnswer0");
-          }
+          await expect(page).toClick("#buttonAnswer0");
       }
     });
 

@@ -56,6 +56,8 @@ jobs:
   e2e-tests:
     needs: [unit-tests]
     runs-on: self-hosted
+    container:
+      image: puppeteer/puppeteer:latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

@@ -13,14 +13,14 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     browserHost = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20, defaultViewport: { width: 1200, height: 800 }});
+      : await puppeteer.launch({ headless: false, slowMo: 0, defaultViewport: { width: 1200, height: 800 }});
     pageHost = await browserHost.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 30000 })
 
     browserUser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20 , defaultViewport: { width: 1200, height: 800 }});
+      : await puppeteer.launch({ headless: false, slowMo: 0 , defaultViewport: { width: 1200, height: 800 }});
       pageUser = await browserUser.newPage();
 
     await pageHost

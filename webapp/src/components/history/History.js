@@ -55,10 +55,16 @@ export function History({darkMode}){
       .then(estadisticas => {
         //console.log("Estadísticas: ");
         //console.log(estadisticas);
-        act(() => {
-          setStatistics(estadisticas);
+        if(estadisticas.error || estadisticas.length === 0 || Object.values(estadisticas)){
+          setNeverPlayer(true);
           setIsLoadingStats(false);
-        });
+        }
+        else{
+          act(() => {
+            setStatistics(estadisticas);
+            setIsLoadingStats(false);
+          });
+        }
       })
       .catch(error => {
         //console.error('Error cargando las estadísticas del usuario:', error);

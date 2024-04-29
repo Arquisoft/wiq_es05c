@@ -11,7 +11,7 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20, defaultViewport: { width: 1200, height: 800 }});
+      : await puppeteer.launch({ headless: false, slowMo: 0, defaultViewport: { width: 1200, height: 800 }});
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 30000 })
@@ -87,7 +87,7 @@ defineFeature(feature, test => {
     });
   })
   
-  /*
+  
   test('User wants to play the daily question but he/she/they already played it', ({when,then}) => {
 
     when('I try to play the daily question', async () => {     
@@ -98,7 +98,7 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement(".yaJugoDiaria");
     });
   })
-  */
+  
 
   afterAll(async ()=>{
     browser.close()

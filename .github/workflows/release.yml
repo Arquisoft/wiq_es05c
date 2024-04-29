@@ -38,7 +38,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [unit-tests]
+    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -52,14 +52,34 @@ jobs:
         buildargs: REACT_APP_API_URI
       env:  # Esta línea estaba mal indentada
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
-        
+  
+  e2e-tests:
+    needs: [unit-tests]
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm --prefix users/authservice install
+    - run: npm --prefix users/userservice install
+    - run: npm --prefix gatewayservice install
+    - run: npm --prefix historyservice install
+    - run: npm --prefix questionservice install
+    - run: npm --prefix roomservice install
+    - run: npm --prefix webapp install
+    - run: npm --prefix webapp run build
+    - run: npm --prefix webapp run test:e2e
+    env :
+      CI : ""
+
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    needs: [unit-tests]
+    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -81,7 +101,7 @@ jobs:
             permissions:
               contents: read
               packages: write
-            needs: [unit-tests]
+            needs: [e2e-tests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -99,7 +119,7 @@ jobs:
             permissions:
               contents: read
               packages: write
-            needs: [unit-tests]
+            needs: [e2e-tests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -117,7 +137,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [unit-tests]
+    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -135,7 +155,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [unit-tests]
+    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -153,7 +173,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [unit-tests]
+    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry

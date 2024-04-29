@@ -184,28 +184,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
-  docker-push-grafana:
-    name: Push Grafana Docker Image to GitHub Packages
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    needs: [e2e-tests]
-    steps:
-    - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-        name: arquisoft/wiq_es05c/grafana
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ghcr.io
-        workdir: grafana
-        buildargs: GF_SECURITY_ADMIN_PASSWORD
-      env:
-        GF_SECURITY_ADMIN_PASSWORD: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD  }}
-
-
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest

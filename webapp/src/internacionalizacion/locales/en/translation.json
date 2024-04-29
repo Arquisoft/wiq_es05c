@@ -58,10 +58,10 @@
     "logoutMessage": "Thank you for playing. Come back soon!",
 
     "group": "WIQ_ES05C",
-    "welcomeMessage": "Our group: how and then the game",
-    "welcomeMessage2": "Welcome to our quiz game",
-    "welcomeMessage3": "We are a team of developers passionate about quiz games.",
-    "welcomeMessage4": "In this game, we challenge you to answer a series of random questions from various categories. We offer several game modes to keep things interesting. Good luck!",
+    "welcomeMessage": "Welcome to our exciting online trivia game, where you can test your knowledge and challenge your friends in an intellectual duel",
+    "welcomeMessage2": "Main Features:",
+    "welcomeMessage3": "Multiplayer Mode: Challenge your friends in exciting real-time multiplayer matches.",
+    "welcomeMessage4": "Daily Challenges: Keep your mind sharp with our daily challenges!",
 
     "startButton": "Start game",
 

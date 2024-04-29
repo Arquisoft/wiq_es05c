@@ -52,7 +52,7 @@ test('renders RankingRoom component with empty ranking', () => {
   );
 
   // Check if the "Ranking" heading is rendered
-  expect(screen.getByText('Ranking')).toBeInTheDocument();
+  expect(screen.getByText('ranking')).toBeInTheDocument();
 
   // Check if no players are rendered
   expect(screen.queryByText('Puesto 1')).toBeNull();

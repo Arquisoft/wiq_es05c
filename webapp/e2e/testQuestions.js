@@ -15,8 +15,7 @@ async function insertTestData() {
         const categoryCollection = database.collection('categorias');
         const answersCollection = database.collection('respuestas');
         const typesCollection = database.collection('tipos');
-        const historyCollection = database.collection('historials');
-
+  
         // insertamos las categorias
         await categoryCollection.insertMany([
             { 
@@ -96,36 +95,7 @@ async function insertTestData() {
         testQuestions[0].diaria = formattedDate;
 
         // insertamos las preguntas
-        await questionsCollection.insertMany(testQuestions);
-
-        //insertar historial 
-        await historyCollection.insertMany([{
-            _id : new ObjectId('6611a60d494c408da0d0c1a2'),
-            user: "userTestButtons",
-            juegos: [
-              {
-                numeroJuego: 1,
-                preguntasFalladas: 2,
-                preguntasAcertadas: 8,
-                tiempo: 10,
-                fecha: new Date('2022-01-01T00:00:00Z')
-              },
-              {
-                numeroJuego: 2,
-                preguntasFalladas: 3,
-                preguntasAcertadas: 7,
-                tiempo: 15,
-                fecha: new Date('2022-01-02T00:00:00Z')
-              },
-              {
-                numeroJuego: 3,
-                preguntasFalladas: 1,
-                preguntasAcertadas: 9,
-                tiempo: 12,
-                fecha: new Date('2022-01-03T00:00:00Z')
-              }
-            ]}]);
-        
+        await questionsCollection.insertMany(testQuestions);        
 
     } finally {
         await client.close(); // Cerrar la conexión con la base de datos

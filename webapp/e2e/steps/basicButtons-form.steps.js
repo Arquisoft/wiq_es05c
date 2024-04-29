@@ -82,7 +82,7 @@ defineFeature(feature, test => {
     });
 
     then('I should see a list of past games played', async () => {
-      await expect(page).toMatchElement("#main-history");
+      await expect(page).toMatchElement("#noplay-history");
     });
   })
   

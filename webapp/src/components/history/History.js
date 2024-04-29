@@ -4,6 +4,8 @@ import { Box, Spinner} from "@chakra-ui/react";
 import { AllGamesBlock } from './AllGamesBlock';
 import { StatsBlock } from './StatsBlock';
 import { act } from 'react-dom/test-utils';
+import { useTranslation } from 'react-i18next';
+import { Text } from "@chakra-ui/react";
 
 export function History({darkMode}){
 
@@ -19,6 +21,9 @@ export function History({darkMode}){
   const [stats, setStatistics] = useState([]);//Para las estadisticas completas de todos los juegos
   const [isLoadingStats, setIsLoadingStats] = useState(true);
   const [neverPlayer, setNeverPlayer] = useState(false);
+
+  //para la internacionalización
+  const {t} = useTranslation();
 
   useEffect(() => {
     fetch(gamesEndpoint)
@@ -78,8 +83,11 @@ export function History({darkMode}){
         data-testid="loading-spinner"
       />//Para mientras carga
     ) :neverPlayer ? (
-      <p>No hay datos disponibles.</p>
-    ) : (
+        <Box id='noplay-history' display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100%">    
+          <Text fontSize="2xl" fontFamily='Roboto'>{t('historyNoData')}</Text>
+          <Text fontSize="2xl" fontFamily='Roboto'>{t('historyNoDataParraf')}</Text>
+      </Box>
+        ) : (
       <Box id='main-history' backgroundColor={backgroundColor}>
         <StatsBlock darkMode={darkMode} playerStats={stats} />
         <AllGamesBlock games={allGames} darkMode={darkMode}/>

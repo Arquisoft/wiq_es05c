@@ -9,6 +9,6 @@ Scenario: User play the daily question
   When I play the daily question
   Then I should see a message with my game results
 
-  Scenario: User wants to play the daily question but he/she/they already played it
+Scenario: User wants to play the daily question but he/she/they already played it
   When I try to play the daily question
   Then I should see a message

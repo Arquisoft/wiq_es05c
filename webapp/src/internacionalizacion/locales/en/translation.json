@@ -26,6 +26,8 @@
     "passwordRepeatHelper": "Passwords must match",
 
     "historyMessage": "History of ",
+    "historyNoData": "No data available.",
+    "historyNoDataParraf": "Play a game to have history.",
     "resume": "Summary",
     "gamesPlayed": "Games played",
     "questionsCorrect": "Questions correct",

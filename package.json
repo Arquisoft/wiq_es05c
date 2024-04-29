@@ -3,6 +3,8 @@
     "@chakra-ui/icons": "^2.1.1",
     "axios": "^1.6.8",
     "express": "^4.19.2",
+    "express-prom-bundle": "^7.0.0",
+    "prom-client": "^15.1.2",
     "react-bootstrap": "^2.10.2",
     "react-scripts": "^5.0.1",
     "socket.io-client": "^4.7.5",

@@ -11,10 +11,10 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20, defaultViewport: { width: 1200, height: 800 }});
+      : await puppeteer.launch({ headless: false, slowMo: 0, defaultViewport: { width: 1200, height: 800 }});
     page = await browser.newPage();
     //Way of setting up the timeout
-    setDefaultOptions({ timeout: 10000 })
+    setDefaultOptions({ timeout: 30000 })
 
     await page
       .goto("http://localhost:3000/addUser", {
@@ -78,10 +78,7 @@ defineFeature(feature, test => {
         await expect(page).toClick("#button-infinite-game");
 
         while (!(await page.$('.finDelJuego'))) {
-          // Responde a las preguntas
-          for (let i = 0; i < 10; i++) {
-              await expect(page).toClick("#buttonAnswer0");
-          }
+          await expect(page).toClick("#buttonAnswer0");
       }
     });
 

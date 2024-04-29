@@ -26,6 +26,8 @@
     "passwordRepeatHelper": "Las contraseñas tienen que coincidir",
 
     "historyMessage": "Historial de ",
+    "historyNoData": "No hay datos disponibles.",
+    "historyNoDataParraf": "Juega una partida para tener historial.",
     "resume": "Resumen",
     "gamesPlayed": "Partidas jugadas",
     "questionsCorrect": "Preguntas acertadas",

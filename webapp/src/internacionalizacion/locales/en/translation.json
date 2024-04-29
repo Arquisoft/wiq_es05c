@@ -58,10 +58,10 @@
     "logoutMessage": "Thank you for playing. Come back soon!",
 
     "group": "WIQ_ES05C",
-    "welcomeMessage": "Our group: how and then the game",
-    "welcomeMessage2": "Welcome to our quiz game",
-    "welcomeMessage3": "We are a team of developers passionate about quiz games.",
-    "welcomeMessage4": "In this game, we challenge you to answer a series of random questions from various categories. We offer several game modes to keep things interesting. Good luck!",
+    "welcomeMessage": "Welcome to our exciting online trivia game, where you can test your knowledge and challenge your friends in an intellectual duel",
+    "welcomeMessage2": "Main Features:",
+    "welcomeMessage3": "Multiplayer Mode: Challenge your friends in exciting real-time multiplayer matches.",
+    "welcomeMessage4": "Daily Challenges: Keep your mind sharp with our daily challenges!",
 
     "startButton": "Start game",
 
@@ -108,6 +108,26 @@
     "categoryArt": "Art",
     "categorySports": "Sports",
     "categoryEntertainment": "Entertainment",
-    "categoryMusic": "Music"   
+    "categoryMusic": "Music",
+    
+    "position": "Position ",
+
+    "help": "Help",
+    "helpTitle": "Welcome to Help",
+
+    "helpCustomTitle": "Custom Mode:",
+    "helpCustom": "Create your own challenge! In this mode, you can customize the time to answer the questions and the number of questions you want to answer.",
+
+    "helpCategoryTitle": "Master of the Topic Mode:",
+    "helpCategory": "Show your mastery in a specific topic. In this mode, all questions will be related to a selected category.",
+
+    "helpDailyTest": "Daily Challenge:",
+    "helpDaily": "Keep your mind sharp! Each day, you will find a new challenge with fresh questions.",
+
+    "helpSageTitle": "Sage Mode:",
+    "helpSage": "Test your knowledge without a time limit.",
+
+    "helpBasicTitle": "Classic Mode:",
+    "helpBasic": "Show your ability to answer questions in a limited time."
 
 }

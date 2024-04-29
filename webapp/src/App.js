@@ -26,6 +26,9 @@ import BasicGame from './components/game/BasicGame';
 import DailyGameMode from './components/game/gameModes/DailyGameMode';
 import CategoriesWindow from './components/categories/Categories';
 
+import HelpView from './components/help/HelpView';
+
+
 const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
@@ -73,6 +76,13 @@ const App = () => {
               <Home />
             </AuthenticatedLayout>
           } />
+
+          <Route path="/help" element={
+              <ChakraProvider>
+                <HelpView darkMode={darkMode}/>
+              </ChakraProvider>
+          } />
+
           <Route path="/game" element={
             <AuthenticatedLayout>
               <ChakraProvider><Game darkMode={darkMode} gameMode={new BasicGame()}/>  </ChakraProvider>

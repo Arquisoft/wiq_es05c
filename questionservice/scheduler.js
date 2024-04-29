@@ -42,7 +42,7 @@ class Scheduler {
 
 
     start() {
-        this.job1 = cron.schedule('*/15 * * * *', async () => {
+        this.job1 =  cron.schedule('0 * * * *', async () => {
             try {
                 await this.generarPregunta();
             }

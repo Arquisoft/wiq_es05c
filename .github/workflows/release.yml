@@ -57,7 +57,7 @@ jobs:
     needs: [unit-tests]
     runs-on: self-hosted
     container:
-      image: puppeteer/puppeteer:latest
+      image: puppeteer/puppeteer-node:latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

@@ -108,5 +108,7 @@
     "categoryArt": "Arte",
     "categorySports": "Deportes",
     "categoryEntertainment": "Entretenimiento",
-    "categoryMusic": "Música"
+    "categoryMusic": "Música",
+
+    "position": "Puesto "
 }

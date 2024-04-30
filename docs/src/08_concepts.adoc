@@ -19,6 +19,7 @@ If they have played before, they will be able to view different metrics regardin
 Additionally, they can start a new game at any time and, upon completion, view the statistics of their results.
 
 Here you can see the home page of our webapp.
+image::Inicio.png["Index WebApp Result"] 
 
 
 === Security & Safety

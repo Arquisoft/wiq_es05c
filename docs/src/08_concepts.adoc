@@ -41,6 +41,7 @@ In summary, microservices offer a flexible and scalable way to build application
 
 
 === Development concepts
+In order to test the proper functioning of our application, we have implemented various types of tests, including unit tests, load tests, and end-to-end (E2E) tests. 
+Additionally, we have conducted different accessibility and maintenance tests to study its performance.
 
-    * Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
-    Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.
+Testing has been carried out on the gateway-service, user-service, history-service, auth-service and room-service microservices and the game webapp component.

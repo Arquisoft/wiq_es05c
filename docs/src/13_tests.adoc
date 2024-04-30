@@ -120,7 +120,7 @@ E2E tests are a methodology used to ensure that applications behave as expected 
 
 In summary, E2E tests validate the complete functionality of an application from start to finish, ensuring that all components interact correctly and that the software meets expectations before its release. 
 
-image::e2eTest.png["E2E Tests Result"] 
+image::e2eTests.png["E2E Tests Result"] 
 
 [[section-load-tests-results]]
 === Load Tests Results

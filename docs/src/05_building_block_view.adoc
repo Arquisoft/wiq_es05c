@@ -9,7 +9,7 @@ image::scopeAndContext.png["Scope and Context"]
 
 === Whitebox WIQ
 
-image::Level1.png["Level 1"]
+image::Level1-.png["Level 1"]
 
 Motivation::
 
@@ -36,7 +36,7 @@ Contained Building Blocks::
 
 ==== White Box Users Services
 
-image::Level2-Users.png["Level 2 Users Services"]
+image::Level2-Users-.png["Level 2 Users Services"]
 
 [cols="1,2" options="header"]
 |===
@@ -48,7 +48,7 @@ image::Level2-Users.png["Level 2 Users Services"]
 
 ==== White Box Questionservice
 
-image::Level2-Question.png["Level 2 Questionservice"]
+image::Level2-Question-.png["Level 2 Questionservice"]
 
 [cols="1,2" options="header"]
 |===
@@ -59,7 +59,7 @@ image::Level2-Question.png["Level 2 Questionservice"]
 
 ==== White Box Historyservice
 
-image::Level2-History.png["Level 2 Historyservice"]
+image::Level2-History-.png["Level 2 Historyservice"]
 
 [cols="1,2" options="header"]
 |===

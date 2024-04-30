@@ -69,12 +69,23 @@ class GuardarDatosUsuarioHistorial{
          }
   });
   let inputBD = datos.user;
-  Historial.updateOne({ user: inputBD }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
-    console.log('Se ha actualizado el ranking diario correctamente o.');
-  }).catch(error => {
-    console.error('Error al actualizar el ranking diario:', error);
-  });
+  if (validarInput(inputBD)) {
+    Historial.updateOne({ user: inputBD }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
+      console.log('Se ha actualizado el ranking diario correctamente o.');
+    }).catch(error => {
+      console.error('Error al actualizar el ranking diario:', error);
+    });
+  }else{
+    console.error('Error al actualizar el ranking diario, mal validado.');
+  }
 }
+}
+
+function validarInput(user) {
+  if (!user || user !== localStorage.getItem('username')) {
+    return false;
+  }
+  return true;
 }
 
 module.exports = GuardarDatosUsuarioHistorial;

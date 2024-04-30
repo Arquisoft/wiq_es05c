@@ -9,6 +9,7 @@ let browser;
 defineFeature(feature, test => {
   
   beforeAll(async () => {
+    console.log('Starting Puppeteer basicButton... githubactyions.env', process.env.GITHUB_ACTIONS);
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 20 });

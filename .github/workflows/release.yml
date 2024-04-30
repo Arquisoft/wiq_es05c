@@ -29,24 +29,34 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
   e2e-tests:
-    needs: [unit-tests]
+    name: Execute E2Etests
     runs-on: ubuntu-latest
+
+    needs: [docker-push-userservice,docker-push-authservice,docker-push-questionservice,docker-push-historyservice,docker-push-gatewayservice,docker-push-webapp,docker-push-roomservice]
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - name: Executing E2E tests
+      uses: fifsky/ssh-action@master
       with:
-        node-version: 20
-    - run: npm --prefix users/authservice install
-    - run: npm --prefix users/userservice install
-    - run: npm --prefix gatewayservice install
-    - run: npm --prefix historyservice install
-    - run: npm --prefix questionservice install
-    - run: npm --prefix roomservice install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: npm --prefix webapp run test:e2e
-    env :
-      CI : ""
+        host: ${{ secrets.DEPLOY_HOST }}
+        user: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        command: |
+          cd wiq_es05
+          export GITHUB_ACTIONS=true
+          echo "The value of GITHUB ACTIONS is: $GITHUB_ACTIONS"
+          npm --prefix users/authservice install
+          npm --prefix users/userservice install
+          npm --prefix gatewayservice install
+          npm --prefix historyservice install
+          npm --prefix questionservice install
+          npm --prefix roomservice install
+          npm --prefix webapp install
+          npm --prefix webapp run build   
+          chmod +x ./scripts/waitforSUT.sh
+          docker compose --profile prod up -d --pull always
+          ./scripts/waitforSUT.sh
+          npm --prefix webapp run test:e2e
 
   
   docker-push-roomservice:
@@ -55,7 +65,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
+    
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -76,7 +86,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -98,7 +107,6 @@ jobs:
             permissions:
               contents: read
               packages: write
-            needs: [e2e-tests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -116,7 +124,6 @@ jobs:
             permissions:
               contents: read
               packages: write
-            needs: [e2e-tests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -134,7 +141,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -152,7 +158,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -170,7 +175,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry

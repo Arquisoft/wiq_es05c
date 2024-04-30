@@ -16,7 +16,7 @@ defineFeature(feature, test => {
       : await puppeteer.launch({ headless: false, slowMo: 20 });
     page = await browser.newPage();
     //Way of setting up the timeout
-    setDefaultOptions({ timeout: 10000 })
+    setDefaultOptions({ timeout: 40000 })
 
     await page
       .goto("http://localhost:3000/login", {

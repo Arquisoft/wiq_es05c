@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-building-block-view]]
 
 
-== Building Block View (In progress)
+== Building Block View
 
 image::scopeAndContext.png["Scope and Context"]
 
@@ -21,13 +21,13 @@ Contained Building Blocks::
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Webapp | Provides the interface to register, play and check participation history
-| Gateway service | Facilitates communication between the different ports of the application
-| Authservice | Allows a user to create an account in our application
-| Userservice | Allows a user to access our application to play and view their history
-| Roomservice | Service that handles multiplayer gaming in rooms
-| Historyservice | Service that is responsible for saving and returning the history of user games
-| Questionservice | It calls the Wikidata API using queries to retrieve questions, then stores them in the database. Additionally, it retrieves questions from the database when needed.
+| Webapp | Provides the interface to do everything necessary in the application, sign in, sign up, sign out, play the different game modes, view the history and the ranking of the daily questions
+| Gateway service | The API Gateway is a server that handles many functionalities in a single place for the clients to interact. In also works as a reverse proxy between your client applications and the back-end microservices architecture.
+| Authservice | Microservice that is responsible of checking the credentials of the user who wants to log in and storing the last game of the daily question for the correct operation of that game mode
+| Userservice | Microservice that is responsible to check the correct validity of the data entered by the user and add the user if everything is correct
+| Roomservice | Microservice that is responsible to manage the questions in the room, the users and the rooms.
+| Historyservice | Microservice that is responsible for saving and returning the history of user games, update the user daily question history and return a ranking of the daily history.
+| Questionservice | Microservice that is responsible to generate the different Wikidata questions through an automatic generation using Wikidata, returns the generated questions from the database and generates the daily question.
 | Databases | Stores information about users, games, questions and history
 |===
 
@@ -41,9 +41,9 @@ image::level2-Users.png["Level 2 Users Services"]
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| authservice | The authentication service validates user credentials by verifying their existence in the database and ensuring the correctness of the provided password.
-| userservice | The registration service validates user registration details by checking the uniqueness of the email and username in the database, as well as verifying the format and correctness of the provided password, ensuring it matches the repeated entry.
-| userdb | The user database stores user information, including their email, username, and hashed password. Each user have their credentials securely stored for authentication purposes.
+| authservice | Exposes API endpoints that enable the authentication of a user by verifying their existence in the database and ensuring the correctness of the provided password and update the date of the last daily game.
+| userservice | Exposes API endpoint that enable the registration of a user. It validates user registration details by checking the uniqueness of the email and username in the database, as well as verifying the format and correctness of the provided password, ensuring it matches the repeated entry.
+| userdb | The user database stores user information, including their email, username, hashed password and the last day the user played the daily. Each user have their credentials securely stored for authentication purposes.
 |===
 
 ==== White Box Questionservice
@@ -53,8 +53,8 @@ image::level2-Question.png["Level 2 Questionservice"]
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| questionservice | The questionservice automatically generates questions by making a call to the Wikidata API, retrieving relevant information, and subsequently saving the generated question in the database. Additionally, it is responsible for providing questions tailored for each type of game available in the application.
-| questionsdb | Database that stores the question along with their correct answer, the category to which the question belongs, the type of the question and the answers to those questions.
+| questionservice | Exposes API endpoints that enable generate questions by making a call to the Wikidata, retrieving relevant information, and subsequently saving the generated question in the database. Additionally, it is responsible for providing questions tailored for each type of game available in the application.
+| questionsdb | The questions database stores the question along with their correct answer, the category to which the question belongs, the type of the question and the answers to those questions.
 |===
 
 ==== White Box Historyservice
@@ -64,7 +64,7 @@ image::level2-History.png["Level 2 Historyservice"]
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| historyservice | The historyservice is responsible for storing data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.
+| historyservice | Exposes API endpoints that enable the storage of data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.
 | historydb | The historydb stores user data and maintains a record of each normal game played. For every game, it saves essential details including the game number, the number of correct questions, the number of failed questions, the time taken to complete the game, and the date on which it was played.
 |===
 

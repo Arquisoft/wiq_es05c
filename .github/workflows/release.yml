@@ -55,52 +55,36 @@ jobs:
       env:  # Esta línea estaba mal indentada
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
   
+  
   e2e-tests:
-    needs: [unit-tests]
-    runs-on: self-hosted
-    
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 21
-    - name: Install npm 10.5.0
-      run: npm install -g npm@10.5.0
-    
-    - name: List files in current directory
-      run: ls -la
-
-    - name: Change to repository root
-      run: cd $GITHUB_WORKSPACE
-
-    - name: List files in repository root
-      run: ls -la
-      working-directory: ${{ github.workspace }}
-    - name: Print Node.js version
-      run: node -v 
-    - name: Print npm version
-      run: npm -v
-
-    - run: npm --prefix users/authservice install
-    - run: npm --prefix users/userservice install
-    - run: npm --prefix gatewayservice install
-    - run: npm --prefix historyservice install
-    - run: npm --prefix questionservice install
-    - run: npm --prefix roomservice install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: npx serve -s webapp/build -l 3000 &
-
-    - name: Wait for services to start
-      run: sleep 20
-    - name: List webapp files
-      run: ls -la webapp/build    
-    - name: Check webapp availability
-      run: curl http://localhost:3000
-    - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
-      working-directory: ${{ github.workspace }}
-    env :
-      CI : ""
+    - name: Checkout code
+      uses: actions/checkout@v2
+  
+    - name: Run e2e tests on local machine
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" > deploy_key
+        chmod 600 deploy_key
+        ssh -o StrictHostKeyChecking=no -i deploy_key azureuser@${{ secrets.DEPLOY_HOST }} <<'ENDSSH'
+        cd ~
+        if [ ! -d "e2e" ]; then
+          git clone https://github.com/Arquisoft/wiq_es05c.git e2e
+        fi
+        cd e2e
+        git pull
+        npm install -g npm@10.5.0
+        npm --prefix users/authservice install
+        npm --prefix users/userservice install
+        npm --prefix gatewayservice install
+        npm --prefix historyservice install
+        npm --prefix questionservice install
+        npm --prefix roomservice install
+        npm --prefix webapp install
+        npm --prefix webapp run build
+        xvfb-run --auto-servernum npm --prefix webapp run test:e2e
+        ENDSSH
+      shell: bash
 
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages

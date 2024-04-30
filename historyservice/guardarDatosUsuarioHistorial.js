@@ -60,24 +60,23 @@ class GuardarDatosUsuarioHistorial{
           // Si no existe historial para ese usuario lo crea
           var nuevoHistorial = new Historial({
               user: datos.user,
-              diariasAcertadas:1
+              diariasAcertadas:0
           });           
           //Guardamos el nuevo historial
           nuevoHistorial.save();
           console.log("Guardado nuevo historial");
          }
-
-         else{
-          
-          usuarioExistente.diariasAcertadas++;
-          
-          usuarioExistente.save();
-          console.log("Guardado historial");
-         }
-
-       });
-  }
-
+  });
+  Historial.updateOne({ user: datos.user }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
+    console.log('Se ha actualizado el ranking diario correctamente o.');
+  }).catch(error => {
+    console.error('Error al actualizar el ranking diario:', error);
+  });
+  Historial.findOne({ user: datos.user  })
+  .then(usuarioExistente => {
+    console.log("Usuario existente",usuarioExistente);
+  });
+}
 }
 
 module.exports = GuardarDatosUsuarioHistorial;

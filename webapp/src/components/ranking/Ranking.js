@@ -24,12 +24,15 @@ export function Ranking({darkMode}){
           .then(response => response.json())
           .then(ranking => {
             console.log(ranking);
-            setRanking(ranking);
+            let rankingOrdenado = ranking.sort((a, b) => (a.diariasAcertadas < b.diariasAcertadas) ? 1 : -1);
+            console.log("despues ranking: "+rankingOrdenado);
+            setRanking(rankingOrdenado);
           })
           .catch(error => {
             console.error('Error cargando el ranking:', error);
           });
       }, []);
+
 
     //Mock de usuarios
     const users = [

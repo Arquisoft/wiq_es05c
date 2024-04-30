@@ -67,7 +67,7 @@ image::06-getRanking.png["GetRanking secuence diagram image"]
 1. The user wants to see the ranking of all players
 2. The app requests to the HistoryService that ranking
 3. The HistoryService gets the ranking from the History data base
-5. Finally the ranking is shown to the user
+4. Finally the ranking is shown to the user
 
 === Multiplayer game
 
@@ -76,7 +76,7 @@ image::06-multiplayer.png["Multiplayer game secuence diagram image"]
 1. Two users want to join a room and play a multiplayer game
 2. The application sends a request to the RoomsService
 3. This RoomsService where a room was created moments ago create a socket for each player 
-5. The RoomsService gets from the app the game details, questions and logic.
-6. All the game is managed by the RoomsService
-7. When the game is finished the RoomsService sends a response to the application
-8. Then the application sends all the results to the players
+4. The RoomsService gets from the app the game details, questions and logic.
+5. All the game is managed by the RoomsService
+6. When the game is finished the RoomsService sends a response to the application
+7. Then the application sends all the results to the players

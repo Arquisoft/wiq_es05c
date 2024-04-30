@@ -6,34 +6,11 @@ on:
   push:
     branches:
       - e2e
+
 jobs:
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - run: npm --prefix users/authservice ci
-    - run: npm --prefix users/userservice ci
-    - run: npm --prefix gatewayservice ci
-    - run: npm --prefix webapp ci
-    - run: npm --prefix users/authservice test -- --coverage
-    - run: npm --prefix users/userservice test -- --coverage
-    - run: npm --prefix gatewayservice test -- --coverage
-    - run: npm --prefix webapp test -- --coverage
-    - name: Analyze with SonarCloud
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
-  e2e-tests:
+  e2etests:
     name: Execute E2Etests
     runs-on: ubuntu-latest
-
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-questionservice,docker-push-historyservice,docker-push-gatewayservice,docker-push-webapp,docker-push-roomservice]
-
     steps:
     - name: Executing E2E tests
       uses: fifsky/ssh-action@master
@@ -42,7 +19,10 @@ jobs:
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
-          cd wiq_es05
+          rm -r ./e2e
+          git clone https://github.com/Arquisoft/wiq_es05c.git e2e
+          cd e2e
+          docker compose --profile prod down
           export GITHUB_ACTIONS=true
           echo "The value of GITHUB ACTIONS is: $GITHUB_ACTIONS"
           npm --prefix users/authservice install
@@ -53,9 +33,8 @@ jobs:
           npm --prefix roomservice install
           npm --prefix webapp install
           npm --prefix webapp run build   
-          chmod +x ./scripts/waitforSUT.sh
           docker compose --profile prod up -d --pull always
-          ./scripts/waitforSUT.sh
+          sleep 30
           npm --prefix webapp run test:e2e
 
   
@@ -65,7 +44,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    
+    needs: [e2etests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -86,6 +65,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs: [e2etests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -107,6 +87,7 @@ jobs:
             permissions:
               contents: read
               packages: write
+            needs: [e2etests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -124,6 +105,7 @@ jobs:
             permissions:
               contents: read
               packages: write
+            needs: [e2etests]
             steps:
               - uses: actions/checkout@v4
               - name: Publish to Registry
@@ -141,6 +123,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs: [e2etests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -158,6 +141,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs: [e2etests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -175,6 +159,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs: [e2etests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -185,22 +170,24 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
-
-  deploy:
-    name: Deploy over SSH
+  docker-push-grafana:
+    name: Push Grafana Docker Image to GitHub Packages
     runs-on: ubuntu-latest
-
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-questionservice,docker-push-historyservice,docker-push-gatewayservice,docker-push-webapp,docker-push-roomservice]
-
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2etests]
     steps:
-    - name: Deploy over SSH
-      uses: fifsky/ssh-action@master
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        host: ${{ secrets.DEPLOY_HOST }}
-        user: ${{ secrets.DEPLOY_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        command: |
-          wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/docker-compose.yml -O docker-compose.yml
-          wget https://raw.githubusercontent.com/arquisoft/wiq_es05c/master/.env -O .env
-          docker compose --profile prod down
-          docker compose --profile prod up -d --pull always
+        name: arquisoft/wiq_es05c/grafana
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: grafana
+        buildargs: GF_SECURITY_ADMIN_PASSWORD
+      env:
+        GF_SECURITY_ADMIN_PASSWORD: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD  }}
+

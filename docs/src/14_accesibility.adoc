@@ -1,0 +1,25 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-accesibility-tests-results]]
+== Accesibility Tests Results
+
+[[section-achecker]]
+=== AChecker
+To ensure the accessibility of our website, we utilized the AChecker tool. +
+As can be seen in the attached image, we evaluated all windows of the web application according to AAA accessibility criteria, and the results have been positive. 
+This means that our application complies with the strictest standards in terms of accessibility for people with disabilities. +
+We are committed to providing an inclusive experience for all our users.
+
+image::AChecker.png["AChecker Result"] 
+
+[[section-lighthouse]]
+=== LightHouse
+
+We conducted thorough testing using Google Lighthouse for our web application, and the results have been quite positive. 
+According to Google Lighthouse, the average accessibility score (calculated as the mean across all views within the web application) is 94%, indicating strong adherence to accessibility standards. Additionally, the performance score averages at 86%, demonstrating efficient loading times and overall responsiveness.
+
+We are committed to maintaining high standards of both accessibility and performance to ensure an optimal user experience. 
+These results validate our efforts in creating a robust and user-friendly web application.
+
+image::IndexAccesibility.png["LightHouse Result"] 
+

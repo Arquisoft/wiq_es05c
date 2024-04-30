@@ -12,10 +12,10 @@ describe('PrincipalView', () => {
     );
 
     expect(screen.getByText("WIQ_ES05C")).toBeInTheDocument(); // Asume que el idioma es inglés
-    expect(screen.getByText("Nuestro grupo: como y después el juego")).toBeInTheDocument();
-    expect(screen.getByText("Bienvenido a nuestro juego de preguntas")).toBeInTheDocument();
-    expect(screen.getByText("Somos un equipo de desarrolladores apasionados por los juegos de preguntas.")).toBeInTheDocument();
-    expect(screen.getByText("En este juego, te desafiamos a responder una serie de preguntas aleatorias de diferentes categorías. Ofrecemos varios modos de juego para mantener las cosas interesantes. ¡Buena suerte!")).toBeInTheDocument();
+    expect(screen.getByText("Bienvenido a nuestro emocionante juego de preguntas y respuestas en línea, donde podrás poner a prueba tus conocimientos y desafiar a tus amigos en un duelo intelectual")).toBeInTheDocument();
+    expect(screen.getByText("Características Principales:")).toBeInTheDocument();
+    expect(screen.getByText("Modo Multijugador: Desafía a tus amigos en emocionantes partidas multijugador en tiempo real.")).toBeInTheDocument();
+    expect(screen.getByText("Desafíos Diarios: ¡Mantén tu mente afilada con nuestros desafíos diarios!")).toBeInTheDocument();
   });
 
   test('renders correctly in dark mode', () => {
@@ -26,9 +26,9 @@ describe('PrincipalView', () => {
     );
 
     expect(screen.getByText("WIQ_ES05C")).toBeInTheDocument(); // Asume que el idioma es inglés
-    expect(screen.getByText("Nuestro grupo: como y después el juego")).toBeInTheDocument();
-    expect(screen.getByText("Bienvenido a nuestro juego de preguntas")).toBeInTheDocument();
-    expect(screen.getByText("Somos un equipo de desarrolladores apasionados por los juegos de preguntas.")).toBeInTheDocument();
-    expect(screen.getByText("En este juego, te desafiamos a responder una serie de preguntas aleatorias de diferentes categorías. Ofrecemos varios modos de juego para mantener las cosas interesantes. ¡Buena suerte!")).toBeInTheDocument();
+    expect(screen.getByText("Bienvenido a nuestro emocionante juego de preguntas y respuestas en línea, donde podrás poner a prueba tus conocimientos y desafiar a tus amigos en un duelo intelectual")).toBeInTheDocument();
+    expect(screen.getByText("Características Principales:")).toBeInTheDocument();
+    expect(screen.getByText("Modo Multijugador: Desafía a tus amigos en emocionantes partidas multijugador en tiempo real.")).toBeInTheDocument();
+    expect(screen.getByText("Desafíos Diarios: ¡Mantén tu mente afilada con nuestros desafíos diarios!")).toBeInTheDocument();
   });
 });

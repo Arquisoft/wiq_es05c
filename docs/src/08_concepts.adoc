@@ -18,6 +18,8 @@ The user will either register in the application or log in if they have already 
 If they have played before, they will be able to view different metrics regarding those games. 
 Additionally, they can start a new game at any time and, upon completion, view the statistics of their results.
 
+Here you can see the home page of our webapp.
+
 
 === Security & Safety
      - Privacy: The data introduced will be private and not visible to other users.
@@ -25,10 +27,21 @@ Additionally, they can start a new game at any time and, upon completion, view t
     
 
 === Architecture and design patterns
-In development...
+- The State pattern is a behavioral design pattern used to model situations where an object must change its behavior based on its internal state. Instead of having a single method that handles all possible actions, the State pattern divides actions into separate classes, each representing a different state. Each state class implements a common interface, allowing the main object to transition from one state to another without affecting its overall functionality. 
+
+Each state has its own logic and specific rules. The State pattern enables the game to dynamically adapt to the player’s current state.
+
+- Microservices are an architectural and organizational approach to software development. 
+In our model, software is composed of small, independent services that communicate through well-defined APIs. 
+
+Each service is created for specific business capabilities and performs a single function. 
+This allows for independent updates, deployments, and scalability to meet the needs of specific features. 
+
+In summary, microservices offer a flexible and scalable way to build applications, enabling greater agility and accelerating time-to-market for new features .
 
 
 === Development concepts
+In order to test the proper functioning of our application, we have implemented various types of tests, including unit tests, load tests, and end-to-end (E2E) tests. 
+Additionally, we have conducted different accessibility and maintenance tests to study its performance.
 
-    * Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
-    Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.
+Testing has been carried out on the gateway-service, user-service, history-service, auth-service and room-service microservices and the game webapp component.

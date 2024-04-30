@@ -73,8 +73,8 @@ export function History({darkMode}){
 
 
   //console.log(darkMode);
-  let backgroundColor = darkMode ? '#001c17' : '#fef5c6';
-  let text = darkMode ? '#FCFAF0' : '#08313A';
+  let backgroundColor = darkMode ? '#001c17' : '#37BEB0';
+  let text = darkMode ? '#FCFAF0' : '#071815';
 
     return (
     <Box backgroundColor={backgroundColor} margin="1em" borderRadius="1em" flexGrow="1" border={"0.1em solid"+text}>

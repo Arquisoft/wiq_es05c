@@ -5,7 +5,6 @@ import { Spinner, Box} from "@chakra-ui/react";
 import BasicGame from './BasicGame';
 import { useTranslation } from 'react-i18next';
 
-
 function Game({darkMode,gameMode=new BasicGame()}) {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
@@ -92,8 +91,8 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     handleAnswerSelect(false);
   };
   
-  let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#FFFFF5';
-  let backgroundColorSecond= darkMode.darkMode? '#107869' : '#FDF4E3';
+  let backgroundColorFirst= darkMode.darkMode? '#08313A' : '#A4E5E0';
+  let backgroundColorSecond= darkMode.darkMode? '#107869' : '#A4E5E0';
 
   return (
     <Box minH="100vh" minW="100vw" 

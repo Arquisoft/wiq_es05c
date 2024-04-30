@@ -167,9 +167,10 @@ class BasicGame extends GameMode {
   }
 
   incrementCorrectas(){
+    
     this.correctas++;
   }
-
+    
   incrementIncorrectas(){
     this.incorrectas++;
   }

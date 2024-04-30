@@ -61,12 +61,27 @@ TO-DO
 |===
 |Technical Debt |Description 
 
-|Space 1.1
-|Space 1.2
+|Improve multiplayer gamemode
+|There are some multiplayer aspects that can be improved such as functionallity and performance
 
-|Space 2.1
-|Space 2.2
+|White label in login and register
+|In the register and login area the label of the inputs can´t be put in white to contrast in the dark mode
 
-|Space 3.1
-|Space 3.2
+|Some bugs in diverse gamemodes
+|Some of the game modes have minor bugs that need to be deeply tested
+
+|Improve ranking
+|Make a ranking for each game mode or some idea similar
+
+|Fullfill coverage
+|We have the coverage around 80% so try to ascend that to 100%
+
+|Fix the security hotspots
+|Sonar Cloud mark diverse security hotspots so we could try to fix them
+
+|Color change and language buttons frozen
+|When in game we were forced to block those buttons because if you change them it restarted the timer and questions in game
+
+|More languages
+|At the moment we only have spanish and english translations so adding more languages is a good idea
 |===

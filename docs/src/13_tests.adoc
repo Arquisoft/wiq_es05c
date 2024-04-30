@@ -1,21 +1,22 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
-[[section-glossary]]
-===Tests Results
+[[section-tests-results]]
+=== Tests Results
 
 === Coverage
 image::coverage.png["Coverage Result Master"] 
 
 image::coverageOverview.png["Coverage OverView Master"] 
 
-==Auth Service Tests
-
+== Auth Service Tests
+[options="header",cols="1,2,3,4,5,6"]
+|===
 | File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s |
 |-----------------|---------|----------|---------|---------|-------------------|
 | All files       | 100     | 87.5     | 100     | 100     |                   |
 | auth-model.js   | 100     | 100      | 100     | 100     |                   |
 | auth-service.js | 100     | 87.5     | 100     | 100     | 14                |
-
+|===
 Test Suites: 1 passed, 1 total
 Tests:       3 passed, 3 total
 Snapshots:   0 total

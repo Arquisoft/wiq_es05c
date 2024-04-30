@@ -133,7 +133,7 @@ defineFeature(feature, test => {
       const backgroundColor = await page.$eval('#navbar', el => getComputedStyle(el).backgroundColor);
 
       // Verifica que el color de fondo coincide con el claro
-      expect(backgroundColor).toBe('rgb(254, 245, 198)');
+      expect(backgroundColor).toBe('rgb(55, 190, 176)');
     });
   })
 

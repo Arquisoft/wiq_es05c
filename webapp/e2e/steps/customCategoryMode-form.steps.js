@@ -41,8 +41,8 @@ defineFeature(feature, test => {
     let passwordConfirmation;    
 
     given('An unregistered user', async () => {      
-      email = "userTestDailyQuestionGame@email.com"
-      username = "userTestDailyQuestionGame"
+      email = "userTestCustomCategoryGame@email.com"
+      username = "userTestCustomCategoryGame"
       password = "Contraseña_1?"
       passwordConfirmation = "Contraseña_1?"
     });

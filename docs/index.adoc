@@ -94,4 +94,6 @@ include::src/12_glossary.adoc[]
 // 13. Appendix Testing Results
 include::src/13_tests.adoc[]
 
-
+<<<<
+// 14. Appendix Accesibility Results
+include::src/14_accesibility.adoc[]

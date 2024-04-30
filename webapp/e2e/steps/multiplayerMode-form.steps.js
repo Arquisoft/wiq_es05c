@@ -14,15 +14,15 @@ defineFeature(feature, test => {
     console.log('Starting Puppeteer... githubactyions.env', process.env.GITHUB_ACTIONS);
 
     browserHost = process.env.GITHUB_ACTIONS
-      ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20 });
+      ? await puppeteer.launch({ headless: 'new'})
+      : await puppeteer.launch({ headless: 'new', slowMo: 20 });
     pageHost = await browserHost.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 180000 })
 
     browserUser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20 });
+      : await puppeteer.launch({ headless: 'new', slowMo: 20 });
       pageUser = await browserUser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 180000 })

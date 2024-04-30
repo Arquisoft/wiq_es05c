@@ -12,8 +12,8 @@ defineFeature(feature, test => {
     console.log('Starting Puppeteer dailyMode... githubactyions.env', process.env.GITHUB_ACTIONS);
 
     browser = process.env.GITHUB_ACTIONS
-      ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 20 });
+      ? await puppeteer.launch({ headless: 'new'})
+      : await puppeteer.launch({ headless: 'new', slowMo: 20 });
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 180000 })

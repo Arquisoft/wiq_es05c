@@ -12,8 +12,8 @@ defineFeature(feature, test => {
     console.log('Starting Puppeteer login-form... githubactyions.env', process.env.GITHUB_ACTIONS);
 
     browser = process.env.GITHUB_ACTIONS
-      ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 50 });
+      ? await puppeteer.launch({ headless: 'new'})
+      : await puppeteer.launch({ headless: 'new', slowMo: 50 });
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 180000 })

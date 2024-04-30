@@ -62,7 +62,7 @@ app.post('/updateHistoryDiaria', (req, res) => handleServiceRequest(req, res, se
 //***************************************************endpoints de las salas */
 app.get('/joinroom/:id/:username', async (req, res) => handleServiceRequest(req, res, serviceUrls.room, { params: req.params }));
 app.get('/createroom/:username', async (req, res) => handleServiceRequest(req, res, serviceUrls.room, { params: req.params }));
-app.get('/startgame/:id/:username', async (req, res) => handleServiceRequest(req, res, serviceUrls.room, { params: req.params }));
+//app.get('/startgame/:id/:username', async (req, res) => handleServiceRequest(req, res, serviceUrls.room, { params: req.params }));
 
 app.get('/getRankingDiarias', async (req, res) => handleServiceRequest(req, res, serviceUrls.history));// Start the gateway service
 

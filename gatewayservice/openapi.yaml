@@ -190,7 +190,60 @@ paths:
                     type: string
                     description: Error message.
 
-
+  /getQuestionDiaria:
+    get:
+      summary: Obtiene la pregunta diaria para el usuario
+      operationId: getQuestionDiaria
+      parameters:
+        - name: idioma
+          in: query
+          description: Idioma en el que se obtiene la pregunta diaria.
+          required: true
+          schema:
+            type: string
+        - name: fecha
+          in: query
+          description: Fecha para la cual se obtiene la pregunta diaria.
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Pregunta diaria obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultado1:
+                    type: object
+                    properties:
+                      pregunta:
+                        type: string
+                        description: Texto de la pregunta.
+                      correcta:
+                        type: string
+                        description: Respuesta correcta a la pregunta.
+                      respuestasIncorrecta1:
+                        type: string
+                        description: Primera respuesta incorrecta.
+                      respuestasIncorrecta2:
+                        type: string
+                        description: Segunda respuesta incorrecta.
+                      respuestasIncorrecta3:
+                        type: string
+                        description: Tercera respuesta incorrecta.
+        '500':
+          description: Error al obtener la pregunta diaria
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensaje de error.
 
   /getQuestionModoBasico:
     get:
@@ -494,6 +547,7 @@ paths:
                     description: Error message.
 
   /updateHistoryDiaria:
+
     post:
       summary: Actualiza el historial diario
       requestBody:
@@ -509,3 +563,143 @@ paths:
           description: Historial diario actualizado correctamente
         '500':
           description: Error al realizar la solicitud al servicio de historial diaria 
+
+  /updateUserDaily:
+    post:
+      summary: Actualiza la información diaria del usuario
+      operationId: updateUserDaily
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fecha:
+                  type: string
+                  format: date
+                  description: La fecha para la cual se actualiza la información del usuario.
+      responses:
+        '200':
+          description: Información diaria del usuario actualizada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    description: El objeto de usuario actualizado.
+        '400':
+          description: Error al realizar la solicitud al servicio de autenticación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensaje de error.
+
+  /joinroom/{id}/{username}:
+    get:
+      summary: (En desarrollo) Permite a un usuario unirse a una sala
+      description: Este endpoint está actualmente en desarrollo.
+      operationId: joinRoom
+      parameters:
+        - name: id
+          in: path
+          description: ID de la sala a la que se unirá el usuario.
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: path
+          description: Nombre de usuario que se unirá a la sala.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario unido a la sala correctamente (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # cuando se implemente s epondras las cosas 
+        '500':
+          description: Error al unir al usuario a la sala (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensaje de error.
+
+  /createroom/{username}:
+    get:
+      summary: (En desarrollo) Permite a un usuario crear una sala
+      description: Este endpoint está actualmente en desarrollo.
+      operationId: createRoom
+      parameters:
+        - name: username
+          in: path
+          description: Nombre de usuario que creará la sala.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sala creada correctamente (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # Define las propiedades de la respuesta aquí
+        '500':
+          description: Error al crear la sala (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensaje de error.
+
+  /getRankingDiarias:
+    get:
+      summary: (En desarrollo) Obtiene el ranking diario de usuarios ordenado por número de preguntas diarias acertadas
+      description: Este endpoint está actualmente en desarrollo.
+      operationId: getRankingDiarias
+      responses:
+        '200':
+          description: Ranking diario obtenido correctamente (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+                      description: Nombre de usuario.
+                    diariasAcertadas:
+                      type: integer
+                      description: Número de preguntas diarias acertadas por el usuario.
+        '500':
+          description: Error al obtener el ranking diario (en desarrollo)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Mensaje de error.
+

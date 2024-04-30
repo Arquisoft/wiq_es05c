@@ -88,7 +88,8 @@ class DailyGameMode extends BasicGame{
       }
       
       //next question con indice 10 termina el juego 
-      incrementCorrectas(){
+      async incrementCorrectas(){
+        await this.incrementAcertadas();
         this.enviarHistorialPorQueHasAcetado=true;
         this.correctas++;
         //this.questionIndex=10;

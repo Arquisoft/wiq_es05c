@@ -61,12 +61,16 @@ jobs:
     needs: [unit-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Run e2e tests
+    - name: Copy e2eTest.sh to remote server
       run: |
         echo "${{ secrets.DEPLOY_KEY }}" > deploy_key
         chmod 600 deploy_key
+        scp -o StrictHostKeyChecking=no -i deploy_key ./e2eTest.sh azureuser@${{ secrets.DEPLOY_HOST }}:~
+    - name: Run e2e tests
+      run: |
         ssh -o StrictHostKeyChecking=no -i deploy_key azureuser@${{ secrets.DEPLOY_HOST }} <<'ENDSSH'
-        ./e2eTest.sh
+        chmod +x ~/e2eTest.sh
+        ~/e2eTest.sh
         ENDSSH
 
   docker-push-webapp:

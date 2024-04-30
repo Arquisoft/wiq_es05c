@@ -32,7 +32,7 @@ export function History({darkMode}){
         console.log("Partidas: ");
         console.log(partidas);
 
-        if(partidas.error || partidas.length === 0 || Object.values(partidas)){
+        if(partidas.error || partidas.length === 0 ){
           setNeverPlayer(true);
           setIsLoadingGames(false);
         }
@@ -55,7 +55,7 @@ export function History({darkMode}){
       .then(estadisticas => {
         //console.log("Estadísticas: ");
         //console.log(estadisticas);
-        if(estadisticas.error || estadisticas.length === 0 || Object.values(estadisticas)){
+        if(estadisticas.error || estadisticas.length === 0 ){
           setNeverPlayer(true);
           setIsLoadingStats(false);
         }

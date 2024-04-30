@@ -5,9 +5,20 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-achecker]]
 === AChecker
+Para garantizar la accesibilidad de nuestra página web, utilizamos la herramienta AChecker. +
+Como se puede apreciar en la imagen adjunta, hemos evaluado todas las ventanas de la aplicación web según los criterios de accesibilidad AAA, y los resultados han sido positivos. 
+Esto significa que nuestra aplicación cumple con los estándares más estrictos en términos de accesibilidad para personas con discapacidades. 
+Estamos comprometidos en ofrecer una experiencia inclusiva para todos nuestros usuarios.
+
 image::AChecker.png["AChecker Result"] 
 
 [[section-lighthouse]]
 === LightHouse
+
+We conducted thorough testing using Google Lighthouse for our web application, and the results have been quite positive. 
+According to Google Lighthouse, the average accessibility score (calculated as the mean across all views within the web application) is 94%, indicating strong adherence to accessibility standards. Additionally, the performance score averages at 86%, demonstrating efficient loading times and overall responsiveness.
+
+We are committed to maintaining high standards of both accessibility and performance to ensure an optimal user experience. 
+These results validate our efforts in creating a robust and user-friendly web application.
 image::IndexAccesibility.png["LightHouse Result"] 
 

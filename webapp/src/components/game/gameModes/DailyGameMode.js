@@ -36,13 +36,19 @@ class DailyGameMode extends BasicGame{
 
       async incrementAcertadas(){
         try {
+          const volverJugarData = {
+            user: null,
+            fecha : this.fechaAct
+          };
+          //sacar del localStorage el usuario
+          volverJugarData.user = localStorage.getItem('username');
           console.log("enviar historial trycatch");
           const response = await fetch(`${this.apiEndpoint}/updateHistoryDiaria`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify("{user: "+ localStorage.getItem('username') +"}")
+            body: JSON.stringify(volverJugarData)
           });
           const data = await response.json();
           console.log('Historial enviado:', data);

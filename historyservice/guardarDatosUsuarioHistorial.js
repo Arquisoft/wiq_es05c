@@ -69,7 +69,7 @@ class GuardarDatosUsuarioHistorial{
          }
   });
   let inputBD = datos.user;
-  Historial.updateOne({ user: datos.user }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
+  Historial.updateOne({ user: inputBD }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
     console.log('Se ha actualizado el ranking diario correctamente o.');
   }).catch(error => {
     console.error('Error al actualizar el ranking diario:', error);

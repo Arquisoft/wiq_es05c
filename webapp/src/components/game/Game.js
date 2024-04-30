@@ -5,7 +5,6 @@ import { Spinner, Box} from "@chakra-ui/react";
 import BasicGame from './BasicGame';
 import { useTranslation } from 'react-i18next';
 
-
 function Game({darkMode,gameMode=new BasicGame()}) {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);

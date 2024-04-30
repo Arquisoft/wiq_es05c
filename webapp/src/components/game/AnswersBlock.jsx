@@ -1,12 +1,14 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { AnswerButton } from './AnswerButton.jsx';
+import { useToast } from '@chakra-ui/react'
+
 //onAnswerSelect es la funcion de QuestionArea que se ejecuta al hacer click en boton 
 export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded, darkMode}){
 
     const [respuestasAleatorizadas, setRespuestasAleatorizadas] = useState([]);
 
-    
+    const toast = useToast();
     let respuestasCopy = respuestas;
 
     //Colores de los botones para que tengan orden random
@@ -30,12 +32,25 @@ export function AnswersBlock({ respuestas, correcta ,onAnswerSelect,isGameEnded,
     }, [respuestasCopy]);
 
     const handleButtonClick = (respuesta) => {
+        
         if (isGameEnded) {
             return;
         }
         if (respuesta === correcta) {
+            toast({
+                title: 'Acierto',
+                status: 'success',
+                duration: 1000,
+                isClosable: true,
+              })
             onAnswerSelect(true);
         } else {
+            toast({
+                title: 'Fallo',
+                status: 'error',
+                duration: 1000,
+                isClosable: true,
+              })
             onAnswerSelect(false);
         }
     };

@@ -20,5 +20,6 @@ According to Google Lighthouse, the average accessibility score (calculated as t
 
 We are committed to maintaining high standards of both accessibility and performance to ensure an optimal user experience. 
 These results validate our efforts in creating a robust and user-friendly web application.
+
 image::IndexAccesibility.png["LightHouse Result"] 
 

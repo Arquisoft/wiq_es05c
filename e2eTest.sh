@@ -37,3 +37,6 @@ if [ $TEST_STATUS -ne 0 ]; then
   echo "Fallaron los tests"
   docker start $(docker ps -aq)
 fi
+
+# Salir con el estado de salida de las pruebas
+exit $TEST_STATUS

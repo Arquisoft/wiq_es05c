@@ -15,7 +15,7 @@ async function insertTestData() {
         const categoryCollection = database.collection('categorias');
         const answersCollection = database.collection('respuestas');
         const typesCollection = database.collection('tipos');
-
+  
         // insertamos las categorias
         await categoryCollection.insertMany([
             { 
@@ -95,8 +95,7 @@ async function insertTestData() {
         testQuestions[0].diaria = formattedDate;
 
         // insertamos las preguntas
-        await questionsCollection.insertMany(testQuestions);
-
+        await questionsCollection.insertMany(testQuestions);        
 
     } finally {
         await client.close(); // Cerrar la conexión con la base de datos

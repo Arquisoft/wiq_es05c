@@ -26,6 +26,8 @@
     "passwordRepeatHelper": "Las contraseñas tienen que coincidir",
 
     "historyMessage": "Historial de ",
+    "historyNoData": "No hay datos disponibles.",
+    "historyNoDataParraf": "Juega una partida para tener historial.",
     "resume": "Resumen",
     "gamesPlayed": "Partidas jugadas",
     "questionsCorrect": "Preguntas acertadas",
@@ -56,10 +58,10 @@
     "logoutMessage": "Gracias por jugar. ¡Vuelve pronto!",
 
     "group": "WIQ_ES05C",
-    "welcomeMessage": "Nuestro grupo: como y después el juego",
-    "welcomeMessage2": "Bienvenido a nuestro juego de preguntas",
-    "welcomeMessage3": "Somos un equipo de desarrolladores apasionados por los juegos de preguntas.",
-    "welcomeMessage4": "En este juego, te desafiamos a responder una serie de preguntas aleatorias de diferentes categorías. Ofrecemos varios modos de juego para mantener las cosas interesantes. ¡Buena suerte!",
+    "welcomeMessage": "Bienvenido a nuestro emocionante juego de preguntas y respuestas en línea, donde podrás poner a prueba tus conocimientos y desafiar a tus amigos en un duelo intelectual",
+    "welcomeMessage2": "Características Principales:",
+    "welcomeMessage3": "Modo Multijugador: Desafía a tus amigos en emocionantes partidas multijugador en tiempo real.",
+    "welcomeMessage4": "Desafíos Diarios: ¡Mantén tu mente afilada con nuestros desafíos diarios!",
 
     "startButton": "Comenzar juego",
 
@@ -106,5 +108,25 @@
     "categoryArt": "Arte",
     "categorySports": "Deportes",
     "categoryEntertainment": "Entretenimiento",
-    "categoryMusic": "Música"
+    "categoryMusic": "Música",
+
+    "position": "Puesto ",
+
+    "help": "Ayuda",
+    "helpTitle": "Ayuda",
+
+    "helpCustomTitle": "Modo Personalizado:",
+    "helpCustom": " ¡Crea tu propio desafío! En este modo, puedes personalizar el tiempo para responder las preguntas y el número de preguntas que deseas responder.",
+    
+    "helpCategoryTitle": "Modo Maestro del Tema:",
+    "helpCategory": "Demuestra tu dominio en un tema específico. En este modo, todas las preguntas estarán relacionadas con una categoría seleccionada.",
+    
+    "helpDailyTest": "Desafío Diario:",
+    "helpDaily": "¡Mantén tu mente afilada! Cada día, encontrarás un nuevo desafío con preguntas frescas.",
+    
+    "helpSageTitle": "Modo Sabio:",
+    "helpSage": "Pon a prueba tus conocimientos sin límite de tiempo.",
+
+    "helpBasicTitle": "Modo Clásico:",
+    "helpBasic": "Demuestra tu habilidad para responder preguntas en un tiempo limitado. En este modo, tendrás 10 preguntas y 20 segundos para responder cada una. ¡Buena suerte!"
 }

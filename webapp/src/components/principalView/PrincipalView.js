@@ -11,10 +11,10 @@ const PrincipalView = (darkMode) => {
   const {t} = useTranslation();
 
   return (
-    <Box p={5} textAlign="center" style={{ flexGrow:"1"}} backgroundColor={backgroundColor}>
-      <Heading as="h1" fontSize="4xl" mb={3} color={text}>{t('group')}</Heading>
+    <Box p={5} textAlign="left" style={{ flexGrow: "1" }} backgroundColor={backgroundColor}>
+      <Heading as="h1" fontSize="4xl" mb={3} color={text} textAlign="center">{t('group')}</Heading>
       <Text fontSize="2xl" mb={5} color={text}>{t('welcomeMessage')}</Text>
-      <Text fontSize="xl" color={text}>{t('welcomeMessage2')}</Text>
+      <Text fontSize="xl" mb={3} fontWeight="bold" color={text}>{t('welcomeMessage2')}</Text>
       <Text fontSize="lg" mb={3} color={text}>{t('welcomeMessage3')}</Text>
       <Text fontSize="lg" color={text}>{t('welcomeMessage4')}</Text>
     </Box>

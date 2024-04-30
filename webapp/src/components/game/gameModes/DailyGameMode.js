@@ -12,9 +12,6 @@ class DailyGameMode extends BasicGame{
    
     async fetchQuestions() {
         try {
-          
-          
-
           const response = await fetch(`${this.apiEndpoint}/getQuestionDiaria?idioma=${this.idioma}&fecha=${this.fechaAct}`);
           const data = await response.json();
       
@@ -26,7 +23,6 @@ class DailyGameMode extends BasicGame{
         }
         return this.questions;
       }
-
       async sendHistorial() {
         const historyData = {
           user: null,
@@ -35,26 +31,28 @@ class DailyGameMode extends BasicGame{
         //sacar del localStorage el usuario
         historyData.user = localStorage.getItem('username');
         if(this.enviarHistorialPorQueHasAcetado){
-          try {
-            console.log("enviar historial trycatch");
-            const response = await fetch(`${this.apiEndpoint}/updateHistoryDiaria`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(historyData)
-            });
-            const data = await response.json();
-            console.log('Historial enviado:', data);
-            window.location.href = '/home';
-
-          } catch (error) {
-            console.error('Error enviando historial:', error);
-          }
         }
       }
 
-     
+      async incrementAcertadas(){
+        try {
+          console.log("enviar historial trycatch");
+          const response = await fetch(`${this.apiEndpoint}/updateHistoryDiaria`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify("{user: "+ localStorage.getItem('username') +"}")
+          });
+          const data = await response.json();
+          console.log('Historial enviado:', data);
+          window.location.href = '/home';
+
+        } catch (error) {
+          console.error('Error enviando historial:', error);
+        }
+      }
+
       nextQuestion() {
         this.getCurrentQuestion();
       }
@@ -90,7 +88,8 @@ class DailyGameMode extends BasicGame{
       }
       
       //next question con indice 10 termina el juego 
-      incrementCorrectas(){
+      async incrementCorrectas(){
+        await this.incrementAcertadas();
         this.enviarHistorialPorQueHasAcetado=true;
         this.correctas++;
         //this.questionIndex=10;

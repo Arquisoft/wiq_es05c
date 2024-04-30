@@ -89,14 +89,14 @@ jobs:
     - run: npm --prefix roomservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
-
+    - run: npx serve -s webapp/build -l 3000
 
     - name: Wait for services to start
       run: sleep 20
     - name: List webapp files
       run: ls -la webapp/build    
     - name: Check webapp availability
-      run: curl http://localhost:3000
+      run: curl http://localhost:3001
     - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
       working-directory: ${{ github.workspace }}
     env :

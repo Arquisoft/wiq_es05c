@@ -1,4 +1,7 @@
+import { escape } from 'validator';
+
 const mongoose = require('mongoose');
+
 
 const Historial = mongoose.model('historial');
 
@@ -67,7 +70,7 @@ class GuardarDatosUsuarioHistorial{
           console.log("Guardado nuevo historial");
          }
   });
-  Historial.updateOne({ user: datos.user }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
+  Historial.updateOne({ user: escape(datos.user) }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
     console.log('Se ha actualizado el ranking diario correctamente o.');
   }).catch(error => {
     console.error('Error al actualizar el ranking diario:', error);

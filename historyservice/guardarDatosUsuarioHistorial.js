@@ -72,10 +72,6 @@ class GuardarDatosUsuarioHistorial{
   }).catch(error => {
     console.error('Error al actualizar el ranking diario:', error);
   });
-  Historial.findOne({ user: datos.user  })
-  .then(usuarioExistente => {
-    console.log("Usuario existente",usuarioExistente);
-  });
 }
 }
 

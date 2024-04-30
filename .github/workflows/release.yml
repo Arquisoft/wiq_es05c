@@ -4,6 +4,7 @@ on:
   release:
     types: [published]
 
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -54,24 +55,21 @@ jobs:
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
   
   e2e-tests:
+    runs-on: ubuntu-latest
     needs: [unit-tests]
-    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 21
-    - run: npm --prefix users/authservice install
-    - run: npm --prefix users/userservice install
-    - run: npm --prefix gatewayservice install
-    - run: npm --prefix historyservice install
-    - run: npm --prefix questionservice install
-    - run: npm --prefix roomservice install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
-    env :
-      CI : ""
+    - name: Copy e2eTest.sh to remote server
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" > deploy_key
+        chmod 600 deploy_key
+        scp -o StrictHostKeyChecking=no -i deploy_key ./e2eTest.sh azureuser@${{ secrets.DEPLOY_HOST }}:~
+    - name: Run e2e tests
+      run: |
+        ssh -o StrictHostKeyChecking=no -i deploy_key azureuser@${{ secrets.DEPLOY_HOST }} <<'ENDSSH'
+        chmod +x ~/e2eTest.sh
+        ~/e2eTest.sh
+        ENDSSH
 
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages

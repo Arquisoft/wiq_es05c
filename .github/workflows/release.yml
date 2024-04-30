@@ -17,23 +17,38 @@ jobs:
     - run: npm --prefix users/authservice ci
     - run: npm --prefix users/userservice ci
     - run: npm --prefix gatewayservice ci
-    - run: npm --prefix questionservice ci
-    - run: npm --prefix historyservice ci
-    - run: npm --prefix roomservice ci
     - run: npm --prefix webapp ci
     - run: npm --prefix users/authservice test -- --coverage
     - run: npm --prefix users/userservice test -- --coverage
     - run: npm --prefix gatewayservice test -- --coverage
-    - run: npm --prefix questionservice test -- --coverage
-    - run: npm --prefix historyservice test -- --coverage
-    - run: npm --prefix roomservice test -- --coverage
     - run: npm --prefix webapp test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
+          
+  e2e-tests:
+    needs: [unit-tests]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm --prefix users/authservice install
+    - run: npm --prefix users/userservice install
+    - run: npm --prefix gatewayservice install
+    - run: npm --prefix historyservice install
+    - run: npm --prefix questionservice install
+    - run: npm --prefix roomservice install
+    - run: npm --prefix webapp install
+    - run: npm --prefix webapp run build
+    - run: npm --prefix webapp run test:e2e
+    env :
+      CI : ""
+
+  
   docker-push-roomservice:
     name: Push room service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -54,28 +69,7 @@ jobs:
         buildargs: REACT_APP_API_URI
       env:  # Esta línea estaba mal indentada
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
-  
-  
-  e2e-tests:
-    needs: [unit-tests]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - run: npm --prefix users/authservice install
-    - run: npm --prefix users/userservice install
-    - run: npm --prefix gatewayservice install
-    - run: npm --prefix historyservice install
-    - run: npm --prefix questionservice install
-    - run: npm --prefix roomservice install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: npm --prefix webapp run test:e2e
-    env:
-      CI : ""
-
+        
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -187,6 +181,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
+
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest

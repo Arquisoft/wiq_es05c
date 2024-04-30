@@ -22,29 +22,26 @@ Snapshots:   0 total
 Time:        1.391 s
 
 
-==User Service
+
+== User Service Tests
+[cols="1,2,3,4,5"]
 |===
------------------|---------|----------|---------|---------|-------------------
-File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------|---------|----------|---------|---------|-------------------
-All files        |     100 |    95.83 |     100 |     100 |                   
- user-model.js   |     100 |      100 |     100 |     100 |                   
- user-service.js |     100 |    95.83 |     100 |     100 | 17                
------------------|---------|----------|---------|---------|-------------------
+| File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+| All files       | 100     | 95.83    | 100     | 100     | 
+| user-model.js   | 100     | 100      | 100     | 100     | 
+| user-service.js | 100     | 95.83    | 100     | 100     | 17
 |===
 Test Suites: 1 passed, 1 total
 Tests:       8 passed, 8 total
 Snapshots:   0 total
 Time:        1.292 s
 
-==Gateway Service
+== Gateway Service Tests
+[cols="1,2,3,4,5"]
 |===
---------------------|---------|----------|---------|---------|-------------------
-File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
---------------------|---------|----------|---------|---------|-------------------
-All files           |   93.54 |    93.75 |   84.21 |   97.82 |                   
- gateway-service.js |   93.54 |    93.75 |   84.21 |   97.82 | 81                
---------------------|---------|----------|---------|---------|-------------------
+| File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+| All files           | 93.54   | 93.75    | 84.21   | 97.82   | 
+| gateway-service.js  | 93.54   | 93.75    | 84.21   | 97.82   | 81
 |===
 Test Suites: 1 passed, 1 total
 Tests:       34 passed, 34 total
@@ -52,14 +49,12 @@ Snapshots:   0 total
 Time:        0.922 s
 
 ==Room Service
+[cols="1,2,3,4,5"]
 |===
-------------------|---------|----------|---------|---------|-----------------------------------
-File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                 
-------------------|---------|----------|---------|---------|-----------------------------------
-All files         |    89.7 |    66.66 |     100 |   89.55 |                                   
- RoomQuestions.js |   86.59 |     64.7 |     100 |   86.45 | 59-60,134,138-143,163-165,201,211 
- room-service.js  |   97.43 |      100 |     100 |   97.36 | 52                                
-------------------|---------|----------|---------|---------|-----------------------------------
+| File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+| All files         | 89.7    | 66.66    | 100     | 89.55   | 
+| RoomQuestions.js  | 86.59   | 64.7     | 100     | 86.45   | 59-60,134,138-143,163-165,201,211
+| room-service.js   | 97.43   | 100      | 100     | 97.36   | 52
 |===
 Test Suites: 2 passed, 2 total
 Tests:       11 passed, 11 total
@@ -67,51 +62,49 @@ Snapshots:   0 total
 Time:        2.126 s
 
 ==WebApp
+[cols="1,1,1,1,1,1",options="header"]
 |===
--------------------------------|---------|----------|---------|---------|-----------------------------
-File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s           
--------------------------------|---------|----------|---------|---------|-----------------------------
-All files                      |   82.43 |    63.77 |   74.86 |   82.36 |                             
-  App.js                       |   85.71 |       50 |     100 |   85.71 | 37-38                       
-  index.js                     |       0 |      100 |     100 |       0 | 12-23                       
-  reportWebVitals.js           |       0 |        0 |       0 |       0 | 1-8                         
-  GuestLayout.js               |   11.11 |        0 |       0 |   11.11 | 10-23                       
-  authcontext.js               |     100 |      100 |     100 |     100 |                             
-  authenticationLayout.js      |     100 |      100 |     100 |     100 |                             
-  AddUser.js                   |   89.28 |       70 |   66.66 |   89.28 | 25,33,134                   
-  Footer.js                    |     100 |       75 |     100 |     100 | 19                          
-  AnswerButton.jsx             |     100 |       50 |     100 |     100 | 5                           
-  AnswersBlock.jsx             |     100 |    83.33 |     100 |     100 | 15                          
-  BasicGame.js                 |   78.37 |    69.23 |   81.25 |   78.37 | 31-44,73,96,110,119,199-200 
-  EnunciadoBlock.jsx           |     100 |      100 |     100 |     100 |                             
-  Game.js                      |   69.09 |    35.29 |   66.66 |   69.09 | 45,56-68,78-85,92           
-  QuestionArea.jsx             |   85.71 |        0 |      75 |   85.71 | 24,38                       
-  CustomGameMode.js            |   76.92 |      100 |      40 |   76.92 | 33-49                       
-  CustomWindow.js              |   93.33 |       50 |   66.66 |   93.33 | 29                          
-  DailyGameMode.js             |    92.3 |       50 |    87.5 |    92.3 | 47-54,59                    
-  GameMode.js                  |     100 |      100 |     100 |     100 |                             
-  InfinityGameMode.js          |   70.83 |     62.5 |      50 |   70.83 | 33-34,62-87                 
-  RoomGame.js                  |   96.42 |      100 |     100 |   96.42 | 41                          
-  SameCategoryMode.js          |     100 |      100 |     100 |     100 |                             
-  GameTimer.jsx                |     100 |       75 |     100 |     100 | 24                          
-  Timer.jsx                    |   69.44 |    76.19 |   71.42 |   68.57 | 11-21                       
-  AllGamesBlock.jsx            |   93.75 |    64.28 |     100 |   93.75 | 29                          
-  GameBlock.jsx                |   95.65 |    57.14 |     100 |   95.65 | 40                          
-  History.js                   |       0 |        0 |       0 |       0 | 12-58                       
-  StatsBlock.jsx               |     100 |    76.19 |     100 |     100 | 16,51-63                    
-  Home.js                      |   94.11 |       50 |     100 |   94.11 | 34                          
-  Login.js                     |   84.37 |    58.33 |   33.33 |   84.37 | 51,56,106-138               
-  Logout.js                    |     100 |      100 |     100 |     100 |                             
-  NavBar.js                    |   90.38 |     61.9 |    87.5 |   92.15 | 39,58,99-100                
-  PrincipalView.js             |     100 |      100 |     100 |     100 |                             
-  Ranking.js                   |   68.75 |      100 |   33.33 |   68.75 | 24-30,67                    
-  CreateRoom.js                |   93.33 |      100 |      80 |   92.85 | 20                          
-  JoinRoom.js                  |   96.29 |      100 |     100 |   96.29 | 66                          
-  RankingRoom.js               |     100 |      100 |     100 |     100 |                             
-  Room.js                      |   80.95 |    72.72 |   72.72 |   80.95 | 51-62,81,98-99              
-  socket.js                    |     100 |      100 |     100 |     100 |                             
-  internacionalizacion         |     100 |      100 |     100 |     100 |                                                        
--------------------------------|---------|----------|---------|---------|-----------------------------
+| File | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+| All files | 82.43 | 63.77 | 74.86 | 82.36 | 
+| App.js | 85.71 | 50 | 100 | 85.71 | 37-38
+| index.js | 0 | 100 | 100 | 0 | 12-23
+| reportWebVitals.js | 0 | 0 | 0 | 0 | 1-8
+| GuestLayout.js | 11.11 | 0 | 0 | 11.11 | 10-23
+| authcontext.js | 100 | 100 | 100 | 100 | 
+| authenticationLayout.js | 100 | 100 | 100 | 100 | 
+| AddUser.js | 89.28 | 70 | 66.66 | 89.28 | 25,33,134
+| Footer.js | 100 | 75 | 100 | 100 | 19
+| AnswerButton.jsx | 100 | 50 | 100 | 100 | 5
+| AnswersBlock.jsx | 100 | 83.33 | 100 | 100 | 15
+| BasicGame.js | 78.37 | 69.23 | 81.25 | 78.37 | 31-44,73,96,110,119,199-200
+| EnunciadoBlock.jsx | 100 | 100 | 100 | 100 | 
+| Game.js | 69.09 | 35.29 | 66.66 | 69.09 | 45,56-68,78-85,92
+| QuestionArea.jsx | 85.71 | 0 | 75 | 85.71 | 24,38
+| CustomGameMode.js | 76.92 | 100 | 40 | 76.92 | 33-49
+| CustomWindow.js | 93.33 | 50 | 66.66 | 93.33 | 29
+| DailyGameMode.js | 92.3 | 50 | 87.5 | 92.3 | 47-54,59
+| GameMode.js | 100 | 100 | 100 | 100 | 
+| InfinityGameMode.js | 70.83 | 62.5 | 50 | 70.83 | 33-34,62-87
+| RoomGame.js | 96.42 | 100 | 100 | 96.42 | 41
+| SameCategoryMode.js | 100 | 100 | 100 | 100 | 
+| GameTimer.jsx | 100 | 75 | 100 | 100 | 24
+| Timer.jsx | 69.44 | 76.19 | 71.42 | 68.57 | 11-21
+| AllGamesBlock.jsx | 93.75 | 64.28 | 100 | 93.75 | 29
+| GameBlock.jsx | 95.65 | 57.14 | 100 | 95.65 | 40
+| History.js | 0 | 0 | 0 | 0 | 12-58
+| StatsBlock.jsx | 100 | 76.19 | 100 | 100 | 16,51-63
+| Home.js | 94.11 | 50 | 100 | 94.11 | 34
+| Login.js | 84.37 | 58.33 | 33.33 | 84.37 | 51,56,106-138
+| Logout.js | 100 | 100 | 100 | 100 | 
+| NavBar.js | 90.38 | 61.9 | 87.5 | 92.15 | 39,58,99-100
+| PrincipalView.js | 100 | 100 | 100 | 100 | 
+| Ranking.js | 68.75 | 100 | 33.33 | 68.75 | 24-30,67
+| CreateRoom.js | 93.33 | 100 | 80 | 92.85 | 20
+| JoinRoom.js | 96.29 | 100 | 100 | 96.29 | 66
+| RankingRoom.js | 100 | 100 | 100 | 100 | 
+| Room.js | 80.95 | 72.72 | 72.72 | 80.95 | 51-62,81,98-99
+| socket.js | 100 | 100 | 100 | 100 | 
+| internacionalizacion | 100 | 100 | 100 | 100 | 
 |===
 Test Suites: 34 passed, 34 total
 Tests:       119 passed, 119 total

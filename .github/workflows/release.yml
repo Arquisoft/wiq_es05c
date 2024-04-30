@@ -61,6 +61,9 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 21
+    - run: sudo apt-get install xvfb
+    - run: Xvfb :99 &
+    - run: echo "DISPLAY=:99" >> $GITHUB_ENV
     - run: npm --prefix users/authservice install
     - run: npm --prefix users/userservice install
     - run: npm --prefix gatewayservice install

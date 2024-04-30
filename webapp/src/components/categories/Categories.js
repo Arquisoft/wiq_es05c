@@ -60,7 +60,7 @@ const CategoriesWindow = () => {
           id="button-category-art" 
           onClick={handleClickArt} 
           margin="2em" 
-          colorScheme='green' variant='solid'
+          colorScheme='red' variant='solid'
         >
           {t('categoryArt')}
         </Button>
@@ -105,6 +105,7 @@ const CategoriesWindow = () => {
           id="button-category-entertainment" 
           onClick={handleClickEntertainment} 
           margin="2em" 
+          colorScheme='pink' variant='solid'
         >
           {t('categoryEntertainment')}
         </Button>
@@ -122,7 +123,7 @@ const CategoriesWindow = () => {
           id="button-category-history" 
           onClick={handleClickHistory} 
           margin="2em" 
-          colorScheme='teal' variant='solid'
+          colorScheme='purple' variant='solid'
         >
           {t('categoryHistory')}
         </Button>

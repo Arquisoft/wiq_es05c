@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const Historial = mongoose.model('historial');
 
 class GuardarDatosUsuarioHistorial{
@@ -67,12 +68,24 @@ class GuardarDatosUsuarioHistorial{
           console.log("Guardado nuevo historial");
          }
   });
-  Historial.updateOne({ user: datos.user }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
-    console.log('Se ha actualizado el ranking diario correctamente o.');
-  }).catch(error => {
-    console.error('Error al actualizar el ranking diario:', error);
-  });
+  let inputBD = datos.user;
+  if (validarInput(inputBD)) {
+    Historial.updateOne({ user: inputBD }, { $inc: { "diariasAcertadas": 1 } }).then(resultado => {
+      console.log('Se ha actualizado el ranking diario correctamente o.');
+    }).catch(error => {
+      console.error('Error al actualizar el ranking diario:', error);
+    });
+  }else{
+    console.error('Error al actualizar el ranking diario, mal validado.');
+  }
 }
+}
+
+function validarInput(user) {
+  if (!user) {
+    return false;
+  }
+  return true;
 }
 
 module.exports = GuardarDatosUsuarioHistorial;

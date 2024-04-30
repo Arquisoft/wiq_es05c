@@ -57,9 +57,9 @@ const Login = (darkMode) => {
     setOpenSnackbar(false);
   };
 
-  let backgroundColor = darkMode.darkMode ? '#001c17' : '#fef5c6';
-  let text = darkMode.darkMode ? '#FCFAF0' : '#08313A';
-  let buttonColor = darkMode.darkMode ? '#107869' : '#FFFFF5';
+  let backgroundColor = darkMode.darkMode ? '#001c17' : '#37BEB0';
+  let text = darkMode.darkMode ? '#FCFAF0' : '#071815';
+  let buttonColor = darkMode.darkMode ? '#107869' : '#A4E5E0';
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}

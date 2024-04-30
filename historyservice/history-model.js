@@ -7,6 +7,11 @@ const historySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+
+  diariasAcertadas: {
+    type: Number,
+    required: true
+  },
   
   juegos: [{
     numeroJuego: {

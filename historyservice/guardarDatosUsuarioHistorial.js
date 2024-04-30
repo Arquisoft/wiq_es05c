@@ -82,7 +82,7 @@ class GuardarDatosUsuarioHistorial{
 }
 
 function validarInput(user) {
-  if (!user || user !== localStorage.getItem('username')) {
+  if (!user) {
     return false;
   }
   return true;

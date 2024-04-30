@@ -5,10 +5,10 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-achecker]]
 === AChecker
-Para garantizar la accesibilidad de nuestra página web, utilizamos la herramienta AChecker. +
-Como se puede apreciar en la imagen adjunta, hemos evaluado todas las ventanas de la aplicación web según los criterios de accesibilidad AAA, y los resultados han sido positivos. 
-Esto significa que nuestra aplicación cumple con los estándares más estrictos en términos de accesibilidad para personas con discapacidades. 
-Estamos comprometidos en ofrecer una experiencia inclusiva para todos nuestros usuarios.
+To ensure the accessibility of our website, we utilized the AChecker tool. +
+As can be seen in the attached image, we evaluated all windows of the web application according to AAA accessibility criteria, and the results have been positive. 
+This means that our application complies with the strictest standards in terms of accessibility for people with disabilities. +
+We are committed to providing an inclusive experience for all our users.
 
 image::AChecker.png["AChecker Result"] 
 

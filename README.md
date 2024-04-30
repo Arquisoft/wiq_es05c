@@ -71,6 +71,9 @@ Lastly, go to the webapp directory and launch this component with `npm install` 
 
 After all the components are launched, the app should be available in localhost in port 3000.
 
+##CI CD
+The e2e tests are run directly on the machine due to the low performance of GitHub Actions, a custom runner could also be used. Operation, the .sh at the root of the repository is responsible for launching the system tests on the virtual machine. This script takes care of downloading the project, installing the dependencies, running the tests, and in case they do not work, it leaves the version that was running.
+
 ## Deployment
 
 For the deployment, we have several options. 

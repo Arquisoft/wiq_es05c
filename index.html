@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.20">
 <title>Documentación WIQ-ES05C</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,7 +162,6 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +327,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -461,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_organizational_decisions">4.3. Organizational decisions</a></li>
 </ul>
 </li>
-<li><a href="#section-building-block-view">5. Building Block View (In progress)</a>
+<li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_whitebox_wiq">5.1. Whitebox WIQ</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
@@ -473,6 +472,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_login">6.2. Login</a></li>
 <li><a href="#_generate_a_question">6.3. Generate a question</a></li>
 <li><a href="#_request_a_question">6.4. Request a question</a></li>
+<li><a href="#_request_users_history">6.5. Request user&#8217;s history</a></li>
+<li><a href="#_request_ranking">6.6. Request ranking</a></li>
+<li><a href="#_multiplayer_game">6.7. Multiplayer game</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a></li>
@@ -499,6 +501,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-glossary">12. Glossary</a></li>
+<li><a href="#section-tests-results">13. Tests Results</a>
+<ul class="sectlevel2">
+<li><a href="#section-coverage">13.1. Coverage</a></li>
+<li><a href="#section-unit-tests-results">13.2. Unit Tests Results</a></li>
+<li><a href="#section-e2e-tests-results">13.3. E2E Tests Results</a></li>
+<li><a href="#section-load-tests-results">13.4. Load Tests Results</a></li>
+<li><a href="#section-mointorig-results">13.5. Monitoring Results</a></li>
+</ul>
+</li>
+<li><a href="#section-accesibility-tests-results">14. Accesibility Tests Results</a>
+<ul class="sectlevel2">
+<li><a href="#section-achecker">14.1. AChecker</a></li>
+<li><a href="#section-lighthouse">14.2. LightHouse</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -976,13 +993,13 @@ You can create workflows that build and test every pull request to your reposito
 <div class="ulist">
 <ul>
 <li>
-<p><strong><em>React</em></strong>: We chose React as our JavaScript library for building user interfaces due to its efficiency, flexibility, and the ability to create reusable UI components. React is also a popular framework that we had not previously worked with and were interested in learning. This choice aligns with our goal of maintaining a consistent and efficient codebase while expanding our technical skills.</p>
+<p><strong><em>React</em></strong>: We chose React as our JavaScript library for building user interfaces due to its efficiency, flexibility, and the ability to create reusable UI components. React is also a popular framework that we had not previously worked with and were interested in learning. This choice aligns with our goal of maintaining a consistent and efficient codebase while expanding our technical skills. Link to the architectural decision * <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1">Architecture Decision 1-Language Selection for documentation</a></p>
 </li>
 <li>
-<p><strong><em>JavaScript</em></strong>: JavaScript was chosen as the language for application development due to its versatility, wide support across various platforms, and its status as the standard language for web development. Additionally, using JavaScript both on the client and server sides allows for a more streamlined and efficient development process.</p>
+<p><strong><em>JavaScript</em></strong>: JavaScript was chosen as the language for application development due to its versatility, wide support across various platforms, and its status as the standard language for web development. Additionally, using JavaScript both on the client and server sides allows for a more streamlined and efficient development process. Link to the architectural decision * <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-1">Architecture Decision 1-Language Selection for documentation</a></p>
 </li>
 <li>
-<p><strong><em>MongoDB</em></strong>: MongoDB was selected as our database due to its scalability and flexibility in handling data. This non-relational database aligns with our needs for a fluid and intuitive data handling process. While MySQL, a relational database, offers structured query language and consistency, we opted for MongoDB because it provides more flexibility in terms of data storage and retrieval, which is more suitable for our application&#8217;s needs.
+<p><strong><em>MongoDB</em></strong>: MongoDB was selected as our database due to its scalability and flexibility in handling data. This non-relational database aligns with our needs for a fluid and intuitive data handling process. While MySQL, a relational database, offers structured query language and consistency, we opted for MongoDB because it provides more flexibility in terms of data storage and retrieval, which is more suitable for our application&#8217;s needs. Link to the architectural decision * <a href="https://github.com/Arquisoft/wiq_es05c/wiki/Architecture-Decision-3">Architecture Decision 3-Database Platform</a>
 === Top-level Decomposition
 ==== IDE
 We have chosen Visual Studio Code as our platform since we have experience with it and it is the platform we will work best with.</p>
@@ -992,7 +1009,9 @@ We have chosen Visual Studio Code as our platform since we have experience with 
 <div class="sect3">
 <h4 id="_diagram_design_tools">4.1.1. Diagram design tools</h4>
 <div class="paragraph">
-<p>We will use PlantUML as the tool for creating diagrams since it is the recommended one for the course.</p>
+<p>We will use PlantUML as the tool for creating diagrams since it is the recommended one for the course.
+We use PowerPoint for the business context diagrams.
+We use Draw.io for the building block view diagrams.</p>
 </div>
 </div>
 </div>
@@ -1027,17 +1046,24 @@ We have chosen Visual Studio Code as our platform since we have experience with 
 <div class="sect2">
 <h3 id="_organizational_decisions">4.3. Organizational decisions</h3>
 <div class="paragraph">
-<p>Here are the organization decisions made:
-* <strong><em>Language</em></strong>: We will use English as the primary language for both documentation and code.
-* <strong><em>GitHub issues</em></strong>: We will use GitHub issues as the main source for problem resolution, so that whenever something poses an obstacle, it will be documented in GitHub issues.
-* <strong><em>GitHub projects</em></strong>: GitHub projects allow us to organize work based on issues in a Kanban-style, enabling us to see issues that are in progress, those that are not, and those that are completed.</p>
+<p>Here are the organization decisions made:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>Language</em></strong>: We will use English as the primary language for both documentation and code.</p>
+</li>
+<li>
+<p><strong><em>GitHub issues</em></strong>: We will use GitHub issues as the main source for problem resolution, so that whenever something poses an obstacle, it will be documented in GitHub issues.</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-building-block-view">5. Building Block View (In progress)</h2>
+<h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
@@ -1048,7 +1074,7 @@ We have chosen Visual Studio Code as our platform since we have experience with 
 <h3 id="_whitebox_wiq">5.1. Whitebox WIQ</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/level1.png" alt="Level 1">
+<img src="./images/Level1-.png" alt="Level 1">
 </div>
 </div>
 <div class="dlist">
@@ -1075,31 +1101,31 @@ By breaking the system down into its basic components, we aim to establish a com
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Webapp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provides the interface to register, play and check participation history</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides the interface to do everything necessary in the application, sign in, sign up, sign out, play the different game modes, view the history and the ranking of the daily questions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gateway service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Facilitates communication between the different ports of the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The API Gateway is a server that handles many functionalities in a single place for the clients to interact. In also works as a reverse proxy between your client applications and the back-end microservices architecture.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Authservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Allows a user to create an account in our application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservice that is responsible of checking the credentials of the user who wants to log in and storing the last game of the daily question for the correct operation of that game mode</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Userservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Allows a user to access our application to play and view their history</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservice that is responsible to check the correct validity of the data entered by the user and add the user if everything is correct</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Roomservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service that handles multiplayer gaming in rooms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservice that is responsible to manage the questions in the room, the users and the rooms.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Historyservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service that is responsible for saving and returning the history of user games</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservice that is responsible for saving and returning the history of user games, update the user daily question history and return a ranking of the daily history.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Questionservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It calls the Wikidata API using queries to retrieve questions, then stores them in the database. Additionally, it retrieves questions from the database when needed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservice that is responsible to generate the different Wikidata questions through an automatic generation using Wikidata, returns the generated questions from the database and generates the daily question.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Databases</p></td>
@@ -1114,7 +1140,7 @@ By breaking the system down into its basic components, we aim to establish a com
 <h4 id="_white_box_users_services">5.2.1. White Box Users Services</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/level2-Users.png" alt="Level 2 Users Services">
+<img src="./images/Level2-Users-.png" alt="Level 2 Users Services">
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1131,15 +1157,15 @@ By breaking the system down into its basic components, we aim to establish a com
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">authservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The authentication service validates user credentials by verifying their existence in the database and ensuring the correctness of the provided password.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposes API endpoints that enable the authentication of a user by verifying their existence in the database and ensuring the correctness of the provided password and update the date of the last daily game.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">userservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The registration service validates user registration details by checking the uniqueness of the email and username in the database, as well as verifying the format and correctness of the provided password, ensuring it matches the repeated entry.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposes API endpoint that enable the registration of a user. It validates user registration details by checking the uniqueness of the email and username in the database, as well as verifying the format and correctness of the provided password, ensuring it matches the repeated entry.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">userdb</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user database stores user information, including their email, username, and hashed password. Each user have their credentials securely stored for authentication purposes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user database stores user information, including their email, username, hashed password and the last day the user played the daily. Each user have their credentials securely stored for authentication purposes.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1148,7 +1174,7 @@ By breaking the system down into its basic components, we aim to establish a com
 <h4 id="_white_box_questionservice">5.2.2. White Box Questionservice</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/level2-Question.png" alt="Level 2 Questionservice">
+<img src="./images/Level2-Question-.png" alt="Level 2 Questionservice">
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1165,11 +1191,11 @@ By breaking the system down into its basic components, we aim to establish a com
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">questionservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The questionservice automatically generates questions by making a call to the Wikidata API, retrieving relevant information, and subsequently saving the generated question in the database. Additionally, it is responsible for providing questions tailored for each type of game available in the application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposes API endpoints that enable generate questions by making a call to the Wikidata, retrieving relevant information, and subsequently saving the generated question in the database. Additionally, it is responsible for providing questions tailored for each type of game available in the application.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">questionsdb</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database that stores the question along with their correct answer, the category to which the question belongs, the type of the question and the answers to those questions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The questions database stores the question along with their correct answer, the category to which the question belongs, the type of the question and the answers to those questions.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1178,7 +1204,7 @@ By breaking the system down into its basic components, we aim to establish a com
 <h4 id="_white_box_historyservice">5.2.3. White Box Historyservice</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/level2-History.png" alt="Level 2 Historyservice">
+<img src="./images/Level2-History-.png" alt="Level 2 Historyservice">
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1195,7 +1221,7 @@ By breaking the system down into its basic components, we aim to establish a com
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">historyservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The historyservice is responsible for storing data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposes API endpoints that enable the storage of data for each normal game played and providing access to this data in two formats. It offers two types of data retrieval: one that returns all normal games played with their respective data, and another that returns the complete history, encompassing all data related to every game played.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">historydb</p></td>
@@ -1211,6 +1237,9 @@ By breaking the system down into its basic components, we aim to establish a com
 <div class="sect1">
 <h2 id="section-runtime-view">6. Runtime View</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The GatewayService is the micro-service that redirect all the ruequests to all the other micro-services such as AuthService or QuestionService but that is not directly pointed out in the diagrams.</p>
+</div>
 <div class="sect2">
 <h3 id="_register_user">6.1. Register user</h3>
 <div class="imageblock">
@@ -1266,7 +1295,7 @@ By breaking the system down into its basic components, we aim to establish a com
 <p>The LoginService request information about that login data recieved</p>
 </li>
 <li>
-<p>A response is sent by the database with the requested data</p>
+<p>A answer is sent by the database with the requested data</p>
 </li>
 <li>
 <p>After checking if it&#8217;s a valid login the LoginService sends a response to the app</p>
@@ -1327,6 +1356,90 @@ By breaking the system down into its basic components, we aim to establish a com
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_request_users_history">6.5. Request user&#8217;s history</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/06-getHistory.png" alt="RequestHistory secuence diagram image">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user wants to see his history</p>
+</li>
+<li>
+<p>The app requests that user&#8217;s data and games to the HistoryService</p>
+</li>
+<li>
+<p>The HistoryService gathers all the data needed from the History data base</p>
+</li>
+<li>
+<p>The history service sends back that data to the Application where is processed</p>
+</li>
+<li>
+<p>All the games and statistics are shown to the user</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_request_ranking">6.6. Request ranking</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/06-getRanking.png" alt="GetRanking secuence diagram image">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user wants to see the ranking of all players</p>
+</li>
+<li>
+<p>The app requests to the HistoryService that ranking</p>
+</li>
+<li>
+<p>The HistoryService gets the ranking from the History data base</p>
+</li>
+<li>
+<p>Finally the ranking is shown to the user</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multiplayer_game">6.7. Multiplayer game</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/06-multiplayer.png" alt="Multiplayer game secuence diagram image">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Two users want to join a room and play a multiplayer game</p>
+</li>
+<li>
+<p>The application sends a request to the RoomsService</p>
+</li>
+<li>
+<p>This RoomsService where a room was created moments ago create a socket for each player</p>
+</li>
+<li>
+<p>The RoomsService gets from the app the game details, questions and logic.</p>
+</li>
+<li>
+<p>All the game is managed by the RoomsService</p>
+</li>
+<li>
+<p>When the game is finished the RoomsService sends a response to the application</p>
+</li>
+<li>
+<p>Then the application sends all the results to the players</p>
+</li>
+</ol>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1340,12 +1453,14 @@ By breaking the system down into its basic components, we aim to establish a com
 </div>
 </div>
 <div class="paragraph">
-<p>Basically when a user wants to use the application, using his web browser
-he can connect to the application server that is a VM in hosted in Azure
-orientated to microservices. That means that all the modules inside it
-are dockerized in a container alse we can find 2 MongoDB databases in this
-virtual machine one for users and another to store generated questions.
-The QuestionGenerator interacts with WikiData throught their API.</p>
+<p>The application is hosted in a virtual machine type Linux ubuntu 20.04 gen2 and
+has open the port 3000 and 8000 so that it&#8217;s possible to connect via HTTP
+using a basic browser.</p>
+</div>
+<div class="paragraph">
+<p>All the application is deploid over docker. Each of the represented elements
+are a docker container (also the databases) and they are based on microservices
+architecture so they can communicate between them with HTTP and BD connections.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1370,6 +1485,9 @@ It&#8217;s designed to be intuitive and easy to use, providing a smooth and plea
 If they have played before, they will be able to view different metrics regarding those games.
 Additionally, they can start a new game at any time and, upon completion, view the statistics of their results.</p>
 </div>
+<div class="paragraph">
+<p>Here you can see the home page of our webapp.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_security_safety">8.3. Security &amp; Safety</h3>
@@ -1386,19 +1504,40 @@ Additionally, they can start a new game at any time and, upon completion, view t
 </div>
 <div class="sect2">
 <h3 id="_architecture_and_design_patterns">8.4. Architecture and design patterns</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The State pattern is a behavioral design pattern used to model situations where an object must change its behavior based on its internal state. Instead of having a single method that handles all possible actions, the State pattern divides actions into separate classes, each representing a different state. Each state class implements a common interface, allowing the main object to transition from one state to another without affecting its overall functionality.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>In development&#8230;&#8203;</p>
+<p>Each state has its own logic and specific rules. The State pattern enables the game to dynamically adapt to the player’s current state.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Microservices are an architectural and organizational approach to software development.
+In our model, software is composed of small, independent services that communicate through well-defined APIs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each service is created for specific business capabilities and performs a single function.
+This allows for independent updates, deployments, and scalability to meet the needs of specific features.</p>
+</div>
+<div class="paragraph">
+<p>In summary, microservices offer a flexible and scalable way to build applications, enabling greater agility and accelerating time-to-market for new features .</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_development_concepts">8.5. Development concepts</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Test: To test the correct operation of the system, we have decided to carry out unit tests for the application components as well as for the services.
-Testing has been carried out on the gateway-service, user_service microservice and the game webapp component.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In order to test the proper functioning of our application, we have implemented various types of tests, including unit tests, load tests, and end-to-end (E2E) tests.
+Additionally, we have conducted different accessibility and maintenance tests to study its performance.</p>
+</div>
+<div class="paragraph">
+<p>Testing has been carried out on the gateway-service, user-service, history-service, auth-service and room-service microservices and the game webapp component.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1652,6 +1791,11 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Accidents can happen and if something like a train or bus not working or some unexpected problem that we can experience the presentation day (2nd May) it´s possible that someone can be absent in that final presentation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">To avoid this we should try to be cautious and arrive with a big margin time and having alternatives</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Malicious people</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maybe people who spends all day looking for machines or url&#8217;s that are vulnerable finds our machine and tries to break into it or obtain information (maybe already happened)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We should implement what we are learning and already have learned about security and mantaining our systems save and sound.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1674,16 +1818,36 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 1.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Improve multiplayer gamemode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There are some multiplayer aspects that can be improved such as functionallity and performance</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 2.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">White label in login and register</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the register and login area the label of the inputs can´t be put in white to contrast in the dark mode</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 3.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Space 3.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Some bugs in diverse gamemodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Some of the game modes have minor bugs that need to be deeply tested</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Improve ranking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make a ranking for each game mode or some idea similar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fullfill coverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We have the coverage around 80% so try to ascend that to 100%</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fix the security hotspots</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sonar Cloud mark diverse security hotspots so we could try to fix them</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color change and language buttons frozen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When in game we were forced to block those buttons because if you change them it restarted the timer and questions in game</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More languages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At the moment we only have spanish and english translations so adding more languages is a good idea</p></td>
 </tr>
 </tbody>
 </table>
@@ -1768,13 +1932,597 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </tr>
 </tbody>
 </table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-tests-results">13. Tests Results</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="section-coverage">13.1. Coverage</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/coverage.png" alt="Coverage Result Master">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/coverageOverview.png" alt="Coverage OverView Master">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section-unit-tests-results">13.2. Unit Tests Results</h3>
+<div class="sect3">
+<h4 id="_auth_service_tests">13.2.1. Auth Service Tests</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 13.3333%;">
+<col style="width: 20%;">
+<col style="width: 26.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Stmts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Funcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Lines</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auth-model.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auth-service.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Test Suites: 1 passed, 1 total<br>
+Tests:       3 passed, 3 total<br>
+Snapshots:   0 total<br>
+Time:        1.391 s</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_user_service_tests">13.2.2. User Service Tests</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 13.3333%;">
+<col style="width: 20%;">
+<col style="width: 26.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Stmts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Funcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Lines</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">95.83</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user-model.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user-service.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">95.83</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Test Suites: 1 passed, 1 total<br>
+Tests:       8 passed, 8 total<br>
+Snapshots:   0 total<br>
+Time:        1.292 s</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gateway_service_tests">13.2.3. Gateway Service Tests</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 13.3333%;">
+<col style="width: 20%;">
+<col style="width: 26.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Stmts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Funcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Lines</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.54</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84.21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.82</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gateway-service.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.54</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84.21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.82</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Test Suites: 1 passed, 1 total<br>
+Tests:       34 passed, 34 total<br>
+Snapshots:   0 total<br>
+Time:        0.922 s</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_room_service_tests">13.2.4. Room Service Tests</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 13.3333%;">
+<col style="width: 20%;">
+<col style="width: 26.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Stmts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Branch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Funcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% Lines</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">66.66</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.55</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RoomQuestions.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86.59</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86.45</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">room-service.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.43</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97.36</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Test Suites: 2 passed, 2 total<br>
+Tests:       11 passed, 11 total<br>
+Snapshots:   0 total<br>
+Time:        2.126 s</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_webapp_tests">13.2.5. WebApp Tests</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 13.3333%;">
+<col style="width: 20%;">
+<col style="width: 26.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">File</th>
+<th class="tableblock halign-left valign-top">% Stmts</th>
+<th class="tableblock halign-left valign-top">% Branch</th>
+<th class="tableblock halign-left valign-top">% Funcs</th>
+<th class="tableblock halign-left valign-top">% Lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">82.43</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">63.77</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">74.86</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">82.36</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">App.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">85.71</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">85.71</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">index.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reportWebVitals.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GuestLayout.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11.11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11.11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">authcontext.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">authenticationLayout.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AddUser.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">66.66</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89.28</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Footer.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnswerButton.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnswersBlock.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">83.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BasicGame.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">78.37</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69.23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">81.25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">78.37</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EnunciadoBlock.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Game.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69.09</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">35.29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">66.66</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69.09</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QuestionArea.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">85.71</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">85.71</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CustomGameMode.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">76.92</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">40</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">76.92</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CustomWindow.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">66.66</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.33</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DailyGameMode.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GameMode.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InfinityGameMode.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70.83</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">62.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70.83</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RoomGame.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.42</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SameCategoryMode.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GameTimer.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timer.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69.44</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">76.19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">71.42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68.57</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AllGamesBlock.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64.28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.75</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GameBlock.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">95.65</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">57.14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">95.65</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">History.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StatsBlock.jsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">76.19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Home.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">94.11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">94.11</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Login.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84.37</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">58.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">33.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84.37</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logout.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NavBar.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90.38</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">61.9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.15</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PrincipalView.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ranking.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68.75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">33.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68.75</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CreateRoom.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93.33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.85</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JoinRoom.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96.29</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RankingRoom.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Room.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80.95</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72.72</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72.72</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80.95</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">socket.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">internacionalizacion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Test Suites: 34 passed, 34 total<br>
+Tests:       119 passed, 119 total<br>
+Snapshots:   0 total<br>
+Time:        31.338 s</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section-e2e-tests-results">13.3. E2E Tests Results</h3>
+<div class="paragraph">
+<p>We have conducted various E2E (End-to-End) tests.
+E2E tests are a methodology used to ensure that applications behave as expected and that data flow is maintained for all types of user tasks and processes.</p>
+</div>
+<div class="paragraph">
+<p>In summary, E2E tests validate the complete functionality of an application from start to finish, ensuring that all components interact correctly and that the software meets expectations before its release.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/e2eTests.png" alt="E2E Tests Result">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section-load-tests-results">13.4. Load Tests Results</h3>
+<div class="paragraph">
+<p>We have also conducted load tests. Load testing is a type of performance test that evaluates a software system or application’s ability to handle normal and high workloads. These tests verify that the software meets the expected performance criteria and end-user expectations.</p>
+</div>
+<div class="paragraph">
+<p>In summary, load testing allows us to ensure performance and identify bottlenecks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/TestCarga.png" alt="Load Tests Result">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section-mointorig-results">13.5. Monitoring Results</h3>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-accesibility-tests-results">14. Accesibility Tests Results</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="section-achecker">14.1. AChecker</h3>
+<div class="paragraph">
+<p>To ensure the accessibility of our website, we utilized the AChecker tool.<br>
+As can be seen in the attached image, we evaluated all windows of the web application according to AAA accessibility criteria, and the results have been positive.
+This means that our application complies with the strictest standards in terms of accessibility for people with disabilities.<br>
+We are committed to providing an inclusive experience for all our users.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/AChecker.png" alt="AChecker Result">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="section-lighthouse">14.2. LightHouse</h3>
+<div class="paragraph">
+<p>We conducted thorough testing using Google Lighthouse for our web application, and the results have been quite positive.
+According to Google Lighthouse, the average accessibility score (calculated as the mean across all views within the web application) is 94%, indicating strong adherence to accessibility standards. Additionally, the performance score averages at 86%, demonstrating efficient loading times and overall responsiveness.</p>
+</div>
+<div class="paragraph">
+<p>We are committed to maintaining high standards of both accessibility and performance to ensure an optimal user experience.
+These results validate our efforts in creating a robust and user-friendly web application.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/IndexAccesibility.png" alt="LightHouse Result">
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-04-12 19:01:36 +0200
+Last updated 2024-05-01 00:19:07 +0200
 </div>
 </div>
 </body>

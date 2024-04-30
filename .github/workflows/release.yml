@@ -56,9 +56,9 @@ jobs:
         REACT_APP_API_URI: http://${{ secrets.DEPLOY_HOST }}:3000
   
   e2e-tests:
-    if: github.ref == 'refs/heads/e2e'
     needs: [unit-tests]
     runs-on: self-hosted
+    
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -81,10 +81,12 @@ jobs:
 
     - name: List files in repository root
       run: ls -la
+      working-directory: ${{ github.workspace }}
     - name: Print Node.js version
       run: node -v 
 
     - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
+      working-directory: ${{ github.workspace }}
     env :
       CI : ""
 

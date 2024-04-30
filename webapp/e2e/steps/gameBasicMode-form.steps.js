@@ -11,10 +11,10 @@ defineFeature(feature, test => {
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
-      : await puppeteer.launch({ headless: false, slowMo: 0, defaultViewport: { width: 1920, height: 1080 }});
+      : await puppeteer.launch({ headless: false, slowMo: 20 });
     page = await browser.newPage();
     //Way of setting up the timeout
-    setDefaultOptions({ timeout: 30000 })
+    setDefaultOptions({ timeout: 10000 })
 
     await page
       .goto("http://localhost:3000/addUser", {
@@ -88,10 +88,7 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement(".finDelJuego");
     });
   })
-
   
-  afterAll(async ()=>{
-    browser.close()
-  })
+
 
 });

@@ -70,6 +70,7 @@ class History{
     async obtenerPreguntasDiariasAcertadas(){    
         console.log("entra en obtenerPreguntasDiariasAcertadas");
         //Ranking de usuarios ordenado por número de preguntas diarias acertadas
+        //debería con esto funcionar tambien para ints
         var rankingUsuarios = await Historial.find({}, "user diariasAcertadas").sort({diariasAcertadas: -1});
         console.log(rankingUsuarios);
         //Y lo devolvemos

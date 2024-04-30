@@ -3,7 +3,9 @@ name: Deploy on release
 on:
   release:
     types: [published]
-
+  push:
+    branches:
+      - e2e
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -69,6 +71,16 @@ jobs:
     - run: npm --prefix roomservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
+
+    - name: List files in current directory
+      run: ls -la
+
+    - name: Change to repository root
+      run: cd $GITHUB_WORKSPACE
+
+    - name: List files in repository root
+      run: ls -la
+      
     - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
     env :
       CI : ""

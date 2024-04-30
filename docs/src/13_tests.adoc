@@ -116,5 +116,11 @@ Time:        31.338 s
 [[section-e2e-tests-results]]
 === E2E Tests Results
 
+
+[[section-load-tests-results]]
+=== Load Tests Results
+image::TestCarga.png["Load Tests Result"] 
+
+
 [[section-mointorig-results]]
 === Monitoring Results

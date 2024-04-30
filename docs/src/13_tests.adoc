@@ -16,9 +16,9 @@ image::coverageOverview.png["Coverage OverView Master"]
 | auth-model.js   | 100     | 100      | 100     | 100     | 
 | auth-service.js | 100     | 87.5     | 100     | 100     | 14
 |===
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-Snapshots:   0 total
+Test Suites: 1 passed, 1 total +
+Tests:       3 passed, 3 total +
+Snapshots:   0 total +
 Time:        1.391 s
 
 
@@ -31,9 +31,9 @@ Time:        1.391 s
 | user-model.js   | 100     | 100      | 100     | 100     | 
 | user-service.js | 100     | 95.83    | 100     | 100     | 17
 |===
-Test Suites: 1 passed, 1 total
-Tests:       8 passed, 8 total
-Snapshots:   0 total
+Test Suites: 1 passed, 1 total +
+Tests:       8 passed, 8 total +
+Snapshots:   0 total +
 Time:        1.292 s
 
 == Gateway Service Tests
@@ -43,12 +43,12 @@ Time:        1.292 s
 | All files           | 93.54   | 93.75    | 84.21   | 97.82   | 
 | gateway-service.js  | 93.54   | 93.75    | 84.21   | 97.82   | 81
 |===
-Test Suites: 1 passed, 1 total
-Tests:       34 passed, 34 total
-Snapshots:   0 total
+Test Suites: 1 passed, 1 total +
+Tests:       34 passed, 34 total +
+Snapshots:   0 total +
 Time:        0.922 s
 
-==Room Service
+== Room Service Tests
 [cols="1,2,3,4,5"]
 |===
 | File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
@@ -56,12 +56,12 @@ Time:        0.922 s
 | RoomQuestions.js  | 86.59   | 64.7     | 100     | 86.45   | 59-60,134,138-143,163-165,201,211
 | room-service.js   | 97.43   | 100      | 100     | 97.36   | 52
 |===
-Test Suites: 2 passed, 2 total
-Tests:       11 passed, 11 total
-Snapshots:   0 total
+Test Suites: 2 passed, 2 total +
+Tests:       11 passed, 11 total +
+Snapshots:   0 total +
 Time:        2.126 s
 
-==WebApp
+== WebApp Tests
 [cols="1,1,1,1,1,1",options="header"]
 |===
 | File | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
@@ -106,9 +106,9 @@ Time:        2.126 s
 | socket.js | 100 | 100 | 100 | 100 | 
 | internacionalizacion | 100 | 100 | 100 | 100 | 
 |===
-Test Suites: 34 passed, 34 total
-Tests:       119 passed, 119 total
-Snapshots:   0 total
+Test Suites: 34 passed, 34 total +
+Tests:       119 passed, 119 total +
+Snapshots:   0 total +
 Time:        31.338 s
 
 

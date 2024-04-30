@@ -3,9 +3,7 @@ name: Deploy on release
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - test
+
 
 jobs:
   unit-tests:

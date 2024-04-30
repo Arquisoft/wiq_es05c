@@ -55,15 +55,12 @@ jobs:
   
   e2e-tests:
     needs: [unit-tests]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: 21
-    - run: sudo apt-get install xvfb
-    - run: Xvfb :99 &
-    - run: echo "DISPLAY=:99" >> $GITHUB_ENV
     - run: npm --prefix users/authservice install
     - run: npm --prefix users/userservice install
     - run: npm --prefix gatewayservice install
@@ -72,7 +69,7 @@ jobs:
     - run: npm --prefix roomservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
-    - run: npm --prefix webapp run test:e2e
+    - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
     env :
       CI : ""
 

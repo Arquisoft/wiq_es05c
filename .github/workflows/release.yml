@@ -3,6 +3,9 @@ name: Deploy on release
 on:
   release:
     types: [published]
+  push:
+    branches:
+      - test
 
 jobs:
   unit-tests:
@@ -55,21 +58,13 @@ jobs:
   
   e2e-tests:
     needs: [unit-tests]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 21
-    - run: npm --prefix users/authservice install
-    - run: npm --prefix users/userservice install
-    - run: npm --prefix gatewayservice install
-    - run: npm --prefix historyservice install
-    - run: npm --prefix questionservice install
-    - run: npm --prefix roomservice install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: xvfb-run --auto-servernum npm --prefix webapp run test:e2e
+    - name: Run e2e tests
+      run: |
+        chmod +x ./e2eTest.sh
+        ./e2eTest.sh
     env :
       CI : ""
 

@@ -81,16 +81,16 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     }
       
     
-  }, [correctAnswers, incorrectAnswers,totalTime, isFinished]);//<-cambiar el array de depencias error despliegue 
+  }, [correctAnswers, incorrectAnswers]);//<-cambiar el array de depencias error despliegue 
   //para aseguarte que el historial se envie una vez lo separas 
   useEffect(() => {
-    if (isFinished) {
+    if (isFinished && totalTime > 0) {
       console.log("tiempo total tardado en acabar ", totalTime);
       gameModeRef.current.setTiempoTotal(totalTime);
       gameModeRef.current.finishGame();
       gameModeRef.current.sendHistory({correctas: correctAnswers, incorrectas: incorrectAnswers, tiempoTotal: totalTime});
     }
-  }, [isFinished]);
+  }, [isFinished,totalTime]);
   const handleTimeout = () => {
     handleAnswerSelect(false);
   };

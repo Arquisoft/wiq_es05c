@@ -112,7 +112,7 @@ jobs:
                   workdir: questionservice
 
   docker-push-historyservice:
-            name: Push question service Docker Image to GitHub Packages
+            name: Push history service Docker Image to GitHub Packages
             runs-on: ubuntu-latest
             permissions:
               contents: read

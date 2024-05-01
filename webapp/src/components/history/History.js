@@ -33,11 +33,14 @@ export function History({darkMode}){
         console.log(partidas);
 
         if(partidas.error || partidas.length === 0 ){
+          console.log('neverPlayer a true en useEffect en partidas');
           setNeverPlayer(true);
           setIsLoadingGames(false);
         }
         else{
           act(() => {
+            console.log('neverPlayer a false en useEffect en partidas');
+            console.log('setAllGames ', Object.values(partidas));
             let gamesArray = Object.values(partidas);
             setAllGames(gamesArray);
             setIsLoadingGames(false);
@@ -53,14 +56,17 @@ export function History({darkMode}){
     fetch(statisticsEndpoint)
       .then(response => response.json())
       .then(estadisticas => {
-        //console.log("Estadísticas: ");
-        //console.log(estadisticas);
+        console.log("Estadísticas: ");
+        console.log(estadisticas);
         if(estadisticas.error || estadisticas.length === 0 ){
+          console.log('neverPlayer a true en useEffect en estadisticas');
           setNeverPlayer(true);
           setIsLoadingStats(false);
         }
         else{
           act(() => {
+           //console.log('neverPlayer a false en useEffect en estadisticas');
+            //console.log('setAllGames ', Object.values(estadisticas));
             setStatistics(estadisticas);
             setIsLoadingStats(false);
           });

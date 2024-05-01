@@ -3,7 +3,6 @@ import { useEffect, useState} from 'react';
 import { Box, Spinner} from "@chakra-ui/react";
 import { AllGamesBlock } from './AllGamesBlock';
 import { StatsBlock } from './StatsBlock';
-import { act } from 'react-dom/test-utils';
 import { useTranslation } from 'react-i18next';
 import { Text } from "@chakra-ui/react";
 
@@ -39,13 +38,14 @@ export function History({darkMode}){
           setIsLoadingGames(false);
         }
         else{
-          act(() => {
+         
             console.log('neverPlayer a false en useEffect en partidas');
             console.log('setAllGames ', Object.values(partidas));
             let gamesArray = Object.values(partidas);
             setAllGames(gamesArray);
             setIsLoadingGames(false);
-          });
+          
+          
        }
       })
       .catch(error => {
@@ -69,12 +69,12 @@ export function History({darkMode}){
           setIsLoadingStats(false);
         }
         else{
-          act(() => {
+         
            //console.log('neverPlayer a false en useEffect en estadisticas');
             //console.log('setAllGames ', Object.values(estadisticas));
             setStatistics(estadisticas);
             setIsLoadingStats(false);
-          });
+         
         }
       })
       .catch(error => {

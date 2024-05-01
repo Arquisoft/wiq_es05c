@@ -130,6 +130,3 @@ In summary, load testing allows us to ensure performance and identify bottleneck
 
 image::TestCarga.png["Load Tests Result"] 
 
-
-[[section-mointorig-results]]
-=== Monitoring Results

@@ -6,7 +6,7 @@
 // configure EN settings for asciidoc
 include::src/config.adoc[]
 
-= image:wiq2.png[WIQ Logo] image:arc42-logo.png[arc42] Documentación WIQ-ES05C
+= image:wiq2.png[WIQ Logo] Documentation WIQ-ES05C
 
 
 :revnumber: 8.2 EN
@@ -30,10 +30,6 @@ ifdef::backend-html5[]
 ++++
 endif::backend-html5[]
 
-
-include::src/about-arc42.adoc[]
-
-// horizontal line
 ***
 
 [role="arc42help"]

@@ -21,6 +21,9 @@ Additionally, they can start a new game at any time and, upon completion, view t
 Here you can see the home page of our webapp.
 
 
+image::Inicio.png["Index WebApp Result"] 
+
+
 === Security & Safety
      - Privacy: The data introduced will be private and not visible to other users.
      - The password will be stored encrypted.

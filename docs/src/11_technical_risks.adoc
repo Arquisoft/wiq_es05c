@@ -55,8 +55,6 @@ Risks that we can try to prevent but at the end doesn't depend on us:
 
 === Technical Debt
 
-TO-DO 
-
 [options="header" frame=all]
 |===
 |Technical Debt |Description 

@@ -49,6 +49,10 @@ export function History({darkMode}){
       })
       .catch(error => {
         //console.error('Error cargando el historial de todas las partidas del usuario:', error);
+      }) .finally(() => {
+        console.log('setIsLoadingGames a false finally ');
+
+        setIsLoadingGames(false);
       });
   }, [gamesEndpoint]);//<-cambiar el array de depencias error despliegue
 
@@ -74,6 +78,9 @@ export function History({darkMode}){
       })
       .catch(error => {
         //console.error('Error cargando las estadísticas del usuario:', error);
+      }).finally(() => {
+        console.log('setIsLoadingStats a false finally ');
+        setIsLoadingStats(false);
       });
   }, [statisticsEndpoint]);//<- cambiar el array de depencias error despliegue
 

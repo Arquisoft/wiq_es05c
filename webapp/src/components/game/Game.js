@@ -77,16 +77,20 @@ function Game({darkMode,gameMode=new BasicGame()}) {
     } else  if (gameModeRef.current.questions.length>0){//comprobar que no sea vacia para que le ljuego no finalize al empezar  
       console.log("use effect finish");
       setIsFinished(true);
-      //poner el tiepo que tardo 
-      console.log("tiempo total tardado en acabar ",totalTime);
-      gameModeRef.current.setTiempoTotal(totalTime);
-      gameModeRef.current.finishGame();
-      gameModeRef.current.sendHistory({correctas: correctAnswers, incorrectas: incorrectAnswers, tiempoTotal: totalTime});
-     }
+      
+    }
       
     
   }, [correctAnswers, incorrectAnswers,totalTime, isFinished]);//<-cambiar el array de depencias error despliegue 
-
+  //para aseguarte que el historial se envie una vez lo separas 
+  useEffect(() => {
+    if (isFinished) {
+      console.log("tiempo total tardado en acabar ", totalTime);
+      gameModeRef.current.setTiempoTotal(totalTime);
+      gameModeRef.current.finishGame();
+      gameModeRef.current.sendHistory({correctas: correctAnswers, incorrectas: incorrectAnswers, tiempoTotal: totalTime});
+    }
+  }, [isFinished]);
   const handleTimeout = () => {
     handleAnswerSelect(false);
   };

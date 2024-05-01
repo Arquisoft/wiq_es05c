@@ -110,20 +110,7 @@ class DailyGameMode extends BasicGame{
       }
 
       async volverAJugarCoockie(){       
-        Swal.fire({
-          title: i18n.t('basicGameEnd'),
-          html: `
-            <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
-          `,
-          confirmButtonText: i18n.t('close'),
-          customClass: {         
-            popup: 'finDelJuego'
-          }
-        }).then(()=>{
-  
-            this.navigate('/home');
-          
-        });
+        this.imprimirPopUP();
 
         // Obtener la fecha actual y establecer la hora a las 12 de la noche
         let expiryDate = new Date();
@@ -160,6 +147,23 @@ class DailyGameMode extends BasicGame{
           console.error('Error enviando los datos de diaria del usuario:', error);
         }
       }
+
+    imprimirPopUP(){
+        Swal.fire({
+          title: i18n.t('basicGameEnd'),
+          html: `
+            <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
+          `,
+          confirmButtonText: i18n.t('close'),
+          customClass: {         
+            popup: 'finDelJuego'
+          }
+        }).then(()=>{
+  
+            this.navigate('/home');
+          
+        });
+      }  
     
     fechaActual(){ 
         const fecha = new Date(); // Obtenemos la fecha actual

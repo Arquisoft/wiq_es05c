@@ -1,10 +1,10 @@
 import DailyGameMode from './DailyGameMode';
 import axios from 'axios';
-import { render } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthContext } from '../../authcontext';
-import { ThemeProvider,createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
+jest.mock('i18next', () => ({
+  t: jest.fn(),
+}));
 jest.mock('axios');
 describe('DailyGameMode', () => {
   let dailyGameMode;
@@ -21,7 +21,12 @@ describe('DailyGameMode', () => {
   });
   beforeEach(() => {
     dailyGameMode = new DailyGameMode();
+    dailyGameMode.imprimirPopUP = jest.fn();
+
+
   });
+
+
 
   afterEach(() => {
     jest.clearAllMocks();

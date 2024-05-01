@@ -1,5 +1,8 @@
-const { default: BasicGame } = require("../BasicGame");
+import BasicGame from "../BasicGame";
+
 //const { default: GameMode } = require("./GameMode");
+import Swal from 'sweetalert2';
+import i18n from 'i18next'; // Importa i18n
 
 class DailyGameMode extends BasicGame{
 
@@ -30,8 +33,8 @@ class DailyGameMode extends BasicGame{
         console.log("enviar historial gameMode daily ");
         //sacar del localStorage el usuario
         historyData.user = localStorage.getItem('username');
-        if(this.enviarHistorialPorQueHasAcetado){
-        }
+
+      
       }
 
       async incrementAcertadas(){
@@ -91,6 +94,8 @@ class DailyGameMode extends BasicGame{
         super.finishGame();
         //this.questionIndex=10;
         this.volverAJugarCoockie();
+
+
       }
       
       //next question con indice 10 termina el juego 
@@ -105,6 +110,20 @@ class DailyGameMode extends BasicGame{
       }
 
       async volverAJugarCoockie(){       
+        Swal.fire({
+          title: i18n.t('basicGameEnd'),
+          html: `
+            <p>: ${i18n.t('correctAnswers')} ${this.correctas}</p>
+          `,
+          confirmButtonText: i18n.t('close'),
+          customClass: {         
+            popup: 'finDelJuego'
+          }
+        }).then(()=>{
+  
+            this.navigate('/home');
+          
+        });
 
         // Obtener la fecha actual y establecer la hora a las 12 de la noche
         let expiryDate = new Date();
@@ -153,5 +172,4 @@ class DailyGameMode extends BasicGame{
         return fechaSinHora;
     }
 }
-
-module.exports =  DailyGameMode ;
+export default DailyGameMode ;

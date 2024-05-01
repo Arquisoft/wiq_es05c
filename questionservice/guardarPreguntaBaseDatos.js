@@ -19,6 +19,7 @@ class GuardarBaseDatos{
           // Guardamos el tipo de pregunta
           return this.guardarPreguntaTipo(idCategoria);
           }).then(idTipo => {
+            console.log('idTipo', idTipo);
             Promise.all([
               //unido en un metodo para evitar mas codigo 
               this.guardarRespuestaIncorrecta(idTipo, this.finalQuestion.incorrect1_es, this.finalQuestion.incorrect1_en),
@@ -157,12 +158,19 @@ class GuardarBaseDatos{
               const nuevaRespuesta = new Respuesta({
                 textoRespuesta_es: incorrect_es,
                 textoRespuesta_en: incorrect_en,
-                idTipoPregunta: idTipo,
-                correcta: false
+                tipos: [idTipo]
               });
               console.log('vales incorrect y demas', incorrect_es, incorrect_en, idTipo);
               console.log('llamas al save', nuevaRespuesta);
               return nuevaRespuesta.save();
+            }
+          }
+          else{
+            if (!respuesta.tipos.includes(idTipo)) {
+              //agregamos el nuevo tipo
+              respuesta.tipos.push(idTipo);
+
+              return respuesta.save();
             }
           }
     
